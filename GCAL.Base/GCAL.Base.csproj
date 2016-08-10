@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GCAL.Base</RootNamespace>
+    <AssemblyName>GCAL.Base</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Documents\GDDocument.cs" />
+    <Compile Include="Documents\GDDocumentBlock.cs" />
+    <Compile Include="Documents\GDDocumentExportType.cs" />
+    <Compile Include="Documents\GDExportContext.cs" />
+    <Compile Include="Documents\GDLineBreak.cs" />
+    <Compile Include="Documents\GDNode.cs" />
+    <Compile Include="Documents\GDNodeCollection.cs" />
+    <Compile Include="Documents\GDStyleDefinition.cs" />
+    <Compile Include="Documents\GDStylesBook.cs" />
+    <Compile Include="Documents\GDTable.cs" />
+    <Compile Include="Documents\GDTableCell.cs" />
+    <Compile Include="Documents\GDTableRow.cs" />
+    <Compile Include="Documents\GDTextRun.cs" />
+    <Compile Include="Documents\GDTextStyle.cs" />
+    <Compile Include="Documents\GDTextStyleCollection.cs" />
+    <Compile Include="GCCalendarEvent.cs" />
+    <Compile Include="GCCalendarEventList.cs" />
+    <Compile Include="CLocationRef.cs" />
+    <Compile Include="GCAstroData.cs" />
+    <Compile Include="GCCalendarEventSankranti.cs" />
+    <Compile Include="GCEkadasi.cs" />
+    <Compile Include="GCMasa.cs" />
+    <Compile Include="GCPaksa.cs" />
+    <Compile Include="VSOP87\GCEarth.cs" />
+    <Compile Include="GCHourTime.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="CLocation.cs" />
+    <Compile Include="CLocationList.cs" />
+    <Compile Include="GCEarthData.cs" />
+    <Compile Include="GCAyanamsha.cs" />
+    <Compile Include="GCCalendar.cs" />
+    <Compile Include="GCConjunction.cs" />
+    <Compile Include="GCDisplaySettings.cs" />
+    <Compile Include="GCEventGroup.cs" />
+    <Compile Include="GCGlobal.cs" />
+    <Compile Include="VSOP87\GCJupiter.cs" />
+    <Compile Include="GCLayoutData.cs" />
+    <Compile Include="VSOP87\GCMars.cs" />
+    <Compile Include="GCMath.cs" />
+    <Compile Include="VSOP87\GCMercury.cs" />
+    <Compile Include="GCNaksatra.cs" />
+    <Compile Include="GCRasi.cs" />
+    <Compile Include="GCRatedEvent.cs" />
+    <Compile Include="GCRatedEventsList.cs" />
+    <Compile Include="GCRatedInterval.cs" />
+    <Compile Include="GCRichText.cs" />
+    <Compile Include="GCSankranti.cs" />
+    <Compile Include="VSOP87\GCSaturn.cs" />
+    <Compile Include="GCStringBuilder.cs" />
+    <Compile Include="GCStrings.cs" />
+    <Compile Include="GCTextParser.cs" />
+    <Compile Include="GCTithi.cs" />
+    <Compile Include="GCUserInterface.cs" />
+    <Compile Include="VSOP87\GCVenus.cs" />
+    <Compile Include="GCWelcomeTips.cs" />
+    <Compile Include="GCYoga.cs" />
+    <Compile Include="GCMoonData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GCSunData.cs" />
+    <Compile Include="TCountry.cs" />
+    <Compile Include="TFile.cs" />
+    <Compile Include="TFileRichList.cs" />
+    <Compile Include="TLangFileInfo.cs" />
+    <Compile Include="TLangFileList.cs" />
+    <Compile Include="TResultApp.cs" />
+    <Compile Include="TResultCalendar.cs" />
+    <Compile Include="TResultEvents.cs" />
+    <Compile Include="TResultMasaList.cs" />
+    <Compile Include="TResultRatedEvents.cs" />
+    <Compile Include="TResultToday.cs" />
+    <Compile Include="TTimeZone.cs" />
+    <Compile Include="VAISNAVADAY.cs" />
+    <Compile Include="GaurabdaDate.cs" />
+    <Compile Include="GregorianDateTime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\countries.rl" />
+    <EmbeddedResource Include="Resources\events.rl" />
+    <EmbeddedResource Include="Resources\locations.rl" />
+    <EmbeddedResource Include="Resources\strings.rl" />
+    <EmbeddedResource Include="Resources\timezones.rl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\tips.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

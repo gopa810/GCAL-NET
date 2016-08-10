@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{861D0347-4C88-4F89-97E3-FC59757556E4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GCAL</RootNamespace>
+    <AssemblyName>GCAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompositeViews\RatedEventDetailsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\RatedEventDetailsPanel.Designer.cs">
+      <DependentUpon>RatedEventDetailsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CAboutDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CAboutDlg.Designer.cs">
+      <DependentUpon>CAboutDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\ChooseLocationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\ChooseLocationPanel.Designer.cs">
+      <DependentUpon>ChooseLocationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\CountriesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\CountriesPanel.Designer.cs">
+      <DependentUpon>CountriesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\DateSpecifyDstPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\DateSpecifyDstPanel.Designer.cs">
+      <DependentUpon>DateSpecifyDstPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\DateTimePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\DateTimePanel.Designer.cs">
+      <DependentUpon>DateTimePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\DisplaySettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\DisplaySettingsPanel.Designer.cs">
+      <DependentUpon>DisplaySettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetMonthRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetMonthRange.Designer.cs">
+      <DependentUpon>DlgGetMonthRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\EventsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\EventsPanel.Designer.cs">
+      <DependentUpon>EventsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\HourMinutesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\HourMinutesPanel.Designer.cs">
+      <DependentUpon>HourMinutesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\LocationEnterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\LocationEnterPanel.Designer.cs">
+      <DependentUpon>LocationEnterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\LocationsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\LocationsPanel.Designer.cs">
+      <DependentUpon>LocationsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\StartDatePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\StartDatePanel.Designer.cs">
+      <DependentUpon>StartDatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\TimezonesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\TimezonesPanel.Designer.cs">
+      <DependentUpon>TimezonesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CTipDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CTipDlg.Designer.cs">
+      <DependentUpon>CTipDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgChooseLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgChooseLocation.Designer.cs">
+      <DependentUpon>DlgChooseLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditCountry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditCountry.Designer.cs">
+      <DependentUpon>DlgEditCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditCustomEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditCustomEvent.Designer.cs">
+      <DependentUpon>DlgEditCustomEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgEditLocation.Designer.cs">
+      <DependentUpon>DlgEditLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetDateTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetDateTime.Designer.cs">
+      <DependentUpon>DlgGetDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetEndDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetEndDate.Designer.cs">
+      <DependentUpon>DlgGetEndDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetLocation.Designer.cs">
+      <DependentUpon>DlgGetLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetStartDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgGetStartDate.Designer.cs">
+      <DependentUpon>DlgGetStartDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DlgSetMyLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DlgSetMyLocation.Designer.cs">
+      <DependentUpon>DlgSetMyLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeViews\EndDatePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\EndDatePanel.Designer.cs">
+      <DependentUpon>EndDatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgRatedEventSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgRatedEventSelection.Designer.cs">
+      <DependentUpon>DlgRatedEventSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameDelegate.cs" />
+    <Compile Include="FrameMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameMain.Designer.cs">
+      <DependentUpon>FrameMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameMainTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameMainTable.Designer.cs">
+      <DependentUpon>FrameMainTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameOrganizer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameOrganizer.Designer.cs">
+      <DependentUpon>FrameOrganizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameSearch.Designer.cs">
+      <DependentUpon>FrameSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GCPrintService.cs" />
+    <Compile Include="Views\CalendarTableDrawer.cs" />
+    <Compile Include="Views\CalendarTableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CalendarTableView.Designer.cs">
+      <DependentUpon>CalendarTableView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GVButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CompositeViews\RatedEventDetailsPanel.resx">
+      <DependentUpon>RatedEventDetailsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CAboutDlg.resx">
+      <DependentUpon>CAboutDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\ChooseLocationPanel.resx">
+      <DependentUpon>ChooseLocationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\CountriesPanel.resx">
+      <DependentUpon>CountriesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\DateSpecifyDstPanel.resx">
+      <DependentUpon>DateSpecifyDstPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\DateTimePanel.resx">
+      <DependentUpon>DateTimePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\DisplaySettingsPanel.resx">
+      <DependentUpon>DisplaySettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgGetMonthRange.resx">
+      <DependentUpon>DlgGetMonthRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\EventsPanel.resx">
+      <DependentUpon>EventsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\HourMinutesPanel.resx">
+      <DependentUpon>HourMinutesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\LocationEnterPanel.resx">
+      <DependentUpon>LocationEnterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\LocationsPanel.resx">
+      <DependentUpon>LocationsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\StartDatePanel.resx">
+      <DependentUpon>StartDatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\TimezonesPanel.resx">
+      <DependentUpon>TimezonesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CTipDlg.resx">
+      <DependentUpon>CTipDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgChooseLocation.resx">
+      <DependentUpon>DlgChooseLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgEditCountry.resx">
+      <DependentUpon>DlgEditCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgEditCustomEvent.resx">
+      <DependentUpon>DlgEditCustomEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgEditLocation.resx">
+      <DependentUpon>DlgEditLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgGetDateTime.resx">
+      <DependentUpon>DlgGetDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgGetEndDate.resx">
+      <DependentUpon>DlgGetEndDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgGetLocation.resx">
+      <DependentUpon>DlgGetLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgGetStartDate.resx">
+      <DependentUpon>DlgGetStartDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DlgSetMyLocation.resx">
+      <DependentUpon>DlgSetMyLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\EndDatePanel.resx">
+      <DependentUpon>EndDatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRatedEventSelection.resx">
+      <DependentUpon>DlgRatedEventSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameMain.resx">
+      <DependentUpon>FrameMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameMainTable.resx">
+      <DependentUpon>FrameMainTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameOrganizer.resx">
+      <DependentUpon>FrameOrganizer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameSearch.resx">
+      <DependentUpon>FrameSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\CalendarTableView.resx">
+      <DependentUpon>CalendarTableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\gcal-help.rtf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GCalIcon.ico" />
+    <Content Include="GCalIcon2.ico" />
+    <Content Include="IconSearch.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GCAL.Base\GCAL.Base.csproj">
+      <Project>{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}</Project>
+      <Name>GCAL.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
