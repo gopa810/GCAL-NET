@@ -13,6 +13,7 @@ using System.Diagnostics;
 
 using GCAL.Base;
 using GCAL.Views;
+using GCAL.Base.Documents;
 
 namespace GCAL
 {
@@ -66,6 +67,13 @@ namespace GCAL
             printFont = new Font("Lucida Console", 10);
 
             OnCalculateToday();
+
+            GSExecutor es = new GSExecutor();
+
+            GSScript scr = new GSScript();
+            scr.readTextTemplate("#(set var1 1) (set var2 4.5) (set var3 (* var1 var2))");
+            scr.ExecuteScript(es);
+            scr.Parts.Clear();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

@@ -108,8 +108,7 @@ namespace GCAL.CompositeViews
 
             comboBox4.SelectedIndex = GCDisplaySettings.getValue(GCDS.CAL_HEADER_MASA);
 
-            comboBox5.SelectedIndex = (GCDisplaySettings.getValue(GCDS.CATURMASYA_PURNIMA) == 1 ? 0 :
-                GCDisplaySettings.getValue(GCDS.CATURMASYA_PRATIPAT) == 1 ? 1 : 2);
+            comboBox5.SelectedIndex = GCDisplaySettings.getValue(GCDS.CATURMASYA_SYSTEM);
 
             comboBox6.SelectedIndex = GCDisplaySettings.getValue(GCDS.COREEVENTS_SORT);
 
@@ -138,7 +137,8 @@ namespace GCAL.CompositeViews
 
             GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, comboBox4.SelectedIndex);
 
-            GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_SYSTEM, comboBox5.SelectedIndex == 0);
+            GCDisplaySettings.setValue(GCDS.CATURMASYA_SYSTEM, comboBox5.SelectedIndex);
+            GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_PURNIMA, comboBox5.SelectedIndex == 0);
             GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_PRATIPAT, comboBox5.SelectedIndex == 1);
             GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_EKADASI, comboBox5.SelectedIndex == 2);
 

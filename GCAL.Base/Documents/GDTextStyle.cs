@@ -224,22 +224,22 @@ namespace GCAL.Base.Documents
         public float Alpha { get; set; }
 
         /// <summary>
-        /// Value 0.0 - 1.0
+        /// Value 0 - 255
         /// </summary>
         public int Red255 { get { return Convert.ToInt32(Red * 255); } set { Red = value / 255.0f; } }
 
         /// <summary>
-        /// Value 0.0 - 1.0
+        /// Value 0 - 255
         /// </summary>
         public int Green255 { get { return Convert.ToInt32(Green * 255); } set { Green = value / 255.0f; } }
 
         /// <summary>
-        /// Value 0.0 - 1.0
+        /// Value 0 - 255
         /// </summary>
         public int Blue255 { get { return Convert.ToInt32(Blue * 255); } set { Blue = value / 255.0f; } }
 
         /// <summary>
-        /// Value 0.0 - 1.0
+        /// Value 0 - 255
         /// </summary>
         public int Alpha255 { get { return Convert.ToInt32(Alpha * 255); } set { Alpha = value / 255.0f; } }
 

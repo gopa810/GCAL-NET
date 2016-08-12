@@ -359,6 +359,7 @@
     <Content Include="GCalIcon.ico" />
     <Content Include="GCalIcon2.ico" />
     <Content Include="IconSearch.ico" />
+    <None Include="Resources\TemplateTodayPlain.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GCAL.Base\GCAL.Base.csproj">

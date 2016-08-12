@@ -15,5 +15,16 @@ namespace GCAL.Base.Documents
             cells.Add(cell);
             return cell;
         }
+
+        public int getColumnCount()
+        {
+            int sum = 0;
+            foreach (GDTableCell cell in cells)
+            {
+                sum += cell.getCellSpan();
+            }
+            return sum;
+        }
+
     }
 }

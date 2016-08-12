@@ -1,6 +1,6 @@
 12701 Vrindavan, India|77.73|27.583|5.5|+5:30 Asia/Calcutta
 12702 Radhadesh [Belgium]|5.41666666666667|50.3166666666667|1|+1:00 Europe/Brussels
-12710 50|50|842|560
+12710 208|208|874|719
 12711 0|0
 12711 1|0
 12711 2|0
@@ -67,6 +67,7 @@
 12711 63|1
 12711 64|0
 12711 65|0
-12800 1
+12711 66|0
+12800 0
 12802 2
 12900 C:Userspeter.kollathDocumentsGpslGCAL-NETGCALbinDebugconfiggcal_revs.rxml

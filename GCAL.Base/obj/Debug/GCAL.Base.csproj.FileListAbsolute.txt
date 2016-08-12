@@ -5,3 +5,10 @@ C:\Users\peter.kollath\Documents\Gpsl\GCAL-NET\GCAL.Base\bin\Debug\GCAL.Base.pdb
 C:\Users\peter.kollath\Documents\Gpsl\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.dll
 C:\Users\peter.kollath\Documents\Gpsl\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.pdb
 C:\Users\peter.kollath\Documents\Gpsl\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.csprojResolveAssemblyReference.cache
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\GCAL.Base.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\GCAL.Base.pdb
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.csprojResolveAssemblyReference.cache
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.Properties.Resources.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.csproj.GenerateResource.Cache
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.pdb

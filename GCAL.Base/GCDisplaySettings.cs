@@ -39,8 +39,8 @@ namespace GCAL.Base
 	        new CShowSetting(0, 0, "MLON", "Moon Longitude"),//10
 	        new CShowSetting(0, 0, "AYAN", "Ayanamsha value"),//11
 	        new CShowSetting(0, 0, "JDAY", "Julian Day"),//12
-	        new CShowSetting(1, 1, "CPUR", "Caturmasya Purnima System"), //13
-	        new CShowSetting(0, 0, "CPRA", "Caturmasya Pratipat System"), //14
+	        new CShowSetting(0, 0, "CPUR", "Caturmasya Purnima System"), //13
+	        new CShowSetting(1, 1, "CPRA", "Caturmasya Pratipat System"), //14
 	        new CShowSetting(0, 0, "CEKA", "Caturmasya Ekadasi System"), //15
 	        new CShowSetting(1, 1, "SANI", "Sankranti Info"), //16
 	        new CShowSetting(1, 1, "EKAI", "Ekadasi Info"), //17
@@ -94,6 +94,7 @@ namespace GCAL.Base
 	        new CShowSetting(1, 1, "CE12", "Sort results core events"),//63
 	        new CShowSetting(0, 0, "CE13", "Abhijit Muhurta"), //64
 	        new CShowSetting(0, 0, "CE14", "Yoga Events"), //65
+	        new CShowSetting(1, 1, "CSYS", "Caturmasya System"), //66
 	        new CShowSetting(0, 0, null, null)
         };
 
@@ -212,7 +213,7 @@ namespace GCAL.Base
         public static readonly int CAL_MOON_LONG = 10;
         public static readonly int CAL_AYANAMSHA = 11;
         public static readonly int CAL_JULIAN = 12;
-        public static readonly int CATURMASYA_SYSTEM = 70;
+        public static readonly int CATURMASYA_SYSTEM = 66;
         public static readonly int CATURMASYA_PURNIMA = 13;
         public static readonly int CATURMASYA_PRATIPAT = 14;
         public static readonly int CATURMASYA_EKADASI = 15;

@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Documents\GSCore.cs" />
+    <Compile Include="Documents\GSExecutor.cs" />
+    <Compile Include="Documents\GSNumber.cs" />
+    <Compile Include="Documents\GSScript.cs" />
+    <Compile Include="Documents\GSList.cs" />
     <Compile Include="Documents\GDDocument.cs" />
     <Compile Include="Documents\GDDocumentBlock.cs" />
     <Compile Include="Documents\GDDocumentExportType.cs" />
@@ -56,6 +61,9 @@
     <Compile Include="Documents\GDTextRun.cs" />
     <Compile Include="Documents\GDTextStyle.cs" />
     <Compile Include="Documents\GDTextStyleCollection.cs" />
+    <Compile Include="Documents\GSBoolean.cs" />
+    <Compile Include="Documents\GSString.cs" />
+    <Compile Include="Documents\GSToken.cs" />
     <Compile Include="GCCalendarEvent.cs" />
     <Compile Include="GCCalendarEventList.cs" />
     <Compile Include="CLocationRef.cs" />

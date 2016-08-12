@@ -51,10 +51,6 @@ namespace GCAL.Base
             GregorianDateTime vc = p.date;
             GCStringBuilder sb = new GCStringBuilder();
 
-            GDDocument doc = new GDDocument();
-
-            doc.Title = "";
-
             sb.Format = GCStringBuilder.FormatType.PlainText;
             sb.Target = str;
 
@@ -440,10 +436,6 @@ namespace GCAL.Base
 
             if (p == null)
                 return;
-
-            GDDocument doc = new GDDocument();
-
-            doc.Title = "Today Results";
 
             f.Append("<html>\n<head>\n<title></title>");
             f.Append("<style>\n<!--\nbody {\n  font-family:Verdana;\n  font-size:9.5pt;\n}\n\ntd.hed {\n  font-size:9.5pt;\n  font-weight:bold;\n");

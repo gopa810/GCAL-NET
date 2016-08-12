@@ -1524,108 +1524,108 @@ namespace GCAL.Base
          * Function before is writen accoring this algorithms:
 
 
-1. Normal - fasting day has ekadasi at sunrise and dvadasi at next sunrise.
+            1. Normal - fasting day has ekadasi at sunrise and dvadasi at next sunrise.
 
-2. Viddha - fasting day has dvadasi at sunrise and trayodasi at next
-sunrise, and it is not a naksatra mahadvadasi
+            2. Viddha - fasting day has dvadasi at sunrise and trayodasi at next
+            sunrise, and it is not a naksatra mahadvadasi
 
-3. Unmilani - fasting day has ekadasi at both sunrises
+            3. Unmilani - fasting day has ekadasi at both sunrises
 
-4. Vyanjuli - fasting day has dvadasi at both sunrises, and it is not a
-naksatra mahadvadasi
+            4. Vyanjuli - fasting day has dvadasi at both sunrises, and it is not a
+            naksatra mahadvadasi
 
-5. Trisprsa - fasting day has ekadasi at sunrise and trayodasi at next
-sunrise.
+            5. Trisprsa - fasting day has ekadasi at sunrise and trayodasi at next
+            sunrise.
 
-6. Jayanti/Vijaya - fasting day has gaura dvadasi and specified naksatra at
-sunrise and same naksatra at next sunrise
+            6. Jayanti/Vijaya - fasting day has gaura dvadasi and specified naksatra at
+            sunrise and same naksatra at next sunrise
 
-7. Jaya/Papanasini - fasting day has gaura dvadasi and specified naksatra at
-sunrise and same naksatra at next sunrise
+            7. Jaya/Papanasini - fasting day has gaura dvadasi and specified naksatra at
+            sunrise and same naksatra at next sunrise
 
-==============================================
-Case 1 Normal (no change)
+            ==============================================
+            Case 1 Normal (no change)
 
-If dvadasi tithi ends before 1/3 of daylight
-   then PARANA END = TIME OF END OF TITHI
-but if dvadasi TITHI ends after 1/3 of daylight
-   then PARANA END = TIME OF 1/3 OF DAYLIGHT
+            If dvadasi tithi ends before 1/3 of daylight
+               then PARANA END = TIME OF END OF TITHI
+            but if dvadasi TITHI ends after 1/3 of daylight
+               then PARANA END = TIME OF 1/3 OF DAYLIGHT
 
-if 1/4 of dvadasi tithi is before sunrise
-   then PARANA BEGIN is sunrise time
-but if 1/4 of dvadasi tithi is after sunrise
-   then PARANA BEGIN is time of 1/4 of dvadasi tithi
+            if 1/4 of dvadasi tithi is before sunrise
+               then PARANA BEGIN is sunrise time
+            but if 1/4 of dvadasi tithi is after sunrise
+               then PARANA BEGIN is time of 1/4 of dvadasi tithi
 
-if PARANA BEGIN is before PARANA END
-   then we will write "BREAK FAST FROM xx TO yy
-but if PARANA BEGIN is after PARANA END
-   then we will write "BREAK FAST AFTER xx"
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
 
-==============================================
-Case 2 Viddha
+            ==============================================
+            Case 2 Viddha
 
-If trayodasi tithi ends before 1/3 of daylight
-   then PARANA END = TIME OF END OF TITHI
-but if trayodasi TITHI ends after 1/3 of daylight
-   then PARANA END = TIME OF 1/3 OF DAYLIGHT
+            If trayodasi tithi ends before 1/3 of daylight
+               then PARANA END = TIME OF END OF TITHI
+            but if trayodasi TITHI ends after 1/3 of daylight
+               then PARANA END = TIME OF 1/3 OF DAYLIGHT
 
-PARANA BEGIN is sunrise time
+            PARANA BEGIN is sunrise time
 
-we will write "BREAK FAST FROM xx TO yy
+            we will write "BREAK FAST FROM xx TO yy
 
-==============================================
-Case 3 Unmilani
+            ==============================================
+            Case 3 Unmilani
 
-PARANA END = TIME OF 1/3 OF DAYLIGHT
+            PARANA END = TIME OF 1/3 OF DAYLIGHT
 
-PARANA BEGIN is end of Ekadasi tithi
+            PARANA BEGIN is end of Ekadasi tithi
 
-if PARANA BEGIN is before PARANA END
-   then we will write "BREAK FAST FROM xx TO yy
-but if PARANA BEGIN is after PARANA END
-   then we will write "BREAK FAST AFTER xx"
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
 
-==============================================
-Case 4 Vyanjuli
+            ==============================================
+            Case 4 Vyanjuli
 
-PARANA BEGIN = Sunrise
+            PARANA BEGIN = Sunrise
 
-PARANA END is end of Dvadasi tithi
+            PARANA END is end of Dvadasi tithi
 
-we will write "BREAK FAST FROM xx TO yy
+            we will write "BREAK FAST FROM xx TO yy
 
-==============================================
-Case 5 Trisprsa
+            ==============================================
+            Case 5 Trisprsa
 
-PARANA BEGIN = Sunrise
+            PARANA BEGIN = Sunrise
 
-PARANA END = 1/3 of daylight hours
+            PARANA END = 1/3 of daylight hours
 
-we will write "BREAK FAST FROM xx TO yy
+            we will write "BREAK FAST FROM xx TO yy
 
-==============================================
-Case 6 Jayanti/Vijaya
+            ==============================================
+            Case 6 Jayanti/Vijaya
 
-PARANA BEGIN = Sunrise
+            PARANA BEGIN = Sunrise
 
-PARANA END1 = end of dvadasi tithi or sunrise, whichever is later
-PARANA END2 = end of naksatra
+            PARANA END1 = end of dvadasi tithi or sunrise, whichever is later
+            PARANA END2 = end of naksatra
 
-PARANA END is earlier of END1 and END2
+            PARANA END is earlier of END1 and END2
 
-we will write "BREAK FAST FROM xx TO yy
+            we will write "BREAK FAST FROM xx TO yy
 
-==============================================
-Case 7 Jaya/Papanasini
+            ==============================================
+            Case 7 Jaya/Papanasini
 
-PARANA BEGIN = end of naksatra
+            PARANA BEGIN = end of naksatra
 
-PARANA END = 1/3 of Daylight hours
+            PARANA END = 1/3 of Daylight hours
 
-if PARANA BEGIN is before PARANA END
-   then we will write "BREAK FAST FROM xx TO yy
-but if PARANA BEGIN is after PARANA END
-   then we will write "BREAK FAST AFTER xx"
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
 
 
          * */
@@ -1639,7 +1639,6 @@ but if PARANA BEGIN is after PARANA END
             double sunRise, third_day, naksEnd;
             double parBeg = -1.0, parEnd = -1.0;
             double tithi_len;
-            GregorianDateTime snd, nend;
 
             sunRise = t.astrodata.sun.sunrise_deg / 360.0 + earth.offsetUtcHours / 24.0;
             third_day = sunRise + t.astrodata.sun.length_deg / 1080.0;
@@ -1823,42 +1822,6 @@ but if PARANA BEGIN is after PARANA END
 
             return 1;
         }
-
-
-
-
-
-
-
-
-
-        /******************************************************************************************/
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /******************************************************************************************/
-
-
-        /******************************************************************************************/
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /******************************************************************************************/
-
-
-
-        /******************************************************************************************/
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /******************************************************************************************/
-
-
-
-
-        /* 
-
-          */
 
 
 
