@@ -79,7 +79,7 @@ namespace GCAL.Base
             // set initial data for input day
             // NOTE: for grenwich
             //SunPosition(d, earth, sun);
-            moon.Calculate(jd, earth);
+            moon.Calculate(jd);
             prevSun = GCSunData.GetSunLongitude(d);
             prevMoon = moon.longitude_deg;
             prevDiff = GCMath.putIn180(prevSun - prevMoon);
@@ -91,7 +91,7 @@ namespace GCAL.Base
                 jd -= 1.0;
                 // calculation
                 //SunPosition(d, earth, sun);
-                moon.Calculate(jd, earth);
+                moon.Calculate(jd);
                 nowSun = GCSunData.GetSunLongitude(d);
                 nowMoon = moon.longitude_deg;
                 nowDiff = GCMath.putIn180(nowSun - nowMoon);
@@ -175,7 +175,7 @@ namespace GCAL.Base
             // set initial data for input day
             // NOTE: for grenwich
             //SunPosition(d, earth, sun, 0.0);
-            moon.Calculate(jd, earth);
+            moon.Calculate(jd);
             nowSun = GCMath.putIn360(GCSunData.GetSunLongitude(d));
             nowMoon = GCMath.putIn360(moon.longitude_deg);
             nowDiff = GCMath.putIn180(nowSun - nowMoon);
@@ -187,7 +187,7 @@ namespace GCAL.Base
                 jd += 1.0;
                 // calculation
                 //SunPosition(d, earth, sun, 0.0);
-                moon.Calculate(jd, earth);
+                moon.Calculate(jd);
                 prevSun = GCSunData.GetSunLongitude(d);
                 prevMoon = moon.longitude_deg;
                 prevDiff = GCMath.putIn180(prevSun - prevMoon);
@@ -262,7 +262,7 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday, earth);
+            moon.Calculate(jday);
             sunl = GCSunData.GetSunLongitude(d);
             l1 = GCMath.putIn180(moon.longitude_deg - sunl);
             prev_tit = GCMath.IntFloor(l1 / phi);
@@ -281,7 +281,7 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday, earth);
+                moon.Calculate(jday);
                 sunl = GCSunData.GetSunLongitude(d);
                 l2 = GCMath.putIn180(moon.longitude_deg - sunl);
                 new_tit = GCMath.IntFloor(l2 / phi);
@@ -336,7 +336,7 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday, earth);
+            moon.Calculate(jday);
             sunl = GCSunData.GetSunLongitude(d);
             l1 = GCMath.putIn180(moon.longitude_deg - sunl);
             prev_tit = GCMath.IntFloor(l1 / phi);
@@ -355,7 +355,7 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday, earth);
+                moon.Calculate(jday);
                 sunl = GCSunData.GetSunLongitude(d);
                 l2 = GCMath.putIn180(moon.longitude_deg - sunl);
                 new_tit = GCMath.IntFloor(l2 / phi);

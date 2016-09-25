@@ -18,6 +18,7 @@ namespace GCAL.Views
         private TResultCalendar calendar = null;
         private bool liveRefresh = false;
         private CalendarTableDrawer drawer = new CalendarTableDrawer();
+        public CLocationRef calLocation = null;
 
         public bool LiveRefresh
         {
@@ -67,7 +68,7 @@ namespace GCAL.Views
         public void RecalculateCalendar()
         {
             calendar = new TResultCalendar();
-            calendar.CalculateCalendar(GCGlobal.lastLocation, new GregorianDateTime(currentYear, currentMonth, 1), 31);
+            calendar.CalculateCalendar(calLocation, new GregorianDateTime(currentYear, currentMonth, 1), 31);
             Invalidate();
         }
 

@@ -6,13 +6,15 @@ using System.Reflection;
 using System.IO;
 using System.Drawing;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
     public class GCGlobal
     {
         public static CLocationRef myLocation = new CLocationRef();
 
-        public static CLocationRef lastLocation = new CLocationRef();
+        public static List<CLocationRef> recentLocations = new List<CLocationRef>();
 
         public static GregorianDateTime dateTimeShown = new GregorianDateTime();
 
@@ -25,19 +27,6 @@ namespace GCAL.Base
         public static TLangFileList languagesList;
 
         public static String[] applicationStrings = new string[32];
-
-        public static GCCalendarEventList customEventList;
-
-        public static bool customEventListModified;
-
-        public static GregorianDateTime dialogDateTime = new GregorianDateTime();
-        public static GregorianDateTime dialogStartDate = new GregorianDateTime();
-        public static GregorianDateTime dialogEndDate = new GregorianDateTime();
-        public static GCCalendar.PeriodUnit dialogPeriodType = GCCalendar.PeriodUnit.Years;
-        public static int dialogPeriodLength = 1;
-
-        public static int dialogStartYear = 2016;
-        public static int dialogNumberMonths = 12;
 
         public static string dialogLastRatedSpec = string.Empty;
 
@@ -91,16 +80,17 @@ namespace GCAL.Base
 
         public static void OpenFile(string fileName)
         {
-            int tagn;
-            TFileRichList rf = new TFileRichList();
+            GCRichFileLine rf = new GCRichFileLine();
             Rectangle rc;
-            if (rf.ReadFile(fileName))
+            recentLocations.Clear();
+            if (!File.Exists(fileName))
+                return;
+            using(StreamReader sr = new StreamReader(fileName))
             {
                 // nacitava
-                while (rf.ReadLine() > 0)
+                while (rf.SetLine(sr.ReadLine()))
                 {
-                    tagn = int.Parse(rf.GetTag());
-                    switch (tagn)
+                    switch (rf.TagInt)
                     {
                         case 12701:
                             myLocation.locationName = rf.GetField(0);
@@ -111,21 +101,24 @@ namespace GCAL.Base
                             myLocation.timezoneId = TTimeZone.GetID(rf.GetField(4));
                             break;
                         case 12702:
-                            lastLocation.locationName = rf.GetField(0);
-                            lastLocation.longitudeDeg = double.Parse(rf.GetField(1));
-                            lastLocation.latitudeDeg = double.Parse(rf.GetField(2));
-                            lastLocation.offsetUtcHours = double.Parse(rf.GetField(3));
-                            lastLocation.timeZoneName = rf.GetField(4);
-                            lastLocation.timezoneId = TTimeZone.GetID(rf.GetField(4));
+                            {
+                                CLocationRef loc = new CLocationRef();
+                                loc.locationName = rf.GetField(0);
+                                loc.longitudeDeg = double.Parse(rf.GetField(1));
+                                loc.latitudeDeg = double.Parse(rf.GetField(2));
+                                loc.offsetUtcHours = double.Parse(rf.GetField(3));
+                                loc.timeZoneName = rf.GetField(4);
+                                loc.timezoneId = TTimeZone.GetID(rf.GetField(4));
+
+                                recentLocations.Add(loc);
+                            }
                             break;
                         case 12710:
                             rc = new Rectangle();
-                            rc.X = int.Parse(rf.GetField(0));
-                            rc.Y = int.Parse(rf.GetField(1));
-                            rc.Width = int.Parse(rf.GetField(2)) - rc.X;
-                            rc.Height = int.Parse(rf.GetField(3)) - rc.Y;
+                            string rcs = String.Format("{0}|{1}|{2}|{3}", rf.GetField(0), rf.GetField(1),
+                                rf.GetField(2), rf.GetField(3));
                             if (GCUserInterface.windowController != null)
-                                GCUserInterface.windowController.SetMainRectangle(rc);
+                                GCUserInterface.windowController.ExecuteMessage("setMainRectangle", new GSString(rcs));
                             break;
                         case 12711:
                             GCDisplaySettings.setValue(int.Parse(rf.GetField(0)), int.Parse(rf.GetField(1)));
@@ -150,15 +143,19 @@ namespace GCAL.Base
 
         public static void SaveFile(string fileName)
         {
-            Rectangle rc = GCUserInterface.windowController.GetMainRectangle();
+            GSCore rcs = GCUserInterface.windowController.ExecuteMessage("getMainRectangle", (GSCore)null);
 
             using(StreamWriter f = new StreamWriter(fileName))
             {
                 f.WriteLine("12701 {0}|{1}|{2}|{3}|{4}", myLocation.locationName, myLocation.longitudeDeg, myLocation.latitudeDeg,
                     myLocation.offsetUtcHours, TTimeZone.GetTimeZoneName(myLocation.timezoneId));
-                f.WriteLine("12702 {0}|{1}|{2}|{3}|{4}", lastLocation.locationName, lastLocation.longitudeDeg, lastLocation.latitudeDeg,
-                    lastLocation.offsetUtcHours, TTimeZone.GetTimeZoneName(lastLocation.timezoneId));
-                f.WriteLine("12710 {0}|{1}|{2}|{3}", rc.Left, rc.Top, rc.Right, rc.Bottom);
+                foreach (CLocationRef loc in recentLocations)
+                {
+                    f.WriteLine("12702 {0}|{1}|{2}|{3}|{4}", loc.locationName,
+                        loc.longitudeDeg, loc.latitudeDeg,
+                        loc.offsetUtcHours, TTimeZone.GetTimeZoneName(loc.timezoneId));
+                }
+                f.WriteLine("12710 {0}", rcs.getStringValue());
                 for (int y = 0; y < GCDisplaySettings.getCount(); y++)
                 {
                     f.WriteLine("12711 {0}|{1}", y, GCDisplaySettings.getValue(y));
@@ -187,8 +184,6 @@ namespace GCAL.Base
 
         public static void LoadInstanceData()
         {
-            TFile f;
-
             // initialization for AppDir
             initFolders();
 
@@ -208,32 +203,24 @@ namespace GCAL.Base
             GCDisplaySettings.readFile(getFileName(GlobalStringsEnum.GSTR_SSET_FILE));
 
             // inicializacia custom events
-            GCCalendarEventList.OpenFile(getFileName(GlobalStringsEnum.GSTR_CEX_FILE));
+            GCFestivalBookCollection.OpenFile(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
 
-            GCRatedEventsList.LoadFile(Path.Combine(ConfigFolder, "gcal_revs.rxml"));
+            // looking for files *.recn
+            GCConfigRatedManager.RefreshListFromDirectory(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
 
             // initialization of global variables
-            myLocation.longitudeDeg = 77.73;
-            myLocation.latitudeDeg = 27.583;
-            myLocation.offsetUtcHours = 5.5;
-            myLocation.locationName = "Vrindavan, India";
-            myLocation.timeZoneName = "+5:30";
-            myLocation.timezoneId = 188;
-            lastLocation.longitudeDeg = 77.73;
-            lastLocation.latitudeDeg = 27.583;
-            lastLocation.offsetUtcHours = 5.5;
-            lastLocation.locationName = "Vrindavan, India";
-            lastLocation.timeZoneName = "+5:30";
-            lastLocation.timezoneId = 188;
+            myLocation.EncodedString = CLocationRef.DefaultEncodedString;
+
+            recentLocations.Add(new CLocationRef(myLocation));
 
             OpenFile(getFileName(GlobalStringsEnum.GSTR_CONFX_FILE));
             // refresh fasting style after loading user settings
-            GCCalendarEventList.SetOldStyleFasting(GCDisplaySettings.getValue(42));
+            //GCFestivalBook.SetOldStyleFasting(GCDisplaySettings.getValue(42));
 
             // inicializacia tipov dna
-            if (!TFile.FileExists(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE)))
+            if (!File.Exists(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE)))
             {
-                TFile.CreateFileFromResource("tips.txt", getFileName(GlobalStringsEnum.GSTR_TIPS_FILE));
+                File.WriteAllText(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE), Properties.Resources.tips);
             }
         }
 
@@ -259,15 +246,37 @@ namespace GCAL.Base
 
             GCDisplaySettings.writeFile(getFileName(GlobalStringsEnum.GSTR_SSET_FILE));
 
-            GCCalendarEventList.SaveFile(getFileName(GlobalStringsEnum.GSTR_CEX_FILE));
+            GCFestivalBookCollection.SaveFile(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
 
             if (TTimeZone.Modified)
             {
                 TTimeZone.SaveFile(getFileName(GlobalStringsEnum.GSTR_TZ_FILE));
             }
 
-            GCRatedEventsList.SaveFile(Path.Combine(ConfigFolder, "gcal_revs.rxml"));
         }
 
+
+        public static void AddRecentLocation(CLocationRef cLocationRef)
+        {
+            int rl = recentLocations.IndexOf(cLocationRef);
+            if (rl != 0)
+            {
+                if (rl > 0)
+                {
+                    recentLocations.RemoveAt(rl);
+                }
+                recentLocations.Insert(0, cLocationRef);
+            }
+        }
+
+        public static CLocationRef LastLocation
+        {
+            get
+            {
+                if (recentLocations.Count == 0)
+                    return myLocation;
+                return recentLocations[0];
+            }
+        }
     }
 }

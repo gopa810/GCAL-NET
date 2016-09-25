@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class TResultApp
+    public class TResultApp: TResultBase
     {
         public static readonly int TRESULT_APP_CELEBS = 3;
         public CLocationRef location;
@@ -15,7 +17,7 @@ namespace GCAL.Base
         public int[] celeb_gy;
         public GregorianDateTime[] celeb_date;
 
-        public class AppDayBase
+        public class AppDayBase : GSCore
         {
             public int DsCondition = -1;
             public AppDayBase()
@@ -25,6 +27,13 @@ namespace GCAL.Base
             public AppDayBase(int cond)
             {
                 DsCondition = cond;
+            }
+
+            public override GSCore GetPropertyValue(string s)
+            {
+                if (s.Equals("DsCondition"))
+                    return new GSNumber(DsCondition);
+                return base.GetPropertyValue(s);
             }
         }
 
@@ -44,6 +53,17 @@ namespace GCAL.Base
             {
                 DsCondition = i;
                 Name = n;
+            }
+
+            public override GSCore GetPropertyValue(string s)
+            {
+                if (s.Equals("isInfo"))
+                    return new GSBoolean(false);
+                if (s.Equals("isSeparator"))
+                    return new GSBoolean(true);
+                if (s.Equals("Name"))
+                    return new GSString(Name);
+                return base.GetPropertyValue(s);
             }
         }
 
@@ -69,16 +89,52 @@ namespace GCAL.Base
                 Value = b;
             }
 
+            public override GSCore GetPropertyValue(string s)
+            {
+                if (s.Equals("isSeparator"))
+                    return new GSBoolean(false);
+                if (s.Equals("isInfo"))
+                    return new GSBoolean(true);
+                if (s.Equals("Name"))
+                    return new GSString(Name);
+                if (s.Equals("Value"))
+                    return new GSString(Value);
+                return base.GetPropertyValue(s);
+            }
+
+        }
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            if (s.Equals("items"))
+            {
+                GSList list = new GSList();
+                foreach (AppDayBase adb in MainInfo)
+                    list.Add(adb);
+                return list;
+            }
+            else if (s.Equals("location"))
+            {
+                return location;
+            }
+            else if (s.Equals("eventTime"))
+            {
+                return eventTime;
+            }
+            else if (s.Equals("astroData"))
+            {
+                return details;
+            }
+            return base.GetPropertyValue(s);
         }
 
         public List<AppDayBase> MainInfo = new List<AppDayBase>();
-        public List<AppDayBase> Celebrations = new List<AppDayBase>();
 
         public void calculateAppDay(CLocationRef location, GregorianDateTime eventDate)
         {
             //MOONDATA moon;
             //SUNDATA sun;
-            GCAstroData d = this.details;
+            GCAstroData d = this.details = new GCAstroData();
             double dd;
             GregorianDateTime vc = new GregorianDateTime();
             vc.Set(eventDate);
@@ -87,8 +143,8 @@ namespace GCAL.Base
             GCEarthData m_earth = location.EARTHDATA();
 
             this.b_adhika = false;
-            this.eventTime.Set(eventDate);
-            this.location.Set(location);
+            this.eventTime = new GregorianDateTime(eventDate);
+            this.location = location;
 
             //d.nTithi = GetPrevTithiStart(m_earth, vc, dprev);
             //GetNextTithiStart(m_earth, vc, dnext);
@@ -96,7 +152,7 @@ namespace GCAL.Base
             vcsun.NormalizeValues();
             vcsun.TimezoneHours = 0.0;
             d.sun.SunPosition(vcsun, m_earth, vcsun.shour - 0.5);
-            d.moon.Calculate(vcsun.GetJulianComplete(), m_earth);
+            d.moon.Calculate(vcsun.GetJulianComplete());
             d.msDistance = GCMath.putIn360(d.moon.longitude_deg - d.sun.longitude_deg - 180.0);
             d.msAyanamsa = GCAyanamsha.GetAyanamsa(vc.GetJulianComplete());
 
@@ -134,9 +190,9 @@ namespace GCAL.Base
             if (va.gyear < d.nGaurabdaYear)
                 va.gyear = d.nGaurabdaYear;
 
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(7), vc.ToString()));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(7), eventDate.ToString()));
             MainInfo.Add(new AppDayBase());
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(8), vc.ShortTimeString()));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(8), eventDate.ShortTimeString()));
             MainInfo.Add(new AppDayBase());
             MainInfo.Add(new AppDayBase());
             MainInfo.Add(new AppDayInfo(GCStrings.getString(9), location.locationName));
@@ -146,11 +202,11 @@ namespace GCAL.Base
             MainInfo.Add(new AppDayInfo("DST", "N/A"));
             MainInfo.Add(new AppDayBase());
             MainInfo.Add(new AppDayInfo(GCStrings.getString(13), GCTithi.GetName(d.nTithi)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(14), d.nTithiElapse.ToString() + " %"));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(14), string.Format("{0:00.000}%", d.nTithiElapse)));
             MainInfo.Add(new AppDayInfo(GCStrings.getString(15), GCNaksatra.GetName(d.nNaksatra)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(16), string.Format("{0} % ({1} pada)", d.nNaksatraElapse, GCStrings.getString(811 + d.NaksatraPada))));
-            MainInfo.Add(new AppDayInfo("Moon Rasi", GCRasi.GetName(d.nMoonRasi)));
-            MainInfo.Add(new AppDayInfo("Sun Rasi", GCRasi.GetName(d.nSunRasi)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(16), string.Format("{0:00.000}% ({1} pada)", d.nNaksatraElapse, GCStrings.getString(811 + d.NaksatraPada))));
+            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Moon Rasi"), GCRasi.GetName(d.nMoonRasi)));
+            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Sun Rasi"), GCRasi.GetName(d.nSunRasi)));
             MainInfo.Add(new AppDayInfo(GCStrings.getString(20), GCPaksa.GetName(d.nPaksa)));
 
             if (b_adhika == true)
@@ -187,7 +243,7 @@ namespace GCAL.Base
                     if (m < TRESULT_APP_CELEBS)
                     {
                         MainInfo.Add(new AppDayInfo(string.Format("Gaurabda {0}", va.gyear), vctemp.ToString()));
-                        this.celeb_date[m].Set(vctemp);
+                        this.celeb_date[m] = new GregorianDateTime(vctemp);
                         this.celeb_gy[m] = va.gyear;
                         m++;
                     }
@@ -196,223 +252,52 @@ namespace GCAL.Base
             }
         }
 
-        public void formatPlainText(StringBuilder strResult)
+        public override string formatText(string df)
         {
-	        TResultApp app = this;
-	        GCAstroData d = app.details;
-	        GregorianDateTime vc = new GregorianDateTime();
-	        vc.Set(app.eventTime);
-	        GCEarthData m_earth = app.location.EARTHDATA();
-	        GCStringBuilder sb = new GCStringBuilder();
-            sb.Target = strResult;
-            sb.Format = GCStringBuilder.FormatType.PlainText;
-
-	        sb.AppendLine(GCStrings.getString(25));
-	        sb.AppendLine();
-
-            foreach (AppDayBase ab in MainInfo)
+            GSScript script = new GSScript();
+            switch (df)
             {
-                if (ab.DsCondition < 0 || (ab.DsCondition >= 0 && GCDisplaySettings.getBoolValue(ab.DsCondition)))
-                {
-                    if (ab is AppDayInfo)
-                    {
-                        AppDayInfo adi = ab as AppDayInfo;
-                        sb.AppendFormat("{0} : {1}", adi.Name, adi.Value);
-                        sb.AppendLine();
-                    }
-                    else if (ab is AppDaySeparator)
-                    {
-                        AppDaySeparator ase = ab as AppDaySeparator;
-                        sb.AppendLine(ase.Name);
-                    }
-                }
+                case GCDataFormat.PlainText:
+                    script.readTextTemplate(Properties.Resources.TplAppDayPlain);
+                    break;
+                case GCDataFormat.Rtf:
+                    script.readTextTemplate(Properties.Resources.TplAppDayRtf);
+                    break;
+                case GCDataFormat.HTML:
+                    script.readTextTemplate(Properties.Resources.TplAppDayHtml);
+                    break;
+                case GCDataFormat.XML:
+                    script.readTextTemplate(Properties.Resources.TplAppDayXml);
+                    break;
+                case GCDataFormat.CSV:
+                    script.readTextTemplate(Properties.Resources.TplAppDayCsv);
+                    break;
+                default:
+                    break;
             }
 
-	        sb.AppendNote();
+
+            GSExecutor engine = new GSExecutor();
+            engine.SetVariable("appday", this);
+            engine.SetVariable("location", this.location);
+            engine.SetVariable("app", GCUserInterface.Shared);
+            engine.ExecuteElement(script);
+
+
+            return engine.getOutput();
         }
 
-        public void formatRtf(StringBuilder strResult)
+        public override TResultFormatCollection getFormats()
         {
-	        TResultApp app = this;
-	        GCAstroData d = app.details;
-	        GregorianDateTime vc = new GregorianDateTime();
-	        vc.Set(app.eventTime);
-	        GCEarthData m_earth = app.location.EARTHDATA();
-	
-	        GCStringBuilder sb = new GCStringBuilder();
+            TResultFormatCollection coll = base.getFormats();
 
-	        sb.fontSizeH1 = GCLayoutData.textSizeH1;
-	        sb.fontSizeH2 = GCLayoutData.textSizeH2;
-	        sb.fontSizeText = GCLayoutData.textSizeText;
-	        sb.fontSizeNote = GCLayoutData.textSizeNote;
-	        sb.Format = GCStringBuilder.FormatType.RichText;
-	        sb.Target = strResult;
-
-	        strResult.Clear();
-	        sb.AppendDocumentHeader();
-
-	        sb.AppendHeader1(GCStrings.getString(25));
-
-            foreach (AppDayBase ab in MainInfo)
-            {
-                if (ab.DsCondition < 0 || (ab.DsCondition >= 0 && GCDisplaySettings.getBoolValue(ab.DsCondition)))
-                {
-                    if (ab is AppDayInfo)
-                    {
-                        AppDayInfo adi = ab as AppDayInfo;
-                        sb.AppendFormat("\\tab {0} : {{\\b {1}}", adi.Name, adi.Value);
-                        sb.AppendLine();
-                    }
-                    else if (ab is AppDaySeparator)
-                    {
-                        AppDaySeparator ase = ab as AppDaySeparator;
-                        sb.AppendHeader2(ase.Name);
-                    }
-                }
-            }
-
-
-
-	        sb.AppendDocumentTail();
-        }
-
-        public void formatXml(StringBuilder strResult)
-        {
-            TResultApp app = this;
-            GCAstroData d = this.details;
-            GregorianDateTime vc = new GregorianDateTime();
-            vc.Set(eventTime);
-            GCEarthData m_earth = this.location.EARTHDATA();
-            CLocationRef loc = this.location;
-            GCStringBuilder strText = new GCStringBuilder();
-            strText.Format = GCStringBuilder.FormatType.PlainText;
-            strText.Target = strResult;
-            int npada;
-            bool bDuringAdhika = false;
-
-            strText.AppendFormat(
-                "<xml>\n" +
-                "\t<request name=\"AppDay\" version=\"{0}\">\n" +
-                "\t\t<arg name=\"longitude\" value=\"{1}\" />\n" +
-                "\t\t<arg name=\"latitude\" value=\"{2}\" />\n" +
-                "\t\t<arg name=\"timezone\" value=\"{3}\" />\n" +
-                "\t\t<arg name=\"year\" value=\"{4}\" />\n" +
-                "\t\t<arg name=\"month\" value=\"{5}\" />\n" +
-                "\t\t<arg name=\"day\" value=\"{6}\" />\n" +
-                "\t\t<arg name=\"hour\" value=\"{7}\" />\n" +
-                "\t\t<arg name=\"minute\" value=\"{8}\" />\n" +
-                "\t</request>\n", GCStrings.getString(130),
-                loc.longitudeDeg, loc.latitudeDeg, loc.offsetUtcHours,
-                app.eventTime.year, app.eventTime.month, app.eventTime.day,
-                app.eventTime.GetHour(), app.eventTime.GetMinuteRound()
-                );
-
-
-            npada = d.NaksatraPada;
-            if (npada > 4)
-                npada = 4;
-
-            strText.AppendFormat("\t<result name=\"AppDay\" >\n" +
-                "\t\t<tithi name=\"{0}\" elapse=\"{1}\" />\n" +
-                "\t\t<naksatra name=\"{2}\" elapse=\"{3}\" pada=\"{4}\"/>\n" +
-                "\t\t<paksa name=\"{5}\" />\n" +
-                "\t\t<masa name=\"{6}\" adhikamasa=\"{7}\"/>\n" +
-                "\t\t<gaurabda value=\"{8}\" />\n"
-
-                , GCTithi.GetName(d.nTithi), d.nTithiElapse
-                , GCNaksatra.GetName(d.nNaksatra), d.nNaksatraElapse, npada
-                , GCPaksa.GetName(d.nPaksa)
-                , GCMasa.GetName(d.nMasa), (bDuringAdhika ? "yes" : "no")
-                , d.nGaurabdaYear
-                );
-
-            strText.AppendString("\t\t<celebrations>\n");
-
-            for (int i = 0; i < TRESULT_APP_CELEBS; i++)
-            {
-                strText.AppendFormat("\t\t\t<celebration gaurabda=\"{0}\" day=\"{1}\" month=\"{2}\" monthabr=\"{3}\" year=\"{4}\" />\n"
-                    , app.celeb_gy[i], app.celeb_date[i].day, app.celeb_date[i].month, GregorianDateTime.GetMonthAbreviation(app.celeb_date[i].month), app.celeb_date[i].year);
-            }
-
-            strText.AppendString("\t\t</celebrations>\n\t</result>\n</xml>\n");
-        }
-
-
-        /******************************************************************************************/
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /*                                                                                        */
-        /******************************************************************************************/
-
-        public void writeHtml(StringBuilder F)
-        {
-            GCAstroData d = this.details;
-            GregorianDateTime vc = new GregorianDateTime();
-            vc.Set(eventTime);
-            GCEarthData m_earth = this.location.EARTHDATA();
-
-            GCStringBuilder sb = new GCStringBuilder();
-            sb.Format = GCStringBuilder.FormatType.PlainText;
-            sb.Target = F;
-
-            sb.AppendString("<html><head><title>Appearance day</title>");
-            sb.AppendString("<style>\n<!--\nbody {\n  font-family:Verdana;\n  font-size:11pt;\n}\n\ntd.hed {\n  font-size:11pt;\n  font-weight:bold;\n");
-            sb.AppendString("  background:#aaaaaa;\n  color:white;\n  text-align:center;\n  vertical-align:center;\n  padding-left:15pt;\n  padding-right:15pt;\n");
-            sb.AppendString("  padding-top:5pt;\n  padding-bottom:5pt;\n}\n-->\n</style>\n");
-            sb.AppendString("</head>\n\n<body>\n");
-            sb.AppendString("<h2 align=center>Appearance day Calculation</h2>");
-            sb.AppendString("<table align=center><tr><td valign=top>\n\n");
-            sb.AppendString("<table align=center>");
-            sb.AppendString("<tr><td colspan=3 class=hed>Details</td></tr>\n");
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1} {2} {3}</td></tr>\n", GCStrings.getString(7), vc.day, GregorianDateTime.GetMonthAbreviation(vc.month), vc.year);
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}:{2:00}</td></tr>\n\n", GCStrings.getString(8), vc.GetHour(), vc.GetMinuteRound());
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(9), this.location.locationName);
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(10), GCEarthData.GetTextLatitude(this.location.latitudeDeg));
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(11), GCEarthData.GetTextLongitude(this.location.longitudeDeg));
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> ", GCStrings.Localized("Timezone"));
-            sb.AppendString(TTimeZone.GetTimeZoneOffsetText(this.location.offsetUtcHours));
-            sb.AppendString("</td></tr>\n");
-            sb.AppendString("<tr><td colspan=2>DST</td><td>N/A</td></tr>\n");
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(13), GCTithi.GetName(d.nTithi));
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1} %%</td></tr>\n", GCStrings.getString(14), d.nTithiElapse);
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(15), GCNaksatra.GetName(d.nNaksatra));
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1} %%</td></tr>\n", GCStrings.getString(16), d.nNaksatraElapse);
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(20), GCPaksa.GetName(d.nPaksa));
-            if (this.b_adhika == true)
-            {
-                sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1} {2}</td></tr>\n", GCStrings.getString(22), GCMasa.GetName(d.nMasa), GCStrings.getString(21));
-            }
-            else
-                sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n", GCStrings.getString(22), GCMasa.GetName(d.nMasa));
-            sb.AppendFormat("<tr><td colspan=2>{0}</td><td> {1}</td></tr>\n\n", GCStrings.getString(23), d.nGaurabdaYear);
-
-            sb.AppendString("</table></td><td valign=top><table>");
-            sb.AppendFormat("<tr><td colspan=3 class=hed>{0}</td></tr>\n", GCStrings.getString(24));
-
-            //sb.AppendCFormat("<table align=center>");
-            for (int o = 0; o < TRESULT_APP_CELEBS; o++)
-            {
-                sb.AppendFormat("<tr><td>Gaurabda {0:###}</td><td>&nbsp;&nbsp;:&nbsp;&nbsp;</td><td><b>{1} {2} {3}</b></td></tr>", this.celeb_gy[o], this.celeb_date[o].day,
-                    GregorianDateTime.GetMonthAbreviation(this.celeb_date[o].month),
-                    this.celeb_date[o].year);
-            }
-            sb.AppendString("</table>");
-            sb.AppendString("</td></tr></table>\n\n");
-            sb.AppendFormat("<hr align=center width=\"50%%\">\n<p style=\'text-align:center;font-size:8pt\'>Generated by {0}</p>", GCStrings.getString(130));
-            sb.AppendString("</body></html>");
-
+            coll.ResultName = "AppearanceDay";
+            coll.Formats.Add(new TResultFormat("Text File", "txt", GCDataFormat.PlainText));
+            coll.Formats.Add(new TResultFormat("Rich Text File", "rtf", GCDataFormat.Rtf));
+            coll.Formats.Add(new TResultFormat("XML File", "xml", GCDataFormat.XML));
+            coll.Formats.Add(new TResultFormat("Comma Separated Values", "csv", GCDataFormat.CSV));
+            coll.Formats.Add(new TResultFormat("HTML File (in List format)", "htm", GCDataFormat.HTML));
+            return coll;
         }
 
     }

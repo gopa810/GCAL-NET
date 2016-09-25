@@ -48,7 +48,6 @@ namespace GCAL.Views
         private float yCellAnchor1, yCellMarginBottom;
 
 
-
         public CalendarTableDrawer()
         {
             prevSize = Size.Empty;
@@ -147,9 +146,9 @@ namespace GCAL.Views
                 rcf.Y = yCellMarginTop - cellInset;
                 rcf.Width = xCellWidth;
                 rcf.Height = yCellHeight;
-                if (vd.nFastType == FastType.FAST_EKADASI)
+                if (vd.nFastID == FastType.FAST_EKADASI)
                     g.FillRectangle(Brushes.LightGreen, rcf);
-                else if (vd.nFastType != 0)
+                else if (vd.nFastID != 0)
                     g.FillRectangle(Brushes.LightSkyBlue, rcf);
                 if (dtToday.Day == i && dtToday.Month == nMonth && dtToday.Year == nYear)
                 {
@@ -327,7 +326,7 @@ namespace GCAL.Views
         }
 
 
-        public static void ExportPng(string directory, string locname, int year, int month)
+        public static void ExportPng(CLocationRef calLocation, string directory, string locname, int year, int month)
         {
             using (Bitmap b = new Bitmap(1280, 1024))
             {
@@ -336,14 +335,14 @@ namespace GCAL.Views
                     g.Clear(Color.White);
                     CalendarTableDrawer ctd = new CalendarTableDrawer();
                     TResultCalendar rc = new TResultCalendar();
-                    rc.CalculateCalendar(GCGlobal.lastLocation, new GregorianDateTime(year, month, 1), 32);
+                    rc.CalculateCalendar(calLocation, new GregorianDateTime(year, month, 1), 32);
                     ctd.Draw(g, new Size(1280, 1024), rc, year, month);
                 }
                 b.Save(Path.Combine(directory, string.Format("{0}-{1}-{2:00}.png", locname, year, month)), ImageFormat.Png);
             }
         }
 
-        public static void ExportPngYear(string dir, string locationFileName, int currentYear)
+        public static void ExportPngYear(CLocationRef calLocation, string dir, string locationFileName, int currentYear)
         {
             Size imageSize = new Size(1280, 1024);
             using (Bitmap b = new Bitmap(imageSize.Width, imageSize.Height))
@@ -352,7 +351,7 @@ namespace GCAL.Views
                 {
                     CalendarTableDrawer ctd = new CalendarTableDrawer();
                     TResultCalendar rc = new TResultCalendar();
-                    rc.CalculateCalendar(GCGlobal.lastLocation, new GregorianDateTime(currentYear, 1, 1), 366);
+                    rc.CalculateCalendar(calLocation, new GregorianDateTime(currentYear, 1, 1), 366);
 
                     for (int i = 1; i <= 12; i++)
                     {

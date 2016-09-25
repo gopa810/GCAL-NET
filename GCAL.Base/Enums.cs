@@ -23,14 +23,44 @@ namespace GCAL.Base
 
     public sealed class FastType
     {
-        public const int FAST_NULL = 0x000;
-        public const int FAST_NOON = 0x201;
-        public const int FAST_SUNSET = 0x202;
-        public const int FAST_MOONRISE = 0x203;
-        public const int FAST_DUSK = 0x204;
-        public const int FAST_MIDNIGHT = 0x205;
-        public const int FAST_EKADASI = 0x206;
-        public const int FAST_DAY = 0x207;
+        public const int FAST_NULL = 0;
+        public const int FAST_NOON = 1;
+        public const int FAST_SUNSET = 2;
+        public const int FAST_MOONRISE = 3;
+        public const int FAST_DUSK = 4;
+        public const int FAST_MIDNIGHT = 5;
+        public const int FAST_EKADASI = 6;
+        public const int FAST_DAY = 7;
+        public const int FAST_END_TITHI = 8;
+        public const int FAST_END_NAKSATRA = 9;
+        public const int FAST_END_TAN = 10;
+        public const int FAST_END_TON = 11;
+
+        public int FastID;
+        public string FastText;
+
+        /// <summary>
+        /// Strings for user interface sorted by frequency of use
+        /// </summary>
+        public static FastType[] Fasts = new FastType[] {
+            new FastType(){ FastID = FAST_NULL, FastText = "No fasting"},
+            new FastType(){ FastID = FAST_DAY, FastText = "Fast today"},
+            new FastType(){ FastID = FAST_EKADASI, FastText = "Ekadasi fasting"},
+            new FastType(){ FastID = FAST_NOON, FastText = "Fast till noon"},
+            new FastType(){ FastID = FAST_SUNSET, FastText = "Fast till sunset"},
+            new FastType(){ FastID = FAST_MOONRISE, FastText = "Fast till moonrise"},
+            new FastType(){ FastID = FAST_DUSK, FastText = "Fast till dusk"},
+            new FastType(){ FastID = FAST_MIDNIGHT, FastText = "Fast till midnight"},
+            new FastType(){ FastID = FAST_END_TITHI, FastText = "Fast till end of tithi"},
+            new FastType(){ FastID = FAST_END_NAKSATRA, FastText = "Fast till end of naksatra"},
+            new FastType(){ FastID = FAST_END_TAN, FastText = "Fast till end of tithi and naksatra"},
+            new FastType(){ FastID = FAST_END_TON, FastText = "Fast till end of tithi or naksatra"}
+        };
+
+        public override string ToString()
+        {
+            return FastText;
+        }
     };
 
     public sealed class FeastType
@@ -179,6 +209,7 @@ namespace GCAL.Base
 
     public sealed class KalaType
     {
+        public const int KT_NONE = 0;
         public const int KT_RAHU_KALAM = 1;
         public const int KT_YAMA_GHANTI = 2;
         public const int KT_GULI_KALAM = 3;

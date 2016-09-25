@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class VAISNAVAEVENT
+    public class VAISNAVAEVENT: GSCore
     {
         public int prio;
         public int dispItem;
@@ -13,9 +15,25 @@ namespace GCAL.Base
         public int fasttype;
         public string fastsubject;
         public string spec = null;
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            switch (s)
+            {
+                case "prio": return new GSNumber() { IntegerValue = prio };
+                case "dispItem": return new GSNumber() { IntegerValue = dispItem };
+                case "fastType": return new GSNumber() { IntegerValue = fasttype };
+                case "text": return new GSString() { Value = text };
+                case "fastSubject": return new GSString() { Value = text };
+                case "spec": return new GSString() { Value = (spec != null ? spec : string.Empty) };
+                case "isSpec": return new GSBoolean() { Value = (spec != null) };
+                default: break;
+            }
+            return base.GetPropertyValue(s);
+        }
     }
 
-    public class VAISNAVADAY
+    public class VAISNAVADAY: GSCore
     {
         // date
         public GregorianDateTime date;
@@ -25,34 +43,45 @@ namespace GCAL.Base
         // astronomical data from astro-sub-layer
         public GCAstroData astrodata;
 
-        public UInt32 nCaturmasya;
         public int nDST;
-        public int nFeasting;
-        // data for vaisnava calculations
-        public List<VAISNAVAEVENT> dayEvents;
 
-        public String festivals;
-        public int nFastType;
-        public int nMhdType;
+        //
+        // day events and fast
+        public List<VAISNAVAEVENT> dayEvents;
+        public int nFeasting;
+        public int nFastID;
+
+        //
+        // Ekadasi data
+        //
+        public int nMahadvadasiID;
         public String ekadasi_vrata_name;
         public bool ekadasi_parana;
         public double eparana_time1, eparana_time2;
         public int eparana_type1, eparana_type2;
+
+        //
+        // Sankranti data
         public int sankranti_zodiac;
-        //double sankranti_time;
         public GregorianDateTime sankranti_day;
+
+        // Ksaya and Vridhi data
+        //
+        public int ksayaTithi = -1;
+        public int ksayaMasa = -1;
+        public int vriddhiDayNo = 1;
+
 
         public VAISNAVADAY()
         {
-            nFastType = FastType.FAST_NULL;
-            nMhdType = MahadvadasiType.EV_NULL;
+            nFastID = FastType.FAST_NULL;
+            nMahadvadasiID = MahadvadasiType.EV_NULL;
             ekadasi_parana = false;
             ekadasi_vrata_name = "";
             eparana_time1 = eparana_time2 = 0.0;
             eparana_type1 = eparana_type2 = EkadasiParanaType.EP_TYPE_NULL;
             sankranti_zodiac = -1;
             nDST = 0;
-            nCaturmasya = 0;
             moonrise.SetValue(0);
             moonset.SetValue(0);
             dayEvents = new List<VAISNAVAEVENT>();
@@ -61,19 +90,117 @@ namespace GCAL.Base
         public void Clear()
         {
             // init
-            nFastType = FastType.FAST_NULL;
+            nFastID = FastType.FAST_NULL;
             nFeasting = FeastType.FEAST_NULL;
-            nMhdType = MahadvadasiType.EV_NULL;
+            nMahadvadasiID = MahadvadasiType.EV_NULL;
             ekadasi_parana = false;
             ekadasi_vrata_name = "";
             eparana_time1 = eparana_time2 = 0.0;
             sankranti_zodiac = -1;
             sankranti_day = null;
-            nCaturmasya = 0;
             dayEvents.Clear();
             //moonset.SetValue(0);
             //moonrise.SetValue(0);
             //nDST = 0;
+        }
+
+        public override GSCore GetPropertyValue(string Token)
+        {
+            if (Token.Equals("date"))
+            {
+                return date;
+            }
+            else if (Token.Equals("astro"))
+            {
+                return astrodata;
+            }
+            else if (Token.Equals("dateHumanName"))
+            {
+                return new GSString(GregorianDateTime.GetDateTextWithTodayExt(date));
+            }
+            else if (Token.Equals("nDST"))
+                return new GSNumber(nDST);
+            else if (Token.Equals("events"))
+            {
+                GSList list = new GSList();
+                list.Parts.AddRange(dayEvents);
+                return list;
+            }
+            else if (Token.Equals("visibleEvents"))
+            {
+                GSList list = new GSList();
+                list.Parts.AddRange(VisibleEvents);
+                return list;
+            }
+            else if (Token.Equals("htmlDayColor"))
+            {
+                return new GSString(TResultCalendar.getDayBkgColorCode(this));
+            }
+            else if (Token.Equals("dstSignature"))
+            {
+                return new GSString(GCStrings.GetDSTSignature(nDST));
+            }
+            else if (Token.Equals("tithiNameExt"))
+            {
+                return new GSString(GetFullTithiName());
+            }
+            else if (Token.Equals("fastType"))
+                return new GSNumber(nFastID);
+            else if (Token.Equals("fastTypeMark"))
+                return new GSString(nFastID != 0 ? "*" : " ");
+            else if (Token.Equals("ekadasiParana"))
+                return new GSBoolean(ekadasi_parana);
+            else if (Token.Equals("ekadasiParanaStart"))
+            {
+                GregorianDateTime gdt = new GregorianDateTime(date);
+                gdt.shour = eparana_time1;
+                return gdt;
+            }
+            else if (Token.Equals("ekadasiParanaEnd"))
+            {
+                GregorianDateTime gdt = new GregorianDateTime(date);
+                gdt.shour = eparana_time2;
+                return gdt;
+            }
+            else if (Token.Equals("hasParanaStart"))
+                return new GSBoolean(eparana_time1 >= 0.0);
+            else if (Token.Equals("hasParanaEnd"))
+                return new GSBoolean(eparana_time2 >= 0.0);
+            else if (Token.Equals("sankrantiZodiac"))
+                return new GSNumber(sankranti_zodiac);
+            else if (Token.Equals("sankrantiDateTime"))
+                return sankranti_day;
+            else if (Token.Equals("ksayaTithi"))
+                return new GSNumber(ksayaTithi);
+            else if (Token.Equals("ksayaMasa"))
+                return new GSNumber(ksayaMasa);
+            else if (Token.Equals("midnightNaksatra"))
+            {
+                int mid_nak = (int)GCNaksatra.CalculateMidnightNaksatra(this.date);
+                return new GSNumber(mid_nak);
+            }
+            else
+            {
+                return base.GetPropertyValue(Token);
+            }
+        }
+
+        public List<VAISNAVAEVENT> VisibleEvents
+        {
+            get
+            {
+                List<VAISNAVAEVENT> ve = new List<VAISNAVAEVENT>();
+                foreach (VAISNAVAEVENT ed in dayEvents)
+                {
+                    int disp = ed.dispItem;
+                    if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.getValue(disp) != 0))
+                    {
+                        ve.Add(ed);
+                    }
+                }
+
+                return ve;
+            }
         }
 
         public bool GetTithiTimeRange(GCEarthData earth, out GregorianDateTime from, out GregorianDateTime to)
@@ -145,85 +272,6 @@ namespace GCAL.Base
             return string.Format("{0:00} {1} {2} {3}", date.day, GregorianDateTime.GetMonthAbreviation(date.month), 
                 date.year, GCCalendar.GetWeekdayAbbr(date.dayOfWeek));
         }
-
-        public string GetTextA(int bPaksa, int bNaks, int bYoga, int bFlag, int bRasi)
-        {
-            //	static char * dow[] = {"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
-
-            string s1, str;
-
-            s1 = GetFullTithiName();
-
-            str = string.Format("{0}{1} ", 
-                s1.PadRight(34, ' '), (bPaksa != 0 ? GCPaksa.GetAbbr(astrodata.nPaksa) : ' '));
-
-            if (bYoga != 0)
-            {
-                str += GCYoga.GetName(astrodata.nYoga).PadRight(10, ' ');
-            }
-
-            if (bNaks != 0)
-            {
-                str += GCNaksatra.GetName(astrodata.nNaksatra).PadRight(15, ' ');
-            }
-
-            if (nFastType != FastType.FAST_NULL && bFlag != 0)
-                str += " *";
-            else
-                str += "  ";
-
-            if (bRasi != 0)
-            {
-                if (bRasi == 1)
-                    str += GCRasi.GetName(GCRasi.GetRasi(astrodata.moon.longitude_deg, astrodata.msAyanamsa)).PadRight(12, ' ').PadLeft(15, ' ');
-                else if (bRasi == 2)
-                    str += GCRasi.GetNameEn(GCRasi.GetRasi(astrodata.moon.longitude_deg, astrodata.msAyanamsa)).PadRight(12, ' ').PadLeft(15, ' ');
-            }
-
-            return str;
-        }
-
-        public string GetTextRtf(int bPaksa, int bNaks, int bYoga, int bFlag, int bRasi)
-        {
-            String s1, s2, str;
-
-            s1 = GetFullTithiName();
-
-            s2 = GCStrings.getString(date.dayOfWeek).Substring(0, 2);
-
-            str = string.Format("\\par {0:##} {1} {2} {3}\\tab {4}\\tab {5} ", date.day, GregorianDateTime.GetMonthAbreviation(date.month), date.year
-                , s2, s1, (bPaksa != 0 ? GCPaksa.GetAbbr(astrodata.nPaksa) : ' '));
-
-            if (bYoga != 0)
-            {
-                str += "\\tab " + GCYoga.GetName(astrodata.nYoga);
-            }
-
-            if (bNaks != 0)
-            {
-                str += "\\tab " + GCNaksatra.GetName(astrodata.nNaksatra);
-            }
-
-            if (nFastType != FastType.FAST_NULL && bFlag != 0)
-                str += "\\tab *";
-            else if (bFlag != 0)
-                str += "\\tab ";
-
-            if (bRasi != 0)
-            {
-
-                if (bRasi == 1)
-                    s2 = string.Format("\\tab {0}", GCRasi.GetName(GCRasi.GetRasi(astrodata.moon.longitude_deg, astrodata.msAyanamsa)));
-                else
-                    s2 = string.Format("\\tab {0}", GCRasi.GetNameEn(GCRasi.GetRasi(astrodata.moon.longitude_deg, astrodata.msAyanamsa)));
-                str += s2;
-            }
-
-            str += "\r\n";
-
-            return str;
-        }
-
 
         bool hasEventsOfDisplayIndex(int dispIndex)
         {
@@ -331,77 +379,77 @@ namespace GCAL.Base
             StringBuilder sb = new StringBuilder(format);
 
             if (format.IndexOf("{day}") >= 0)
-                format.Replace("{day}", date.day.ToString());
+                format = format.Replace("{day}", date.day.ToString());
             if (format.IndexOf("{month}") >= 0)
-                format.Replace("{month}", date.month.ToString());
+                format = format.Replace("{month}", date.month.ToString());
             if (format.IndexOf("{monthAbr}") >= 0)
-                format.Replace("{monthAbr}", GregorianDateTime.GetMonthName(date.month));
+                format = format.Replace("{monthAbr}", GregorianDateTime.GetMonthName(date.month));
             if (format.IndexOf("{monthName}") >= 0)
-                format.Replace("{monthName}", GregorianDateTime.GetMonthName(date.month));
+                format = format.Replace("{monthName}", GregorianDateTime.GetMonthName(date.month));
             if (format.IndexOf("{year}") >= 0)
-                format.Replace("{year}", date.year.ToString());
+                format = format.Replace("{year}", date.year.ToString());
             if (format.IndexOf("{hour}") >= 0)
-                format.Replace("{hour}", date.GetHour().ToString("D2"));
+                format = format.Replace("{hour}", date.GetHour().ToString("D2"));
             if (format.IndexOf("{min}") >= 0)
-                format.Replace("{min}", date.GetMinute().ToString("D2"));
+                format = format.Replace("{min}", date.GetMinute().ToString("D2"));
             if (format.IndexOf("{minRound}") >= 0)
-                format.Replace("{minRound}", date.GetMinuteRound().ToString("D2"));
+                format = format.Replace("{minRound}", date.GetMinuteRound().ToString("D2"));
             if (format.IndexOf("{sec}") >= 0)
-                format.Replace("{sec}", date.GetSecond().ToString("D2"));
+                format = format.Replace("{sec}", date.GetSecond().ToString("D2"));
 
             if (format.IndexOf("{masaName}") >= 0)
-                format.Replace("{masaName}", GCMasa.GetName(astrodata.nMasa));
+                format = format.Replace("{masaName}", GCMasa.GetName(astrodata.nMasa));
             if (format.IndexOf("{gaurabdaYear}") >= 0)
-                format.Replace("{gaurabdaYear}", astrodata.nGaurabdaYear.ToString());
+                format = format.Replace("{gaurabdaYear}", astrodata.nGaurabdaYear.ToString());
             if (format.IndexOf("{tithiName}") >= 0)
-                format.Replace("{tithiName}", GCTithi.GetName(astrodata.nTithi));
+                format = format.Replace("{tithiName}", GCTithi.GetName(astrodata.nTithi));
             if (format.IndexOf("{prevTithiName}") >= 0)
-                format.Replace("{prevTithiName}", GCTithi.GetName((astrodata.nTithi + 29) % 30));
+                format = format.Replace("{prevTithiName}", GCTithi.GetName((astrodata.nTithi + 29) % 30));
             if (format.IndexOf("{nextTithiName}") >= 0)
-                format.Replace("{nextTithiName}", GCTithi.GetName((astrodata.nTithi + 1) % 30));
+                format = format.Replace("{nextTithiName}", GCTithi.GetName((astrodata.nTithi + 1) % 30));
             if (format.IndexOf("{paksaName}") >= 0)
-                format.Replace("{paksaName}", GCPaksa.GetName(astrodata.nPaksa));
+                format = format.Replace("{paksaName}", GCPaksa.GetName(astrodata.nPaksa));
             if (format.IndexOf("{yogaName}") >= 0)
-                format.Replace("{yogaName}", GCYoga.GetName(astrodata.nYoga));
+                format = format.Replace("{yogaName}", GCYoga.GetName(astrodata.nYoga));
             if (format.IndexOf("{naksatraName}") >= 0)
-                format.Replace("{naksatraName}", GCNaksatra.GetName(astrodata.nNaksatra));
+                format = format.Replace("{naksatraName}", GCNaksatra.GetName(astrodata.nNaksatra));
             if (format.IndexOf("{naksatraElapse}") >= 0)
-                format.Replace("{naksatraElapse}", astrodata.nNaksatraElapse.ToString("P2"));
+                format = format.Replace("{naksatraElapse}", astrodata.nNaksatraElapse.ToString("P2"));
             if (format.IndexOf("{naksatraPada}") >= 0)
-                format.Replace("{naksatraPada}", GCNaksatra.GetPadaText(astrodata.NaksatraPada));
+                format = format.Replace("{naksatraPada}", GCNaksatra.GetPadaText(astrodata.NaksatraPada));
 
             if (format.IndexOf("{sankranti.day}") >= 0)
-                format.Replace("{sankranti.day}", sankranti_day.day.ToString());
+                format = format.Replace("{sankranti.day}", sankranti_day.day.ToString());
             if (format.IndexOf("{sankranti.month}") >= 0)
-                format.Replace("{sankranti.month}", sankranti_day.month.ToString());
+                format = format.Replace("{sankranti.month}", sankranti_day.month.ToString());
             if (format.IndexOf("{sankranti.monthAbr}") >= 0)
-                format.Replace("{sankranti.monthAbr}", GregorianDateTime.GetMonthName(sankranti_day.month));
+                format = format.Replace("{sankranti.monthAbr}", GregorianDateTime.GetMonthName(sankranti_day.month));
             if (format.IndexOf("{sankranti.monthName}") >= 0)
-                format.Replace("{sankranti.monthName}", GregorianDateTime.GetMonthName(sankranti_day.month));
+                format = format.Replace("{sankranti.monthName}", GregorianDateTime.GetMonthName(sankranti_day.month));
             if (format.IndexOf("{sankranti.hour}") >= 0)
-                format.Replace("{sankranti.hour}", sankranti_day.GetHour().ToString("D2"));
+                format = format.Replace("{sankranti.hour}", sankranti_day.GetHour().ToString("D2"));
             if (format.IndexOf("{sankranti.min}") >= 0)
-                format.Replace("{sankranti.min}", sankranti_day.GetMinute().ToString("D2"));
+                format = format.Replace("{sankranti.min}", sankranti_day.GetMinute().ToString("D2"));
             if (format.IndexOf("{sankranti.minRound}") >= 0)
-                format.Replace("{sankranti.minRound}", sankranti_day.GetMinuteRound().ToString("D2"));
+                format = format.Replace("{sankranti.minRound}", sankranti_day.GetMinuteRound().ToString("D2"));
             if (format.IndexOf("{sankranti.sec}") >= 0)
-                format.Replace("{sankranti.sec}", sankranti_day.GetSecond().ToString("D2"));
+                format = format.Replace("{sankranti.sec}", sankranti_day.GetSecond().ToString("D2"));
             if (format.IndexOf("{sankranti.rasiNameEn}") >= 0)
-                format.Replace("{sankranti.rasiNameEn}", GCRasi.GetNameEn(sankranti_zodiac));
+                format = format.Replace("{sankranti.rasiNameEn}", GCRasi.GetNameEn(sankranti_zodiac));
             if (format.IndexOf("{sankranti.rasiName}") >= 0)
-                format.Replace("{sankranti.rasiName}", GCRasi.GetName(sankranti_zodiac));
+                format = format.Replace("{sankranti.rasiName}", GCRasi.GetName(sankranti_zodiac));
 
             if (format.IndexOf("{dstSig}") >= 0)
-                format.Replace("{dstSig}", GCStrings.GetDSTSignature(nDST));
+                format = format.Replace("{dstSig}", GCStrings.GetDSTSignature(nDST));
 
             if (format.IndexOf("{moonRiseTime}") >= 0)
-                format.Replace("{moonRiseTime}", moonrise.ToShortTimeString());
+                format = format.Replace("{moonRiseTime}", moonrise.ToShortTimeString());
             if (format.IndexOf("{moonSetTime}") >= 0)
-                format.Replace("{moonSetTime}", moonset.ToShortTimeString());
+                format = format.Replace("{moonSetTime}", moonset.ToShortTimeString());
             if (format.IndexOf("{moonRasiName}") >= 0)
-                format.Replace("{moonRasiName}", GCRasi.GetName(astrodata.nMoonRasi));
+                format = format.Replace("{moonRasiName}", GCRasi.GetName(astrodata.nMoonRasi));
             if (format.IndexOf("{moonRasiNameEn}") >= 0)
-                format.Replace("{moonRasiNameEn}", GCRasi.GetNameEn(astrodata.nMoonRasi));
+                format = format.Replace("{moonRasiNameEn}", GCRasi.GetNameEn(astrodata.nMoonRasi));
 
             if (args == null || args.Length == 0)
                 return format.ToString();
@@ -439,7 +487,7 @@ namespace GCAL.Base
         {
             if (HasExtraFastingNote())
             {
-                if (nMhdType == MahadvadasiType.EV_NULL)
+                if (nMahadvadasiID == MahadvadasiType.EV_NULL)
                 {
                     return GCStrings.getString(58);
                 }

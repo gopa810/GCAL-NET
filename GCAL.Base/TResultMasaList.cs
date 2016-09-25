@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class TResultMasaList
+    public class TResultMasaList: TResultBase
     {
         public List<TResultMasa> arr = new List<TResultMasa>();
         public GregorianDateTime vc_end;
@@ -24,6 +26,40 @@ namespace GCAL.Base
             arr.Clear();
         }
 
+        public override GSCore GetPropertyValue(string s)
+        {
+            switch (s)
+            {
+                case "items":
+                    GSList list = new GSList();
+                    foreach (TResultMasa m in arr)
+                        list.Add(m);
+                    return list;
+                case "startDate":
+                    return vc_start;
+                case "endDate":
+                    return vc_end;
+                case "countYears":
+                    return new GSNumber(n_countYears);
+                case "countMasa":
+                    return new GSNumber(n_countMasa);
+                case "startYear":
+                    return new GSNumber(n_startYear);
+                case "location":
+                    return m_location;
+                default:
+                    break;
+            }
+            return base.GetPropertyValue(s);
+        }
+
+        /// <summary>
+        /// Calculation of Masa List
+        /// </summary>
+        /// <param name="loc">Location</param>
+        /// <param name="nYear">Starting year</param>
+        /// <param name="nCount">Number of years</param>
+        /// <returns></returns>
         public int CalculateMasaList(CLocationRef loc, int nYear, int nCount)
         {
             GCAstroData day = new GCAstroData();
@@ -36,12 +72,12 @@ namespace GCAL.Base
             mlist.n_countYears = nCount;
             mlist.vc_start = new GregorianDateTime();
             mlist.vc_end = new GregorianDateTime();
-            d.Set(GCAstroData.GetFirstDayOfYear(earth, nYear));
-            de.Set(GCAstroData.GetFirstDayOfYear(earth, nYear + nCount));
-            mlist.vc_start.Set(d);
-            mlist.vc_end.Set(de);
-            mlist.m_location.Set(loc);
+            mlist.vc_start.Set(GCAstroData.GetFirstDayOfYear(earth, nYear));
+            mlist.vc_end.Set(GCAstroData.GetFirstDayOfYear(earth, nYear + nCount));
+            mlist.m_location = loc;
 
+            d.Set(mlist.vc_start);
+            de.Set(mlist.vc_end);
 
             int i = 0;
             int prev_paksa = -1;
@@ -63,7 +99,7 @@ namespace GCAL.Base
                             t.PreviousDay();
                             if (mlist.arr.Count <= current)
                                 mlist.arr.Add(new TResultMasa());
-                            mlist.arr[current].vc_end.Set(t);
+                            mlist.arr[current].vc_end = new GregorianDateTime(t);
                             current++;
                         }
                         lm = day.nMasa;
@@ -71,7 +107,7 @@ namespace GCAL.Base
                             mlist.arr.Add(new TResultMasa());
                         mlist.arr[current].masa = day.nMasa;
                         mlist.arr[current].year = day.nGaurabdaYear;
-                        mlist.arr[current].vc_start.Set(d);
+                        mlist.arr[current].vc_start = new GregorianDateTime(d);
                     }
                 }
                 prev_paksa = day.nPaksa;
@@ -79,128 +115,95 @@ namespace GCAL.Base
                 i++;
             }
 
-            mlist.arr[current].vc_end.Set(d);
+            mlist.arr[current].vc_end = new GregorianDateTime(d);
             current++;
             mlist.n_countMasa = current;
 
             return 1;
         }
 
-        public int formatText(StringBuilder str)
+        /// <summary>
+        /// Generates text file based on given data format template
+        /// </summary>
+        /// <param name="str">Output stream</param>
+        /// <param name="df">Requested data format</param>
+        /// <returns></returns>
+        public override string formatText(string df)
         {
-            String stt;
-            TResultMasaList mlist = this;
-            GCStringBuilder sb = new GCStringBuilder();
-
-            sb.Target = str;
-            sb.Format = GCStringBuilder.FormatType.PlainText;
-
-            str.Clear();
-            str.AppendFormat(" {0}\r\n\r\n{1}: {2}\r\n", GCStrings.getString(39), GCStrings.getString(40), mlist.m_location.GetFullName());
-            str.AppendFormat("{0} {1} {2} {3} {4} {5} {6} {7}\r\n", GCStrings.getString(41), mlist.vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_start.month), mlist.vc_start.year
-                , GCStrings.getString(42), mlist.vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_end.month), mlist.vc_end.year);
-            str.Append("==================================================================\r\n\r\n");
-
-            int i;
-
-            for (i = 0; i < mlist.n_countMasa; i++)
+            GSScript script = new GSScript();
+            switch (df)
             {
-                stt = string.Format("{0} {1}", GCMasa.GetName(mlist.arr[i].masa), mlist.arr[i].year);
-                str.Append(stt.PadRight(30, ' '));
-                stt = string.Format("{0} {1} {2} - ", mlist.arr[i].vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_start.month), mlist.arr[i].vc_start.year);
-                str.Append(stt.PadLeft(16, ' '));
-                stt = string.Format("   {0} {1} {2}\r\n", mlist.arr[i].vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_end.month), mlist.arr[i].vc_end.year);
-                str.Append(stt.PadLeft(13, ' '));
+                case GCDataFormat.PlainText:
+                    script.readTextTemplate(Properties.Resources.TplMasaListPlain);
+                    break;
+                case GCDataFormat.Rtf:
+                    script.readTextTemplate(Properties.Resources.TplMasaListRtf);
+                    break;
+                case GCDataFormat.HTML:
+                    script.readTextTemplate(Properties.Resources.TplMasaListHtml);
+                    break;
+                case GCDataFormat.XML:
+                    script.readTextTemplate(Properties.Resources.TplMasaListXml);
+                    break;
+                case GCDataFormat.CSV:
+                    script.readTextTemplate(Properties.Resources.TplMasaListCsv);
+                    break;
+                default:
+                    break;
             }
 
-            sb.AppendNote();
-            sb.AppendDocumentTail();
 
-            return 1;
+            GSExecutor engine = new GSExecutor();
+            engine.SetVariable("mlist", this);
+            engine.SetVariable("location", this.m_location);
+            engine.SetVariable("app", GCUserInterface.Shared);
+            engine.ExecuteElement(script);
+
+            return engine.getOutput();
         }
 
-        public int formatRtf(StringBuilder str)
+        public override TResultFormatCollection getFormats()
         {
-            String stt;
-            String stt2;
-            TResultMasaList mlist = this;
+            TResultFormatCollection coll = base.getFormats();
 
-            GCStringBuilder sb = new GCStringBuilder();
-            sb.Target = str;
-            sb.Format = GCStringBuilder.FormatType.RichText;
-            sb.fontSizeH1 = GCLayoutData.textSizeH1;
-            sb.fontSizeH2 = GCLayoutData.textSizeH2;
-            sb.fontSizeText = GCLayoutData.textSizeText;
-            sb.fontSizeNote = GCLayoutData.textSizeNote;
-
-            sb.AppendDocumentHeader();
-
-            str.Clear();
-            str.AppendFormat("{\\fs{0}\\f2 {1}}\\par\\tx{2}\\tx{3}\\f2\\fs{4}\r\n\\par\r\n{5}: {6}\\par\r\n"
-                , GCLayoutData.textSizeH1
-                , GCStrings.getString(39), 1000 * GCLayoutData.textSizeText / 24, 4000 * GCLayoutData.textSizeText / 24
-                , GCLayoutData.textSizeText, GCStrings.getString(40), mlist.m_location.GetFullName());
-            str.AppendFormat("{0} {1} {2} {3} {4} {5} {6} {7}\\par\r\n", GCStrings.getString(41), mlist.vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_start.month), mlist.vc_start.year
-                , GCStrings.getString(42), mlist.vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_end.month), mlist.vc_end.year);
-            str.Append("==================================================================\\par\r\n\\par\r\n");
-
-            int i;
-
-            for (i = 0; i < mlist.n_countMasa; i++)
-            {
-                str.AppendFormat("\\tab {0} {1}\\tab ", GCMasa.GetName(mlist.arr[i].masa), mlist.arr[i].year);
-                str.AppendFormat("{0} {1} {2} - ", mlist.arr[i].vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_start.month), mlist.arr[i].vc_start.year);
-                str.AppendFormat("{0} {1} {2}\\par\r\n", mlist.arr[i].vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_end.month), mlist.arr[i].vc_end.year);
-            }
-
-            sb.AppendNote();
-            sb.AppendDocumentTail();
-
-            return 1;
+            coll.ResultName = "MasaList";
+            coll.Formats.Add(new TResultFormat("Text File", "txt", GCDataFormat.PlainText));
+            coll.Formats.Add(new TResultFormat("Rich Text File", "rtf", GCDataFormat.Rtf));
+            coll.Formats.Add(new TResultFormat("XML File", "xml", GCDataFormat.XML));
+            coll.Formats.Add(new TResultFormat("Comma Separated Values", "csv", GCDataFormat.CSV));
+            coll.Formats.Add(new TResultFormat("HTML File (in List format)", "htm", GCDataFormat.HTML));
+            return coll;
         }
-
-        public int writeHtml(StringBuilder f)
-        {
-            TResultMasaList mlist = this;
-
-            f.Append("<html>\n<head>\n<title>Masa List</title>\n\n");
-            f.Append("<style>\n<!--\nbody {\n  font-family:Verdana;\n  font-size:11pt;\n}\n\ntd.hed {\n  font-size:11pt;\n  font-weight:bold;\n");
-            f.Append("  background:#aaaaaa;\n  color:white;\n  text-align:center;\n  vertical-align:center;\n  padding-left:15pt;\n  padding-right:15pt;\n");
-            f.Append("  padding-top:5pt;\n  padding-bottom:5pt;\n}\n-->\n</style>\n");
-            f.Append("</head>\n");
-            f.Append("<body>\n\n");
-
-            f.AppendFormat("<p style=\'text-align:center\'><span style=\'font-size:14pt\'>Masa List</span></br>{0}: {1}</p>\n", GCStrings.getString(40), mlist.m_location.GetFullName());
-            f.AppendFormat("<p align=center>{0} {1} {2} {3} {4} {5} {6} {7}</p>\n", GCStrings.getString(41), mlist.vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_start.month), mlist.vc_start.year
-                , GCStrings.getString(42), mlist.vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.vc_end.month), mlist.vc_end.year);
-            f.Append("<hr width=\"50%%\">");
-
-            f.Append("<table align=center>");
-            f.Append("<tr><td class=\"hed\" style=\'text-align:left\'>MASA NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td class=\"hed\">START</td><td class=\"hed\">END</td></tr>");
-            int i;
-            for (i = 0; i < mlist.n_countMasa; i++)
-            {
-                f.Append("<tr>");
-                f.AppendFormat("<td>{0} {1}&nbsp;&nbsp;&nbsp;&nbsp;</td>", GCMasa.GetName(mlist.arr[i].masa), mlist.arr[i].year);
-                f.AppendFormat("<td>{0} {1} {2}</td>", mlist.arr[i].vc_start.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_start.month), mlist.arr[i].vc_start.year);
-                f.AppendFormat("<td>{0} {1} {2}</td>", mlist.arr[i].vc_end.day, GregorianDateTime.GetMonthAbreviation(mlist.arr[i].vc_end.month), mlist.arr[i].vc_end.year);
-                f.Append("</tr>");
-            }
-            f.Append("</table>");
-            f.AppendFormat("<hr width=\"50%%\">\n<p align=center>Generated by {0}</p>", GCStrings.getString(130));
-            f.Append("</body></html>");
-            return 1;
-        }
-
 
     }
 
-    public class TResultMasa
+    public class TResultMasa: GSCore
 	{
 		public int masa;
 		public int year;
 		public GregorianDateTime vc_start;
 		public GregorianDateTime vc_end;
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            switch (s)
+            {
+                case "masa":
+                    return new GSNumber(masa);
+                case "masaName":
+                    return new GSString(GCMasa.GetName(masa));
+                case "year":
+                    return new GSNumber(year);
+                case "startDate":
+                    return vc_start;
+                case "endDate":
+                    return vc_end;
+                default:
+                    break;
+            }
+            return base.GetPropertyValue(s);
+        }
+
 	};
 
 }

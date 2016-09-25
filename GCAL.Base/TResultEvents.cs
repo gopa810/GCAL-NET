@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class TResultEvents
+    public class TResultEvents: TResultBase
     {
         public const int SORTING_BY_TYPE = 0;
         public const int SORTING_BY_DATE = 1;
@@ -21,6 +23,31 @@ namespace GCAL.Base
         }
 
         public List<TDayEvent> p_events = new List<TDayEvent>();
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            if (s.Equals("items"))
+            {
+                GSList list = new GSList();
+                foreach (TDayEvent de in p_events)
+                {
+                    list.Add(de);
+                }
+                return list;
+            }
+            else if (s.Equals("startDate"))
+                return StartDateTime;
+            else if (s.Equals("endDate"))
+                return EndDateTime;
+            else if (s.Equals("isSortedByTime"))
+                return new GSBoolean(SortType == TResultEvents.SORTING_BY_DATE);
+            else if (s.Equals("isSortedByType"))
+                return new GSBoolean(SortType == TResultEvents.SORTING_BY_TYPE);
+            else
+            {
+                return base.GetPropertyValue(s);
+            }
+        }
 
         public bool AddEvent(GregorianDateTime inTime, int inType, int inData, int inDst)
         {
@@ -97,17 +124,17 @@ namespace GCAL.Base
 
         public void CalculateEvents(CLocationRef loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
         {
-            GregorianDateTime vc = new GregorianDateTime();
             GCSunData sun = new GCSunData();
             int ndst = 0;
             int nData;
 
             TResultEvents inEvents = this;
             this.Clear();
-            this.EarthLocation.Set(loc);
-            this.StartDateTime.Set(vcStart);
-            this.EndDateTime.Set(vcEnd);
+            this.EarthLocation = loc;
+            this.StartDateTime = new GregorianDateTime(vcStart);
+            this.EndDateTime = new GregorianDateTime(vcEnd);
 
+            GregorianDateTime vc = new GregorianDateTime();
             GregorianDateTime vcAdd = new GregorianDateTime(), vcNext = new GregorianDateTime();
             GCEarthData earth = loc.EARTHDATA();
 
@@ -454,253 +481,52 @@ namespace GCAL.Base
                 inEvents.Sort(SORTING_BY_TYPE);
         }
 
-        public int FormatPlainText(StringBuilder res)
+        public override string formatText(string df)
         {
-            int i;
-
-            GCStringBuilder sb = new GCStringBuilder();
-
-            sb.Target = res;
-            sb.Format = GCStringBuilder.FormatType.PlainText;
-
-            TResultEvents inEvents = this;
-
-            res.Clear();
-            res.AppendFormat("Events from {0} {1} {2} to {3} {4} {5}.\r\n\r\n",
-                inEvents.StartDateTime.day,
-                GregorianDateTime.GetMonthAbreviation(inEvents.StartDateTime.month),
-                inEvents.StartDateTime.year,
-                inEvents.EndDateTime.day,
-                GregorianDateTime.GetMonthAbreviation(inEvents.EndDateTime.month),
-                inEvents.EndDateTime.year);
-
-            res.Append(inEvents.EarthLocation.GetFullName());
-            res.Append("\r\n\r\n");
-
-            GregorianDateTime prevd = new GregorianDateTime();
-            int prevt = -1;
-
-            prevd.day = 0;
-            prevd.month = 0;
-            prevd.year = 0;
-            for (i = 0; i < inEvents.p_events.Count; i++)
+            GSScript script = new GSScript();
+            switch (df)
             {
-                TDayEvent dnr = inEvents[i];
-
-                if (inEvents.SortType == TResultEvents.SORTING_BY_DATE)
-                {
-                    if (prevd.day != dnr.Time.day || prevd.month != dnr.Time.month || prevd.year != dnr.Time.year)
-                    {
-                        res.AppendFormat("\r\n ===========  {0} - {1} ====================================\r\n\r\n",
-                            dnr.Time.ToString(), GCCalendar.GetWeekdayName(dnr.Time.dayOfWeek));
-                    }
-                    prevd.Set(dnr.Time);
-                }
-                else
-                {
-                    if (prevt != dnr.nType)
-                    {
-                        res.AppendFormat("\r\n ========== {0} ==========================================\r\n\r\n",
-                            dnr.GroupNameString);
-                        prevt = dnr.nType;
-                    }
-                }
-
-                res.AppendFormat("            {0} {1}   {2}\r\n", dnr.Time.LongTimeString(), 
-                    GCStrings.GetDSTSignature(dnr.nDst), dnr.TypeString);
+                case GCDataFormat.PlainText:
+                    script.readTextTemplate(Properties.Resources.TplCoreEventsPlain);
+                    break;
+                case GCDataFormat.Rtf:
+                    script.readTextTemplate(Properties.Resources.TplCoreEventsRtf);
+                    break;
+                case GCDataFormat.HTML:
+                    script.readTextTemplate(Properties.Resources.TplCoreEventsHtml);
+                    break;
+                case GCDataFormat.XML:
+                    script.readTextTemplate(Properties.Resources.TplCoreEventsXml);
+                    break;
+                case GCDataFormat.CSV:
+                    script.readTextTemplate(Properties.Resources.TplCoreEventsCsv);
+                    break;
+                default:
+                    break;
             }
 
-            res.Append("\r\n");
 
-            sb.AppendNote();
+            GSExecutor engine = new GSExecutor();
+            engine.SetVariable("events", this);
+            engine.SetVariable("location", this.EarthLocation);
+            engine.SetVariable("app", GCUserInterface.Shared);
+            engine.ExecuteElement(script);
 
-            return 1;
-
+            return engine.getOutput();
         }
 
-        public string FormatXml(StringBuilder strXml)
+        public override TResultFormatCollection getFormats()
         {
-            TResultEvents inEvents = this;
-            int i;
+            TResultFormatCollection coll = base.getFormats();
 
-            if (strXml == null)
-                strXml = new StringBuilder();
-
-            strXml.Clear();
-            strXml.AppendFormat("<xml>\r\n<program version=\"{0}\">\r\n<location longitude=\"{1}\" latitude=\"{2}\" timezone=\"{3}\" dst=\"{4}\" />\n"
-                , GCStrings.getString(130), inEvents.EarthLocation.longitudeDeg, inEvents.EarthLocation.latitudeDeg
-                , inEvents.EarthLocation.offsetUtcHours, TTimeZone.GetTimeZoneName(inEvents.EarthLocation.timezoneId));
-            GregorianDateTime prevd = new GregorianDateTime();
-
-            prevd.day = 0;
-            prevd.month = 0;
-            prevd.year = 0;
-            for (i = 0; i < inEvents.p_events.Count; i++)
-            {
-                TDayEvent dnr = inEvents[i];
-
-                if (inEvents.SortType == TResultEvents.SORTING_BY_DATE)
-                {
-                    if (prevd.day != dnr.Time.day || prevd.month != dnr.Time.month || prevd.year != dnr.Time.year)
-                    {
-                        strXml.AppendFormat("\t<day date=\"{0}/{1}/{2}\" />\n", dnr.Time.day, dnr.Time.month, dnr.Time.year);
-                    }
-                    prevd.Set(dnr.Time);
-                }
-
-                strXml.AppendFormat("\t<event type=\"{0}\" time=\"{1}\" dst=\"{2}\" />\n", dnr.TypeString,
-                    dnr.Time.LongTimeString(), dnr.nDst);
-
-            }
-
-            strXml.Append("</xml>\n");
-
-            return strXml.ToString();
-
+            coll.ResultName = "CoreEvents";
+            coll.Formats.Add(new TResultFormat("Text File", "txt", GCDataFormat.PlainText));
+            coll.Formats.Add(new TResultFormat("Rich Text File", "rtf", GCDataFormat.Rtf));
+            coll.Formats.Add(new TResultFormat("XML File", "xml", GCDataFormat.XML));
+            coll.Formats.Add(new TResultFormat("Comma Separated Values", "csv", GCDataFormat.CSV));
+            coll.Formats.Add(new TResultFormat("HTML File (in List format)", "htm", GCDataFormat.HTML));
+            return coll;
         }
-
-        public int formatRtf(StringBuilder res)
-        {
-            int i;
-            TResultEvents inEvents = this;
-
-            GCStringBuilder sb = new GCStringBuilder();
-
-            sb.Target = res;
-            sb.Format = GCStringBuilder.FormatType.RichText;
-            sb.fontSizeH1 = GCLayoutData.textSizeH1;
-            sb.fontSizeH2 = GCLayoutData.textSizeH2;
-            sb.fontSizeText = GCLayoutData.textSizeText;
-            sb.fontSizeNote = GCLayoutData.textSizeNote;
-
-            res.Clear();
-
-            sb.AppendDocumentHeader();
-
-            sb.AppendHeader1("Events");
-
-            sb.AppendLine();
-            sb.AppendLine(" From {0} to {1}.", inEvents.StartDateTime.ToString(), inEvents.EndDateTime.ToString());
-            sb.AppendLine(inEvents.EarthLocation.GetFullName());
-            sb.AppendLine();
-
-
-            GregorianDateTime prevd = new GregorianDateTime();
-            int prevt = -1;
-
-            prevd.day = 0;
-            prevd.month = 0;
-            prevd.year = 0;
-            for (i = 0; i < inEvents.p_events.Count; i++)
-            {
-                TDayEvent dnr = inEvents[i];
-
-                if (inEvents.SortType == TResultEvents.SORTING_BY_DATE)
-                {
-                    if (prevd.day != dnr.Time.day || prevd.month != dnr.Time.month || prevd.year != dnr.Time.year)
-                    {
-                        sb.AppendLine();
-                        sb.AppendFormat(" ===========  {0} {1} {2}  - {3} =================================== ", dnr.Time.day, GregorianDateTime.GetMonthAbreviation(dnr.Time.month), dnr.Time.year,
-                            GCCalendar.GetWeekdayName(dnr.Time.dayOfWeek));
-                        sb.AppendLine();
-                        sb.AppendLine();
-                    }
-                    prevd.Set(dnr.Time);
-                }
-                else
-                {
-                    if (prevt != dnr.nType)
-                    {
-                        sb.AppendLine();
-                        sb.AppendFormat(" ========== {0} ========================================== ", dnr.GroupNameString);
-                        sb.AppendLine();
-                        sb.AppendLine();
-                        prevt = dnr.nType;
-                    }
-                }
-
-                sb.AppendFormat("            {0} {1}   {2}",
-                    dnr.Time.LongTimeString(), GCStrings.GetDSTSignature(dnr.nDst), dnr.TypeString);
-                sb.AppendLine();
-            }
-
-            sb.AppendLine();
-            sb.AppendNote();
-            sb.AppendDocumentTail();
-
-
-            return 1;
-
-        }
-
-        public int writeHtml(StringBuilder xml)
-        {
-            TResultEvents inEvents = this;
-            int i;
-
-            xml.Clear();
-            xml.Append("<html>\n<head>\n<title>Core Events</title>\n\n");
-            xml.Append("<style>\n<!--\nbody {\n  font-family:Verdana;\n  font-size:11pt;\n}\n\ntd.hed {\n  font-size:11pt;\n  font-weight:bold;\n");
-            xml.Append("  background:#aaaaaa;\n  color:white;\n  text-align:center;\n  vertical-align:center;\n  padding-left:15pt;\n  padding-right:15pt;\n");
-            xml.Append("  padding-top:5pt;\n  padding-bottom:5pt;\n}\n-->\n</style>\n");
-            xml.Append("</head>\n");
-            xml.Append("<body>\n\n");
-            xml.AppendFormat("<h1 align=center>Events</h1>\n<p align=center>From {0} {1} {2} to {3} {4} {5}.</p>\n\n",
-                inEvents.StartDateTime.day,
-                GregorianDateTime.GetMonthAbreviation(inEvents.StartDateTime.month),
-                inEvents.StartDateTime.year,
-                inEvents.EndDateTime.day,
-                GregorianDateTime.GetMonthAbreviation(inEvents.EndDateTime.month),
-                inEvents.EndDateTime.year);
-
-            xml.AppendFormat("<p align=center>{0}</p>\n", inEvents.EarthLocation.GetFullName());
-
-            GregorianDateTime prevd = new GregorianDateTime();
-            int prevt = -1;
-
-            prevd.day = 0;
-            prevd.month = 0;
-            prevd.year = 0;
-
-            xml.Append("<table align=center><tr>\n");
-            for (i = 0; i < inEvents.p_events.Count; i++)
-            {
-                TDayEvent dnr = inEvents[i];
-
-                if (inEvents.SortType == TResultEvents.SORTING_BY_TYPE)
-                {
-                    if (prevd.day != dnr.Time.day || prevd.month != dnr.Time.month || prevd.year != dnr.Time.year)
-                    {
-                        xml.AppendFormat("<td class=\"hed\" colspan=2>{0} </td></tr>\n<tr>",
-                            dnr.Time.ToString());
-                    }
-                    prevd.Set(dnr.Time);
-                }
-                else
-                {
-                    if (prevt != dnr.nType)
-                    {
-                        xml.AppendFormat("<td class=\"hed\" colspan=3>{0}</td></tr>\n<tr>\n", dnr.GroupNameString);
-                        prevt = dnr.nType;
-                    }
-                }
-
-                if (inEvents.SortType == TResultEvents.SORTING_BY_DATE)
-                {
-                    xml.AppendFormat("<td>{0} {1} {2} </td>", dnr.Time.day, GregorianDateTime.GetMonthAbreviation(dnr.Time.month), dnr.Time.year);
-                }
-
-                xml.AppendFormat("<td>{0}</td><td>{1}</td></tr><tr>\n", dnr.TypeString, dnr.Time.LongTimeString());
-            }
-
-            xml.Append("</tr></table>\n");
-            xml.AppendFormat("<hr align=center width=\"50%%\">\n<p align=center>Generated by {0}</p>", GCStrings.getString(130));
-            xml.Append("</body>\n</html>\n");
-
-            return 1;
-
-        }
-
 
     }
 
@@ -736,7 +562,7 @@ namespace GCAL.Base
 
     };
 
-    public class TDayEvent
+    public class TDayEvent: GSCore
     {
         public int nType;
         public int nData;
@@ -748,6 +574,35 @@ namespace GCAL.Base
             nData = de.nData;
             Time.Set(de.Time);
             nDst = de.nDst;
+        }
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            switch (s)
+            {
+                case "nType":
+                    return new GSNumber(nType);
+                case "nData":
+                    return new GSNumber(nType);
+                case "Time":
+                    return Time;
+                case "nDst":
+                    return new GSNumber(nDst);
+                case "tithiName":
+                    return new GSString(GCTithi.GetName(nData));
+                case "naksatraName":
+                    return new GSString(GCNaksatra.GetName(nData));
+                case "rasiName":
+                    return new GSString(GCRasi.GetName(nData));
+                case "groupNameString":
+                    return new GSString(GetTypeString(nType));
+                case "typeString":
+                    return new GSString(GetTypeString(nType, nData));
+                case "dstSignature":
+                    return new GSString(GCStrings.GetDSTSignature(nDst));
+                default:
+                    return base.GetPropertyValue(s);
+            }
         }
 
         public static string GetTypeString(int nType)

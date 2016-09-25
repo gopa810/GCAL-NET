@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class GregorianDateTime
+    public class GregorianDateTime: GSCore
     {
         public int year;
         public int month;
@@ -43,6 +45,87 @@ namespace GCAL.Base
         public override string ToString()
         {
             return string.Format("{0} {1} {2:0000}", day, GregorianDateTime.GetMonthAbreviation(month), year);
+        }
+
+        public override GSCore GetPropertyValue(string Token)
+        {
+            GSCore result = null;
+            switch (Token)
+            {
+                case "day":
+                    result = new GSNumber() { IntegerValue = day };
+                    break;
+                case "month":
+                    result = new GSNumber() { IntegerValue = month };
+                    break;
+                case "monthName":
+                    result = new GSString() { Value = GetMonthName(month) };
+                    break;
+                case "monthAbbr":
+                    result = new GSString() { Value = GetMonthAbreviation(month) };
+                    break;
+                case "year":
+                    result = new GSNumber() { IntegerValue = year };
+                    break;
+                case "weekday":
+                    result = new GSNumber(dayOfWeek);
+                    break;
+                case "dayOfWeekName":
+                    result = new GSString() { Value = GCStrings.getString(dayOfWeek) };
+                    break;
+                case "dayOfWeekAbbr":
+                    result = new GSString() { Value = GCStrings.getString(dayOfWeek).Substring(0,2) };
+                    break;
+                case "dateWithExt":
+                    result = new GSString() { Value = GetDateTextWithTodayExt(this) };
+                    break;
+                case "shortDate":
+                    result = new GSString(ToString());
+                    break;
+                case "shortTime":
+                    result = new GSString(ShortTimeString());
+                    break;
+                case "longTime":
+                    result = new GSString(LongTimeString());
+                    break;
+                case "standardDateString":
+                    result = new GSString(string.Format("{0:0000}{1:00}{2:00}", year, month, day));
+                    break;
+                case "standardTimeString":
+                    result = new GSString(string.Format("{0:00}{1:00}{2:00}", GetHour(), GetMinute(), GetSecond()));
+                    break;
+                default:
+                    result = base.GetPropertyValue(Token);
+                    break;
+            }
+
+            return result;
+        }
+
+        public override GSCore ExecuteMessage(string token, GSCoreCollection args)
+        {
+            GSCore result = GSCore.Void;
+            switch (token)
+            {
+                case "setDay":
+                    day = (int)args.getSafe(0).getIntegerValue();
+                    break;
+                case "setMonth":
+                    month = (int)args.getSafe(0).getIntegerValue();
+                    break;
+                case "setYear":
+                    year = (int)args.getSafe(0).getIntegerValue();
+                    break;
+                default:
+                    return base.ExecuteMessage(token, args);
+            }
+
+            return result;
+        }
+
+        public override string getStringValue()
+        {
+            return ToString();
         }
 
         public bool IsLessThan(GregorianDateTime date)
@@ -282,11 +365,19 @@ namespace GCAL.Base
         }
 
 
+        /// <summary>
+        /// Julian Date including day hours (GMT julian date time)
+        /// </summary>
+        /// <returns></returns>
         public double GetJulianDetailed()
         {
             return GetJulian() - 0.5 + shour;
         }
 
+        /// <summary>
+        /// Julian Date including day hours and timezone (local julian date time)
+        /// </summary>
+        /// <returns></returns>
         public double GetJulianComplete()
         {
             return GetJulian() - 0.5 + shour - TimezoneHours / 24.0;
@@ -470,7 +561,7 @@ namespace GCAL.Base
             if (format.IndexOf("{month}") >= 0)
                 format.Replace("{month}", month.ToString());
             if (format.IndexOf("{monthAbr}") >= 0)
-                format.Replace("{monthAbr}", GetMonthName(month));
+                format.Replace("{monthAbr}", GetMonthAbreviation(month));
             if (format.IndexOf("{monthName}") >= 0)
                 format.Replace("{monthName}", GetMonthName(month));
             if (format.IndexOf("{hour}") >= 0)
@@ -577,5 +668,83 @@ namespace GCAL.Base
             return GCStrings.Localized(p_monthNameAbbr[(month - 1) % 12]);
         }
 
+        public string EncodedString
+        {
+            get
+            {
+                return string.Format("{0}|{1}|{2}|{3}|{4}|{5}", year, month, day, shour, TimezoneHours, dayOfWeek);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    string[] a = value.Split('|');
+                    if (a.Length == 6)
+                    {
+                        int Y, M, D, DOW;
+                        double SH, TZ;
+                        if (int.TryParse(a[0], out Y)
+                            && int.TryParse(a[1], out M)
+                            && int.TryParse(a[2], out D)
+                            && double.TryParse(a[3], out SH)
+                            && double.TryParse(a[4], out TZ)
+                            && int.TryParse(a[5], out DOW))
+                        {
+                            year = Y;
+                            month = M;
+                            day = D;
+                            dayOfWeek = DOW;
+                            shour = SH;
+                            TimezoneHours = TZ;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public GregorianDateTime TimeWithOffset(double p)
+        {
+            GregorianDateTime dt = new GregorianDateTime(this);
+            dt.shour += p;
+            dt.NormalizeValues();
+            return dt;
+        }
+
+        public static int Compare(GregorianDateTime A, GregorianDateTime B)
+        {
+            if (A.year < B.year)
+                return -1;
+            else if (A.year > B.year)
+                return 1;
+
+            if (A.month < B.month)
+                return -1;
+            else if (A.month > B.month)
+                return 1;
+
+            if (A.day < B.day)
+                return -1;
+            else if (A.day > B.day)
+                return 1;
+
+            if (A.shour < B.shour)
+                return -1;
+            else if (A.shour > B.shour)
+                return 1;
+
+            return 0;
+
+        }
+
+        /// <summary>
+        /// Adding hours to datetime
+        /// </summary>
+        /// <param name="ndst">Number of hours. For example 1.5 means 1 hour and 30 minutes</param>
+        public void AddHours(double ndst)
+        {
+            shour += ndst / 24.0;
+            NormalizeValues();
+        }
     }
 }

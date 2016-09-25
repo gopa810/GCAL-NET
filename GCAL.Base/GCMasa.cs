@@ -75,5 +75,28 @@ namespace GCAL.Base
                 default: return GetGaudiyaName(i);
             }
         }
+
+        public static int PREV_MASA(int nMasa)
+        {
+            return (nMasa + 11) % 12;
+        }
+
+        public static int NEXT_MASA(int nMasa)
+        {
+            return (nMasa + 1) % 12;
+        }
+
+        public static bool IS_EXTRA(int nMasa)
+        {
+            return nMasa == 12;
+        }
+
+        public static int MASA_DIST(int nMasa, int nMasa2)
+        {
+            int a = (nMasa - nMasa2);
+            while (a < -6)
+                a += 12;
+            return a;
+        }
     }
 }

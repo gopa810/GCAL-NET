@@ -8,7 +8,7 @@ namespace GCAL.Base
 {
     public class GCNaksatra
     {
-        public static double CalculateMidnightNaksatra(GregorianDateTime date, GCEarthData earth)
+        public static double CalculateMidnightNaksatra(GregorianDateTime date)
         {
             double d;
             double jdate;
@@ -16,7 +16,7 @@ namespace GCAL.Base
 
             date.shour = 1.0;
             jdate = date.GetJulianDetailed();
-            moon.Calculate(jdate, earth);
+            moon.Calculate(jdate);
             d = GCMath.putIn360(moon.longitude_deg - GCAyanamsha.GetAyanamsa(jdate));
             return Math.Floor((d * 3.0) / 40.0);
         }
@@ -47,7 +47,7 @@ namespace GCAL.Base
             double xj;
             GregorianDateTime xd = new GregorianDateTime();
 
-            moon.Calculate(jday, ed);
+            moon.Calculate(jday);
             l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
@@ -65,7 +65,7 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday, ed);
+                moon.Calculate(jday);
                 l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
                 if (prev_naks != new_naks)
@@ -110,7 +110,7 @@ namespace GCAL.Base
             int new_naks = -1;
 
 
-            moon.Calculate(jday, ed);
+            moon.Calculate(jday);
             l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
@@ -128,7 +128,7 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday, ed);
+                moon.Calculate(jday);
                 l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
 

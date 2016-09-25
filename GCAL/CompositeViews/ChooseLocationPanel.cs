@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
+using GCAL.Views;
 
 namespace GCAL.CompositeViews
 {
@@ -16,6 +18,12 @@ namespace GCAL.CompositeViews
         public static int nCurrentCountry = 0;
 
         public static CLocation lastLocation = null;
+
+        public ChooseLocationPanelController Controller { get; set; }
+
+        public event TBButtonPressed OnButtonYes;
+
+        public event TBButtonPressed OnLocationSelected;
 
         public ChooseLocationPanel()
         {
@@ -188,6 +196,56 @@ namespace GCAL.CompositeViews
                     break;
                 }
             }
+        }
+
+        public bool ButtonOkEnable
+        {
+            get
+            {
+                return buttonOK.Visible;
+            }
+            set
+            {
+                buttonOK.Visible = value;
+            }
+        }
+
+        public bool ButtonCancelEnable
+        {
+            get
+            {
+                return buttonCancel.Visible;
+            }
+            set
+            {
+                buttonCancel.Visible = value;
+            }
+        }
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (OnButtonYes != null)
+                OnButtonYes(this, e);
+
+            if (OnLocationSelected != null)
+                OnLocationSelected(SelectedLocation.GetLocationRef(), e);
+
+            Controller.RemoveFromContainer();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Controller.RemoveFromContainer();
+        }
+    }
+
+    public class ChooseLocationPanelController : GVCore
+    {
+        public ChooseLocationPanelController(ChooseLocationPanel v)
+        {
+            v.Controller = this;
+            View = v;
+            v.ButtonCancelEnable = true;
+            v.ButtonOkEnable = true;
         }
     }
 }

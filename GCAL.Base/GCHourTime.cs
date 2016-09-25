@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
     public struct GCHourTime
@@ -119,6 +121,10 @@ namespace GCAL.Base
             return ((Convert.ToDouble(hour) * 60.0 + Convert.ToDouble(min)) * 60.0 + Convert.ToDouble(sec)) / 86400.0;
         }
 
+        public double GetDayTime(double DstOffsetHours)
+        {
+            return ((Convert.ToDouble(hour + DstOffsetHours) * 60.0 + Convert.ToDouble(min)) * 60.0 + Convert.ToDouble(sec)) / 86400.0;
+        }
 
 
         public void SetValue(int i)
@@ -204,4 +210,47 @@ namespace GCAL.Base
 
     }
 
+    public class GCHourTimeObject : GSCore
+    {
+        public GCHourTime Value;
+
+        public GCHourTimeObject()
+        {
+            Value = new GCHourTime();
+        }
+
+        public GCHourTimeObject(GCHourTime v)
+        {
+            Value = v;
+        }
+
+        public override GSCore GetPropertyValue(string s)
+        {
+            switch (s)
+            {
+                case "shortTime":
+                    return new GSString(Value.ToShortTimeString());
+                case "longTime":
+                    return new GSString(Value.ToLongTimeString());
+                case "standardTimeString":
+                    return new GSString(String.Format("{0:00}{1:00}{2:00}", Value.hour, Value.min, Value.sec));
+                default:
+                    break;
+            }
+            return base.GetPropertyValue(s);
+        }
+
+        public override GSCore ExecuteMessage(string token, GSCoreCollection args)
+        {
+            if (token.Equals("addMinutes"))
+            {
+                Value.AddMinutes((int)args.getSafe(0).getIntegerValue());
+                return this;
+            }
+            else
+            {
+                return base.ExecuteMessage(token, args);
+            }
+        }
+    }
 }

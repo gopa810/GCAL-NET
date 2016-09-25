@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-
+using GCAL.Base.Scripting;
+using GCAL.Views;
 using GCAL.Base;
 
 namespace GCAL.CompositeViews
@@ -19,6 +20,10 @@ namespace GCAL.CompositeViews
         public bool CorrectDates = true;
         public GCEarthData EarthLocation;
 
+        public StartDatePanelController Controller { get; set; }
+
+        public event TBButtonPressed OnStartDateDone;
+
         public StartDatePanel()
         {
             InitializeComponent();
@@ -28,6 +33,19 @@ namespace GCAL.CompositeViews
             for(i = 1; i <= 12; i++) cbMonth.Items.Add(GregorianDateTime.GetMonthName(i));
             for (i = 0; i < 30; i++) cbTithi.Items.Add(GCTithi.GetName(i));
             for (i = 0; i <= 12; i++) cbMasa.Items.Add(GCMasa.GetName(i));
+        }
+
+        public string CustomTitle
+        {
+            set
+            {
+                label7.Text = value;
+            }
+
+            get
+            {
+                return label7.Text;
+            }
         }
 
         public GregorianDateTime GregorianTime
@@ -260,6 +278,54 @@ namespace GCAL.CompositeViews
             }
 
             SupressAutoUpdating = false;
+        }
+
+        public bool ButtonOkEnable
+        {
+            get
+            {
+                return buttonOK.Visible;
+            }
+            set
+            {
+                buttonOK.Visible = value;
+            }
+        }
+
+        public bool ButtonCancelEnable
+        {
+            get
+            {
+                return buttonCancel.Visible;
+            }
+            set
+            {
+                buttonCancel.Visible = value;
+            }
+        }
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (OnStartDateDone != null)
+                OnStartDateDone(GregorianTime, e);
+            Controller.RemoveFromContainer();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Controller.RemoveFromContainer();
+        }
+
+    }
+
+    public class StartDatePanelController : GVCore
+    {
+        public StartDatePanelController(StartDatePanel v)
+        {
+            View = v;
+            v.EarthLocation = GCGlobal.LastLocation.EARTHDATA();
+            v.Controller = this;
+            v.ButtonCancelEnable = true;
+            v.ButtonOkEnable = true;
         }
     }
 }

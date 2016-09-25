@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Views;
 
 namespace GCAL.CompositeViews
 {
@@ -17,82 +18,64 @@ namespace GCAL.CompositeViews
         public bool[] b_class;
         public bool updatingList = false;
         public bool changingFilter = false;
+        private int listBoxItemPadding = 4;
+        private Font listBoxTitleFont;
+        private Font listBoxSubtitleFont;
+
+        public EventsPanelDelegate Controller { get; set; }
 
         public EventsPanel()
         {
             InitializeComponent();
+
+            listBoxTitleFont = new Font(FontFamily.GenericSansSerif, 13);
+            listBoxSubtitleFont = new Font(FontFamily.GenericSansSerif, 10);
+
             int i;
             b_masa = new bool[13];
-            b_class = new bool[GCEventGroup.Groups.Length + 1];
+            b_class = new bool[GCFestivalBookCollection.Books.Count + 1];
 
             b_masa[0] = true;
             b_class[0] = true;
 
             m_wndClass.Items.Add("<All Groups>");
-            for (i = 0; i < GCEventGroup.Groups.Length; i++)
+            for (i = 0; i < GCFestivalBookCollection.Books.Count; i++)
             {
-                m_wndClass.Items.Add(GCEventGroup.Groups[i]);
+                m_wndClass.Items.Add(GCFestivalBookCollection.Books[i]);
                 b_class[i + 1] = true;
             }
 
-            m_wndMasa.Items.Add("<All Masas>");
-            for (i = 0; i < 12; i++)
-            {
-                m_wndMasa.Items.Add(GCMasa.GetName(i));
-                b_masa[i + 1] = true;
-            }
-
             m_wndClass.SelectedIndex = 0;
-            m_wndMasa.SelectedIndex = 0;
 
 
             FillListView();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public void FillListView()
         {
-            GCCalendarEvent p;
-            ListViewItem lvi;
-            m_wndList.BeginUpdate();
+            GCFestivalTithiMasa p;
             updatingList = true;
-            m_wndList.Items.Clear();
+            listBox1.BeginUpdate();
+            listBox1.Items.Clear();
 
-            for (int n = 0; n < GCCalendarEventList.Count(); n++)
+            foreach(GCFestivalBook book in GCFestivalBookCollection.Books)
             {
-                p = GCCalendarEventList.EventAtIndex(n);
-                if (p.nMasa >= 0 && p.nMasa < 12 && p.nClass >= 0 && p.nClass < 10 && b_class[p.nClass] && b_masa[p.nMasa] && p.nDeleted == 0)
+                if (book.CollectionId >= 0 && book.CollectionId < GCFestivalBookCollection.Books.Count
+                    && b_class[book.CollectionId])
                 {
-                    lvi = m_wndList.Items.Add(ListItemFromEvent(p));
-                    lvi.Tag = p;
-                    lvi.Checked = (p.nVisible != 0);
+                    foreach (GCFestivalBase fba in book.Festivals)
+                    {
+                        if (fba.nDeleted == 0)
+                        {
+                            GCListBoxEntry lbe = new GCListBoxEntry();
+                            fba.updateListBoxEntry(lbe);
+                            listBox1.Items.Add(lbe);
+                        }
+                    }
                 }
             }
             updatingList = false;
-            m_wndList.EndUpdate();
-        }
-
-        private ListViewItem ListItemFromEvent(GCCalendarEvent p)
-        {
-            ListViewItem lvi = new ListViewItem(p.strText);
-            string time = "";
-
-            lvi.SubItems.Add(GCEventGroup.Groups[p.nClass]);
-            time = string.Format("{0} - {1} - {2}",
-                GCMasa.GetName(p.nMasa),
-                GCPaksa.GetName(p.nTithi / 15),
-                GCTithi.GetName(p.nTithi % 15)
-                );
-            lvi.SubItems.Add(time);
-            lvi.SubItems.Add(GCStrings.GetFastingName(p.nFastType + 0x200));
-            lvi.SubItems.Add(p.strFastSubject);
-            lvi.SubItems.Add(p.nStartYear > -7000 ? p.nStartYear.ToString() : "");
-
-            return lvi;
+            listBox1.EndUpdate();
         }
 
         private void m_wndClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -111,38 +94,65 @@ namespace GCAL.CompositeViews
             changingFilter = false;
         }
 
-        private void m_wndMasa_SelectedIndexChanged(object sender, EventArgs e)
+        private GCListBoxEntry GetSelectedItem()
         {
-            if (changingFilter)
-                return;
-            changingFilter = true;
-            textBox1.Text = "";
-            int si = m_wndMasa.SelectedIndex;
-            for (int i = 0; i < b_masa.Length; i++)
+            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex < listBox1.Items.Count)
             {
-                b_masa[i] = (si == 0) || (si == i + 1);
+                return listBox1.Items[listBox1.SelectedIndex] as GCListBoxEntry;
             }
+            return null;
+        }
+
+        /// <summary>
+        /// OK callback from New Event dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onNewEventOK(object sender, EventArgs e)
+        {
+
+            if (sender is AskEventType)
+            {
+                AskEventType aet = sender as AskEventType;
+
+                GCFestivalBase b = aet.SelectedObject;
+                b.Text = "(Untitled)";
+                if (b != null)
+                {
+                    EventDetails d = new EventDetails();
+                    EventDetailsController dc = new EventDetailsController(d);
+                    dc.ViewContainer = Controller.ViewContainer;
+                    d.EventObject = b;
+                    d.OnButtonOK += new TBButtonPressed(onNewEventDoneOK);
+                    d.OnButtonCancel += new TBButtonPressed(onNewEventDoneCancel);
+                    d.OnButtonRelated += new TBButtonPressed(onNewEventDoneRelated);
+
+                    dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
+                }
+            }
+
+        }
+
+        private void onNewEventDoneOK(object sender, EventArgs e)
+        {
             FillListView();
-            changingFilter = false;
         }
 
-        private void m_wndList_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void onNewEventDoneCancel(object sender, EventArgs e)
         {
-            if (updatingList)
-                return;
-            (e.Item.Tag as GCCalendarEvent).nVisible = e.Item.Checked ? 1 : 0;
-            GCGlobal.customEventListModified = true;
         }
 
-        private void m_wndList_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void onNewEventDoneRelated(object sender, EventArgs e)
         {
-            if (updatingList)
-                return;
-            GCCalendarEvent ce = m_wndList.Items[e.Index].Tag as GCCalendarEvent;
-            if (ce.nUsed == 0)
-            {
-                e.NewValue = CheckState.Checked;
-            }
+        }
+
+        /// <summary>
+        /// Cancel callback from New Event dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onNewEventCancel(object sender, EventArgs e)
+        {
         }
 
         /// <summary>
@@ -152,16 +162,15 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            DlgEditCustomEvent d = new DlgEditCustomEvent();
 
-            if (d.ShowDialog() == DialogResult.OK)
+            AskEventType d = new AskEventType();
+            AskEventTypeController dc = new AskEventTypeController(d);
+
+            if (Controller.ViewContainer != null)
             {
-                GCCalendarEvent ce = d.ce;
-
-                GCGlobal.customEventList.add(ce);
-                GCGlobal.customEventListModified = true;
-			    GCStrings.SetSpecFestivalName(ce.nSpec, ce.strText);
-			    FillListView();
+                d.OnButtonOK += new TBButtonPressed(onNewEventOK);
+                d.OnButtonCancel += new TBButtonPressed(onNewEventCancel);
+                dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);
             }
         }
 
@@ -172,21 +181,52 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            DlgEditCustomEvent d = new DlgEditCustomEvent();
-
-            if (m_wndList.SelectedItems.Count == 0)
-                return;
-
-
-            GCCalendarEvent ce = m_wndList.SelectedItems[0].Tag as GCCalendarEvent;
-
-            d.ce = ce;
-            if (d.ShowDialog() == DialogResult.OK)
+            GCListBoxEntry item = GetSelectedItem();
+            if (item != null && item.Tag != null)
             {
-                GCGlobal.customEventListModified = true;
-                GCStrings.SetSpecFestivalName(ce.nSpec, ce.strText);
-                FillListView();
+                GCFestivalBase b = item.Tag as GCFestivalBase;
+                EventDetails d = new EventDetails();
+                d.EventObject = b;
+                d.OnButtonOK += new TBButtonPressed(onNewEventDoneOK);
+                d.OnButtonCancel += new TBButtonPressed(onNewEventDoneCancel);
+                d.OnButtonRelated += new TBButtonPressed(onNewEventDoneRelated);
+                EventDetailsController dc = new EventDetailsController(d);
+                dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
             }
+        }
+
+        private void onDeleteEvent(object sender, EventArgs e)
+        {
+            if (sender is AskDeleteObject)
+            {
+                AskDeleteObject dlg = sender as AskDeleteObject;
+                GCFestivalBase fb = dlg.Tag as GCFestivalBase;
+                if (fb != null)
+                {
+                    GCFestivalBook book = GCFestivalBookCollection.getSafeBook(fb.BookID);
+                    book.Remove(fb);
+                    onNonDeleteEvent(sender, e);
+
+                    RemoveItemFromListBox(fb);
+                }
+            }
+        }
+
+        private void RemoveItemFromListBox(GCFestivalBase fb)
+        {
+            for (int i = 0; i < listBox1.Items.Count; i++)
+            {
+                GCListBoxEntry lb = listBox1.Items[i] as GCListBoxEntry;
+                if (lb.Tag == fb)
+                {
+                    listBox1.Items.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        private void onNonDeleteEvent(object sender, EventArgs e)
+        {
         }
 
         /// <summary>
@@ -196,20 +236,17 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            if (m_wndList.SelectedItems.Count == 0)
-                return;
+            GCListBoxEntry item = GetSelectedItem();
 
-
-            GCCalendarEvent ce = m_wndList.SelectedItems[0].Tag as GCCalendarEvent;
-            if (ce.nUsed == 0)
-                return;
-
-            string ask = string.Format("Do you want to remove event with title \"{0}\" ?", ce.strText);
-            if (MessageBox.Show(ask, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (item != null && item.Tag != null && Controller.ViewContainer != null)
             {
-                GCGlobal.customEventList.Remove(ce);
-                GCGlobal.customEventListModified = true;
-                FillListView();
+                AskDeleteObject dlg = new AskDeleteObject();
+                AskDeleteObjectController dlgCtrl = new AskDeleteObjectController(dlg);
+                dlg.Tag = item.Tag;
+                dlg.InitialLabel = "Are you sure to remove following event?";
+                dlg.DetailLabel = (item.Tag as GCFestivalBase).Text;
+                dlg.OnButtonYes += new TBButtonPressed(onDeleteEvent);
+                dlgCtrl.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
             }
         }
 
@@ -228,7 +265,7 @@ namespace GCAL.CompositeViews
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                GCCalendarEventList.Export(sfd.FileName, sfd.FilterIndex);
+                GCFestivalBookCollection.Export(sfd.FileName, sfd.FilterIndex);
             }
         }
 
@@ -245,41 +282,148 @@ namespace GCAL.CompositeViews
             changingFilter = true;
             string[] sp = textBox1.Text.Trim().ToLower().Split(' ');
             int A, B;
-            ListViewItem lvi;
 
-            m_wndList.BeginUpdate();
             updatingList = true;
-            m_wndList.Items.Clear();
+            listBox1.BeginUpdate();
+            listBox1.Items.Clear();
 
-            foreach (GCCalendarEvent ce in GCCalendarEventList.list)
+            foreach (GCFestivalBook book in GCFestivalBookCollection.Books)
             {
-                A = 0;
-                B = 0;
-                if (sp.Length > 0)
+                foreach (GCFestivalBase fb in book.Festivals)
                 {
-                    foreach (string s in sp)
+                    A = 0;
+                    B = 0;
+                    if (sp.Length > 0)
                     {
-                        A++;
-                        if (ce.strText.IndexOf(s, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                        foreach (string s in sp)
                         {
-                            B++;
+                            A++;
+                            if (fb.Text.IndexOf(s, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                            {
+                                B++;
+                            }
                         }
                     }
-                }
 
-                if (A == B)
-                {
-                    lvi = m_wndList.Items.Add(ListItemFromEvent(ce));
-                    lvi.Tag = ce;
-                    lvi.Checked = (ce.nVisible != 0);
-                }
+                    if (A == B)
+                    {
+                        GCListBoxEntry lb = new GCListBoxEntry();
+                        fb.updateListBoxEntry(lb);
+                        listBox1.Items.Add(lb);
+                    }
 
+                }
             }
             updatingList = false;
-            m_wndList.EndUpdate();
+            listBox1.EndUpdate();
             changingFilter = false;
         }
+
+
+        private void listBox1_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0 || e.Index >= listBox1.Items.Count)
+                return;
+            if (listBox1.Items[e.Index] is GCListBoxEntry)
+            {
+                GCListBoxEntry lb = listBox1.Items[e.Index] as GCListBoxEntry;
+                if (lb.SubtitleHeight < 0 || lb.TitleHeight < 0)
+                {
+                    SizeF sz;
+                    if (lb.Title.Length > 0)
+                    {
+                        sz = e.Graphics.MeasureString(lb.Title, listBoxTitleFont);
+                        lb.TitleHeight = Convert.ToInt32(sz.Height);
+                    }
+                    else
+                    {
+                        lb.TitleHeight = 0;
+                    }
+                    if (lb.Subtitle.Length > 0)
+                    {
+                        sz = e.Graphics.MeasureString(lb.Subtitle, listBoxSubtitleFont);
+                        lb.SubtitleHeight = Convert.ToInt32(sz.Height);
+                    }
+                    else
+                    {
+                        lb.SubtitleHeight = 0;
+                    }
+                }
+                e.ItemHeight = lb.SubtitleHeight + lb.TitleHeight + 3 * listBoxItemPadding;
+            }
+        }
+
+        private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0 || e.Index >= listBox1.Items.Count)
+                return;
+            if (listBox1.Items[e.Index] is GCListBoxEntry)
+            {
+                GCListBoxEntry lb = listBox1.Items[e.Index] as GCListBoxEntry;
+                if ((e.State & DrawItemState.Selected) != 0)
+                {
+                    e.Graphics.FillRectangle(Brushes.LightBlue, e.Bounds);
+                }
+                else
+                {
+                    e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
+                }
+
+                if (lb.TitleHeight > 0)
+                {
+                   e.Graphics.DrawString(lb.Title, listBoxTitleFont, Brushes.Black, 2 * listBoxItemPadding, e.Bounds.Top + listBoxItemPadding);
+                }
+                if (lb.SubtitleHeight > 0)
+                {
+                   e.Graphics.DrawString(lb.Subtitle, listBoxSubtitleFont, Brushes.DarkGray, 2 * listBoxItemPadding, 
+                       e.Bounds.Top + 2 * listBoxItemPadding + lb.TitleHeight);
+                }
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GCListBoxEntry item = GetSelectedItem();
+            if (item != null && item.Tag != null)
+            {
+                if (item.Tag is GCFestivalTithiMasa)
+                {
+                }
+                else if (item.Tag is GCFestivalEkadasi)
+                {
+                }
+                else if (item.Tag is GCFestivalMasaDay)
+                {
+                }
+                else if (item.Tag is GCFestivalRelated)
+                {
+                }
+                else if (item.Tag is GCFestivalSankranti)
+                {
+                }
+                else if (item.Tag is GCFestivalSpecial)
+                {
+                }
+            }
+        }
     }
+
+
+    public class EventsPanelDelegate : GVCore
+    {
+        public EventsPanelDelegate(EventsPanel v)
+        {
+            View = v;
+            v.Controller = this;
+        }
+
+        public override Base.Scripting.GSCore ExecuteMessage(string token, Base.Scripting.GSCoreCollection args)
+        {
+            return base.ExecuteMessage(token, args);
+        }
+    }
+
+
 }
 
 

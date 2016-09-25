@@ -10,16 +10,20 @@ using System.Diagnostics;
 using System.IO;
 
 using GCAL.Base;
+using GCAL.Views;
 
 namespace GCAL.CompositeViews
 {
     public partial class LocationsPanel : UserControl
     {
+        public GVCore Controller { get; set; }
+
         public LocationsPanel()
         {
             InitializeComponent();
 
             InitCountries();
+
             m_wndCountry.SelectedIndex = 0;
         }
 
@@ -88,15 +92,14 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            DlgEditLocation d = new DlgEditLocation(null);
+            EditLocationPanel d = new EditLocationPanel();
+            d.setLocation(null);
             d.PrefferedCountry = m_wndCountry.SelectedItem;
+            d.OnEditLocationDone += new TBButtonPressed(OnEditLocationDone);
+            EditLocationPanelController dc = new EditLocationPanelController(d);
+            dc.ViewContainer = Controller.ViewContainer;
 
-            if (d.ShowDialog() == DialogResult.OK)
-            {
-                CLocationList.locationList.Add(d.SelectedLocation);
-                UpdateLocationList();
-                CLocationList.m_bModified = true;
-            }
+            Controller.ViewContainer.AddControl(dc, GVControlAlign.Center);
         }
 
         /// <summary>
@@ -111,8 +114,19 @@ namespace GCAL.CompositeViews
 
             CLocation loc = m_wndLocs.SelectedItems[0].Tag as CLocation;
 
-            DlgEditLocation d = new DlgEditLocation(loc);
-            if (d.ShowDialog() == DialogResult.OK)
+            EditLocationPanel d = new EditLocationPanel();
+            d.setLocation(loc);
+            d.PrefferedCountry = m_wndCountry.SelectedItem;
+            d.OnEditLocationDone += new TBButtonPressed(OnEditLocationDone);
+            EditLocationPanelController dc = new EditLocationPanelController(d);
+            dc.ViewContainer = Controller.ViewContainer;
+
+            Controller.ViewContainer.AddControl(dc, GVControlAlign.Center);
+        }
+
+        private void OnEditLocationDone(object sender, EventArgs e)
+        {
+            if (sender is EditLocationPanel)
             {
                 CLocationList.m_bModified = true;
                 UpdateLocationList();
@@ -290,4 +304,19 @@ namespace GCAL.CompositeViews
             m_wndLocs.EndUpdate();
         }
     }
+
+    public class LocationsPanelController : GVCore
+    {
+        public LocationsPanelController(LocationsPanel v)
+        {
+            View = v;
+            v.Controller = this;
+        }
+
+        public override Base.Scripting.GSCore ExecuteMessage(string token, Base.Scripting.GSCoreCollection args)
+        {
+            return base.ExecuteMessage(token, args);
+        }
+    }
+
 }

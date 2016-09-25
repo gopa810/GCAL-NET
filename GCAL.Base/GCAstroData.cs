@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class GCAstroData
+    public class GCAstroData: GSCore
     {
         // date of Julian epoch
         public double jdate;
@@ -44,6 +46,13 @@ namespace GCAL.Base
         // distance of moon and sun in degrees
         public double msDistance;
 
+
+        public GCAstroData()
+        {
+            sun = new GCSunData();
+            moon = new GCMoonData();
+        }
+
         public int NaksatraPada
         {
             get
@@ -51,6 +60,67 @@ namespace GCAL.Base
                 return GCMath.IntFloor(nNaksatraElapse / 25.0);
             }
         }
+
+        public override GSCore GetPropertyValue(string Token)
+        {
+            GSCore result = null;
+            switch (Token)
+            {
+                case "tithi":
+                    result = new GSNumber() { IntegerValue = nTithi }; break;
+                case "tithiElapsed":
+                    result = new GSNumber() { DoubleValue = nTithiElapse }; break;
+                case "tithiName":
+                    result = new GSString() { Value = GCTithi.GetName(nTithi) }; break;
+                case "naksatra":
+                    result = new GSNumber() { IntegerValue = nNaksatra }; break;
+                case "naksatraElapsed":
+                    result = new GSNumber() { DoubleValue = nNaksatraElapse }; break;
+                case "naksatraName":
+                    result = new GSString() { Value = GCNaksatra.GetName(nNaksatra) }; break;
+                case "paksa":
+                    result = new GSNumber() { IntegerValue = nPaksa }; break;
+                case "paksaName":
+                    result = new GSString() { Value = GCPaksa.GetName(nPaksa) }; break;
+                case "paksaAbbr":
+                    result = new GSString() { Value = GCPaksa.GetAbbr(nPaksa).ToString() }; break;
+                case "yoga":
+                    result = new GSNumber() { IntegerValue = nYoga }; break;
+                case "yogaName":
+                    result = new GSString() { Value = GCYoga.GetName(nYoga) }; break;
+                case "masa":
+                    result = new GSNumber() { IntegerValue = nMasa }; break;
+                case "masaName":
+                    result = new GSString() { Value = GCMasa.GetName(nMasa) }; break;
+                case "gaurabdaYear":
+                    result = new GSNumber() { IntegerValue = nGaurabdaYear }; break;
+                case "arunodayaTime":
+                    result = new GCHourTimeObject(sun.arunodaya); break;
+                case "arunodayaTithi":
+                    result = new GSString(GCTithi.GetName(nTithiArunodaya)); break;
+                case "sunRiseTime":
+                    result = new GCHourTimeObject(sun.rise); break;
+                case "noonTime":
+                    result = new GCHourTimeObject(sun.noon); break;
+                case "sunSetTime":
+                    result = new GCHourTimeObject(sun.set); break;
+                case "moonRasi":
+                    result = new GSNumber(nMoonRasi); break;
+                case "moonRasiName":
+                    result = new GSString(GCRasi.GetName(nMoonRasi)); break;
+                case "sunRasi":
+                    result = new GSNumber(nSunRasi); break;
+                case "sunRasiName":
+                    result = new GSString(GCRasi.GetName(nSunRasi)); break;
+                case "sunLongitude":
+                    result = new GSNumber(sun.longitude_deg); break;
+                default:
+                    result = base.GetPropertyValue(Token);
+                    break;
+            }
+            return result;
+        }
+
 
         /*********************************************************************/
         /*   Finds first day of given masa and gaurabda year                 */
@@ -64,6 +134,7 @@ namespace GCAL.Base
         {
             return GCTithi.CalcTithiDate(GYear, nMasa, 0, 0, earth);
         }
+
         /*********************************************************************/
         /*  Finds date of Pratipat, Krsna Paksa, Visnu Masa                  */
         /*                                                                   */
@@ -160,7 +231,7 @@ namespace GCAL.Base
             this.jdate = jdate = date.GetJulianDetailed();
 
             // moon position at sunrise on that day
-            this.moon.Calculate(date.GetJulianDetailed(), earth);
+            this.moon.Calculate(date.GetJulianDetailed());
 
             this.msDistance = GCMath.putIn360(this.moon.longitude_deg - this.sun.longitude_deg - 180.0);
             this.msAyanamsa = GCAyanamsha.GetAyanamsa(jdate);
@@ -193,12 +264,12 @@ namespace GCAL.Base
 
             GCMoonData moon = new GCMoonData();
             date.shour = this.sun.sunset_deg / 360.0;
-            moon.Calculate(date.GetJulianDetailed(), earth);
+            moon.Calculate(date.GetJulianDetailed());
             d = GCMath.putIn360(moon.longitude_deg - this.sun.longitude_set_deg - 180) / 12.0;
             this.nTithiSunset = GCMath.IntFloor(d);
 
             date.shour = this.sun.arunodaya_deg / 360.0;
-            moon.Calculate(date.GetJulianDetailed(), earth);
+            moon.Calculate(date.GetJulianDetailed());
             d = GCMath.putIn360(moon.longitude_deg - this.sun.longitude_arun_deg - 180) / 12.0;
             this.nTithiArunodaya = GCMath.IntFloor(d);
 
@@ -253,12 +324,12 @@ namespace GCAL.Base
             for (n = 0; n < PREV_MONTHS; n++)
                 R[n] = GCRasi.GetRasi(L[n], GCAyanamsha.GetAyanamsa(C[n].GetJulian()));
 
-            /*	TRACE("TEST Date: %d %d %d\n", date.day, date.month, date.year);
-                TRACE("FOUND CONJ Date: %d %d %d rasi: %d\n", C[1].day, C[1].month, C[1].year, R[1]);
-                TRACE("FOUND CONJ Date: %d %d %d rasi: %d\n", C[2].day, C[2].month, C[2].year, R[2]);
-                TRACE("FOUND CONJ Date: %d %d %d rasi: %d\n", C[3].day, C[3].month, C[3].year, R[3]);
-                TRACE("FOUND CONJ Date: %d %d %d rasi: %d\n", C[4].day, C[4].month, C[4].year, R[4]);
-                TRACE("---\n");
+            /*	TRACE("TEST Date: %d %d %d ", date.day, date.month, date.year);
+                TRACE("FOUND CONJ Date: %d %d %d rasi: %d ", C[1].day, C[1].month, C[1].year, R[1]);
+                TRACE("FOUND CONJ Date: %d %d %d rasi: %d ", C[2].day, C[2].month, C[2].year, R[2]);
+                TRACE("FOUND CONJ Date: %d %d %d rasi: %d ", C[3].day, C[3].month, C[3].year, R[3]);
+                TRACE("FOUND CONJ Date: %d %d %d rasi: %d ", C[4].day, C[4].month, C[4].year, R[4]);
+                TRACE("--- 
             */
             // test for Adhika-Ksaya sequence
             // this is like 1-2-2-4-5...

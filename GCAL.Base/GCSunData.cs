@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace GCAL.Base
 {
@@ -433,7 +434,6 @@ namespace GCAL.Base
         }
 
 
-
         //////////////////////////////////////////////////////////////////////////////////
         //
         // return values are in sun.arunodaya, sun.rise, sun.set, sun.noon, sun.length
@@ -447,6 +447,7 @@ namespace GCAL.Base
         {
             GCSunData s_rise = new GCSunData();
             GCSunData s_set = new GCSunData();
+
 
             // first calculation
             // for 12:00 universal time

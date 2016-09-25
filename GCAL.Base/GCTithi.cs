@@ -33,7 +33,7 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday, ed);
+            moon.Calculate(jday);
             sunl = GCSunData.GetSunLongitude(d);
             //	SunPosition(d, ed, sun, d.shour - 0.5 + d.tzone/24.0);
             l1 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
@@ -53,7 +53,7 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday, ed);
+                moon.Calculate(jday);
                 //SunPosition(d, ed, sun, d.shour - 0.5 + d.tzone/24.0);
                 //l2 = GCMath.putIn360(moon.longitude_deg - sun.longitude_deg - 180.0);
                 sunl = GCSunData.GetSunLongitude(d);
@@ -101,7 +101,7 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday, ed);
+            moon.Calculate(jday);
             sunl = GCSunData.GetSunLongitude(d);
             l1 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
             prev_tit = GCMath.IntFloor(l1 / phi);
@@ -120,7 +120,7 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday, ed);
+                moon.Calculate(jday);
                 sunl = GCSunData.GetSunLongitude(d);
                 l2 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
                 new_tit = GCMath.IntFloor(l2 / phi);
@@ -925,6 +925,14 @@ namespace GCAL.Base
             return ((t == a) && (u == b))
                 || ((t == a) && (u == NEXT_TITHI(b)))
                 || ((t == PREV_TITHI(a)) && (u == b));
+        }
+
+        public static int TITHI_DIST(int a, int b)
+        {
+            int r = a - b;
+            while (r < -15)
+                r += 30;
+            return r;
         }
 
         private static string[] p_tithiName = new string[] {

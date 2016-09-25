@@ -4,10 +4,145 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
+using GCAL.Base.Scripting;
+
 namespace GCAL.Base
 {
-    public class GCUserInterface
+    public class GCUserInterface: GSCore
     {
+        private static GCUserInterface p_shared = null;
+
+        public static GCUserInterface Shared
+        {
+            get
+            {
+                if (p_shared == null) p_shared = new GCUserInterface();
+                return p_shared;
+            }
+        }
+
+        public override GSCore ExecuteMessage(string token, GSCoreCollection args)
+        {
+            GSCore result = GSCore.Void;
+
+            switch (token)
+            {
+                case "canDisplay":
+                    int disp = (int)args.getSafe(0).getIntegerValue();
+                    bool b = (disp != 0 && (disp == -1 || GCDisplaySettings.getValue(disp) != 0));
+                    result = new GSBoolean(b);
+                    break;
+                case "getDispValue":
+                    result = new GSNumber(GCDisplaySettings.getValue((int)args.getSafe(0).getIntegerValue()));
+                    break;
+                case "new":
+                    switch(args.getSafe(0).getStringValue())
+                    {
+                        case "GregorianDateTime":
+                            result = new GregorianDateTime();
+                            break;
+                        case "DateTime":
+                            result = new GSDateTime();
+                            break;
+                        default:
+                            result = GSCore.Void;
+                            break;
+                    }
+                    break;
+                case "calendarHeaderType":
+                    result = new GSNumber(GCDisplaySettings.getValue(GCDS.CAL_HEADER_MASA));
+                    break;
+                case "centerText":
+                    string text = args.getSafe(0).getStringValue();
+                    int length = (int)args.getSafe(1).getIntegerValue();
+                    string padStr = args.getSafe(2).getStringValue();
+                    char padChar = padStr.Length > 0 ? padStr[0] : ' ';
+                    int half = (length - text.Length) / 2;
+                    if (half > 0)
+                        result = new GSString(string.Format("{0} {1} {0}", "".PadLeft(half-1, padChar), text));
+                    else
+                        result = new GSString(text);
+                    break;
+                case "getTabPos":
+                    double d = args.getSafe(0).getDoubleValue();
+                    result = new GSNumber(d * GCLayoutData.textSizeText / 24.0);
+                    break;
+                case "getWeekdayName":
+                    result = new GSString(GCCalendar.GetWeekdayName((int)args.getSafe(0).getIntegerValue()));
+                    break;
+                case "getTimezoneOffset":
+                    {
+                        string tzname = args.getSafe(0).getStringValue();
+                        int tzid = TTimeZone.GetID(tzname);
+                        int tzoffset = TTimeZone.GetTimeZoneOffsetMinutes(tzid);
+                        char sign = (tzoffset > 0) ? '+' : '-';
+                        tzoffset = Math.Abs(tzoffset);
+                        result = new GSString(string.Format("{0}{1:00}{2:00}", sign, tzoffset / 60, Math.Abs(tzoffset) % 60));
+                    }
+                    break;
+                case "getTimezoneOffsetBias":
+                    {
+                        string tzname = args.getSafe(0).getStringValue();
+                        int tzid = TTimeZone.GetID(tzname);
+                        int tzoffset = TTimeZone.GetTimeZoneOffsetMinutes(tzid) + TTimeZone.GetTimeZoneBias(tzid);
+                        char sign = (tzoffset > 0) ? '+' : '-';
+                        tzoffset = Math.Abs(tzoffset);
+                        result = new GSString(string.Format("{0}{1:00}{2:00}", sign, tzoffset / 60, Math.Abs(tzoffset) % 60));
+                    }
+                    break;
+                case "getDaylightTimeStartDate":
+                    {
+                        GregorianDateTime vc = new GregorianDateTime();
+                        string loc_timezoneId = args.getSafe(0).getStringValue();
+                        int year = (int)args.getSafe(1).getIntegerValue();
+                        int tzid = TTimeZone.GetID(loc_timezoneId);
+                        TTimeZone.GetDaylightTimeStartDate(tzid, year, ref vc);
+                        result = vc;
+                    }
+                    break;
+                case "getNormalTimeStartDate":
+                    {
+                        GregorianDateTime vc = new GregorianDateTime();
+                        string loc_timezoneId = args.getSafe(0).getStringValue();
+                        int year = (int)args.getSafe(1).getIntegerValue();
+                        int tzid = TTimeZone.GetID(loc_timezoneId);
+                        TTimeZone.GetNormalTimeStartDate(tzid, year, ref vc);
+                        result = vc;
+                    }
+                    break;
+                default:
+                    result = base.ExecuteMessage(token, args);
+                    break;
+            }
+
+            return result;
+        }
+
+        public override GSCore GetPropertyValue(string Token)
+        {
+            switch (Token)
+            {
+                case "versionName":
+                    return new GSString() { Value = GCStrings.FullVersionText };
+                case "versionShort":
+                    return new GSString() { Value = GCStrings.ShortVersionText };
+                case "version":
+                    return new GSString() { Value = GCStrings.RawVersionNumber };
+                case "fontSizeH1":
+                    return new GSNumber(GCLayoutData.textSizeH1);
+                case "fontSizeH2": 
+                    return new GSNumber(GCLayoutData.textSizeH2);
+                case "fontSizeText": 
+                    return new GSNumber(GCLayoutData.textSizeText);
+                case "fontSizeNote":
+                    return new GSNumber(GCLayoutData.textSizeNote);
+
+                default:
+                    break;
+            }
+            return base.GetPropertyValue(Token);
+        }
+
         public static int CalculateCalendar(TResultCalendar daybuff, CLocationRef loc, GregorianDateTime date, int nDaysCount)
         {
             bool bCalcMoon = (GCDisplaySettings.getValue(4) > 0 || GCDisplaySettings.getValue(5) > 0);
@@ -54,10 +189,10 @@ namespace GCAL.Base
         public static void ShowHelp(string pszFile)
         {
             if (windowController != null)
-                windowController.ShowHelp(pszFile);
+                windowController.ExecuteMessage("showHelp",  new GSString(pszFile));
         }
 
-        public static IMainWindow windowController;
+        public static GSCore windowController;
         public static ICalculationProgressWindow dcp;
         public static int dstSelectionMethod = 2;
         private static int _ShowMode = 1;
@@ -80,13 +215,4 @@ namespace GCAL.Base
         int CloseWindow();
     }
 
-    public interface IMainWindow
-    {
-        Rectangle GetMainRectangle();
-        void SetMainRectangle(Rectangle rc);
-        void ShowHelp(string file);
-        int GetShowMode();
-        void SetShowMode(int i);
-        void ShowTipAtStartup();
-    }
 }

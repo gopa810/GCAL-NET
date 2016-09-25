@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace GCAL.Base
 {
@@ -161,23 +162,15 @@ namespace GCAL.Base
 
         public static string GetFastingName(int fastingID)
         {
-            switch (fastingID)
+            foreach (FastType ft in FastType.Fasts)
             {
-                case FastType.FAST_NOON:
-                    return Localized("(Fast till noon)");
-                case FastType.FAST_SUNSET:
-                    return Localized("(Fast till sunset)");
-                case FastType.FAST_MOONRISE:
-                    return Localized("(Fast till moonrise)");
-                case FastType.FAST_DUSK:
-                    return Localized("(Fast till dusk)");
-                case FastType.FAST_MIDNIGHT:
-                    return Localized("(Fast till midnight)");
-                case FastType.FAST_DAY:
-                    return Localized("(Fast today)");
-                default:
-                    return null;
+                if (ft.FastID == fastingID)
+                {
+                    return string.Format("({0})", Localized(ft.FastText));
+                }
             }
+
+            return null;
         }
 
         public static string getString(int i)
@@ -201,19 +194,19 @@ namespace GCAL.Base
         public static int readFile(string pszFile)
         {
             int v = 0;
-            TFileRichList rf = new TFileRichList();
+            GCRichFileLine rf = new GCRichFileLine();
 
-            if (!TFile.FileExists(pszFile))
+            if (!File.Exists(pszFile))
             {
-                TFile.CreateFileFromResource("strings.rl", pszFile);
+                File.WriteAllBytes(pszFile, Properties.Resources.strings);
             }
 
-            if (rf.ReadFile(pszFile))
+            using(StreamReader sr = new StreamReader(pszFile))
             {
                 int index = 0;
-                while (rf.ReadLine() > 0)
+                while (rf.SetLine(sr.ReadLine()))
                 {
-                    if (int.Parse(rf.GetTag()) == 78)
+                    if (rf.TagInt == 78)
                     {
                         index = int.Parse(rf.GetField(0));
                         while (gstr.Count <= index)
@@ -223,10 +216,6 @@ namespace GCAL.Base
                         v++;
                     }
                 }
-            }
-            else
-            {
-                return -1;
             }
 
             RawVersionNumber = "11, Build 4";
@@ -242,27 +231,39 @@ namespace GCAL.Base
             // a[x][0] je zaciatocny index
             // a[x][1] je konecny index skupiny (vratane)
 
-            TFileRichList trf = new TFileRichList();
-
             // save 0 - 128
             // save 135 - 199
             // save 561 - 899
-            for (i = 0; i < gstr.Count; i++)
+            using (StreamWriter sw = new StreamWriter(pszFile))
             {
-                if (gstr[i].Length > 0)
+                for (i = 0; i < gstr.Count; i++)
                 {
-                    trf.Clear();
-                    trf.AddTag(78);
-                    trf.AddInt(i);
-                    trf.AddText(getString(i));
-                    trf.WriteLine();
-                    v++;
+                    if (gstr[i].Length > 0)
+                    {
+                        sw.WriteLine("78 {0}|{1}", i, getString(i));
+                        v++;
+                    }
                 }
             }
 
-            trf.WriteFile(pszFile);
-
             return v;
+        }
+
+        public static string GetStringFromIntInc(int i)
+        {
+            return (i + 1).ToString();
+        }
+
+        public static string GetDayPartName(int i)
+        {
+            if (i == 0) return "Day";
+            else return "Night";
+        }
+
+        public static string GetMoonTimesName(int i)
+        {
+            if (i == 0) return "Moonrise";
+            else return "Moonset";
         }
 
         public static string GetKalaName(int i)
@@ -354,11 +355,11 @@ namespace GCAL.Base
             switch (i)
             {
                 case 0:
-                    return Localized("Morning");
+                    return Localized("Sunrise");
                 case 1:
                     return Localized("Noon");
                 case 2:
-                    return Localized("Evening");
+                    return Localized("Sunset");
                 case 3:
                     return Localized("Midnight");
                 default:
@@ -373,5 +374,24 @@ namespace GCAL.Base
             return s;
         }
 
+        private static string[] p_planetsNamesEn =
+        {
+            "Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu", "Ascendent"
+        };
+
+        private static string[] p_planetsNames =
+        {
+            "Surya", "Chandra", "Mangala", "Buddha", "Guru", "Sukra", "Sani", "Rahu", "Ketu", "Lagna"
+        };
+
+        public static string GetPlanetNameEn(int i)
+        {
+            return p_planetsNamesEn[i % 12];
+        }
+
+        public static string GetPlanetName(int i)
+        {
+            return p_planetsNames[i % 12];
+        }
     }
 }

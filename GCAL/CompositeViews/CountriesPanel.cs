@@ -8,11 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
+using GCAL.Views;
 
 namespace GCAL.CompositeViews
 {
     public partial class CountriesPanel : UserControl
     {
+        public CountriesPanelDelegate Controller { get; set; }
+        public GVControlContainer ViewContainer { get; set; }
+
         public CountriesPanel()
         {
             InitializeComponent();
@@ -42,14 +47,18 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            DlgEditCountry dlg = new DlgEditCountry();
+            CountryDetails d = new CountryDetails();
+            d.OnButtonSave += new TBButtonPressed(OnCountryListChanged);
+            d.SelectedCountry = null;
 
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                TCountry.gcountries.Add(dlg.SelectedCountry);
-                TCountry._modified = true;
-                InitCountryList();
-            }
+            CountryDetailsController dc = new CountryDetailsController(d);
+
+            dc.ShowInContainer(ViewContainer, GVControlAlign.Fill);
+        }
+
+        private void OnCountryListChanged(object sender, EventArgs e)
+        {
+            InitCountryList();
         }
 
         /// <summary>
@@ -63,50 +72,28 @@ namespace GCAL.CompositeViews
                 return;
 
             TCountry sc = listView1.SelectedItems[0].Tag as TCountry;
-            string prevname = (sc != null ? sc.name : "");
 
-            DlgEditCountry dlg = new DlgEditCountry();
+            CountryDetails d = new CountryDetails();
+            d.OnButtonSave += new TBButtonPressed(OnCountryListChanged);
+            d.SelectedCountry = sc;
 
-            dlg.SelectedCountry = sc;
+            CountryDetailsController dc = new CountryDetailsController(d);
 
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                if (sc.name.Equals(prevname))
-                {
-                    CLocationList.RenameCountry(prevname, sc.name);
-                    CLocationList.m_bModified = true;
-                }
-                TCountry._modified = true;
-                InitCountryList();
-            }
+            dc.ShowInContainer(ViewContainer, GVControlAlign.Fill);
         }
 
-        /// <summary>
-        /// Delete
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+    }
+
+    public class CountriesPanelDelegate : GVCore
+    {
+        public CountriesPanelDelegate(CountriesPanel v)
         {
-            if (listView1.SelectedItems.Count == 0)
-                return;
+            View = v;
+        }
 
-            TCountry sc = listView1.SelectedItems[0].Tag as TCountry;
-
-            if (CLocationList.LocationCountForCountry(sc.name) > 0)
-            {
-                MessageBox.Show(string.Format("Country '{0}' cannot be removed now, because some locations are assigned to it."));
-                return;
-            }
-
-            string ask = string.Format("Do you want to delete country with name '{0}' ?", sc.name);
-
-            if (MessageBox.Show(ask, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                TCountry.gcountries.Remove(sc);
-                TCountry._modified = true;
-            }
-
+        public override Base.Scripting.GSCore ExecuteMessage(string token, Base.Scripting.GSCoreCollection args)
+        {
+            return base.ExecuteMessage(token, args);
         }
     }
 }

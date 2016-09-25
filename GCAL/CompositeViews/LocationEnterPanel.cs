@@ -8,12 +8,17 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
+using GCAL.Views;
 
 namespace GCAL.CompositeViews
 {
     public partial class LocationEnterPanel : UserControl
     {
         private CLocationRef loc = new CLocationRef();
+        public LocationEnterPanelController Controller { get; set; }
+        public event TBButtonPressed OnLocationSelected;
+
         private bool b_upd = false;
         private double signOfLatitude = 1.0;
         private double signOfLongitude = 1.0;
@@ -50,7 +55,7 @@ namespace GCAL.CompositeViews
                 {
                     loc.offsetUtcHours = tz.OffsetMinutes / 60.0;
                     loc.timezoneId = tz.TimezoneId;
-                    loc.timeZoneName = tz.name;
+                    loc.timeZoneName = tz.Name;
                 }
 
                 return loc;
@@ -80,36 +85,6 @@ namespace GCAL.CompositeViews
             }
 
             return 0.0;
-        }
-
-        /// <summary>
-        /// Select location from locations list
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DlgChooseLocation dlg = new DlgChooseLocation();
-
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                CLocation L = dlg.SelectedLocation;
-
-                loc = new CLocationRef();
-
-                loc.latitudeDeg = L.latitudeDeg;
-                loc.longitudeDeg = L.longitudeDeg;
-                loc.offsetUtcHours = L.offsetUtcHours;
-                loc.timezoneId = L.timezoneId;
-                loc.locationName = L.cityName + " [" + L.countryName + "]";
-
-                b_upd = true;
-                textBox1.Text = loc.locationName;
-                DialogLatitude = loc.latitudeDeg;
-                DialogLongitude = loc.longitudeDeg;
-                SelectTimezoneById(loc.timezoneId);
-                b_upd = false;
-            }
         }
 
         public double DialogLatitude
@@ -328,5 +303,54 @@ namespace GCAL.CompositeViews
                 labelDstInfo.Text = "Latitude minutes only between 0 and 59";
             }
         }
+
+        public bool ButtonOkEnable
+        {
+            get
+            {
+                return button1.Visible;
+            }
+            set
+            {
+                button1.Visible = value;
+            }
+        }
+
+        public bool ButtonCancelEnable
+        {
+            get
+            {
+                return button2.Visible;
+            }
+            set
+            {
+                button2.Visible = value;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (OnLocationSelected != null)
+                OnLocationSelected(LocationRef, e);
+            Controller.RemoveFromContainer();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Controller.RemoveFromContainer();
+        }
     }
+
+    public class LocationEnterPanelController : GVCore
+    {
+        public LocationEnterPanelController(LocationEnterPanel v)
+        {
+            View = v;
+            v.Controller = this;
+            v.ButtonCancelEnable = true;
+            v.ButtonOkEnable = true;
+        }
+
+    }
+
 }

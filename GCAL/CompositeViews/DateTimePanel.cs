@@ -8,12 +8,18 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
+using GCAL.Views;
+using GCAL.CompositeViews;
 
 namespace GCAL.CompositeViews
 {
     public partial class DateTimePanel : UserControl
     {
         private TTimeZone timeZone = null;
+        public DateTimePanelController Controller { get; set; }
+
+        public event TBButtonPressed OnDateTimeSelected;
 
         public DateTimePanel()
         {
@@ -68,8 +74,44 @@ namespace GCAL.CompositeViews
             {
                 timeZone = value;
                 if (value != null)
-                    labelTimezoneName.Text = value.name;
+                    labelTimezoneName.Text = value.Name;
             }
+        }
+
+        public string CustomTitle
+        {
+            set
+            {
+                label10.Text = value;
+            }
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (OnDateTimeSelected != null)
+                OnDateTimeSelected(this.DateTime, e);
+            Controller.RemoveFromContainer();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Controller.RemoveFromContainer();
+        }
+
+
+    }
+
+    public class DateTimePanelController : GVCore
+    {
+        public DateTimePanelController(DateTimePanel v)
+        {
+            View = v;
+            v.Controller = this;
+        }
+
+        public DateTimePanel getView()
+        {
+            return View as DateTimePanel;
         }
     }
 }

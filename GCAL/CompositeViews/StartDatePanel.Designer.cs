@@ -48,13 +48,16 @@
             this.linkStartMonth = new System.Windows.Forms.LinkLabel();
             this.linkStartYear = new System.Windows.Forms.LinkLabel();
             this.labelNote = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 18);
+            this.label1.Location = new System.Drawing.Point(7, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
@@ -63,7 +66,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(104, 18);
+            this.label2.Location = new System.Drawing.Point(104, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 1;
@@ -72,7 +75,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(222, 18);
+            this.label3.Location = new System.Drawing.Point(222, 77);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 2;
@@ -81,7 +84,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 82);
+            this.label4.Location = new System.Drawing.Point(7, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 3;
@@ -90,7 +93,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(101, 82);
+            this.label5.Location = new System.Drawing.Point(101, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 13);
             this.label5.TabIndex = 4;
@@ -99,7 +102,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(225, 82);
+            this.label6.Location = new System.Drawing.Point(225, 141);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 5;
@@ -109,7 +112,7 @@
             // 
             this.cbDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDay.FormattingEnabled = true;
-            this.cbDay.Location = new System.Drawing.Point(10, 34);
+            this.cbDay.Location = new System.Drawing.Point(10, 93);
             this.cbDay.Name = "cbDay";
             this.cbDay.Size = new System.Drawing.Size(88, 21);
             this.cbDay.TabIndex = 6;
@@ -119,7 +122,7 @@
             // 
             this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Location = new System.Drawing.Point(104, 34);
+            this.cbMonth.Location = new System.Drawing.Point(104, 93);
             this.cbMonth.Name = "cbMonth";
             this.cbMonth.Size = new System.Drawing.Size(115, 21);
             this.cbMonth.TabIndex = 7;
@@ -129,7 +132,7 @@
             // 
             this.cbTithi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTithi.FormattingEnabled = true;
-            this.cbTithi.Location = new System.Drawing.Point(10, 98);
+            this.cbTithi.Location = new System.Drawing.Point(10, 157);
             this.cbTithi.Name = "cbTithi";
             this.cbTithi.Size = new System.Drawing.Size(88, 21);
             this.cbTithi.TabIndex = 8;
@@ -139,7 +142,7 @@
             // 
             this.cbMasa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMasa.FormattingEnabled = true;
-            this.cbMasa.Location = new System.Drawing.Point(104, 98);
+            this.cbMasa.Location = new System.Drawing.Point(104, 157);
             this.cbMasa.Name = "cbMasa";
             this.cbMasa.Size = new System.Drawing.Size(115, 21);
             this.cbMasa.TabIndex = 9;
@@ -147,7 +150,7 @@
             // 
             // tbYear
             // 
-            this.tbYear.Location = new System.Drawing.Point(225, 35);
+            this.tbYear.Location = new System.Drawing.Point(225, 94);
             this.tbYear.Name = "tbYear";
             this.tbYear.Size = new System.Drawing.Size(57, 20);
             this.tbYear.TabIndex = 10;
@@ -155,7 +158,7 @@
             // 
             // tbGaurabdaYear
             // 
-            this.tbGaurabdaYear.Location = new System.Drawing.Point(225, 99);
+            this.tbGaurabdaYear.Location = new System.Drawing.Point(225, 158);
             this.tbGaurabdaYear.Name = "tbGaurabdaYear";
             this.tbGaurabdaYear.Size = new System.Drawing.Size(57, 20);
             this.tbGaurabdaYear.TabIndex = 11;
@@ -169,7 +172,7 @@
             this.groupBox1.Controls.Add(this.linkYearPlus);
             this.groupBox1.Controls.Add(this.linkStartMonth);
             this.groupBox1.Controls.Add(this.linkStartYear);
-            this.groupBox1.Location = new System.Drawing.Point(310, 3);
+            this.groupBox1.Location = new System.Drawing.Point(310, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(103, 143);
             this.groupBox1.TabIndex = 12;
@@ -244,21 +247,60 @@
             // 
             // labelNote
             // 
-            this.labelNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelNote.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelNote.Location = new System.Drawing.Point(7, 156);
+            this.labelNote.Location = new System.Drawing.Point(7, 215);
             this.labelNote.Name = "labelNote";
-            this.labelNote.Size = new System.Drawing.Size(404, 19);
+            this.labelNote.Size = new System.Drawing.Size(404, 23);
             this.labelNote.TabIndex = 13;
             this.labelNote.Text = "Choose day, month and year or tithi, masa and Gaurabda year.";
             this.labelNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Location = new System.Drawing.Point(335, 252);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 32);
+            this.buttonCancel.TabIndex = 25;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Visible = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Location = new System.Drawing.Point(254, 252);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 32);
+            this.buttonOK.TabIndex = 24;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Visible = false;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(10, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(403, 34);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Enter Start Date";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StartDatePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelNote);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tbGaurabdaYear);
@@ -274,7 +316,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "StartDatePanel";
-            this.Size = new System.Drawing.Size(423, 188);
+            this.Size = new System.Drawing.Size(423, 305);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -304,5 +346,8 @@
         private System.Windows.Forms.LinkLabel linkStartMonth;
         private System.Windows.Forms.LinkLabel linkStartYear;
         private System.Windows.Forms.Label labelNote;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Label label7;
     }
 }

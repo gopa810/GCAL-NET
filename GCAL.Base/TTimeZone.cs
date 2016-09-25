@@ -8,7 +8,7 @@ namespace GCAL.Base
 {
     public class TTimeZone
     {
-        public string name;
+        public string Name;
         public int OffsetMinutes;
         public int BiasMinutes;
         public UInt32 val;
@@ -24,7 +24,7 @@ namespace GCAL.Base
 
         public override string ToString()
         {
-            return name;
+            return GetTimeZoneOffsetText(OffsetMinutes/60.0) + " " + Name;
         }
 
         public static void SaveFile(string pszFile)
@@ -34,7 +34,7 @@ namespace GCAL.Base
                 foreach (TTimeZone timezone in gzone)
                 {
                     sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}",
-                        timezone.name.Replace('|', ' '), timezone.OffsetMinutes,
+                        timezone.Name.Replace('|', ' '), timezone.OffsetMinutes,
                         timezone.BiasMinutes, timezone.val,
                         timezone.latA, timezone.latB,
                         timezone.lonA, timezone.lonB,
@@ -45,26 +45,25 @@ namespace GCAL.Base
 
         public static int OpenFile(string pszFile)
         {
-            TFileRichList F = new TFileRichList();
             TTimeZone pce;
 
-            if (!TFile.FileExists(pszFile))
+            if (!File.Exists(pszFile))
             {
-                TFile.CreateFileFromResource("timezones.rl", pszFile);
+                File.WriteAllBytes(pszFile, Properties.Resources.timezones);
             }
 
             using (StreamReader sr = new StreamReader(pszFile))
             {
-                string line = sr.ReadLine();
+                string line;
                 TTimeZone.gzone = new List<TTimeZone>();
-                while (line != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     string[] fields = line.Split('|');
                     if (fields.Length < 9)
                         continue;
 
                     pce = new TTimeZone();
-                    pce.name = fields[0];
+                    pce.Name = fields[0];
                     pce.OffsetMinutes = int.Parse(fields[1]);
                     pce.BiasMinutes = int.Parse(fields[2]);
                     pce.val = UInt32.Parse(fields[3]);
@@ -113,7 +112,7 @@ namespace GCAL.Base
 
         public static string GetTimeZoneName(int nIndex)
         {
-            return gzone[ID2INDEX(nIndex)].name;
+            return gzone[ID2INDEX(nIndex)].Name;
         }
 
         public static double GetTimeZoneOffsetHours(int nIndex)
@@ -159,7 +158,7 @@ namespace GCAL.Base
             DSTtable = ExpandVal(gzone[nIndex].val);
 
             return string.Format("\t<dayss name=\"{0}\" types=\"{1}\" months=\"{2}\" weeks=\"{3}\" days=\"{4}\"\n\t\ttypee=\"{5}\" monthe=\"{6}\" weeke=\"{7}\" daye=\"{8}\" shift=\"{9}\"/>\n"
-                        , gzone[nIndex].name, DSTtable[1], DSTtable[0], DSTtable[2], DSTtable[3],
+                        , gzone[nIndex].Name, DSTtable[1], DSTtable[0], DSTtable[2], DSTtable[3],
                          DSTtable[5], DSTtable[4], DSTtable[6], DSTtable[7], gzone[nIndex].BiasMinutes);
 
         }
@@ -226,12 +225,12 @@ namespace GCAL.Base
             int m = GetTimeZoneCount();
             foreach (TTimeZone tz in gzone)
             {
-                if (tz.name.Equals(p, StringComparison.CurrentCultureIgnoreCase))
+                if (tz.Name.Equals(p, StringComparison.CurrentCultureIgnoreCase))
                     return tz.TimezoneId;
             }
             foreach (TTimeZone tz in gzone)
             {
-                if (tz.name.Equals(p, StringComparison.CurrentCulture))
+                if (tz.Name.Equals(p, StringComparison.CurrentCulture))
                     return tz.TimezoneId;
             }
             int.TryParse(p, out i);
@@ -301,8 +300,6 @@ namespace GCAL.Base
             }
             else if (t2 != 0)
             {
-                TTimeZone.determineDaylightStatus(vc2, nIndex);
-                TTimeZone.determineDaylightStatus(vc3, nIndex);
                 return 1;
             }
             else

@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbLatDeg = new System.Windows.Forms.TextBox();
             this.tbLongDeg = new System.Windows.Forms.TextBox();
             this.tbLatArc = new System.Windows.Forms.TextBox();
@@ -44,19 +42,13 @@
             this.tbLongArc = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cbTimezones = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.labelDstInfo = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Location";
             // 
             // label3
             // 
@@ -112,65 +104,56 @@
             this.label8.TabIndex = 7;
             this.label8.Text = "\'";
             // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(80, 14);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(293, 20);
-            this.textBox1.TabIndex = 8;
-            // 
-            // textBox2
+            // tbLatDeg
             // 
             this.tbLatDeg.Location = new System.Drawing.Point(80, 64);
-            this.tbLatDeg.Name = "textBox2";
+            this.tbLatDeg.Name = "tbLatDeg";
             this.tbLatDeg.Size = new System.Drawing.Size(50, 20);
             this.tbLatDeg.TabIndex = 9;
             this.tbLatDeg.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // textBox3
+            // tbLongDeg
             // 
             this.tbLongDeg.Location = new System.Drawing.Point(80, 104);
-            this.tbLongDeg.Name = "textBox3";
+            this.tbLongDeg.Name = "tbLongDeg";
             this.tbLongDeg.Size = new System.Drawing.Size(50, 20);
             this.tbLongDeg.TabIndex = 10;
             this.tbLongDeg.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // textBox4
+            // tbLatArc
             // 
             this.tbLatArc.Location = new System.Drawing.Point(153, 64);
-            this.tbLatArc.Name = "textBox4";
+            this.tbLatArc.Name = "tbLatArc";
             this.tbLatArc.Size = new System.Drawing.Size(50, 20);
             this.tbLatArc.TabIndex = 11;
             this.tbLatArc.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // button1
+            // btnLatDir
             // 
             this.btnLatDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLatDir.Location = new System.Drawing.Point(233, 64);
-            this.btnLatDir.Name = "button1";
+            this.btnLatDir.Name = "btnLatDir";
             this.btnLatDir.Size = new System.Drawing.Size(75, 23);
             this.btnLatDir.TabIndex = 12;
             this.btnLatDir.Text = "North";
             this.btnLatDir.UseVisualStyleBackColor = true;
             this.btnLatDir.Click += new System.EventHandler(this.buttonLatDir_Click);
             // 
-            // button2
+            // btnLongDir
             // 
             this.btnLongDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLongDir.Location = new System.Drawing.Point(233, 102);
-            this.btnLongDir.Name = "button2";
+            this.btnLongDir.Name = "btnLongDir";
             this.btnLongDir.Size = new System.Drawing.Size(75, 23);
             this.btnLongDir.TabIndex = 13;
             this.btnLongDir.Text = "East";
             this.btnLongDir.UseVisualStyleBackColor = true;
             this.btnLongDir.Click += new System.EventHandler(this.buttonLongDir_Click);
             // 
-            // textBox5
+            // tbLongArc
             // 
             this.tbLongArc.Location = new System.Drawing.Point(153, 104);
-            this.tbLongArc.Name = "textBox5";
+            this.tbLongArc.Name = "tbLongArc";
             this.tbLongArc.Size = new System.Drawing.Size(50, 20);
             this.tbLongArc.TabIndex = 14;
             this.tbLongArc.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
@@ -184,34 +167,22 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "Timezone";
             // 
-            // comboBox1
+            // cbTimezones
             // 
             this.cbTimezones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTimezones.FormattingEnabled = true;
             this.cbTimezones.Location = new System.Drawing.Point(80, 152);
-            this.cbTimezones.Name = "comboBox1";
+            this.cbTimezones.Name = "cbTimezones";
             this.cbTimezones.Size = new System.Drawing.Size(265, 21);
             this.cbTimezones.TabIndex = 16;
             this.cbTimezones.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(379, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Select";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label10
+            // labelDstInfo
             // 
             this.labelDstInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDstInfo.Location = new System.Drawing.Point(77, 189);
-            this.labelDstInfo.Name = "label10";
+            this.labelDstInfo.Name = "labelDstInfo";
             this.labelDstInfo.Size = new System.Drawing.Size(377, 45);
             this.labelDstInfo.TabIndex = 18;
             this.labelDstInfo.Text = "Sample";
@@ -226,13 +197,54 @@
             this.checkBox1.Text = "Auto update timezone";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(298, 237);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 32);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "OK";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(379, 237);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 32);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Location Name";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(108, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(346, 20);
+            this.textBox1.TabIndex = 8;
+            // 
             // LocationEnterPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.labelDstInfo);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.cbTimezones);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.tbLongArc);
@@ -250,7 +262,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "LocationEnterPanel";
-            this.Size = new System.Drawing.Size(480, 250);
+            this.Size = new System.Drawing.Size(480, 284);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,14 +270,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox tbLatDeg;
         private System.Windows.Forms.TextBox tbLongDeg;
         private System.Windows.Forms.TextBox tbLatArc;
@@ -274,8 +284,11 @@
         private System.Windows.Forms.TextBox tbLongArc;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbTimezones;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label labelDstInfo;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -8,12 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
+using GCAL.Views;
+
 
 namespace GCAL.CompositeViews
 {
     public partial class TimezonesPanel : UserControl
     {
-        public TTimeZone SelectedTimeZone { get; set; }
+        public TimezonesPanelDelegate Controller { get; set; }
 
         public TimezonesPanel()
         {
@@ -31,88 +34,34 @@ namespace GCAL.CompositeViews
             listView1.Items.Clear();
             foreach (TTimeZone timezone in TTimeZone.gzone)
             {
-                ListViewItem lvi = new ListViewItem(timezone.name);
-                lvi.SubItems.Add(TTimeZone.GetTimeZoneOffsetText(timezone.OffsetMinutes / 60.0));
-                lvi.Tag = timezone;
+                ListViewItem lvi = new ListViewItem("");
+                UpdateListViewItem(timezone, lvi);
                 listView1.Items.Add(lvi);
             }
             listView1.EndUpdate();
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private static void UpdateListViewItem(TTimeZone timezone, ListViewItem lvi)
         {
-            if (listView1.SelectedItems.Count == 0)
-                return;
+            lvi.SubItems.Clear();
+            lvi.Text = timezone.Name;
+            lvi.SubItems.Add(TTimeZone.GetTimeZoneOffsetText(timezone.OffsetMinutes / 60.0));
+            lvi.Tag = timezone;
+        }
 
-            if (SelectedTimeZone != null)
+        private TTimeZone SelectedTimeZone
+        {
+            get
             {
-                SaveTimeZoneData();
-            }
+                if (listView1.SelectedItems.Count == 0)
+                    return null;
 
-            TTimeZone tz = listView1.SelectedItems[0].Tag as TTimeZone;
-            if (tz == null)
-                return;
-            SelectedTimeZone = tz;
-
-            textBox1.Text = tz.name;
-            offsetNoDST.ValueMinutes = tz.OffsetMinutes;
-            if (tz.val == 0)
-            {
-                checkBox1.Checked = false;
-                offsetDST.ValueMinutes = 0;
-                dstStartPanel.Value = 0;
-                dstEndPanel.Value = 0;
-            }
-            else
-            {
-                checkBox1.Checked = true;
-                offsetDST.ValueMinutes = tz.OffsetMinutes + tz.BiasMinutes;
-                dstStartPanel.Value = (UInt16)((tz.val & 0xffff0000) >> 16);
-                dstEndPanel.Value = (UInt16)(tz.val & 0xffff);
+                return listView1.SelectedItems[0].Tag as TTimeZone;
             }
         }
 
-        public void SaveTimeZoneData()
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool changed = false;
-            if (SelectedTimeZone != null)
-            {
-                if (!SelectedTimeZone.name.Equals(textBox1.Text))
-                {
-                    SelectedTimeZone.name = textBox1.Text;
-                    changed = true;
-                }
-                if (SelectedTimeZone.OffsetMinutes != offsetNoDST.ValueMinutes)
-                {
-                    SelectedTimeZone.OffsetMinutes = offsetNoDST.ValueMinutes;
-                    changed = true;
-                }
-                if (SelectedTimeZone.BiasMinutes != offsetDST.ValueMinutes - offsetNoDST.ValueMinutes)
-                {
-                    SelectedTimeZone.BiasMinutes = offsetDST.ValueMinutes - offsetNoDST.ValueMinutes;
-                    changed = true;
-                }
-                if (checkBox1.Checked)
-                {
-                    UInt32 val = (dstStartPanel.Value << 16) | dstEndPanel.Value;
-                    if (SelectedTimeZone.val != val)
-                    {
-                        SelectedTimeZone.val = val;
-                        changed = true;
-                    }
-                }
-                else
-                {
-                    if (SelectedTimeZone.val != 0)
-                    {
-                        SelectedTimeZone.val = 0;
-                        changed = true;
-                    }
-                }
-            }
-
-            if (changed)
-                TTimeZone.Modified = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -127,10 +76,7 @@ namespace GCAL.CompositeViews
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            panel2.Visible = checkBox1.Checked;
-        }
+
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -151,12 +97,12 @@ namespace GCAL.CompositeViews
                 foreach (string s in ps)
                 {
                     A++;
-                    if (timezone.name.IndexOf(s, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                    if (timezone.Name.IndexOf(s, 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
                         B++;
                 }
                 if (A == B)
                 {
-                    ListViewItem lvi = new ListViewItem(timezone.name);
+                    ListViewItem lvi = new ListViewItem(timezone.Name);
                     lvi.SubItems.Add(TTimeZone.GetTimeZoneOffsetText(timezone.OffsetMinutes / 60.0));
                     lvi.Tag = timezone;
                     listView1.Items.Add(lvi);
@@ -165,6 +111,76 @@ namespace GCAL.CompositeViews
             listView1.EndUpdate();
         }
 
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            if (Controller.ViewContainer != null)
+            {
+                TimezoneDetails d = new TimezoneDetails();
+                d.OnButtonSave += new TBButtonPressed(OnDetailsDialogSaved);
+                d.setTimeZone(null);
+                TimezoneDetailsController dc = new TimezoneDetailsController(d);
+                dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
+            }
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (Controller.ViewContainer != null)
+            {
+                TimezoneDetails d = new TimezoneDetails();
+                d.setTimeZone(SelectedTimeZone);
+                d.OnButtonSave += new TBButtonPressed(OnDetailsDialogSaved);
+                TimezoneDetailsController dc = new TimezoneDetailsController(d);
+                dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
+            }
+        }
+
+        private void buttonCopy_Click(object sender, EventArgs e)
+        {
+            if (Controller.ViewContainer != null)
+            {
+                TimezoneDetails d = new TimezoneDetails();
+                d.setCopyTimeZone(SelectedTimeZone);
+                d.OnButtonSave += new TBButtonPressed(OnDetailsDialogSaved);
+                TimezoneDetailsController dc = new TimezoneDetailsController(d);
+                dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Fill);
+            }
+        }
+
+        private void OnDetailsDialogSaved(object sender, EventArgs e)
+        {
+            TTimeZone tz = SelectedTimeZone;
+            if (tz == null)
+            {
+                UpdateTimezoneList();
+            }
+            else
+            {
+                foreach (ListViewItem lvi in listView1.Items)
+                {
+                    if (lvi.Tag == tz)
+                    {
+                        UpdateListViewItem(tz, lvi);
+                        break;
+                    }
+                }
+            }
+        }
 
     }
+
+    public class TimezonesPanelDelegate : GVCore
+    {
+        public TimezonesPanelDelegate(TimezonesPanel v)
+        {
+            View = v;
+            v.Controller = this;
+        }
+
+        public override GSCore ExecuteMessage(string token, GSCoreCollection args)
+        {
+            return base.ExecuteMessage(token, args);
+        }
+    }
+
 }

@@ -26,7 +26,7 @@ double di;*/
 
 
 
-        public void Calculate(double jdate, GCEarthData earth)
+        public void Calculate(double jdate)
         {
 
             GCEclipticalCoords crd = CalculateEcliptical(jdate);
@@ -138,7 +138,7 @@ double di;*/
             double xj;
             GregorianDateTime xd = new GregorianDateTime();
 
-            moon.Calculate(jday, ed);
+            moon.Calculate(jday);
             l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
@@ -156,7 +156,7 @@ double di;*/
                     d.NextDay();
                 }
 
-                moon.Calculate(jday, ed);
+                moon.Calculate(jday);
                 l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
                 if (prev_naks != new_naks)
@@ -230,7 +230,7 @@ double di;*/
         {
             GCMoonData moon = new GCMoonData();
             double d = vc.GetJulianComplete();
-            moon.Calculate(d, e);
+            moon.Calculate(d);
             moon.correct_position(d, e.latitudeDeg, e.longitudeDeg, 0);
             moon.calc_horizontal(d, e.longitudeDeg, e.latitudeDeg);
 

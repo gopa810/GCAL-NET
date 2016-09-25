@@ -41,37 +41,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Documents\GSCore.cs" />
-    <Compile Include="Documents\GSExecutor.cs" />
-    <Compile Include="Documents\GSNumber.cs" />
-    <Compile Include="Documents\GSScript.cs" />
-    <Compile Include="Documents\GSList.cs" />
-    <Compile Include="Documents\GDDocument.cs" />
-    <Compile Include="Documents\GDDocumentBlock.cs" />
-    <Compile Include="Documents\GDDocumentExportType.cs" />
-    <Compile Include="Documents\GDExportContext.cs" />
-    <Compile Include="Documents\GDLineBreak.cs" />
-    <Compile Include="Documents\GDNode.cs" />
-    <Compile Include="Documents\GDNodeCollection.cs" />
-    <Compile Include="Documents\GDStyleDefinition.cs" />
-    <Compile Include="Documents\GDStylesBook.cs" />
-    <Compile Include="Documents\GDTable.cs" />
-    <Compile Include="Documents\GDTableCell.cs" />
-    <Compile Include="Documents\GDTableRow.cs" />
-    <Compile Include="Documents\GDTextRun.cs" />
-    <Compile Include="Documents\GDTextStyle.cs" />
-    <Compile Include="Documents\GDTextStyleCollection.cs" />
-    <Compile Include="Documents\GSBoolean.cs" />
-    <Compile Include="Documents\GSString.cs" />
-    <Compile Include="Documents\GSToken.cs" />
-    <Compile Include="GCCalendarEvent.cs" />
-    <Compile Include="GCCalendarEventList.cs" />
+    <Compile Include="GCConfigRatedEvents.cs" />
+    <Compile Include="GCConfigRatedManager.cs" />
+    <Compile Include="GCDataFormat.cs" />
+    <Compile Include="GCFestivalBase.cs" />
+    <Compile Include="GCFestivalEkadasi.cs" />
+    <Compile Include="GCFestivalMasaDay.cs" />
+    <Compile Include="GCFestivalRelated.cs" />
+    <Compile Include="GCFestivalSpecial.cs" />
+    <Compile Include="GCFestivalSpecialExecutor.cs" />
+    <Compile Include="Scripting\GSCoreCollection.cs" />
+    <Compile Include="Scripting\GSCore.cs" />
+    <Compile Include="Scripting\GSDateTime.cs" />
+    <Compile Include="Scripting\GSExecutor.cs" />
+    <Compile Include="Scripting\GSNumber.cs" />
+    <Compile Include="Scripting\GSReturn.cs" />
+    <Compile Include="Scripting\GSScript.cs" />
+    <Compile Include="Scripting\GSList.cs" />
+    <Compile Include="Scripting\GDDocument.cs" />
+    <Compile Include="Scripting\GDDocumentBlock.cs" />
+    <Compile Include="Scripting\GDDocumentExportType.cs" />
+    <Compile Include="Scripting\GDExportContext.cs" />
+    <Compile Include="Scripting\GDLineBreak.cs" />
+    <Compile Include="Scripting\GDNode.cs" />
+    <Compile Include="Scripting\GDNodeCollection.cs" />
+    <Compile Include="Scripting\GDStyleDefinition.cs" />
+    <Compile Include="Scripting\GDStylesBook.cs" />
+    <Compile Include="Scripting\GDTable.cs" />
+    <Compile Include="Scripting\GDTableCell.cs" />
+    <Compile Include="Scripting\GDTableRow.cs" />
+    <Compile Include="Scripting\GDTextRun.cs" />
+    <Compile Include="Scripting\GDTextStyle.cs" />
+    <Compile Include="Scripting\GDTextStyleCollection.cs" />
+    <Compile Include="Scripting\GSBoolean.cs" />
+    <Compile Include="Scripting\GSString.cs" />
+    <Compile Include="Scripting\GSToken.cs" />
+    <Compile Include="GCFestivalTithiMasa.cs" />
+    <Compile Include="GCFestivalBook.cs" />
     <Compile Include="CLocationRef.cs" />
     <Compile Include="GCAstroData.cs" />
-    <Compile Include="GCCalendarEventSankranti.cs" />
+    <Compile Include="GCFestivalSankranti.cs" />
     <Compile Include="GCEkadasi.cs" />
     <Compile Include="GCMasa.cs" />
     <Compile Include="GCPaksa.cs" />
+    <Compile Include="TResultBase.cs" />
     <Compile Include="VSOP87\GCEarth.cs" />
     <Compile Include="GCHourTime.cs" />
     <Compile Include="Enums.cs" />
@@ -82,7 +95,7 @@
     <Compile Include="GCCalendar.cs" />
     <Compile Include="GCConjunction.cs" />
     <Compile Include="GCDisplaySettings.cs" />
-    <Compile Include="GCEventGroup.cs" />
+    <Compile Include="GCFestivalBookCollection.cs" />
     <Compile Include="GCGlobal.cs" />
     <Compile Include="VSOP87\GCJupiter.cs" />
     <Compile Include="GCLayoutData.cs" />
@@ -91,13 +104,9 @@
     <Compile Include="VSOP87\GCMercury.cs" />
     <Compile Include="GCNaksatra.cs" />
     <Compile Include="GCRasi.cs" />
-    <Compile Include="GCRatedEvent.cs" />
-    <Compile Include="GCRatedEventsList.cs" />
     <Compile Include="GCRatedInterval.cs" />
-    <Compile Include="GCRichText.cs" />
     <Compile Include="GCSankranti.cs" />
     <Compile Include="VSOP87\GCSaturn.cs" />
-    <Compile Include="GCStringBuilder.cs" />
     <Compile Include="GCStrings.cs" />
     <Compile Include="GCTextParser.cs" />
     <Compile Include="GCTithi.cs" />
@@ -114,8 +123,7 @@
     </Compile>
     <Compile Include="GCSunData.cs" />
     <Compile Include="TCountry.cs" />
-    <Compile Include="TFile.cs" />
-    <Compile Include="TFileRichList.cs" />
+    <Compile Include="GCRichFileLine.cs" />
     <Compile Include="TLangFileInfo.cs" />
     <Compile Include="TLangFileList.cs" />
     <Compile Include="TResultApp.cs" />
@@ -143,9 +151,108 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\TemplateTodayPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplTodayRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplTodayPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplTodayHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplMasaListPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplMasaListRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplMasaListHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplMasaListXml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplMasaListCsv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplAppDayPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplAppDayRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplAppDayHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplAppDayXml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplAppDayCsv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCoreEventsPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCoreEventsRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCoreEventsHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCoreEventsXml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCoreEventsCsv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarHtmlTable.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarXml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarCsv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarICAL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarVCAL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplRatedPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplRatedRtf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplRatedXml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplRatedHtml.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplRatedCsv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarDayPlain.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

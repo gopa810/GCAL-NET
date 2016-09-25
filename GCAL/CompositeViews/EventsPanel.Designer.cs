@@ -30,21 +30,13 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.m_wndClass = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.m_wndMasa = new System.Windows.Forms.ComboBox();
-            this.m_wndList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -60,89 +52,18 @@
             // 
             this.m_wndClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_wndClass.FormattingEnabled = true;
-            this.m_wndClass.Location = new System.Drawing.Point(10, 58);
+            this.m_wndClass.Location = new System.Drawing.Point(6, 58);
             this.m_wndClass.Name = "m_wndClass";
-            this.m_wndClass.Size = new System.Drawing.Size(169, 21);
+            this.m_wndClass.Size = new System.Drawing.Size(167, 21);
             this.m_wndClass.TabIndex = 1;
             this.m_wndClass.SelectedIndexChanged += new System.EventHandler(this.m_wndClass_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(182, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Filter by Masa";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // m_wndMasa
-            // 
-            this.m_wndMasa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_wndMasa.FormattingEnabled = true;
-            this.m_wndMasa.Location = new System.Drawing.Point(185, 58);
-            this.m_wndMasa.Name = "m_wndMasa";
-            this.m_wndMasa.Size = new System.Drawing.Size(180, 21);
-            this.m_wndMasa.TabIndex = 3;
-            this.m_wndMasa.SelectedIndexChanged += new System.EventHandler(this.m_wndMasa_SelectedIndexChanged);
-            // 
-            // m_wndList
-            // 
-            this.m_wndList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_wndList.CheckBoxes = true;
-            this.m_wndList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.m_wndList.FullRowSelect = true;
-            this.m_wndList.Location = new System.Drawing.Point(6, 85);
-            this.m_wndList.Name = "m_wndList";
-            this.m_wndList.Size = new System.Drawing.Size(583, 335);
-            this.m_wndList.TabIndex = 4;
-            this.m_wndList.UseCompatibleStateImageBehavior = false;
-            this.m_wndList.View = System.Windows.Forms.View.Details;
-            this.m_wndList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.m_wndList_ItemCheck);
-            this.m_wndList.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.m_wndList_ItemChecked);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Event Title";
-            this.columnHeader1.Width = 120;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Group";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Time";
-            this.columnHeader3.Width = 127;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Fast Type";
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Fast for...";
-            this.columnHeader5.Width = 111;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Start Year";
-            this.columnHeader6.Width = 76;
             // 
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(6, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 25);
+            this.button1.Size = new System.Drawing.Size(51, 25);
             this.button1.TabIndex = 5;
             this.button1.Text = "New";
             this.button1.UseVisualStyleBackColor = true;
@@ -151,9 +72,9 @@
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(103, 3);
+            this.button2.Location = new System.Drawing.Point(63, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 25);
+            this.button2.Size = new System.Drawing.Size(50, 25);
             this.button2.TabIndex = 6;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
@@ -161,10 +82,11 @@
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(198, 3);
+            this.button3.Location = new System.Drawing.Point(260, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 25);
+            this.button3.Size = new System.Drawing.Size(54, 25);
             this.button3.TabIndex = 7;
             this.button3.Text = "Delete";
             this.button3.UseVisualStyleBackColor = true;
@@ -173,9 +95,9 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(362, 3);
+            this.button4.Location = new System.Drawing.Point(119, 3);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(89, 25);
+            this.button4.Size = new System.Drawing.Size(54, 25);
             this.button4.TabIndex = 8;
             this.button4.Text = "Export";
             this.button4.UseVisualStyleBackColor = true;
@@ -184,7 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(372, 42);
+            this.label3.Location = new System.Drawing.Point(176, 42);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 9;
@@ -194,29 +116,44 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(375, 59);
+            this.textBox1.Location = new System.Drawing.Point(179, 59);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(203, 20);
+            this.textBox1.Size = new System.Drawing.Size(135, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.IntegralHeight = false;
+            this.listBox1.Location = new System.Drawing.Point(6, 85);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(308, 152);
+            this.listBox1.TabIndex = 11;
+            this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
+            this.listBox1.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.listBox1_MeasureItem);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // EventsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.m_wndList);
-            this.Controls.Add(this.m_wndMasa);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.m_wndClass);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "EventsPanel";
-            this.Size = new System.Drawing.Size(592, 423);
+            this.Size = new System.Drawing.Size(320, 240);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,20 +163,12 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox m_wndClass;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox m_wndMasa;
-        private System.Windows.Forms.ListView m_wndList;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

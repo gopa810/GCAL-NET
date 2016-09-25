@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Globalization;
 
 namespace GCAL.Base
 {
@@ -30,6 +32,17 @@ namespace GCAL.Base
         public override string ToString()
         {
             return name;
+        }
+
+        public static TCountry GetCurrentCountry()
+        {
+            CultureInfo ci = CultureInfo.CurrentCulture;
+            RegionInfo ri = new RegionInfo(ci.LCID);
+            TCountry tc = GetCountryByAcronym(ri.TwoLetterISORegionName);
+            if (tc == null)
+                return GetCountryByAcronym("ID");
+            else
+                return tc;
         }
 
         public static UInt16 CodeFromString(string str)
@@ -66,21 +79,21 @@ namespace GCAL.Base
 
         public static int InitWithFile(string strFile)
         {
-	        TFileRichList F = new TFileRichList();
+	        GCRichFileLine F = new GCRichFileLine();
 
-	        if (!TFile.FileExists(strFile))
+	        if (!File.Exists(strFile))
 	        {
-		        TFile.CreateFileFromResource("countries.rl", strFile);
+                File.WriteAllBytes(strFile, Properties.Resources.countries);
 	        }
 
-	        if (F.ReadFile(strFile))
+	        using (StreamReader sr = new StreamReader(strFile))
 	        {
 		        //
 		        // init from file
 		        //
-		        while(F.ReadLine() > 0)
+		        while(F.SetLine(sr.ReadLine()))
 		        {
-			        if (int.Parse(F.GetTag()) == 77)
+			        if (F.TagInt == 77)
 			        {
 				        AddCountry(F.GetField(0), F.GetField(1), int.Parse(F.GetField(2)));
 			        }
@@ -136,20 +149,16 @@ namespace GCAL.Base
 
         public static int SaveToFile(string szFile)
         {
-            TFileRichList F = new TFileRichList();
-
-            int i;
-            for (i = 0; i < gcountries.Count(); i++)
+            using (StreamWriter sw = new StreamWriter(szFile))
             {
-                F.Clear();
-                F.AddTag(77);
-                F.AddText(gcountries[i].abbreviatedName);
-                F.AddText(gcountries[i].name);
-                F.AddInt(gcountries[i].continent);
-                F.WriteLine();
+                for (int i = 0; i < gcountries.Count(); i++)
+                {
+                    sw.WriteLine("77 {0}|{1}|{2}",
+                        gcountries[i].abbreviatedName,
+                        gcountries[i].name,
+                        gcountries[i].continent);
+                }
             }
-
-            F.WriteFile(szFile);
 
             return 1;
         }

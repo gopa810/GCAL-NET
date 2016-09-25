@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCAL", "GCAL\GCAL.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCAL.Base", "GCAL.Base\GCAL.Base.csproj", "{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GCAL Setup", "GCAL Setup\GCAL Setup.vdproj", "{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,12 @@ Global
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|Any CPU.ActiveCfg = Debug
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|x86.ActiveCfg = Debug
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|Any CPU.ActiveCfg = Release
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|Mixed Platforms.ActiveCfg = Release
+		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

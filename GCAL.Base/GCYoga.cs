@@ -21,7 +21,7 @@ namespace GCAL.Base
 	        int prev_tit = 0;
 	        int new_tit = -1;
 	        double ayanamsha = GCAyanamsha.GetAyanamsa(jday);
-	        moon.Calculate(jday, ed);
+	        moon.Calculate(jday);
 	        sunl = GCSunData.GetSunLongitude(d);
 	        l1 = GCMath.putIn360( moon.longitude_deg + sunl - 2*ayanamsha);
 	        prev_tit = Convert.ToInt32(Math.Floor(l1/phi));
@@ -40,7 +40,7 @@ namespace GCAL.Base
 			        d.NextDay();
 		        }
 
-		        moon.Calculate(jday, ed);
+		        moon.Calculate(jday);
 		        sunl = GCSunData.GetSunLongitude(d);
 		        l2 = GCMath.putIn360( moon.longitude_deg + sunl - 2*ayanamsha);
 		        new_tit = Convert.ToInt32(Math.Floor(l2/phi));

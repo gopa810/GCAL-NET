@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace GCAL.Base
 {
@@ -18,30 +19,29 @@ namespace GCAL.Base
 
         public static bool OpenFile(string pszFileList)
         {
-            TFileRichList file = new TFileRichList();
+            GCRichFileLine file = new GCRichFileLine();
             CLocation loc = null;
             int notNullCountry = 0;
             locationList = new List<CLocation>();
 
-            if (!TFile.FileExists(pszFileList))
+            if (!File.Exists(pszFileList))
             {
-                TFile.CreateFileFromResource("locations.rl", pszFileList);
+                File.WriteAllBytes(pszFileList, Properties.Resources.locations);
             }
 
-            // try to open
-            if (file.ReadFile(pszFileList))
+            using(StreamReader sr = new StreamReader(pszFileList))
             {
-                while (file.ReadLine() > 0)
+                while (file.SetLine(sr.ReadLine()))
                 {
                     loc = new CLocation();
-                    loc.cityName = file.GetField(0);
-                    loc.countryName = file.GetField(1);
+                    loc.cityName = file[0];
+                    loc.countryName = file[1];
                     if (loc.countryName.Length > 0)
                         notNullCountry++;
-                    loc.longitudeDeg = double.Parse(file.GetField(2));
-                    loc.latitudeDeg = double.Parse(file.GetField(3));
-                    loc.offsetUtcHours = double.Parse(file.GetField(4));
-                    loc.timezoneId = int.Parse(file.GetField(5));
+                    loc.longitudeDeg = double.Parse(file[2]);
+                    loc.latitudeDeg = double.Parse(file[3]);
+                    loc.offsetUtcHours = double.Parse(file[4]);
+                    loc.timezoneId = int.Parse(file[5]);
 
                     locationList.Add(loc);
                 }
@@ -54,122 +54,122 @@ namespace GCAL.Base
         public static bool SaveAs(string lpszFileName, int nType)
         {
             String str, strTemp;
-            TFile f = new TFile();
             int i, ni;
 
-            switch (nType)
+            using (StreamWriter f = new StreamWriter(lpszFileName))
             {
-                case 1:
-                    f.WriteString("<xml>\n");
-                    f.WriteString("\t<countries>\n");
-                    ni = TCountry.GetCountryCount();
-                    for (i = 0; i < ni; i++)
-                    {
-                        str = string.Format("\t<ccn country=\"{0}\" continent=\"{1}\" />\n", TCountry.GetCountryNameByIndex(i),
-                            TCountry.GetCountryContinentNameByIndex(i));
-                        f.WriteString(str);
-                    }
-                    f.WriteString("\t</countries>\n");
-                    f.WriteString("\t<dsts>\n");
-                    ni = TTimeZone.GetTimeZoneCount();
-                    for (i = 1; i < ni; i++)
-                    {
-                        str = TTimeZone.GetXMLString(i);
-                        f.WriteString(str);
-                    }
-                    f.WriteString("\t</dsts>\n");
-                    f.WriteString("\t<cities>\n");
-                    for (i = 0; i < locationList.Count(); i++)
-                    {
-                        CLocation lc = locationList[i];
-                        str = string.Format("\t<loc city=\"{0}\" lon=\"{1}\" lat=\"{2}\" tzone=\"{3}\"\n\t\tcountry=\"{4}\" />\n",
-                            lc.cityName, lc.longitudeDeg, lc.latitudeDeg,
-                            lc.offsetUtcHours, lc.countryName);
-                        str.Replace("&", "&amp;");
-                        f.WriteString(str);
-                    }
-                    f.WriteString("\t</cities>\n");
-                    f.WriteString("</xml>");
-                    break;
-                case 2:
-                    f.WriteString("Countries:\n");
-                    ni = TCountry.GetCountryCount();
-                    for (i = 0; i < ni; i++)
-                    {
-                        str = string.Format("{0}, {1}\n", TCountry.GetCountryNameByIndex(i),
-                            TCountry.GetCountryContinentNameByIndex(i));
-                        f.WriteString(str);
-                    }
-                    f.WriteString("Daylight Saving Time Systems:\n");
-                    ni = TTimeZone.GetTimeZoneCount();
-                    for (i = 1; i < ni; i++)
-                    {
-                        str = string.Format("\t{0}\n", TTimeZone.GetTimeZoneName(i));
-                        f.WriteString(str);
-                    }
-                    f.WriteString("Cities:\n");
-                    for (i = 0; i < locationList.Count(); i++)
-                    {
-                        CLocation lc = locationList[i];
-                        str = string.Format("\t{0} {1} {2} {3} {4}\n",
-                            lc.cityName,
-                            lc.countryName,
-                            lc.longitudeDeg,
-                            lc.latitudeDeg,
-                            lc.offsetUtcHours);
-                        f.WriteString(str);
-                    }
-                    break;
-                case 3:
-                    for (i = 0; i < locationList.Count(); i++)
-                    {
-                        CLocation lc = locationList[i];
-                        // city
-                        f.WriteString("@city=");
-                        f.WriteString(lc.cityName);
-                        f.WriteString("\n");
+                switch (nType)
+                {
+                    case 1:
+                        f.Write("<xml>\n");
+                        f.Write("\t<countries>\n");
+                        ni = TCountry.GetCountryCount();
+                        for (i = 0; i < ni; i++)
+                        {
+                            str = string.Format("\t<ccn country=\"{0}\" continent=\"{1}\" />\n", TCountry.GetCountryNameByIndex(i),
+                                TCountry.GetCountryContinentNameByIndex(i));
+                            f.Write(str);
+                        }
+                        f.Write("\t</countries>\n");
+                        f.Write("\t<dsts>\n");
+                        ni = TTimeZone.GetTimeZoneCount();
+                        for (i = 1; i < ni; i++)
+                        {
+                            str = TTimeZone.GetXMLString(i);
+                            f.Write(str);
+                        }
+                        f.Write("\t</dsts>\n");
+                        f.Write("\t<cities>\n");
+                        for (i = 0; i < locationList.Count(); i++)
+                        {
+                            CLocation lc = locationList[i];
+                            str = string.Format("\t<loc city=\"{0}\" lon=\"{1}\" lat=\"{2}\" tzone=\"{3}\"\n\t\tcountry=\"{4}\" />\n",
+                                lc.cityName, lc.longitudeDeg, lc.latitudeDeg,
+                                lc.offsetUtcHours, lc.countryName);
+                            str.Replace("&", "&amp;");
+                            f.Write(str);
+                        }
+                        f.Write("\t</cities>\n");
+                        f.Write("</xml>");
+                        break;
+                    case 2:
+                        f.Write("Countries:\n");
+                        ni = TCountry.GetCountryCount();
+                        for (i = 0; i < ni; i++)
+                        {
+                            str = string.Format("{0}, {1}\n", TCountry.GetCountryNameByIndex(i),
+                                TCountry.GetCountryContinentNameByIndex(i));
+                            f.Write(str);
+                        }
+                        f.Write("Daylight Saving Time Systems:\n");
+                        ni = TTimeZone.GetTimeZoneCount();
+                        for (i = 1; i < ni; i++)
+                        {
+                            str = string.Format("\t{0}\n", TTimeZone.GetTimeZoneName(i));
+                            f.Write(str);
+                        }
+                        f.Write("Cities:\n");
+                        for (i = 0; i < locationList.Count(); i++)
+                        {
+                            CLocation lc = locationList[i];
+                            str = string.Format("\t{0} {1} {2} {3} {4}\n",
+                                lc.cityName,
+                                lc.countryName,
+                                lc.longitudeDeg,
+                                lc.latitudeDeg,
+                                lc.offsetUtcHours);
+                            f.Write(str);
+                        }
+                        break;
+                    case 3:
+                        for (i = 0; i < locationList.Count(); i++)
+                        {
+                            CLocation lc = locationList[i];
+                            // city
+                            f.Write("@city=");
+                            f.Write(lc.cityName);
+                            f.Write("\n");
 
-                        f.WriteString("@country=");
-                        f.WriteString(lc.countryName);
-                        f.WriteString("\n");
+                            f.Write("@country=");
+                            f.Write(lc.countryName);
+                            f.Write("\n");
 
-                        f.WriteString("@lat=");
-                        strTemp = string.Format("{0}", lc.latitudeDeg);
-                        f.WriteString(strTemp);
-                        f.WriteString("\n");
+                            f.Write("@lat=");
+                            strTemp = string.Format("{0}", lc.latitudeDeg);
+                            f.Write(strTemp);
+                            f.Write("\n");
 
-                        f.WriteString("@long=");
-                        strTemp = string.Format("{0}", lc.longitudeDeg);
-                        f.WriteString(strTemp);
-                        f.WriteString("\n");
+                            f.Write("@long=");
+                            strTemp = string.Format("{0}", lc.longitudeDeg);
+                            f.Write(strTemp);
+                            f.Write("\n");
 
-                        f.WriteString("@timezone=");
-                        strTemp = string.Format("{0}", lc.offsetUtcHours);
-                        f.WriteString(strTemp);
-                        f.WriteString("\n");
+                            f.Write("@timezone=");
+                            strTemp = string.Format("{0}", lc.offsetUtcHours);
+                            f.Write(strTemp);
+                            f.Write("\n");
 
-                        f.WriteString("@dst=");
-                        strTemp = string.Format("{0}", lc.timezoneId);
-                        f.WriteString(strTemp);
-                        f.WriteString("\n@create\n\n");
+                            f.Write("@dst=");
+                            strTemp = string.Format("{0}", lc.timezoneId);
+                            f.Write(strTemp);
+                            f.Write("\n@create\n\n");
 
-                    }
-                    break;
-                case 4:
-                    for (i = 0; i < locationList.Count(); i++)
-                    {
-                        CLocation lc = locationList[i];
-                        strTemp = string.Format("26700 {0}|{1}|{2}|{3}|{4}|{5}\n", lc.cityName, lc.countryName,
-                            lc.longitudeDeg,
-                            lc.latitudeDeg, lc.offsetUtcHours, lc.timezoneId);
-                        f.WriteString(strTemp);
-                    }
-                    break;
-                default:
-                    break;
+                        }
+                        break;
+                    case 4:
+                        for (i = 0; i < locationList.Count(); i++)
+                        {
+                            CLocation lc = locationList[i];
+                            strTemp = string.Format("26700 {0}|{1}|{2}|{3}|{4}|{5}\n", lc.cityName, lc.countryName,
+                                lc.longitudeDeg,
+                                lc.latitudeDeg, lc.offsetUtcHours, lc.timezoneId);
+                            f.Write(strTemp);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            f.WriteFile(lpszFileName);
 
             return true;
         }
@@ -204,7 +204,7 @@ namespace GCAL.Base
 
         public static void InitInternal(string fileName)
         {
-            TFile.DeleteFile(fileName);
+            File.Delete(fileName);
             OpenFile(fileName);
         }
 

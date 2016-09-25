@@ -136,4 +136,100 @@
   <data name="tips" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tips.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="TplTodayHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplTodayHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplTodayPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplTodayPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplTodayRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplTodayRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplAppDayCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplAppDayCsv.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplAppDayHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplAppDayHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplAppDayPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplAppDayPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplAppDayRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplAppDayRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplAppDayXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplAppDayXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarCsv.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarHtmlTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarHtmlTable.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarICAL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarICAL.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarVCAL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarVCAL.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCoreEventsCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCoreEventsCsv.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCoreEventsHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCoreEventsHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCoreEventsPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCoreEventsPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCoreEventsRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCoreEventsRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCoreEventsXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCoreEventsXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplMasaListCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplMasaListCsv.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplMasaListHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplMasaListHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplMasaListPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplMasaListPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplMasaListRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplMasaListRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplMasaListXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplMasaListXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplRatedCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplRatedCsv.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplRatedHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplRatedHtml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplRatedPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplRatedPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplRatedRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplRatedRtf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplRatedXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplRatedXml.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarDayPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarDayPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>
