@@ -34,19 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FD5F93558CF64B493D64B7EEE2F923CA"
+        "OwnerKey" = "8:_BF4ABEE5834A4F8280BC1BCD8C9160B4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3401EA78023D4724BF7F78C6299BC50D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BF4ABEE5834A4F8280BC1BCD8C9160B4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -67,6 +61,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -83,6 +85,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -112,37 +122,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FD5F93558CF64B493D64B7EEE2F923CA"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GCAL.Base, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FD5F93558CF64B493D64B7EEE2F923CA"
-                    {
-                    "Name" = "8:GCAL.Base.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:GCAL.Base.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2D67AF8F706D4EB6825EB1FC1B70BD05"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -199,15 +178,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gaurabda Calendar Calculator"
-        "ProductCode" = "8:{CF213919-891E-487B-8E26-1F3D1E1F653C}"
-        "PackageCode" = "8:{CE9BC5F6-5A39-429B-B6BC-1AF3906D4821}"
+        "ProductCode" = "8:{96A9E15C-4E48-4A49-85A3-6022C74061D5}"
+        "PackageCode" = "8:{A259C656-05FB-4AAA-86F0-C39F4448C4CC}"
         "UpgradeCode" = "8:{B762F292-B31C-486A-8527-54CE49813F10}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:11.99.0"
+        "ProductVersion" = "8:11.99.1"
         "Manufacturer" = "8:ISKCON"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

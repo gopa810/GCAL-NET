@@ -48,14 +48,10 @@
 \par
 # (set prevDay -1)
 # (foreach ri : events.intervals
-#   (if (!= prevDay ri.startTime.day) then
-\par
-\par === [ri.startTime.shortDate:-12s] - [ri.startTime.dayOfWeekName] ========
-\par
-#   )
 #
 
-\par\tab [ri.startTime.shortTime] - [ri.endTime.shortTime]  [ri.title:40m]  +[ri.ratingPos]  [ri.ratingNeg]
+\par\tab [ri.startTime.shortDate:-12s] [ri.startTime.dayOfWeekAbbr]   [ri.startTime.shortTime] - [ri.endTime.shortTime]            [ri.ratio:4s]%
+\par\tab\tab\tab    [ri.title:40m]    ( +[ri.ratingPos] [ri.ratingNeg] )
 
 #   (set notes ri.notes)
 #   (if (!= notes.count 0) then

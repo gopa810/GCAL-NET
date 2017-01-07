@@ -32,6 +32,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.calendarTableView1 = new GCAL.Views.CalendarTableView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -57,7 +58,7 @@
             this.printToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.printDocumentTable = new System.Drawing.Printing.PrintDocument();
-            this.calendarTableView1 = new GCAL.Views.CalendarTableView();
+            this.printMultipleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -95,6 +96,19 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // calendarTableView1
+            // 
+            this.calendarTableView1.BackColor = System.Drawing.Color.White;
+            this.calendarTableView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.calendarTableView1.CurrentMonth = 9;
+            this.calendarTableView1.CurrentYear = 2016;
+            this.calendarTableView1.LiveRefresh = false;
+            this.calendarTableView1.Location = new System.Drawing.Point(215, 25);
+            this.calendarTableView1.Name = "calendarTableView1";
+            this.calendarTableView1.SelectedCalendar = null;
+            this.calendarTableView1.Size = new System.Drawing.Size(218, 224);
+            this.calendarTableView1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -295,7 +309,8 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.printToolStripMenuItem1,
-            this.printToolStripMenuItem2});
+            this.printToolStripMenuItem2,
+            this.printMultipleToolStripMenuItem});
             this.toolStripDropDownButton1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripDropDownButton1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
@@ -307,14 +322,14 @@
             // printToolStripMenuItem1
             // 
             this.printToolStripMenuItem1.Name = "printToolStripMenuItem1";
-            this.printToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.printToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.printToolStripMenuItem1.Text = "Export";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem2
             // 
             this.printToolStripMenuItem2.Name = "printToolStripMenuItem2";
-            this.printToolStripMenuItem2.Size = new System.Drawing.Size(107, 22);
+            this.printToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.printToolStripMenuItem2.Text = "Print";
             this.printToolStripMenuItem2.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
@@ -322,18 +337,12 @@
             // 
             this.printDocumentTable.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
-            // calendarTableView1
+            // printMultipleToolStripMenuItem
             // 
-            this.calendarTableView1.BackColor = System.Drawing.Color.White;
-            this.calendarTableView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.calendarTableView1.CurrentMonth = 9;
-            this.calendarTableView1.CurrentYear = 2016;
-            this.calendarTableView1.LiveRefresh = false;
-            this.calendarTableView1.Location = new System.Drawing.Point(215, 25);
-            this.calendarTableView1.Name = "calendarTableView1";
-            this.calendarTableView1.SelectedCalendar = null;
-            this.calendarTableView1.Size = new System.Drawing.Size(218, 224);
-            this.calendarTableView1.TabIndex = 0;
+            this.printMultipleToolStripMenuItem.Name = "printMultipleToolStripMenuItem";
+            this.printMultipleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printMultipleToolStripMenuItem.Text = "Print Multiple";
+            this.printMultipleToolStripMenuItem.Click += new System.EventHandler(this.printMultipleToolStripMenuItem_Click);
             // 
             // CalendarTab
             // 
@@ -383,5 +392,6 @@
         private System.Windows.Forms.ToolStripMenuItem largestTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel toolStripLabelStart;
         private System.Windows.Forms.ToolStripLabel toolStripLabelEnd;
+        private System.Windows.Forms.ToolStripMenuItem printMultipleToolStripMenuItem;
     }
 }

@@ -42,6 +42,22 @@ namespace GCAL.Base
    http://www.gnu.org/licenses/agpl.html
 
 */
+        /// <summary>
+        /// Calculates coordinates for celestial body
+        /// </summary>
+        /// <param name="julianDate"></param>
+        /// <param name="L">Longitude in degrees (0deg to 360deg)</param>
+        /// <param name="B">Latitude in degrees (-180deg to 180deg)</param>
+        /// <param name="R">Radius in AU</param>
+        public static void Calculate(double julianDate, out double L, out double B, out double R)
+        {
+            double t = (julianDate - 2451545) / 365250;
+
+            L = GCMath.putIn360(GCMath.rad2deg(Venus_L0(t) + Venus_L1(t) + Venus_L2(t) + Venus_L3(t) + Venus_L4(t) + Venus_L5(t)));
+            B = GCMath.putIn180(GCMath.rad2deg(Venus_B0(t) + Venus_B1(t) + Venus_B2(t) + Venus_B3(t) + Venus_B4(t) + Venus_B5(t)));
+            R = Venus_R0(t) + Venus_R1(t) + Venus_R2(t) + Venus_R3(t) + Venus_R4(t) + Venus_R5(t);
+        }
+
 
 
         static double Venus_L0(double t) // 367 terms of order 0

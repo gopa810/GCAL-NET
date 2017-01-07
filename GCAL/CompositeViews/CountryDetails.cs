@@ -23,9 +23,9 @@ namespace GCAL.CompositeViews
             InitializeComponent();
 
             comboBox1.BeginUpdate();
-            foreach (string continentName in TCountry.gcontinents)
+            foreach (TContinent continent in TContinent.Continents)
             {
-                comboBox1.Items.Add(continentName);
+                comboBox1.Items.Add(continent);
             }
             comboBox1.EndUpdate();
         }
@@ -44,23 +44,34 @@ namespace GCAL.CompositeViews
                 if (_sc != null)
                 {
                     textBox1.Enabled = false;
-                    textBox1.Text = _sc.abbreviatedName;
-                    textBox2.Text = _sc.name;
-                    SelectedContinent = _sc.continent;
+                    textBox1.Text = _sc.ISOCode;
+                    textBox2.Text = _sc.Name;
+                    SelectedContinent = _sc.Continent;
                 }
             }
         }
 
-        public UInt16 SelectedContinent
+        public TContinent SelectedContinent
         {
             get
             {
-                return (UInt16)(comboBox1.SelectedIndex + 1);
+                return (TContinent)comboBox1.SelectedItem;
             }
             set
             {
-                if (value > 0)
-                    comboBox1.SelectedIndex = (int)value - 1;
+                int i;
+                for (i = 0; i < comboBox1.Items.Count; i++)
+                {
+                    TContinent c = comboBox1.Items[i] as TContinent;
+                    if (c.ISOCode.Equals(value.ISOCode))
+                    {
+                        comboBox1.SelectedIndex = i;
+                        i = -1;
+                        break;
+                    }
+                }
+                if (i > 0)
+                    comboBox1.SelectedIndex = 0;
             }
         }
 
@@ -89,16 +100,19 @@ namespace GCAL.CompositeViews
         {
             if (_sc == null)
             {
-                TCountry.AddCountry(textBox1.Text, textBox2.Text, SelectedContinent);
+                TCountry tc = new TCountry();
+                tc.ISOCode = textBox1.Text;
+                tc.Name = textBox2.Text;
+                tc.ContinentISOCode = SelectedContinent.ISOCode;
+                TCountry.Countries.Add(tc);
             }
             else
             {
-                _sc.abbreviatedName = textBox1.Text;
-                _sc.name = textBox2.Text;
-                _sc.code = TCountry.CodeFromString(textBox1.Text);
-                _sc.continent = SelectedContinent;
+                _sc.ISOCode = textBox1.Text;
+                _sc.Name = textBox2.Text;
+                _sc.ContinentISOCode = SelectedContinent.ISOCode;
             }
-            TCountry._modified = true;
+            TCountry.Modified = true;
 
             Controller.RemoveFromContainer();
             if (OnButtonSave != null)
@@ -124,7 +138,7 @@ namespace GCAL.CompositeViews
             if (textBox1.Enabled == false)
                 return true;
 
-            TCountry tc = TCountry.GetCountryByAcronym(textBox1.Text);
+            TCountry tc = TCountry.FindCountryByISOCode(textBox1.Text);
             return tc == null;
         }
 

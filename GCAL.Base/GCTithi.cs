@@ -187,7 +187,7 @@ namespace GCAL.Base
 
             d.Set(GCAstroData.GetFirstDayOfYear(earth, nGYear + 1486));
             d.shour = 0.5;
-            d.TimezoneHours = earth.offsetUtcHours;
+            d.TimezoneHours = earth.OffsetUtcHours;
 
             return CalcTithiEndEx(d, nGYear, nMasa, nPaksa, nTithi, earth, out endTithi);
         }
@@ -321,7 +321,7 @@ namespace GCAL.Base
             // nType = 2 means, we found day, when tithi started after sunrise
             //                  but ended before next sunrise
             //
-            sunrise = day.sun.sunrise_deg / 360 + earth.offsetUtcHours / 24;
+            sunrise = day.sun.sunrise_deg / 360 + earth.OffsetUtcHours / 24;
             endTithi = new GregorianDateTime();
             if (nType == 1)
             {
@@ -385,7 +385,7 @@ namespace GCAL.Base
                 d.month = Convert.ToInt32((tmp & 0x3e0) >> 5);
                 d.day = Convert.ToInt32(tmp & 0x1f);
                 d.year = Convert.ToInt32(tmp & 0xfffc00) >> 10;
-                d.TimezoneHours = earth.offsetUtcHours;
+                d.TimezoneHours = earth.OffsetUtcHours;
                 d.NextDay();
 
                 day.DayCalc(d, earth);
@@ -404,7 +404,7 @@ namespace GCAL.Base
                     d.year++;
                 }
                 d.shour = 0.5;
-                d.TimezoneHours = earth.offsetUtcHours;
+                d.TimezoneHours = earth.OffsetUtcHours;
 
                 i = 0;
                 do
@@ -501,7 +501,7 @@ namespace GCAL.Base
             return d;
         }
 
-        public static int writeXml(string fileName, CLocationRef loc, GregorianDateTime vc)
+        public static int writeXml(string fileName, GCLocation loc, GregorianDateTime vc)
         {
             String str;
             GregorianDateTime date;
@@ -514,13 +514,13 @@ namespace GCAL.Base
                 xml.Write(GCStrings.getString(130));
                 xml.Write("\">\n");
                 xml.Write("\t\t<arg name=\"longitude\" val=\"");
-                xml.Write(loc.longitudeDeg);
+                xml.Write(loc.Longitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"latitude\" val=\"");
-                xml.Write(loc.latitudeDeg);
+                xml.Write(loc.Latitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"timezone\" val=\"");
-                xml.Write(loc.offsetUtcHours);
+                xml.Write(loc.OffsetUtcHours);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"startdate\" val=\"");
                 xml.Write(vc);
@@ -531,17 +531,17 @@ namespace GCAL.Base
                 GregorianDateTime d = new GregorianDateTime();
                 d.Set(vc);
                 GregorianDateTime d1, d2;
-                d.TimezoneHours = loc.offsetUtcHours;
+                d.TimezoneHours = loc.OffsetUtcHours;
                 GregorianDateTime dn;
                 GCHourTime dt = new GCHourTime();
-                GCEarthData earth = loc.EARTHDATA();
+                GCEarthData earth = loc.GetEarthData();
 
 
                 GCAstroData day = new GCAstroData();
 
                 day.DayCalc(vc, earth);
 
-                d.shour = day.sun.sunrise_deg / 360.0 + loc.offsetUtcHours / 24.0;
+                d.shour = day.sun.sunrise_deg / 360.0 + loc.OffsetUtcHours / 24.0;
 
                 GCTithi.GetPrevTithiStart(earth, d, out d1);
                 GCTithi.GetNextTithiStart(earth, d, out d2);
@@ -579,7 +579,7 @@ namespace GCAL.Base
 
 
 
-        public static int writeGaurabdaTithiXml(string fileName, CLocationRef loc, GaurabdaDate vaStart, GaurabdaDate vaEnd)
+        public static int writeGaurabdaTithiXml(string fileName, GCLocation loc, GaurabdaDate vaStart, GaurabdaDate vaEnd)
         {
             int gyearA = vaStart.gyear;
             int gyearB = vaEnd.gyear;
@@ -598,13 +598,13 @@ namespace GCAL.Base
                 xml.Write(GCStrings.getString(130));
                 xml.Write("\">\n");
                 xml.Write("\t\t<arg name=\"longitude\" val=\"");
-                xml.Write(loc.longitudeDeg);
+                xml.Write(loc.Longitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"latitude\" val=\"");
-                xml.Write(loc.latitudeDeg);
+                xml.Write(loc.Latitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"timezone\" val=\"");
-                xml.Write(loc.offsetUtcHours);
+                xml.Write(loc.OffsetUtcHours);
                 xml.Write("\" />\n");
                 if (gyearA > 1500)
                 {
@@ -637,7 +637,7 @@ namespace GCAL.Base
                 xml.Write("\t<result name=\"Tithi\">\n");
 
 
-                GCEarthData earth = loc.EARTHDATA();
+                GCEarthData earth = loc.GetEarthData();
                 GregorianDateTime vcs = new GregorianDateTime(), vce = new GregorianDateTime(), today = new GregorianDateTime();
                 GCSunData sun = new GCSunData();
                 int A, B;
@@ -683,12 +683,12 @@ namespace GCAL.Base
                     today.Set(vcs);
                     today.shour = 0.5;
                     sun.SunCalc(today, earth);
-                    sunrise = (sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360;
+                    sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
                     if (sunrise < vcs.shour)
                     {
                         today.Set(vce);
                         sun.SunCalc(today, earth);
-                        sunrise = (sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360;
+                        sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
                         if (sunrise < vce.shour)
                         {
                             // normal type
@@ -712,7 +712,7 @@ namespace GCAL.Base
                         // normal, alebo prvy den vriddhi
                         today.Set(vce);
                         sun.SunCalc(today, earth);
-                        if ((sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360 < vce.shour)
+                        if ((sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360 < vce.shour)
                         {
                             // first day of vriddhi type
                             xml.Write("\t\ttype=\"vriddhi\"\n");
@@ -745,7 +745,7 @@ namespace GCAL.Base
             return 1;
         }
 
-        public static int writeGaurabdaNextTithiXml(string fileName, CLocationRef loc, GregorianDateTime vcStart, GaurabdaDate vaStart)
+        public static int writeGaurabdaNextTithiXml(string fileName, GCLocation loc, GregorianDateTime vcStart, GaurabdaDate vaStart)
         {
             int gmasa, gpaksa, gtithi;
 
@@ -762,13 +762,13 @@ namespace GCAL.Base
                 xml.Write(GCStrings.getString(130));
                 xml.Write("\">\n");
                 xml.Write("\t\t<arg name=\"longitude\" val=\"");
-                xml.Write(loc.longitudeDeg);
+                xml.Write(loc.Longitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"latitude\" val=\"");
-                xml.Write(loc.latitudeDeg);
+                xml.Write(loc.Latitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"timezone\" val=\"");
-                xml.Write(loc.offsetUtcHours);
+                xml.Write(loc.OffsetUtcHours);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"start date\" val=\"");
                 xml.Write(vcStart);
@@ -785,7 +785,7 @@ namespace GCAL.Base
                 xml.Write("\t</request>\n");
                 xml.Write("\t<result name=\"Tithi\">\n");
 
-                GCEarthData earth = loc.EARTHDATA();
+                GCEarthData earth = loc.GetEarthData();
                 GregorianDateTime vcs = new GregorianDateTime(), vce = new GregorianDateTime(), today = new GregorianDateTime();
                 GCSunData sun = new GCSunData();
                 int A;
@@ -820,12 +820,12 @@ namespace GCAL.Base
                         today.Set(vcs);
                         today.shour = 0.5;
                         sun.SunCalc(today, earth);
-                        sunrise = (sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360;
+                        sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
                         if (sunrise < vcs.shour)
                         {
                             today.Set(vce);
                             sun.SunCalc(today, earth);
-                            sunrise = (sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360;
+                            sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
                             if (sunrise < vce.shour)
                             {
                                 // normal type
@@ -849,7 +849,7 @@ namespace GCAL.Base
                             // normal, alebo prvy den vriddhi
                             today.Set(vce);
                             sun.SunCalc(today, earth);
-                            if ((sun.sunrise_deg + loc.offsetUtcHours * 15.0) / 360 < vce.shour)
+                            if ((sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360 < vce.shour)
                             {
                                 // first day of vriddhi type
                                 xml.Write("\t\ttype=\"vriddhi\"\n");

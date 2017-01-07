@@ -55,19 +55,19 @@ namespace GCAL.CompositeViews
             {
                 textBox1.Text = tz.Name;
                 offsetNoDST.ValueMinutes = tz.OffsetMinutes;
-                if (tz.val == 0)
+                if (tz.BiasMinutes == 0)
                 {
                     checkBox1.Checked = false;
                     offsetDST.ValueMinutes = 0;
-                    dstStartPanel.Value = 0;
-                    dstEndPanel.Value = 0;
+                    dstStartPanel.Value = new TTimeZoneDst();
+                    dstEndPanel.Value = new TTimeZoneDst();
                 }
                 else
                 {
                     checkBox1.Checked = true;
                     offsetDST.ValueMinutes = tz.OffsetMinutes + tz.BiasMinutes;
-                    dstStartPanel.Value = (UInt16)((tz.val & 0xffff0000) >> 16);
-                    dstEndPanel.Value = (UInt16)(tz.val & 0xffff);
+                    dstStartPanel.Value = tz.StartDst;
+                    dstEndPanel.Value = tz.EndDst;
                 }
             }
 
@@ -109,27 +109,33 @@ namespace GCAL.CompositeViews
                     SelectedTimeZone.BiasMinutes = offsetDST.ValueMinutes - offsetNoDST.ValueMinutes;
                     changed = true;
                 }
-                if (checkBox1.Checked)
+                if (checkBox1.Checked && SelectedTimeZone.BiasMinutes != 0)
                 {
-                    UInt32 val = (dstStartPanel.Value << 16) | dstEndPanel.Value;
-                    if (SelectedTimeZone.val != val)
+                    if (SelectedTimeZone.StartDst.IntegerValue != dstStartPanel.Value.IntegerValue
+                        || SelectedTimeZone.EndDst.IntegerValue != dstEndPanel.Value.IntegerValue)
                     {
-                        SelectedTimeZone.val = val;
+                        SelectedTimeZone.StartDst = dstStartPanel.Value;
+                        SelectedTimeZone.EndDst = dstEndPanel.Value;
                         changed = true;
                     }
                 }
                 else
                 {
-                    if (SelectedTimeZone.val != 0)
+                    if (SelectedTimeZone.StartDst.IntegerValue != 0)
                     {
-                        SelectedTimeZone.val = 0;
+                        SelectedTimeZone.StartDst.Clear();
+                        changed = true;
+                    }
+                    if (SelectedTimeZone.EndDst.IntegerValue != 0)
+                    {
+                        SelectedTimeZone.EndDst.Clear();
                         changed = true;
                     }
                 }
 
                 if (created)
                 {
-                    TTimeZone.gzone.Add(SelectedTimeZone);
+                    TTimeZone.TimeZoneList.Add(SelectedTimeZone);
                     changed = true;
                 }
 

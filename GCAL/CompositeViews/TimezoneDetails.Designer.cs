@@ -177,7 +177,7 @@
             this.dstEndPanel.Name = "dstEndPanel";
             this.dstEndPanel.Size = new System.Drawing.Size(206, 141);
             this.dstEndPanel.TabIndex = 3;
-            this.dstEndPanel.Value = ((uint)(4294966272u));
+            this.dstEndPanel.Value = new Base.TTimeZoneDst();
             // 
             // dstStartPanel
             // 
@@ -185,7 +185,7 @@
             this.dstStartPanel.Name = "dstStartPanel";
             this.dstStartPanel.Size = new System.Drawing.Size(206, 141);
             this.dstStartPanel.TabIndex = 1;
-            this.dstStartPanel.Value = ((uint)(4294966272u));
+            this.dstStartPanel.Value = new Base.TTimeZoneDst();
             // 
             // offsetNoDST
             // 

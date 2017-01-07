@@ -21,7 +21,7 @@ namespace GCAL.CompositeViews
 
         public AppDayTabController Controller { get; set; }
         public GregorianDateTime appDayDateTime = new GregorianDateTime();
-        public CLocationRef appDayLocation = null;
+        public GCLocation appDayLocation = null;
 
         public AppDayTab()
         {
@@ -34,7 +34,7 @@ namespace GCAL.CompositeViews
             s = Properties.Settings.Default.AppDayLocation;
             if (s.Length < 1)
                 s = GCGlobal.LastLocation.EncodedString;
-            appDayLocation = new CLocationRef();
+            appDayLocation = new GCLocation();
             appDayLocation.EncodedString = s;
             SetMode(Properties.Settings.Default.AppDayShowMode);
             Recalculate();
@@ -120,7 +120,7 @@ namespace GCAL.CompositeViews
                 Properties.Settings.Default.Save();
             }
 
-            LocationText(appDayLocation.locationName);
+            LocationText(appDayLocation.Title);
             StartDateText(appDayDateTime.ToString());
             StartTimeText(appDayDateTime.ShortTimeString());
 
@@ -160,9 +160,9 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 appDayLocation = lr;
                 Recalculate();

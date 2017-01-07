@@ -29,6 +29,9 @@ namespace GCAL.CompositeViews
             InitializeComponent();
 
             InitListConfigs();
+
+            if (listBox1.Items.Count > 0)
+                listBox1.SelectedIndex = 0;
         }
 
         private void InitListConfigs()

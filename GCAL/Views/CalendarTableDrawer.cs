@@ -326,7 +326,7 @@ namespace GCAL.Views
         }
 
 
-        public static void ExportPng(CLocationRef calLocation, string directory, string locname, int year, int month)
+        public static void ExportPng(GCLocation calLocation, string directory, string locname, int year, int month)
         {
             using (Bitmap b = new Bitmap(1280, 1024))
             {
@@ -342,7 +342,7 @@ namespace GCAL.Views
             }
         }
 
-        public static void ExportPngYear(CLocationRef calLocation, string dir, string locationFileName, int currentYear)
+        public static void ExportPngYear(GCLocation calLocation, string dir, string locationFileName, int currentYear)
         {
             Size imageSize = new Size(1280, 1024);
             using (Bitmap b = new Bitmap(imageSize.Width, imageSize.Height))

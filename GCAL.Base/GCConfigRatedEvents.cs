@@ -77,6 +77,7 @@ namespace GCAL.Base
             public int Min2 = 0;
             public int Max = 0;
             public int Max2 = 0;
+            public bool Additional = false;
             public GCConfigRatedEntry[] Array = null;
             public GCConfigRatedEntry[,] Array2 = null;
             public getParamStringDlg param1Func = null;
@@ -344,6 +345,16 @@ namespace GCAL.Base
             return false;
         }
 
+        public bool RequiredGrahaHouse(int graha)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                if (rateGrahaHouse[graha, i].Usable)
+                    return true;
+            }
+            return false;
+        }
+
         public bool RequiredGrahaRasi(int graha)
         {
             for (int i = 0; i < 12; i++)
@@ -421,7 +432,8 @@ namespace GCAL.Base
                         Max2 = 10,
                         Array2 = rateRasiGraha,
                         param2Func = new getParamStringDlg(GCStrings.GetPlanetNameEn),
-                        param1Func = new getParamStringDlg(GCRasi.GetNameEn)
+                        param1Func = new getParamStringDlg(GCRasi.GetNameEn),
+                        Additional = true
                     });
                     p_paramdesc.Add(new ParameterDescriptor()
                     {
@@ -430,7 +442,8 @@ namespace GCAL.Base
                         Max2 = 10,
                         Array2 = rateHouseGraha,
                         param2Func = new getParamStringDlg(GCStrings.GetPlanetNameEn),
-                        param1Func = new getParamStringDlg(GCStrings.GetStringFromIntInc)
+                        param1Func = new getParamStringDlg(GCStrings.GetStringFromIntInc),
+                        Additional = true
                     });
                 }
                 return p_paramdesc;
@@ -470,6 +483,37 @@ namespace GCAL.Base
             }
         }
 
+
+        public double GetMaximum()
+        {
+            List<GCConfigRatedEvents.ParameterDescriptor> pars = ParameterDescriptions;
+            double max = 0.0;
+
+            foreach (GCConfigRatedEvents.ParameterDescriptor p in pars)
+            {
+                double tmp = 0.0;
+                if (p.Array != null && !p.Additional)
+                {
+                    for (int i = p.Min; i < p.Max; i++)
+                    {
+                        tmp = Math.Max(tmp, p.Array[i].Rating);
+                    }
+                }
+                else if (p.Array2 != null && !p.Additional)
+                {
+                    for (int i = p.Min; i < p.Max; i++)
+                    {
+                        for (int j = p.Min2; j < p.Max2; j++)
+                        {
+                            tmp = Math.Max(tmp, p.Array2[i, j].Rating);
+                        }
+                    }
+                }
+                max += Math.Max(0, tmp);
+            }
+
+            return max;
+        }
     }
 
     public class GCConfigRatedEntry: GCConfigRateBase

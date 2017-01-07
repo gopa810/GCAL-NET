@@ -118,20 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="countries" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\countries.rl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="events" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\events.rl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="locations" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\locations.rl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="strings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\strings.rl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="timezones" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\timezones.rl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tips" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tips.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -231,5 +222,20 @@
   </data>
   <data name="TplCalendarDayPlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TplCalendarDayPlain.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="cities2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cities2016.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="countries2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\countries2016.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="timezones2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\timezones2016.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="timezoneUpdates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\timezoneUpdates.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="TplCalendarSadhana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TplCalendarSadhana.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

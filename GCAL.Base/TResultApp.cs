@@ -10,7 +10,7 @@ namespace GCAL.Base
     public class TResultApp: TResultBase
     {
         public static readonly int TRESULT_APP_CELEBS = 3;
-        public CLocationRef location;
+        public GCLocation location;
         public GregorianDateTime eventTime;
         public GCAstroData details;
         public bool b_adhika;
@@ -130,7 +130,7 @@ namespace GCAL.Base
 
         public List<AppDayBase> MainInfo = new List<AppDayBase>();
 
-        public void calculateAppDay(CLocationRef location, GregorianDateTime eventDate)
+        public void calculateAppDay(GCLocation location, GregorianDateTime eventDate)
         {
             //MOONDATA moon;
             //SUNDATA sun;
@@ -140,7 +140,7 @@ namespace GCAL.Base
             vc.Set(eventDate);
             GregorianDateTime vcsun = new GregorianDateTime();
             vcsun.Set(eventDate);
-            GCEarthData m_earth = location.EARTHDATA();
+            GCEarthData m_earth = location.GetEarthData();
 
             this.b_adhika = false;
             this.eventTime = new GregorianDateTime(eventDate);
@@ -179,7 +179,7 @@ namespace GCAL.Base
             }
 
             vc.Today();
-            vc.TimezoneHours = m_earth.offsetUtcHours;
+            vc.TimezoneHours = m_earth.OffsetUtcHours;
             int m = 0;
             GaurabdaDate va = new GaurabdaDate();
             GregorianDateTime vctemp;
@@ -195,10 +195,10 @@ namespace GCAL.Base
             MainInfo.Add(new AppDayInfo(GCStrings.getString(8), eventDate.ShortTimeString()));
             MainInfo.Add(new AppDayBase());
             MainInfo.Add(new AppDayBase());
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(9), location.locationName));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(9), location.Title));
             MainInfo.Add(new AppDayInfo(GCStrings.getString(10), location.GetLatitudeString()));
             MainInfo.Add(new AppDayInfo(GCStrings.getString(11), location.GetLongitudeString()));
-            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Timezone"), TTimeZone.GetTimeZoneName(location.timezoneId)));
+            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Timezone"), location.TimeZoneName));
             MainInfo.Add(new AppDayInfo("DST", "N/A"));
             MainInfo.Add(new AppDayBase());
             MainInfo.Add(new AppDayInfo(GCStrings.getString(13), GCTithi.GetName(d.nTithi)));

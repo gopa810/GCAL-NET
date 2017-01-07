@@ -61,12 +61,30 @@ namespace GCAL.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 3039163	Sant Julià de Lòria	Sant Julia de Loria	San Julia,San Julià,Sant Julia de Loria,Sant Julià de Lòria,Sant-Zhulija-de-Lorija,sheng hu li ya-de luo li ya,Сант-Жулия-де-Лория,サン・ジュリア・デ・ロリア教区,圣胡利娅-德洛里亚,圣胡利娅－德洛里亚	42.46372	1.49129	P	PPLA	AD		06				8022		921	Europe/Andorra	2013-11-23
+        ///3039678	Ordino	Ordino	Ordino,ao er di nuo,orudino jiao qu,Ордино,オルディノ教区,奥尔迪诺	42.55623	1.53319	P	PPLA	AD		05				3066		1296	Europe/Andorra	2009-12-11
+        ///3040051	les Escaldes	les Escaldes	Ehskal&apos;des-Ehndzhordani,Escaldes,Escaldes-En [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] countries {
+        internal static string cities2016 {
             get {
-                object obj = ResourceManager.GetObject("countries", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("cities2016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #ISO	ISO3	fips	Country	Capital	Area(in sq km)	Population	Continent	neighbours
+        ///AD	AND	AN	Andorra	Andorra la Vella	468	84000	EU	ES,FR
+        ///AE	ARE	AE	United Arab Emirates	Abu Dhabi	82880	4975593	AS	SA,OM
+        ///AF	AFG	AF	Afghanistan	Kabul	647500	29121286	AS	TM,CN,IR,TJ,PK,UZ
+        ///AG	ATG	AC	Antigua and Barbuda	St. John&apos;s	443	86754	NA	
+        ///AI	AIA	AV	Anguilla	The Valley	102	13254	NA	
+        ///AL	ALB	AL	Albania	Tirana	28748	2986952	EU	MK,GR,ME,RS,XK
+        ///AM	ARM	AM	Armenia	Yerevan	29800	2968000	AS	GE,IR,AZ,TR
+        ///AO	AGO	AO	Angola	Luanda	1246700	 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string countries2016 {
+            get {
+                return ResourceManager.GetString("countries2016", resourceCulture);
             }
         }
         
@@ -83,16 +101,6 @@ namespace GCAL.Base.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] locations {
-            get {
-                object obj = ResourceManager.GetObject("locations", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] strings {
             get {
                 object obj = ResourceManager.GetObject("strings", resourceCulture);
@@ -101,12 +109,46 @@ namespace GCAL.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to Undefined	0	0	0	0	0	0	0	0	0	0	
+        ///UTC-12	-720	0	0	0	0	0	0	0	0	0	
+        ///Pacific/Apia	780	60	0	4	1	0	0	9	5	0	WS
+        ///Pacific/Midway	-660	0	0	0	0	0	0	0	0	0	UM
+        ///Pacific/Niue	-660	0	0	0	0	0	0	0	0	0	NU
+        ///Pacific/Pago_Pago	-660	0	0	0	0	0	0	0	0	0	AS
+        ///UTC-11	-660	0	0	0	0	0	0	0	0	0	
+        ///America/Adak	-600	60	0	3	2	0	0	11	1	0	US
+        ///Pacific/Fakaofo	780	0	0	0	0	0	0	0	0	0	TK
+        ///Pacific/Honolulu	-600	0	0	0	0	0	0	0	0	0	US
+        ///Pacific/Johnston	-600	0	0	0	0	0	0	0	0	0	UM
+        ///Pacific/Rarotonga	-600	0	0	0	0	0	0	0	0	0	CK
+        ///Pacific/Tahiti	-600	0	0	0	0	0	0	 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] timezones {
+        internal static string timezones2016 {
             get {
-                object obj = ResourceManager.GetObject("timezones", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("timezones2016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CountryCode	TimeZoneId	GMT offset 1. Jan 2016	DST offset 1. Jul 2016	rawOffset (independant of DST)
+        ///CI	Africa/Abidjan	0.0	0.0	0.0
+        ///GH	Africa/Accra	0.0	0.0	0.0
+        ///ET	Africa/Addis_Ababa	3.0	3.0	3.0
+        ///DZ	Africa/Algiers	1.0	1.0	1.0
+        ///ER	Africa/Asmara	3.0	3.0	3.0
+        ///ML	Africa/Bamako	0.0	0.0	0.0
+        ///CF	Africa/Bangui	1.0	1.0	1.0
+        ///GM	Africa/Banjul	0.0	0.0	0.0
+        ///GW	Africa/Bissau	0.0	0.0	0.0
+        ///MW	Africa/Blantyre	2.0	2.0	2.0
+        ///CG	Africa/Brazzaville	1.0	1.0	1.0
+        ///BI	Africa/Bujumbura	2.0	2.0	2.0
+        ///EG	Africa/Cairo	2.0	2.0	2.0
+        ///MA	Africa/Casablanca [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string timezoneUpdates {
+            get {
+                return ResourceManager.GetString("timezoneUpdates", resourceCulture);
             }
         }
         
@@ -429,6 +471,45 @@ namespace GCAL.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///    &lt;head&gt;
+        ///        &lt;title&gt;Calendar [calendar.startDate.year]&lt;/title&gt;
+        ///&lt;style&gt;
+        ///&lt;!--
+        ///body {
+        ///  font-family:Verdana;
+        ///  font-size:11pt;
+        ///}
+        ///td.hed {
+        ///  font-family:Verdana;
+        ///  font-size:9pt;
+        ///  font-weight:bold;
+        ///  background:#aaaaaa;
+        ///  color:white;
+        ///  text-align:center;
+        ///  vertical-align:center;
+        ///  padding-left:15pt;
+        ///  padding-right:15pt;
+        ///  padding-top:5pt;
+        ///  padding-bottom:5pt;
+        ///}
+        ///--&gt;
+        ///&lt;/style&gt;
+        ///
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///
+        ///# (set lastmonth -1)
+        ///# (set lastmasa -1)
+        ///# (foreach i : calendar.itemIndexe [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TplCalendarSadhana {
+            get {
+                return ResourceManager.GetString("TplCalendarSadhana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to # (set k 0)
         ///# (set lastmasa -1)
         ///# (set st (x app new &apos;DateTime))
@@ -710,15 +791,15 @@ namespace GCAL.Base.Properties {
         ///#
         ///# (set prevDay -1)
         ///# (foreach ri : events.intervals
-        ///#   (set title ri.Title)
-        ///#   (if (&gt; title.length 30) then
-        ///#     (set title (x title substring 30))
-        ///#   )
-        ///#   (set title (x title padRight 30))
         ///#
-        ///Interval;[ri.startTime.standardDateString]T[ri.startTime.standardTimeString];[ri.endTime.shortTime];[title];+[ri.ratingPos];[ri.ratingNeg]
+        ///Interval;[ri.startTime.standardDateString]T[ri.startTime.standardTimeString];[ri.endTime.shortTime];[ri.title:40m];+[ri.ratingPos];[ri.ratingNeg]
         ///#   (set notes ri.notes)
-        ///#   (if (!= notes [rest of string was truncated]&quot;;.
+        ///#   (if (!= notes.count 0) then
+        ///#      (foreach s : notes
+        ///Note;[ri.startTime.standardDateString]T[ri.startTime.standardTimeString];[s]
+        ///#      )
+        ///#    )
+        ///#  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TplRatedCsv {
             get {
@@ -737,16 +818,14 @@ namespace GCAL.Base.Properties {
         ///
         ///# (set prevDay -1)
         ///# (foreach ri : events.intervals
-        ///#   (if (!= prevDay ri.startTime.day))
+        ///#   (if (!= prevDay ri.startTime.day) then
         ///
         ///&lt;h3&gt; === [ri.startTime.shortDate:-12s] - [ri.startTime.dayOfWeekName] ======== &lt;/h3&gt;
         ///
         ///#   )
-        ///#   (set title ri.Title)
-        ///#   (if (&gt; title.length 30) then
-        ///#     (set title (x title substring 30))
-        ///#   )
-        ///#   (set title (x title padR [rest of string was truncated]&quot;;.
+        ///#
+        ///&lt;p&gt;&amp;nbsp;&amp;nbsp;      [ri.startTime.shortTime] - [ri.endTime.shortTime]  [ri.title:40m]  +[ri.ratingPos]  [ri.ratingNeg]&lt;/p&gt;
+        ///#   ( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TplRatedHtml {
             get {
@@ -761,18 +840,19 @@ namespace GCAL.Base.Properties {
         ///
         ///# (set prevDay -1)
         ///# (foreach ri : events.intervals
-        ///#   (if (!= prevDay ri.startTime.day))
+        ///#   (if (!= prevDay ri.startTime.day) then
         ///
-        /// === [ri.startTime.shortDate:-12s] - [ri.startTime.dayOfWeekName] ========
+        ///=== [ri.startTime.shortDate:-12s] - [ri.startTime.dayOfWeekName] ========
         ///
         ///#   )
-        ///#   (set title ri.Title)
-        ///#   (if (&gt; title.length 30) then
-        ///#     (set title (x title substring 30))
-        ///#   )
-        ///#   (set title (x title padRight 30))
         ///#
-        ///      [ri.startTime.shortTime] - [ri.endTime.shortTime]  [title]  +[ri.ratingP [rest of string was truncated]&quot;;.
+        ///   [ri.startTime.shortTime] - [ri.endTime.shortTime]  [ri.title:40m]  +[ri.ratingPos]  [ri.ratingNeg]
+        ///#   (set notes ri.notes)
+        ///#   (if (!= notes.count 0) then
+        ///#      (foreach s : notes
+        ///                 [s]
+        ///#      )
+        ///#  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TplRatedPlain {
             get {

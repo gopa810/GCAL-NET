@@ -43,7 +43,7 @@ namespace GCAL.Base
         // astronomical data from astro-sub-layer
         public GCAstroData astrodata;
 
-        public int nDST;
+        public int BiasMinutes;
 
         //
         // day events and fast
@@ -81,7 +81,7 @@ namespace GCAL.Base
             eparana_time1 = eparana_time2 = 0.0;
             eparana_type1 = eparana_type2 = EkadasiParanaType.EP_TYPE_NULL;
             sankranti_zodiac = -1;
-            nDST = 0;
+            BiasMinutes = 0;
             moonrise.SetValue(0);
             moonset.SetValue(0);
             dayEvents = new List<VAISNAVAEVENT>();
@@ -119,7 +119,7 @@ namespace GCAL.Base
                 return new GSString(GregorianDateTime.GetDateTextWithTodayExt(date));
             }
             else if (Token.Equals("nDST"))
-                return new GSNumber(nDST);
+                return new GSNumber(BiasMinutes);
             else if (Token.Equals("events"))
             {
                 GSList list = new GSList();
@@ -138,11 +138,15 @@ namespace GCAL.Base
             }
             else if (Token.Equals("dstSignature"))
             {
-                return new GSString(GCStrings.GetDSTSignature(nDST));
+                return new GSString(GCStrings.GetDSTSignature(BiasMinutes));
             }
             else if (Token.Equals("tithiNameExt"))
             {
                 return new GSString(GetFullTithiName());
+            }
+            else if (Token.Equals("isWeekend"))
+            {
+                return new GSBoolean(date.dayOfWeek == 6 || date.dayOfWeek == 0);
             }
             else if (Token.Equals("fastType"))
                 return new GSNumber(nFastID);
@@ -208,7 +212,7 @@ namespace GCAL.Base
             GregorianDateTime start = new GregorianDateTime();
 
             start.Set(date);
-            start.shour = astrodata.sun.sunrise_deg / 360 + earth.offsetUtcHours / 24.0;
+            start.shour = astrodata.sun.sunrise_deg / 360 + earth.OffsetUtcHours / 24.0;
 
             GCTithi.GetNextTithiStart(earth, start, out to);
             GCTithi.GetPrevTithiStart(earth, start, out from);
@@ -222,7 +226,7 @@ namespace GCAL.Base
             GregorianDateTime start = new GregorianDateTime();
 
             start.Set(date);
-            start.shour = astrodata.sun.sunrise_deg / 360 + earth.offsetUtcHours / 24.0;
+            start.shour = astrodata.sun.sunrise_deg / 360 + earth.OffsetUtcHours / 24.0;
 
             GCNaksatra.GetNextNaksatra(earth, start, out to);
             GCNaksatra.GetPrevNaksatra(earth, start, out from);
@@ -246,19 +250,19 @@ namespace GCAL.Base
                     str = string.Format("{0} {1:00}:{2:00} ({3}) - {4:00}:{5:00} ({6}) {7}", GCStrings.getString(60),
                         h1, m1, GCEkadasi.GetParanaReasonText(eparana_type1),
                         h2, m2, GCEkadasi.GetParanaReasonText(eparana_type2),
-                        GCStrings.GetDSTSignature(nDST));
+                        GCStrings.GetDSTSignature(BiasMinutes));
                 else
                     str = string.Format("{0} {1:00}:{2:00} - {3:00}:{4:00} ({5})", GCStrings.getString(60),
-                        h1, m1, h2, m2, GCStrings.GetDSTSignature(nDST));
+                        h1, m1, h2, m2, GCStrings.GetDSTSignature(BiasMinutes));
             }
             else if (eparana_time1 >= 0.0)
             {
                 if (GCDisplaySettings.getValue(50) == 1)
                     str = string.Format("{0} {1:00}:{2:00} ({3}) {4}", GCStrings.getString(61),
-                        h1, m1, GCEkadasi.GetParanaReasonText(eparana_type1), GCStrings.GetDSTSignature(nDST));
+                        h1, m1, GCEkadasi.GetParanaReasonText(eparana_type1), GCStrings.GetDSTSignature(BiasMinutes));
                 else
                     str = string.Format("{0} {1:00}:{2:00} ({3})", GCStrings.getString(61),
-                        h1, m1, GCStrings.GetDSTSignature(nDST));
+                        h1, m1, GCStrings.GetDSTSignature(BiasMinutes));
             }
             else
             {
@@ -440,7 +444,7 @@ namespace GCAL.Base
                 format = format.Replace("{sankranti.rasiName}", GCRasi.GetName(sankranti_zodiac));
 
             if (format.IndexOf("{dstSig}") >= 0)
-                format = format.Replace("{dstSig}", GCStrings.GetDSTSignature(nDST));
+                format = format.Replace("{dstSig}", GCStrings.GetDSTSignature(BiasMinutes));
 
             if (format.IndexOf("{moonRiseTime}") >= 0)
                 format = format.Replace("{moonRiseTime}", moonrise.ToShortTimeString());

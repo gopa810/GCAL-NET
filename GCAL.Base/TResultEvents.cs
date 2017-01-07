@@ -14,7 +14,7 @@ namespace GCAL.Base
 
         public GregorianDateTime StartDateTime = new GregorianDateTime();
         public GregorianDateTime EndDateTime = new GregorianDateTime();
-        public CLocationRef EarthLocation = new CLocationRef();
+        public GCLocation EarthLocation = new GCLocation();
         public int SortType = SORTING_BY_DATE;
 
         public void Clear()
@@ -53,16 +53,19 @@ namespace GCAL.Base
         {
             TDayEvent de = new TDayEvent();
 
+            de.Time = new GregorianDateTime();
+            de.Time.Set(inTime);
+
             switch (inDst)
             {
                 case 0:
                     de.nDst = 0;
                     break;
                 case 1:
-                    if (inTime.shour >= 2 / 24.0)
+                    if (de.Time.shour >= 2 / 24.0)
                     {
-                        inTime.shour += 1 / 24.0;
-                        inTime.NormalizeValues();
+                        de.Time.shour += 1 / 24.0;
+                        de.Time.NormalizeValues();
                         de.nDst = 1;
                     }
                     else
@@ -71,15 +74,15 @@ namespace GCAL.Base
                     }
                     break;
                 case 2:
-                    inTime.shour += 1 / 24.0;
-                    inTime.NormalizeValues();
+                    de.Time.shour += 1 / 24.0;
+                    de.Time.NormalizeValues();
                     de.nDst = 1;
                     break;
                 case 3:
-                    if (inTime.shour <= 2 / 24.0)
+                    if (de.Time.shour <= 2 / 24.0)
                     {
-                        inTime.shour += 1 / 24.0;
-                        inTime.NormalizeValues();
+                        de.Time.shour += 1 / 24.0;
+                        de.Time.NormalizeValues();
                         de.nDst = 1;
                     }
                     else
@@ -91,8 +94,6 @@ namespace GCAL.Base
                     de.nDst = 0;
                     break;
             }
-            de.Time = new GregorianDateTime();
-            de.Time.Set(inTime);
             de.nData = inData;
             de.nType = inType;
 
@@ -122,7 +123,7 @@ namespace GCAL.Base
             p_events.Clear();
         }
 
-        public void CalculateEvents(CLocationRef loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
+        public void CalculateEvents(GCLocation loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
         {
             GCSunData sun = new GCSunData();
             int ndst = 0;
@@ -136,25 +137,21 @@ namespace GCAL.Base
 
             GregorianDateTime vc = new GregorianDateTime();
             GregorianDateTime vcAdd = new GregorianDateTime(), vcNext = new GregorianDateTime();
-            GCEarthData earth = loc.EARTHDATA();
+            GCEarthData earth = loc.GetEarthData();
 
             vc.Set(vcStart);
-
+            vc.TimezoneHours = loc.OffsetUtcHours;
             vcAdd.Set(vc);
             vcAdd.InitWeekDay();
 
             double sunRise, sunSet;
             double r1, r2;
-            double previousSunriseHour = 0, todaySunriseHour;
-            double previousLongitude = -100;
-            double todayLongitude = 0;
-            double fromTimeLimit = 0;
 
             while (vcAdd.IsBeforeThis(vcEnd))
             {
                 if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SUN) != 0)
                 {
-                    ndst = TTimeZone.determineDaylightChange(vcAdd, loc.timezoneId);
+                    ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
                     sun.SunCalc(vcAdd, earth);
 
                     vcAdd.shour = sun.arunodaya.GetDayTime();
@@ -171,13 +168,13 @@ namespace GCAL.Base
                 }
                 else
                 {
-                    ndst = TTimeZone.determineDaylightChange(vcAdd, loc.timezoneId);
+                    ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
                     sun.SunCalc(vcAdd, earth);
                     sunRise = sun.rise.GetDayTime();
                     sunSet = sun.set.GetDayTime();
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+                /*if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
                 {
                     todayLongitude = sun.longitude_deg;
                     vcAdd.shour = sunRise;
@@ -226,7 +223,7 @@ namespace GCAL.Base
                     previousLongitude = todayLongitude;
                     previousSunriseHour = todaySunriseHour - 1;
                     fromTimeLimit = previousSunriseHour;
-                }
+                }*/
 
                 if (GCDisplaySettings.getValue(GCDS.COREEVENTS_RAHUKALAM) != 0)
                 {
@@ -278,6 +275,19 @@ namespace GCAL.Base
                 vcAdd.NextDay();
             }
 
+            if (true)//GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+            {
+                GCAscendant asc = new GCAscendant();
+                asc.Earth = EarthLocation.GetEarthData();
+                asc.CurrentDateTime = new GregorianDateTime(vc);
+                while (asc.GetNextAscendantBefore(vcEnd))
+                {
+                    ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
+                    inEvents.AddEvent(asc.CurrentDateTime, CoreEventType.CCTYPE_ASCENDENT, asc.CurrentSign, ndst);
+                    asc.CurrentDateTime.AddHours(0.5);
+                }
+            }
+
             if (GCDisplaySettings.getValue(GCDS.COREEVENTS_TITHI) != 0)
             {
                 vcAdd.Set(vc);
@@ -288,7 +298,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_TITHI, nData, ndst);
                     }
                     else
@@ -315,7 +325,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_NAKS, nData, ndst);
                     }
                     else
@@ -342,7 +352,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_YOGA, nData, ndst);
                     }
                     else
@@ -370,7 +380,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_SANK, nData, ndst);
                     }
                     else
@@ -392,7 +402,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_M_RASI, nData, ndst);
                     }
                     else
@@ -416,7 +426,7 @@ namespace GCAL.Base
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();
-                        ndst = TTimeZone.determineDaylightChange(vcNext, loc.timezoneId);
+                        ndst = loc.TimeZone.DetermineDaylightChange(vcNext);
                         inEvents.AddEvent(vcNext, CoreEventType.CCTYPE_CONJ, GCRasi.GetRasi(dlong, GCAyanamsha.GetAyanamsa(vcNext.GetJulianComplete())), ndst);
                     }
                     else

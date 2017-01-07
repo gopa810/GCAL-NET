@@ -88,7 +88,7 @@ td.hed {
     <td>[pvd.astro.yogaName]</td>
 #             )
 #             (if (x app getDispValue 36) then
-    <td>pvd.astro.naksatraName]</td>
+    <td>[pvd.astro.naksatraName]</td>
 #             )
 #             (if (x app getDispValue 38) then 
 #                 (if (!= pvd.fastType 0) then

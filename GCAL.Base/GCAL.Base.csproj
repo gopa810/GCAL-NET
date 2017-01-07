@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GCAscendant.cs" />
     <Compile Include="GCConfigRatedEvents.cs" />
     <Compile Include="GCConfigRatedManager.cs" />
     <Compile Include="GCDataFormat.cs" />
@@ -50,6 +51,12 @@
     <Compile Include="GCFestivalRelated.cs" />
     <Compile Include="GCFestivalSpecial.cs" />
     <Compile Include="GCFestivalSpecialExecutor.cs" />
+    <Compile Include="GeoData\TContinent.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Scripting\GSCoreCollection.cs" />
     <Compile Include="Scripting\GSCore.cs" />
     <Compile Include="Scripting\GSDateTime.cs" />
@@ -78,18 +85,19 @@
     <Compile Include="Scripting\GSToken.cs" />
     <Compile Include="GCFestivalTithiMasa.cs" />
     <Compile Include="GCFestivalBook.cs" />
-    <Compile Include="CLocationRef.cs" />
+    <Compile Include="GCLocation.cs" />
     <Compile Include="GCAstroData.cs" />
     <Compile Include="GCFestivalSankranti.cs" />
     <Compile Include="GCEkadasi.cs" />
     <Compile Include="GCMasa.cs" />
     <Compile Include="GCPaksa.cs" />
     <Compile Include="TResultBase.cs" />
+    <Compile Include="VSOP87\GCAstronomy.cs" />
     <Compile Include="VSOP87\GCEarth.cs" />
     <Compile Include="GCHourTime.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="CLocation.cs" />
-    <Compile Include="CLocationList.cs" />
+    <Compile Include="GeoData\TLocation.cs" />
+    <Compile Include="GeoData\TLocationDatabase.cs" />
     <Compile Include="GCEarthData.cs" />
     <Compile Include="GCAyanamsha.cs" />
     <Compile Include="GCCalendar.cs" />
@@ -99,6 +107,7 @@
     <Compile Include="GCGlobal.cs" />
     <Compile Include="VSOP87\GCJupiter.cs" />
     <Compile Include="GCLayoutData.cs" />
+    <Compile Include="VSOP87\GCKetu.cs" />
     <Compile Include="VSOP87\GCMars.cs" />
     <Compile Include="GCMath.cs" />
     <Compile Include="VSOP87\GCMercury.cs" />
@@ -106,6 +115,7 @@
     <Compile Include="GCRasi.cs" />
     <Compile Include="GCRatedInterval.cs" />
     <Compile Include="GCSankranti.cs" />
+    <Compile Include="VSOP87\GCRahu.cs" />
     <Compile Include="VSOP87\GCSaturn.cs" />
     <Compile Include="GCStrings.cs" />
     <Compile Include="GCTextParser.cs" />
@@ -116,13 +126,8 @@
     <Compile Include="GCYoga.cs" />
     <Compile Include="GCMoonData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="GCSunData.cs" />
-    <Compile Include="TCountry.cs" />
+    <Compile Include="GeoData\TCountry.cs" />
     <Compile Include="GCRichFileLine.cs" />
     <Compile Include="TLangFileInfo.cs" />
     <Compile Include="TLangFileList.cs" />
@@ -132,17 +137,15 @@
     <Compile Include="TResultMasaList.cs" />
     <Compile Include="TResultRatedEvents.cs" />
     <Compile Include="TResultToday.cs" />
-    <Compile Include="TTimeZone.cs" />
+    <Compile Include="GeoData\TTimeZone.cs" />
     <Compile Include="VAISNAVADAY.cs" />
     <Compile Include="GaurabdaDate.cs" />
     <Compile Include="GregorianDateTime.cs" />
+    <Compile Include="VSOP87\Testing.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\countries.rl" />
     <EmbeddedResource Include="Resources\events.rl" />
-    <EmbeddedResource Include="Resources\locations.rl" />
     <EmbeddedResource Include="Resources\strings.rl" />
-    <EmbeddedResource Include="Resources\timezones.rl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\tips.txt" />
@@ -150,8 +153,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +255,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TplCalendarDayPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\countries2016.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cities2016.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\timezoneUpdates.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\timezones2016.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarSadhana.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

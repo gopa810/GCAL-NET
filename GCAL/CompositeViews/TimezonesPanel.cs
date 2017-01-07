@@ -32,7 +32,7 @@ namespace GCAL.CompositeViews
         {
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            foreach (TTimeZone timezone in TTimeZone.gzone)
+            foreach (TTimeZone timezone in TTimeZone.TimeZoneList)
             {
                 ListViewItem lvi = new ListViewItem("");
                 UpdateListViewItem(timezone, lvi);
@@ -91,7 +91,7 @@ namespace GCAL.CompositeViews
 
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            foreach (TTimeZone timezone in TTimeZone.gzone)
+            foreach (TTimeZone timezone in TTimeZone.TimeZoneList)
             {
                 A = B = 0;
                 foreach (string s in ps)

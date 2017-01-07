@@ -286,5 +286,17 @@ namespace GCAL.Properties {
                 this["RatedConfiguration"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TipOfDayIndex {
+            get {
+                return ((int)(this["TipOfDayIndex"]));
+            }
+            set {
+                this["TipOfDayIndex"] = value;
+            }
+        }
     }
 }

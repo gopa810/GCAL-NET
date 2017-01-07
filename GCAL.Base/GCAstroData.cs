@@ -92,6 +92,10 @@ namespace GCAL.Base
                     result = new GSNumber() { IntegerValue = nMasa }; break;
                 case "masaName":
                     result = new GSString() { Value = GCMasa.GetName(nMasa) }; break;
+                case "masaNameVedic":
+                    result = new GSString() { Value = GCMasa.GetNameEx(nMasa, 2) }; break;
+                case "masaNameGaudiya":
+                    result = new GSString() { Value = GCMasa.GetNameEx(nMasa, 0) }; break;
                 case "gaurabdaYear":
                     result = new GSNumber() { IntegerValue = nGaurabdaYear }; break;
                 case "arunodayaTime":
@@ -190,7 +194,7 @@ namespace GCAL.Base
                     }
                     while (day.nTithi < 28);
                     d.NextDay();
-                    d.TimezoneHours = earth.offsetUtcHours;
+                    d.TimezoneHours = earth.OffsetUtcHours;
                     d.shour = day.sun.sunrise_deg / 360.0;
                     return d;
                 }
@@ -199,7 +203,7 @@ namespace GCAL.Base
             d.year = -1;
             d.month = -1;
             d.day = -1;
-            d.TimezoneHours = earth.offsetUtcHours;
+            d.TimezoneHours = earth.OffsetUtcHours;
             d.shour = day.sun.sunrise_deg / 360.0;
 
             return d;
@@ -300,7 +304,7 @@ namespace GCAL.Base
             int ksaya_from = -1;
             int ksaya_to = -1;
 
-            date.shour = this.sun.sunrise_deg / 360.0 + earth.offsetUtcHours / 24.0;
+            date.shour = this.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
 
             // STEP 1: calculate position of the sun and moon
             // it is done by previous call of DayCalc

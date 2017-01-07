@@ -21,7 +21,7 @@ namespace GCAL.CompositeViews
         public MasaListTabController Controller { get; set; }
         private int p_mode = 0;
 
-        public CLocationRef masaLocation = null;
+        public GCLocation masaLocation = null;
         public int masaYear = 0;
         public int masaCount = 0;
 
@@ -36,7 +36,7 @@ namespace GCAL.CompositeViews
             string s = Properties.Settings.Default.MasaListLocation;
             if (s.Length < 1)
                 s = GCGlobal.LastLocation.EncodedString;
-            masaLocation = new CLocationRef();
+            masaLocation = new GCLocation();
             masaLocation.EncodedString = s;
             masaYear = Properties.Settings.Default.MasaListYear;
             if (masaYear < 1600)
@@ -184,9 +184,9 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 masaLocation = lr;
                 Recalculate();

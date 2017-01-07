@@ -1,212 +1,253 @@
-77 AD|Andorra|1
-77 AE|United Arab Emirates|2
-77 AF|Afghanistan|2
-77 AG|Antigua|4
-77 AL|Albania|1
-77 AM|Armenia|2
-77 AN|Curacao|4
-77 AO|Angola|3
-77 AR|Argentina|4
-77 AS|American Samoa|5
-77 AT|Austria|1
-77 AU|Australia|0
-77 AW|Aruba|4
-77 AZ|Azerbaijan|2
-77 BA|Bosnia and Herzegovina|1
-77 BB|Barbados|4
-77 BD|Bangladesh|2
-77 BE|Belgium|1
-77 BF|Burkina Faso|3
-77 BG|Bulgaria|1
-77 BH|Bahrain|2
-77 BI|Burundi|3
-77 BJ|Benin|3
-77 BL|Guadeloupe|4
-77 BN|Brunei|2
-77 BO|Bolivia|4
-77 BR|Brazil|4
-77 BS|Bahamas|4
-77 BT|Bhutan|2
-77 BW|Botswana|3
-77 BY|Belarus|1
-77 BZ|Belize|4
-77 CA|Canada|4
-77 CD|Democratic Republic of the Congo|3
-77 CF|Central African Republic|3
-77 CG|Congo|3
-77 CH|Switzerland|1
-77 CI|Ivory Coast|3
-77 CK|Cook Islands|5
-77 CL|Chile|4
-77 CM|Cameroon|3
-77 CN|China|2
-77 CO|Colombia|4
-77 CR|Costa Rica|4
-77 CU|Cuba|4
-77 CV|Cape Verde|7
-77 CY|Cyprus|2
-77 CZ|Czech|1
-77 DE|Germany|1
-77 DJ|Djibouty|3
-77 DK|Denmark|1
-77 DM|Dominica|4
-77 DO|Dominican Republic|4
-77 DZ|Algeria|3
-77 EC|Ecuador|4
-77 EE|Estonia|1
-77 EG|Egypt|3
-77 EH|Western Sahara|3
-77 ER|Eritrea|3
-77 ES|Spain|3
-77 ET|Ethiopia|3
-77 FI|Finland|1
-77 FJ|Fiji|5
-77 FM|Ponape|5
-77 FO|Faroe|7
-77 FR|France|1
-77 GA|Gabon|3
-77 GB|United Kingdom|1
-77 GE|Georgia|2
-77 GF|French Guiana|4
-77 GH|Ghana|3
-77 GI|Gibraltar|1
-77 GL|Greenland|4
-77 GM|Gambia|3
-77 GN|Guinea|3
-77 GP|Guadeloupe|4
-77 GQ|Equatorial Guinea|3
-77 GR|Greece|1
-77 GT|Guatemala|4
-77 GU|Guam|5
-77 GW|Guinea-Bissau|3
-77 GY|Guyana|4
-77 HK|Hong Kong|2
-77 HN|Honduras|4
-77 HR|Croatia|1
-77 HT|Haiti|4
-77 HU|Hungary|1
-77 ID|Indonesia|2
-77 IE|Ireland|1
-77 IL|Israel|2
-77 IN|India|2
-77 IQ|Iraq|2
-77 IR|Iran|2
-77 IS|Iceland|7
-77 IT|Italy|1
-77 JM|Jamaica|4
-77 JO|Jordan|2
-77 JP|Japan|2
-77 KE|Kenya|3
-77 KG|Kyrgyzstan|2
-77 KH|Cambodia|2
-77 KI|Kiribati|5
-77 KM|Comoro|6
-77 KN|Saint Kitts and Nevis|4
-77 KP|North Korea|2
-77 KR|South Korea|2
-77 KW|Kuwait|2
-77 KY|Cauman|4
-77 KZ|Kazakhstan|2
-77 LA|Laos|2
-77 LB|Lebanon|2
-77 LC|Saint Lucia|4
-77 LI|Liechtenstein|1
-77 LK|Sri Lanka|2
-77 LR|Liberia|3
-77 LS|Lesotho|3
-77 LT|Lithuania|1
-77 LU|Luxembourg|1
-77 LV|Latvia|1
-77 LY|Libya|3
-77 MA|Morocco|3
-77 MC|Monaco|1
-77 MD|Moldova|1
-77 ME|Montenegro|1
-77 MG|Madagascar|6
-77 MH|Marshall Islands|5
-77 MK|Macedonia|1
-77 ML|Mali|3
-77 MM|Burma|2
-77 MN|Mongolia|2
-77 MP|Northern Mariana Islands|5
-77 MQ|Martinique|4
-77 MR|Mauritania|3
-77 MT|Malta|1
-77 MU|Mauritius|6
-77 MV|Maldives|6
-77 MW|Malawi|3
-77 MX|Mexico|4
-77 MY|Malaysia|2
-77 MZ|Mozambique|3
-77 NA|Nairobi|3
-77 NC|New Caledonia|5
-77 NE|Niger|3
-77 NG|Nigeria|3
-77 NI|Nicaragua|4
-77 NL|Netherlands|1
-77 NO|Norway|1
-77 NP|Nepal|2
-77 NZ|New Zealand|5
-77 OM|Oman|2
-77 PA|Panama|4
-77 PE|Peru|4
-77 PF|Tahiti|5
-77 PG|Papua New Guinea|5
-77 PH|Philippines|2
-77 PK|Pakistan|2
-77 PL|Poland|1
-77 PM|Miquelon|4
-77 PR|Puerto Rico|4
-77 PS|Gaza Strip|2
-77 PT|Portugal|1
-77 PY|Paraguay|4
-77 QA|Qatar|2
-77 RE|Reunion|6
-77 RO|Romania|1
-77 RS|Serbia|1
-77 RU|Russia|1
-77 RW|Rwanda|3
-77 SA|Saudi Arabia|2
-77 SB|Solomon Islands|5
-77 SC|Mahe|6
-77 SD|Sudan|3
-77 SE|Sweden|1
-77 SG|Singapore|2
-77 SI|Slovenia|1
-77 SK|Slovakia|1
-77 SL|Sierra Leone|3
-77 SM|San Marino|1
-77 SN|Senegal|3
-77 SO|Somalia|3
-77 SR|Suriname|4
-77 ST|Sao Tome|3
-77 SV|El Salvador|4
-77 SY|Syria|2
-77 SZ|Swaziland|3
-77 TD|Chad|3
-77 TG|Togo|3
-77 TH|Thailand|2
-77 TJ|Tajikistan|2
-77 TL|Lesser Sunda Islands|2
-77 TM|Turkmenistan|2
-77 TN|Tunis|3
-77 TR|Turkey|1
-77 TT|Trinidad and Tobago|4
-77 TW|Taiwan|2
-77 TZ|Tanzania|3
-77 UA|Ukraine|1
-77 UG|Uganda|3
-77 US|United States of America|4
-77 UY|Uruguay|4
-77 UZ|Uzbekistan|2
-77 VC|Saint Vincent|4
-77 VE|Venezuela|4
-77 VG|Virgin Islands|4
-77 VN|Vietnam|2
-77 VU|Vanuatu|5
-77 WS|Samoa|5
-77 YE|Yemen|2
-77 YT|Mayotte|6
-77 ZA|South Africa|3
-77 ZM|Zambia|3
-77 ZW|Zimbabwe|3
+#ISO	ISO3	fips	Country	Capital	Area(in sq km)	Population	Continent	neighbours
+AD	AND	AN	Andorra	Andorra la Vella	468	84000	EU	ES,FR
+AE	ARE	AE	United Arab Emirates	Abu Dhabi	82880	4975593	AS	SA,OM
+AF	AFG	AF	Afghanistan	Kabul	647500	29121286	AS	TM,CN,IR,TJ,PK,UZ
+AG	ATG	AC	Antigua and Barbuda	St. John's	443	86754	NA	
+AI	AIA	AV	Anguilla	The Valley	102	13254	NA	
+AL	ALB	AL	Albania	Tirana	28748	2986952	EU	MK,GR,ME,RS,XK
+AM	ARM	AM	Armenia	Yerevan	29800	2968000	AS	GE,IR,AZ,TR
+AO	AGO	AO	Angola	Luanda	1246700	13068161	AF	CD,NA,ZM,CG
+AQ	ATA	AY	Antarctica		14000000	0	AN	
+AR	ARG	AR	Argentina	Buenos Aires	2766890	41343201	SA	CL,BO,UY,PY,BR
+AS	ASM	AQ	American Samoa	Pago Pago	199	57881	OC	
+AT	AUT	AU	Austria	Vienna	83858	8205000	EU	CH,DE,HU,SK,CZ,IT,SI,LI
+AU	AUS	AS	Australia	Canberra	7686850	21515754	OC	
+AW	ABW	AA	Aruba	Oranjestad	193	71566	NA	
+AX	ALA		Aland Islands	Mariehamn	1580	26711	EU	
+AZ	AZE	AJ	Azerbaijan	Baku	86600	8303512	AS	GE,IR,AM,TR,RU
+BA	BIH	BK	Bosnia and Herzegovina	Sarajevo	51129	4590000	EU	HR,ME,RS
+BB	BRB	BB	Barbados	Bridgetown	431	285653	NA	
+BD	BGD	BG	Bangladesh	Dhaka	144000	156118464	AS	MM,IN
+BE	BEL	BE	Belgium	Brussels	30510	10403000	EU	DE,NL,LU,FR
+BF	BFA	UV	Burkina Faso	Ouagadougou	274200	16241811	AF	NE,BJ,GH,CI,TG,ML
+BG	BGR	BU	Bulgaria	Sofia	110910	7148785	EU	MK,GR,RO,TR,RS
+BH	BHR	BA	Bahrain	Manama	665	738004	AS	
+BI	BDI	BY	Burundi	Bujumbura	27830	9863117	AF	TZ,CD,RW
+BJ	BEN	BN	Benin	Porto-Novo	112620	9056010	AF	NE,TG,BF,NG
+BL	BLM	TB	Saint Barthelemy	Gustavia	21	8450	NA	
+BM	BMU	BD	Bermuda	Hamilton	53	65365	NA	
+BN	BRN	BX	Brunei	Bandar Seri Begawan	5770	395027	AS	MY
+BO	BOL	BL	Bolivia	Sucre	1098580	9947418	SA	PE,CL,PY,BR,AR
+BQ	BES		Bonaire, Saint Eustatius and Saba 		328	18012	NA	
+BR	BRA	BR	Brazil	Brasilia	8511965	201103330	SA	SR,PE,BO,UY,GY,PY,GF,VE,CO,AR
+BS	BHS	BF	Bahamas	Nassau	13940	301790	NA	
+BT	BTN	BT	Bhutan	Thimphu	47000	699847	AS	CN,IN
+BV	BVT	BV	Bouvet Island		49	0	AN	
+BW	BWA	BC	Botswana	Gaborone	600370	2029307	AF	ZW,ZA,NA
+BY	BLR	BO	Belarus	Minsk	207600	9685000	EU	PL,LT,UA,RU,LV
+BZ	BLZ	BH	Belize	Belmopan	22966	314522	NA	GT,MX
+CA	CAN	CA	Canada	Ottawa	9984670	33679000	NA	US
+CC	CCK	CK	Cocos Islands	West Island	14	628	AS	
+CD	COD	CG	Democratic Republic of the Congo	Kinshasa	2345410	70916439	AF	TZ,CF,SS,RW,ZM,BI,UG,CG,AO
+CF	CAF	CT	Central African Republic	Bangui	622984	4844927	AF	TD,SD,CD,SS,CM,CG
+CG	COG	CF	Republic of the Congo	Brazzaville	342000	3039126	AF	CF,GA,CD,CM,AO
+CH	CHE	SZ	Switzerland	Bern	41290	7581000	EU	DE,IT,LI,FR,AT
+CI	CIV	IV	Ivory Coast	Yamoussoukro	322460	21058798	AF	LR,GH,GN,BF,ML
+CK	COK	CW	Cook Islands	Avarua	240	21388	OC	
+CL	CHL	CI	Chile	Santiago	756950	16746491	SA	PE,BO,AR
+CM	CMR	CM	Cameroon	Yaounde	475440	19294149	AF	TD,CF,GA,GQ,CG,NG
+CN	CHN	CH	China	Beijing	9596960	1330044000	AS	LA,BT,TJ,KZ,MN,AF,NP,MM,KG,PK,KP,RU,VN,IN
+CO	COL	CO	Colombia	Bogota	1138910	47790000	SA	EC,PE,PA,BR,VE
+CR	CRI	CS	Costa Rica	San Jose	51100	4516220	NA	PA,NI
+CU	CUB	CU	Cuba	Havana	110860	11423000	NA	US
+CV	CPV	CV	Cape Verde	Praia	4033	508659	AF	
+CW	CUW	UC	Curacao	 Willemstad	444	141766	NA	
+CX	CXR	KT	Christmas Island	Flying Fish Cove	135	1500	AS	
+CY	CYP	CY	Cyprus	Nicosia	9250	1102677	EU	
+CZ	CZE	EZ	Czechia	Prague	78866	10476000	EU	PL,DE,SK,AT
+DE	DEU	GM	Germany	Berlin	357021	81802257	EU	CH,PL,NL,DK,BE,CZ,LU,FR,AT
+DJ	DJI	DJ	Djibouti	Djibouti	23000	740528	AF	ER,ET,SO
+DK	DNK	DA	Denmark	Copenhagen	43094	5484000	EU	DE
+DM	DMA	DO	Dominica	Roseau	754	72813	NA	
+DO	DOM	DR	Dominican Republic	Santo Domingo	48730	9823821	NA	HT
+DZ	DZA	AG	Algeria	Algiers	2381740	34586184	AF	NE,EH,LY,MR,TN,MA,ML
+EC	ECU	EC	Ecuador	Quito	283560	14790608	SA	PE,CO
+EE	EST	EN	Estonia	Tallinn	45226	1291170	EU	RU,LV
+EG	EGY	EG	Egypt	Cairo	1001450	80471869	AF	LY,SD,IL,PS
+EH	ESH	WI	Western Sahara	El-Aaiun	266000	273008	AF	DZ,MR,MA
+ER	ERI	ER	Eritrea	Asmara	121320	5792984	AF	ET,SD,DJ
+ES	ESP	SP	Spain	Madrid	504782	46505963	EU	AD,PT,GI,FR,MA
+ET	ETH	ET	Ethiopia	Addis Ababa	1127127	88013491	AF	ER,KE,SD,SS,SO,DJ
+FI	FIN	FI	Finland	Helsinki	337030	5244000	EU	NO,RU,SE
+FJ	FJI	FJ	Fiji	Suva	18270	875983	OC	
+FK	FLK	FK	Falkland Islands	Stanley	12173	2638	SA	
+FM	FSM	FM	Micronesia	Palikir	702	107708	OC	
+FO	FRO	FO	Faroe Islands	Torshavn	1399	48228	EU	
+FR	FRA	FR	France	Paris	547030	64768389	EU	CH,DE,BE,LU,IT,AD,MC,ES
+GA	GAB	GB	Gabon	Libreville	267667	1545255	AF	CM,GQ,CG
+GB	GBR	UK	United Kingdom	London	244820	62348447	EU	IE
+GD	GRD	GJ	Grenada	St. George's	344	107818	NA	
+GE	GEO	GG	Georgia	Tbilisi	69700	4630000	AS	AM,AZ,TR,RU
+GF	GUF	FG	French Guiana	Cayenne	91000	195506	SA	SR,BR
+GG	GGY	GK	Guernsey	St Peter Port	78	65228	EU	
+GH	GHA	GH	Ghana	Accra	239460	24339838	AF	CI,TG,BF
+GI	GIB	GI	Gibraltar	Gibraltar	6.5	27884	EU	ES
+GL	GRL	GL	Greenland	Nuuk	2166086	56375	NA	
+GM	GMB	GA	Gambia	Banjul	11300	1593256	AF	SN
+GN	GIN	GV	Guinea	Conakry	245857	10324025	AF	LR,SN,SL,CI,GW,ML
+GP	GLP	GP	Guadeloupe	Basse-Terre	1780	443000	NA	
+GQ	GNQ	EK	Equatorial Guinea	Malabo	28051	1014999	AF	GA,CM
+GR	GRC	GR	Greece	Athens	131940	11000000	EU	AL,MK,TR,BG
+GS	SGS	SX	South Georgia and the South Sandwich Islands	Grytviken	3903	30	AN	
+GT	GTM	GT	Guatemala	Guatemala City	108890	13550440	NA	MX,HN,BZ,SV
+GU	GUM	GQ	Guam	Hagatna	549	159358	OC	
+GW	GNB	PU	Guinea-Bissau	Bissau	36120	1565126	AF	SN,GN
+GY	GUY	GY	Guyana	Georgetown	214970	748486	SA	SR,BR,VE
+HK	HKG	HK	Hong Kong	Hong Kong	1092	6898686	AS	
+HM	HMD	HM	Heard Island and McDonald Islands		412	0	AN	
+HN	HND	HO	Honduras	Tegucigalpa	112090	7989415	NA	GT,NI,SV
+HR	HRV	HR	Croatia	Zagreb	56542	4284889	EU	HU,SI,BA,ME,RS
+HT	HTI	HA	Haiti	Port-au-Prince	27750	9648924	NA	DO
+HU	HUN	HU	Hungary	Budapest	93030	9982000	EU	SK,SI,RO,UA,HR,AT,RS
+ID	IDN	ID	Indonesia	Jakarta	1919440	242968342	AS	PG,TL,MY
+IE	IRL	EI	Ireland	Dublin	70280	4622917	EU	GB
+IL	ISR	IS	Israel	Jerusalem	20770	7353985	AS	SY,JO,LB,EG,PS
+IM	IMN	IM	Isle of Man	Douglas	572	75049	EU	
+IN	IND	IN	India	New Delhi	3287590	1173108018	AS	CN,NP,MM,BT,PK,BD
+IO	IOT	IO	British Indian Ocean Territory	Diego Garcia	60	4000	AS	
+IQ	IRQ	IZ	Iraq	Baghdad	437072	29671605	AS	SY,SA,IR,JO,TR,KW
+IR	IRN	IR	Iran	Tehran	1648000	76923300	AS	TM,AF,IQ,AM,PK,AZ,TR
+IS	ISL	IC	Iceland	Reykjavik	103000	308910	EU	
+IT	ITA	IT	Italy	Rome	301230	60340328	EU	CH,VA,SI,SM,FR,AT
+JE	JEY	JE	Jersey	Saint Helier	116	90812	EU	
+JM	JAM	JM	Jamaica	Kingston	10991	2847232	NA	
+JO	JOR	JO	Jordan	Amman	92300	6407085	AS	SY,SA,IQ,IL,PS
+JP	JPN	JA	Japan	Tokyo	377835	127288000	AS	
+KE	KEN	KE	Kenya	Nairobi	582650	40046566	AF	ET,TZ,SS,SO,UG
+KG	KGZ	KG	Kyrgyzstan	Bishkek	198500	5776500	AS	CN,TJ,UZ,KZ
+KH	KHM	CB	Cambodia	Phnom Penh	181040	14453680	AS	LA,TH,VN
+KI	KIR	KR	Kiribati	Tarawa	811	92533	OC	
+KM	COM	CN	Comoros	Moroni	2170	773407	AF	
+KN	KNA	SC	Saint Kitts and Nevis	Basseterre	261	51134	NA	
+KP	PRK	KN	North Korea	Pyongyang	120540	22912177	AS	CN,KR,RU
+KR	KOR	KS	South Korea	Seoul	98480	48422644	AS	KP
+XK	XKX	KV	Kosovo	Pristina	10908	1800000	EU	RS,AL,MK,ME
+KW	KWT	KU	Kuwait	Kuwait City	17820	2789132	AS	SA,IQ
+KY	CYM	CJ	Cayman Islands	George Town	262	44270	NA	
+KZ	KAZ	KZ	Kazakhstan	Astana	2717300	15340000	AS	TM,CN,KG,UZ,RU
+LA	LAO	LA	Laos	Vientiane	236800	6368162	AS	CN,MM,KH,TH,VN
+LB	LBN	LE	Lebanon	Beirut	10400	4125247	AS	SY,IL
+LC	LCA	ST	Saint Lucia	Castries	616	160922	NA	
+LI	LIE	LS	Liechtenstein	Vaduz	160	35000	EU	CH,AT
+LK	LKA	CE	Sri Lanka	Colombo	65610	21513990	AS	
+LR	LBR	LI	Liberia	Monrovia	111370	3685076	AF	SL,CI,GN
+LS	LSO	LT	Lesotho	Maseru	30355	1919552	AF	ZA
+LT	LTU	LH	Lithuania	Vilnius	65200	2944459	EU	PL,BY,RU,LV
+LU	LUX	LU	Luxembourg	Luxembourg	2586	497538	EU	DE,BE,FR
+LV	LVA	LG	Latvia	Riga	64589	2217969	EU	LT,EE,BY,RU
+LY	LBY	LY	Libya	Tripoli	1759540	6461454	AF	TD,NE,DZ,SD,TN,EG
+MA	MAR	MO	Morocco	Rabat	446550	31627428	AF	DZ,EH,ES
+MC	MCO	MN	Monaco	Monaco	1.95	32965	EU	FR
+MD	MDA	MD	Moldova	Chisinau	33843	4324000	EU	RO,UA
+ME	MNE	MJ	Montenegro	Podgorica	14026	666730	EU	AL,HR,BA,RS,XK
+MF	MAF	RN	Saint Martin	Marigot	53	35925	NA	SX
+MG	MDG	MA	Madagascar	Antananarivo	587040	21281844	AF	
+MH	MHL	RM	Marshall Islands	Majuro	181.3	65859	OC	
+MK	MKD	MK	Macedonia	Skopje	25333	2062294	EU	AL,GR,BG,RS,XK
+ML	MLI	ML	Mali	Bamako	1240000	13796354	AF	SN,NE,DZ,CI,GN,MR,BF
+MM	MMR	BM	Myanmar	Nay Pyi Taw	678500	53414374	AS	CN,LA,TH,BD,IN
+MN	MNG	MG	Mongolia	Ulan Bator	1565000	3086918	AS	CN,RU
+MO	MAC	MC	Macao	Macao	254	449198	AS	
+MP	MNP	CQ	Northern Mariana Islands	Saipan	477	53883	OC	
+MQ	MTQ	MB	Martinique	Fort-de-France	1100	432900	NA	
+MR	MRT	MR	Mauritania	Nouakchott	1030700	3205060	AF	SN,DZ,EH,ML
+MS	MSR	MH	Montserrat	Plymouth	102	9341	NA	
+MT	MLT	MT	Malta	Valletta	316	403000	EU	
+MU	MUS	MP	Mauritius	Port Louis	2040	1294104	AF	
+MV	MDV	MV	Maldives	Male	300	395650	AS	
+MW	MWI	MI	Malawi	Lilongwe	118480	15447500	AF	TZ,MZ,ZM
+MX	MEX	MX	Mexico	Mexico City	1972550	112468855	NA	GT,US,BZ
+MY	MYS	MY	Malaysia	Kuala Lumpur	329750	28274729	AS	BN,TH,ID
+MZ	MOZ	MZ	Mozambique	Maputo	801590	22061451	AF	ZW,TZ,SZ,ZA,ZM,MW
+NA	NAM	WA	Namibia	Windhoek	825418	2128471	AF	ZA,BW,ZM,AO
+NC	NCL	NC	New Caledonia	Noumea	19060	216494	OC	
+NE	NER	NG	Niger	Niamey	1267000	15878271	AF	TD,BJ,DZ,LY,BF,NG,ML
+NF	NFK	NF	Norfolk Island	Kingston	34.6	1828	OC	
+NG	NGA	NI	Nigeria	Abuja	923768	154000000	AF	TD,NE,BJ,CM
+NI	NIC	NU	Nicaragua	Managua	129494	5995928	NA	CR,HN
+NL	NLD	NL	Netherlands	Amsterdam	41526	16645000	EU	DE,BE
+NO	NOR	NO	Norway	Oslo	324220	5009150	EU	FI,RU,SE
+NP	NPL	NP	Nepal	Kathmandu	140800	28951852	AS	CN,IN
+NR	NRU	NR	Nauru	Yaren	21	10065	OC	
+NU	NIU	NE	Niue	Alofi	260	2166	OC	
+NZ	NZL	NZ	New Zealand	Wellington	268680	4252277	OC	
+OM	OMN	MU	Oman	Muscat	212460	2967717	AS	SA,YE,AE
+PA	PAN	PM	Panama	Panama City	78200	3410676	NA	CR,CO
+PE	PER	PE	Peru	Lima	1285220	29907003	SA	EC,CL,BO,BR,CO
+PF	PYF	FP	French Polynesia	Papeete	4167	270485	OC	
+PG	PNG	PP	Papua New Guinea	Port Moresby	462840	6064515	OC	ID
+PH	PHL	RP	Philippines	Manila	300000	99900177	AS	
+PK	PAK	PK	Pakistan	Islamabad	803940	184404791	AS	CN,AF,IR,IN
+PL	POL	PL	Poland	Warsaw	312685	38500000	EU	DE,LT,SK,CZ,BY,UA,RU
+PM	SPM	SB	Saint Pierre and Miquelon	Saint-Pierre	242	7012	NA	
+PN	PCN	PC	Pitcairn	Adamstown	47	46	OC	
+PR	PRI	RQ	Puerto Rico	San Juan	9104	3916632	NA	
+PS	PSE	WE	Palestinian Territory	East Jerusalem	5970	3800000	AS	JO,IL,EG
+PT	PRT	PO	Portugal	Lisbon	92391	10676000	EU	ES
+PW	PLW	PS	Palau	Melekeok	458	19907	OC	
+PY	PRY	PA	Paraguay	Asuncion	406750	6375830	SA	BO,BR,AR
+QA	QAT	QA	Qatar	Doha	11437	840926	AS	SA
+RE	REU	RE	Reunion	Saint-Denis	2517	776948	AF	
+RO	ROU	RO	Romania	Bucharest	237500	21959278	EU	MD,HU,UA,BG,RS
+RS	SRB	RI	Serbia	Belgrade	88361	7344847	EU	AL,HU,MK,RO,HR,BA,BG,ME,XK
+RU	RUS	RS	Russia	Moscow	17100000	140702000	EU	GE,CN,BY,UA,KZ,LV,PL,EE,LT,FI,MN,NO,AZ,KP
+RW	RWA	RW	Rwanda	Kigali	26338	11055976	AF	TZ,CD,BI,UG
+SA	SAU	SA	Saudi Arabia	Riyadh	1960582	25731776	AS	QA,OM,IQ,YE,JO,AE,KW
+SB	SLB	BP	Solomon Islands	Honiara	28450	559198	OC	
+SC	SYC	SE	Seychelles	Victoria	455	88340	AF	
+SD	SDN	SU	Sudan	Khartoum	1861484	35000000	AF	SS,TD,EG,ET,ER,LY,CF
+SS	SSD	OD	South Sudan	Juba	644329	8260490	AF	CD,CF,ET,KE,SD,UG,
+SE	SWE	SW	Sweden	Stockholm	449964	9828655	EU	NO,FI
+SG	SGP	SN	Singapore	Singapore	692.7	4701069	AS	
+SH	SHN	SH	Saint Helena	Jamestown	410	7460	AF	
+SI	SVN	SI	Slovenia	Ljubljana	20273	2007000	EU	HU,IT,HR,AT
+SJ	SJM	SV	Svalbard and Jan Mayen	Longyearbyen	62049	2550	EU	
+SK	SVK	LO	Slovakia	Bratislava	48845	5455000	EU	PL,HU,CZ,UA,AT
+SL	SLE	SL	Sierra Leone	Freetown	71740	5245695	AF	LR,GN
+SM	SMR	SM	San Marino	San Marino	61.2	31477	EU	IT
+SN	SEN	SG	Senegal	Dakar	196190	12323252	AF	GN,MR,GW,GM,ML
+SO	SOM	SO	Somalia	Mogadishu	637657	10112453	AF	ET,KE,DJ
+SR	SUR	NS	Suriname	Paramaribo	163270	492829	SA	GY,BR,GF
+ST	STP	TP	Sao Tome and Principe	Sao Tome	1001	175808	AF	
+SV	SLV	ES	El Salvador	San Salvador	21040	6052064	NA	GT,HN
+SX	SXM	NN	Sint Maarten	Philipsburg	21	37429	NA	MF
+SY	SYR	SY	Syria	Damascus	185180	22198110	AS	IQ,JO,IL,TR,LB
+SZ	SWZ	WZ	Swaziland	Mbabane	17363	1354051	AF	ZA,MZ
+TC	TCA	TK	Turks and Caicos Islands	Cockburn Town	430	20556	NA	
+TD	TCD	CD	Chad	N'Djamena	1284000	10543464	AF	NE,LY,CF,SD,CM,NG
+TF	ATF	FS	French Southern Territories	Port-aux-Francais	7829	140	AN	
+TG	TGO	TO	Togo	Lome	56785	6587239	AF	BJ,GH,BF
+TH	THA	TH	Thailand	Bangkok	514000	67089500	AS	LA,MM,KH,MY
+TJ	TJK	TI	Tajikistan	Dushanbe	143100	7487489	AS	CN,AF,KG,UZ
+TK	TKL	TL	Tokelau		10	1466	OC	
+TL	TLS	TT	East Timor	Dili	15007	1154625	OC	ID
+TM	TKM	TX	Turkmenistan	Ashgabat	488100	4940916	AS	AF,IR,UZ,KZ
+TN	TUN	TS	Tunisia	Tunis	163610	10589025	AF	DZ,LY
+TO	TON	TN	Tonga	Nuku'alofa	748	122580	OC	
+TR	TUR	TU	Turkey	Ankara	780580	77804122	AS	SY,GE,IQ,IR,GR,AM,AZ,BG
+TT	TTO	TD	Trinidad and Tobago	Port of Spain	5128	1228691	NA	
+TV	TUV	TV	Tuvalu	Funafuti	26	10472	OC	
+TW	TWN	TW	Taiwan	Taipei	35980	22894384	AS	
+TZ	TZA	TZ	Tanzania	Dodoma	945087	41892895	AF	MZ,KE,CD,RW,ZM,BI,UG,MW
+UA	UKR	UP	Ukraine	Kiev	603700	45415596	EU	PL,MD,HU,SK,BY,RO,RU
+UG	UGA	UG	Uganda	Kampala	236040	33398682	AF	TZ,KE,SS,CD,RW
+UM	UMI		United States Minor Outlying Islands		0	0	OC	
+US	USA	US	United States	Washington	9629091	310232863	NA	CA,MX,CU
+UY	URY	UY	Uruguay	Montevideo	176220	3477000	SA	BR,AR
+UZ	UZB	UZ	Uzbekistan	Tashkent	447400	27865738	AS	TM,AF,KG,TJ,KZ
+VA	VAT	VT	Vatican	Vatican City	0.44	921	EU	IT
+VC	VCT	VC	Saint Vincent and the Grenadines	Kingstown	389	104217	NA	
+VE	VEN	VE	Venezuela	Caracas	912050	27223228	SA	GY,BR,CO
+VG	VGB	VI	British Virgin Islands	Road Town	153	21730	NA	
+VI	VIR	VQ	U.S. Virgin Islands	Charlotte Amalie	352	108708	NA	
+VN	VNM	VM	Vietnam	Hanoi	329560	89571130	AS	CN,LA,KH
+VU	VUT	NH	Vanuatu	Port Vila	12200	221552	OC	
+WF	WLF	WF	Wallis and Futuna	Mata Utu	274	16025	OC	
+WS	WSM	WS	Samoa	Apia	2944	192001	OC	
+YE	YEM	YM	Yemen	Sanaa	527970	23495361	AS	SA,OM
+YT	MYT	MF	Mayotte	Mamoudzou	374	159042	AF	
+ZA	ZAF	SF	South Africa	Pretoria	1219912	49000000	AF	ZW,SZ,MZ,BW,NA,LS
+ZM	ZMB	ZA	Zambia	Lusaka	752614	13460305	AF	ZW,TZ,MZ,CD,NA,MW,AO
+ZW	ZWE	ZI	Zimbabwe	Harare	390580	13061000	AF	ZA,MZ,BW,ZM
+CS	SCG	YI	Serbia and Montenegro	Belgrade	102350	10829175	EU	AL,HU,MK,RO,HR,BA,BG
+AN	ANT	NT	Netherlands Antilles	Willemstad	960	300000	NA	GP

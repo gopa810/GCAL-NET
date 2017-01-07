@@ -15,7 +15,7 @@ namespace GCAL.CompositeViews
 {
     public partial class EditLocationPanel : UserControl
     {
-        public CLocation SelectedLocation;
+        public TLocation SelectedLocation;
         public EditLocationPanelController Controller { get; set; }
         public event TBButtonPressed OnEditLocationDone;
 
@@ -24,13 +24,13 @@ namespace GCAL.CompositeViews
             InitializeComponent();
         }
 
-        public void setLocation(CLocation selloc)
+        public void setLocation(TLocation selloc)
         {
             SelectedLocation = selloc;
 
             TCountry findCountry = (PrefferedCountry is TCountry ? PrefferedCountry as TCountry : null);
             comboBox1.BeginUpdate();
-            foreach (TCountry ct in TCountry.gcountries)
+            foreach (TCountry ct in TCountry.Countries)
             {
                 comboBox1.Items.Add(ct);
             }
@@ -38,7 +38,7 @@ namespace GCAL.CompositeViews
             comboBox1.EndUpdate();
 
             comboBox2.BeginUpdate();
-            foreach (TTimeZone tz in TTimeZone.gzone)
+            foreach (TTimeZone tz in TTimeZone.TimeZoneList)
             {
                 comboBox2.Items.Add(tz);
             }
@@ -55,22 +55,22 @@ namespace GCAL.CompositeViews
             }
             else
             {
-                textBox1.Text = SelectedLocation.cityName;
+                textBox1.Text = SelectedLocation.CityName;
                 for (int i = 0; i < comboBox1.Items.Count; i++)
                 {
                     TCountry tc = comboBox1.Items[i] as TCountry;
-                    if (tc.name.Equals(SelectedLocation.countryName))
+                    if (tc.Name.Equals(SelectedLocation.Country.Name))
                     {
                         comboBox1.SelectedIndex = i;
                         break;
                     }
                 }
-                textBox2.Text = GCEarthData.GetTextLatitude(SelectedLocation.latitudeDeg);
-                textBox3.Text = GCEarthData.GetTextLongitude(SelectedLocation.longitudeDeg);
+                textBox2.Text = GCEarthData.GetTextLatitude(SelectedLocation.Latitude);
+                textBox3.Text = GCEarthData.GetTextLongitude(SelectedLocation.Longitude);
                 for (int j = 0; j < comboBox2.Items.Count; j++)
                 {
                     TTimeZone tz = comboBox2.Items[j] as TTimeZone;
-                    if (tz.TimezoneId == SelectedLocation.timezoneId)
+                    if (tz.Name.Equals(SelectedLocation.TimeZoneName))
                     {
                         comboBox2.SelectedIndex = j;
                         break;
@@ -100,13 +100,13 @@ namespace GCAL.CompositeViews
                         comboBox1.SelectedIndex = 0;
 
                     // selection of timezone
-                    foreach (CLocation loc in CLocationList.locationList)
+                    foreach (TLocation loc in TLocationDatabase.LocationList)
                     {
-                        if (loc.countryName.Equals(tc.name))
+                        if (loc.CountryISOCode.Equals(tc.ISOCode))
                         {
                             for (int k = 0; k < comboBox2.Items.Count; k++)
                             {
-                                if (loc.timezoneId == (comboBox2.Items[k] as TTimeZone).TimezoneId)
+                                if (loc.TimeZoneName.Equals((comboBox2.Items[k] as TTimeZone).Name))
                                 {
                                     comboBox2.SelectedIndex = k;
                                     break;
@@ -176,19 +176,22 @@ namespace GCAL.CompositeViews
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LocationWrapper lw = new LocationWrapper(SelectedLocation);
             if (SelectedLocation == null)
-                SelectedLocation = new CLocation();
+                SelectedLocation = lw.location;
 
-            SelectedLocation.cityName = textBox1.Text;
-            SelectedLocation.countryName = (comboBox1.SelectedItem as TCountry).name;
-            ToDouble(textBox2.Text, out SelectedLocation.latitudeDeg, 'N', 'S');
-            ToDouble(textBox3.Text, out SelectedLocation.longitudeDeg, 'E', 'W');
+            double d;
+            SelectedLocation.CityName = textBox1.Text;
+            SelectedLocation.CountryISOCode = (comboBox1.SelectedItem as TCountry).ISOCode;
+            ToDouble(textBox2.Text, out d, 'N', 'S');
+            SelectedLocation.Latitude = d;
+            ToDouble(textBox3.Text, out d, 'E', 'W');
+            SelectedLocation.Longitude = d;
             TTimeZone tz = comboBox2.SelectedItem as TTimeZone;
-            SelectedLocation.timezoneId = tz.TimezoneId;
-            SelectedLocation.offsetUtcHours = tz.OffsetMinutes / 60;
+            SelectedLocation.TimeZone = tz;
 
             if (OnEditLocationDone != null)
-                OnEditLocationDone(SelectedLocation, e);
+                OnEditLocationDone(lw, e);
 
             Controller.RemoveFromContainer();
         }
@@ -198,6 +201,16 @@ namespace GCAL.CompositeViews
             Controller.RemoveFromContainer();
         }
 
+        public class LocationWrapper
+        {
+            public bool created = false;
+            public TLocation location = null;
+            public LocationWrapper(TLocation loc)
+            {
+                created = (loc == null);
+                location = (loc == null ? new TLocation() : loc);
+            }
+        }
 
     }
 

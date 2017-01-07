@@ -218,12 +218,12 @@ namespace GCAL.Base
             return (nMasa == 12) ? 12 : ((nMasa + 1) % 12);
         }
 
-        public static int writeFirstDayXml(string fileName, CLocationRef loc, GregorianDateTime vcStart)
+        public static int writeFirstDayXml(string fileName, GCLocation loc, GregorianDateTime vcStart)
         {
             using (StreamWriter xml = new StreamWriter(fileName))
             {
 
-                vcStart.Set(GCAstroData.GetFirstDayOfYear(loc.EARTHDATA(), vcStart.year));
+                vcStart.Set(GCAstroData.GetFirstDayOfYear(loc.GetEarthData(), vcStart.year));
                 vcStart.InitWeekDay();
 
                 // write
@@ -232,10 +232,10 @@ namespace GCAL.Base
                 xml.Write(GCStrings.RawVersionNumber);
                 xml.Write("\">\n");
                 xml.Write("\t\t<arg name=\"longitude\" val=\"");
-                xml.Write(loc.longitudeDeg);
+                xml.Write(loc.Longitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"latitude\" val=\"");
-                xml.Write(loc.latitudeDeg);
+                xml.Write(loc.Latitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"year\" val=\"");
                 xml.Write(vcStart.year);

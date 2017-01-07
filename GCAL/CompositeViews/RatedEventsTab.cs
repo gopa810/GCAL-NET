@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
+using System.Runtime.Remoting.Messaging;
 
 using GCAL.Base;
 using GCAL.Base.Scripting;
@@ -20,8 +22,11 @@ namespace GCAL.CompositeViews
         public RatedEventsTabController Controller { get; set; }
         private int p_mode = 0;
         public GCConfigRatedEvents SelectedConfiguration = null;
+        private string textToDisplayTxt = "";
+        private string textToDisplayRtf = "";
+        private bool doNotRecalculate = false;
 
-        public CLocationRef ratedLocation = null;
+        public GCLocation ratedLocation = null;
         public GregorianDateTime ratedStartDate = new GregorianDateTime();
         public GregorianDateTime ratedEndDate = new GregorianDateTime();
 
@@ -35,7 +40,7 @@ namespace GCAL.CompositeViews
             string s = Properties.Settings.Default.RatedLocation;
             if (s.Length < 1)
                 s = GCGlobal.LastLocation.EncodedString;
-            ratedLocation = new CLocationRef();
+            ratedLocation = new GCLocation();
             ratedLocation.EncodedString = s;
             s = Properties.Settings.Default.RatedStartDate;
             if (s.Length > 1)
@@ -47,10 +52,17 @@ namespace GCAL.CompositeViews
             InitTemplates();
             s = Properties.Settings.Default.RatedConfiguration;
             SelectedConfiguration = GCConfigRatedManager.GetConfiguration(s);
-            templateComboBox.SelectedIndex = templateComboBox.Items.IndexOf(SelectedConfiguration.Title);
 
+            bEnchit = true;
+            templateComboBox.SelectedIndex = templateComboBox.Items.IndexOf(SelectedConfiguration.Title);
+            bEnchit = false;
 
             SetMode(Properties.Settings.Default.RatedEventsShowMode);
+
+        }
+
+        public void Start()
+        {
             //Recalculate();
         }
 
@@ -63,23 +75,29 @@ namespace GCAL.CompositeViews
             }
             else if (i == 0)
             {
-                richTextBox1.Visible = true;
-                pictureBox1.Visible = false;
+                //richTextBox1.Visible = true;
+                //pictureBox1.Visible = false;
 
                 p_mode = i;
                 DisplayCalendarResult();
-                Properties.Settings.Default.RatedEventsShowMode = i;
-                Properties.Settings.Default.Save();
+                if (Properties.Settings.Default.RatedEventsShowMode != i)
+                {
+                    Properties.Settings.Default.RatedEventsShowMode = i;
+                    Properties.Settings.Default.Save();
+                }
             }
             else if (i == 1)
             {
-                richTextBox1.Visible = true;
-                pictureBox1.Visible = false;
+                //richTextBox1.Visible = true;
+                //pictureBox1.Visible = false;
 
                 p_mode = i;
                 DisplayCalendarResult();
-                Properties.Settings.Default.RatedEventsShowMode = i;
-                Properties.Settings.Default.Save();
+                if (Properties.Settings.Default.RatedEventsShowMode != i)
+                {
+                    Properties.Settings.Default.RatedEventsShowMode = i;
+                    Properties.Settings.Default.Save();
+                }
             }
 
         }
@@ -137,15 +155,43 @@ namespace GCAL.CompositeViews
 
             if (p_mode == 0 || p_mode == 1)
             {
-                LocationText(ratedLocation.locationName);
+                LocationText(ratedLocation.Title);
                 StartDateText(ratedStartDate.ToString());
                 EndDateText(ratedEndDate.ToString());
 
-                m_events = new TResultRatedEvents();
+                richTextBox1.Visible = false;
+                pictureBox1.Visible = true;
+
+                doNotRecalculate = false;
+                backgroundWorker1.RunWorkerAsync();
+/*                m_events = new TResultRatedEvents();
                 m_events.CompleteCalculation(ratedLocation, ratedStartDate, ratedEndDate, SelectedConfiguration);
-                DisplayCalendarResult();
+                CalcDeleg caller = new CalcDeleg(m_events.CompleteCalculation);
+                IAsyncResult result = caller.BeginInvoke(ratedLocation, ratedStartDate, ratedEndDate, SelectedConfiguration,
+                    new AsyncCallback(RecalculationDone),
+                    "Recalculation");*/
+
+                //DisplayCalendarResult();
             }
         }
+
+        private delegate void MainThrDeleg();
+        public delegate void CalcDeleg(GCLocation loc, GregorianDateTime sd, GregorianDateTime ed, GCConfigRatedEvents sc);
+
+        public void RecalculationDone(IAsyncResult ar)
+        {
+            MainThrDeleg mt = new MainThrDeleg(RecalculationDoneMainThread);
+            this.Invoke(mt);
+        }
+
+        public void RecalculationDoneMainThread()
+        {
+            if (textToDisplayTxt.Length > 0) richTextBox1.Text = textToDisplayTxt;
+            else if (textToDisplayRtf.Length > 0) richTextBox1.Rtf = textToDisplayRtf;
+            richTextBox1.Visible = true;
+            pictureBox1.Visible = false;
+        }
+
         public TResultBase getCurrentContent()
         {
             return m_events;
@@ -169,7 +215,11 @@ namespace GCAL.CompositeViews
 
         public void DisplayCalendarResult()
         {
-            if (p_mode == 0)
+            doNotRecalculate = true;
+            richTextBox1.Visible = false;
+            pictureBox1.Visible = true;
+            backgroundWorker1.RunWorkerAsync();
+/*            if (p_mode == 0)
             {
                 if (m_events == null)
                     Recalculate();
@@ -182,7 +232,7 @@ namespace GCAL.CompositeViews
                     Recalculate();
                 else
                     richTextBox1.Rtf = m_events.formatText(GCDataFormat.Rtf);
-            }
+            }*/
         }
 
         private void onLocationClick(object sender, EventArgs e)
@@ -195,9 +245,9 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 ratedLocation = lr;
                 Recalculate();
@@ -207,7 +257,7 @@ namespace GCAL.CompositeViews
         private void onDateRangeClick(object sender, EventArgs e)
         {
             EnterPeriodPanel d = new EnterPeriodPanel();
-            d.EarthLocation = ratedLocation.EARTHDATA();
+            d.EarthLocation = ratedLocation.GetEarthData();
             d.OnPeriodSelected += new TBButtonPressed(d_OnPeriodSelected);
             d.InputStartDate = ratedStartDate;
             d.InputEndDate = ratedEndDate;
@@ -336,6 +386,39 @@ namespace GCAL.CompositeViews
                     Recalculate();
                     p_lastSelectedTemplateIndex = templateComboBox.SelectedIndex;
                 }
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {/*
+            MainThrDeleg mt = new MainThrDeleg(RecalculationDoneMainThread);
+            this.Invoke(mt);*/
+
+            if (textToDisplayTxt.Length > 0) richTextBox1.Text = textToDisplayTxt;
+            else if (textToDisplayRtf.Length > 0) richTextBox1.Rtf = textToDisplayRtf;
+            richTextBox1.Visible = true;
+            pictureBox1.Visible = false;
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!doNotRecalculate || m_events == null)
+            {
+                m_events = new TResultRatedEvents();
+                m_events.CompleteCalculation(ratedLocation, ratedStartDate, ratedEndDate, SelectedConfiguration);
+            }
+
+            doNotRecalculate = false;
+
+            if (p_mode == 0)
+            {
+                textToDisplayTxt = m_events.formatText(GCDataFormat.PlainText);
+                textToDisplayRtf = "";
+            }
+            else if (p_mode == 1)
+            {
+                textToDisplayTxt = "";
+                textToDisplayRtf = m_events.formatText(GCDataFormat.Rtf);
             }
         }
 

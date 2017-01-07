@@ -52,16 +52,18 @@ namespace GCAL
 
             printFont = new Font("Lucida Console", 10);
 
-            GSExecutor es = new GSExecutor();
 
-            GSScript scr = new GSScript();
-            es.SetVariable("alg1", new GSNumber() { IntegerValue = 67 });
-            es.SetVariable("alg2", new GSString() { Value = "This is string" });
-            es.SetVariable("alg3", new GSNumber() { DoubleValue = 18.29893 });
+            GCAL.Base.VSOP87.Testing.Test();
+        }
 
-            scr.readTextTemplate("[alg1:08d] [alg2:-18s] [alg3:5.3f]");
-            es.ExecuteElement(scr);
-            scr.Parts.Clear();
+        private string GetTimeStr(double d)
+        {
+            int secs = Convert.ToInt32(d * 3600);
+            int s = secs % 60;
+            secs /= 60;
+            int m = secs % 60;
+            secs /= 60;
+            return string.Format("{0:00}:{1:00}:{2:00}", secs, m, s);
         }
 
         public GVTabBanner TabBanner

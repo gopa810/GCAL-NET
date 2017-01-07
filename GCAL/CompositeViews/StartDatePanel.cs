@@ -322,7 +322,7 @@ namespace GCAL.CompositeViews
         public StartDatePanelController(StartDatePanel v)
         {
             View = v;
-            v.EarthLocation = GCGlobal.LastLocation.EARTHDATA();
+            v.EarthLocation = GCGlobal.LastLocation.GetEarthData();
             v.Controller = this;
             v.ButtonCancelEnable = true;
             v.ButtonOkEnable = true;

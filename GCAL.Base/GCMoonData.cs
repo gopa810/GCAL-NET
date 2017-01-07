@@ -19,7 +19,7 @@ double di;*/
         public double longitude_deg;
 
         public double radius; //(* lambda, beta, R *)
-        public double rektaszension, declination;  //(* alpha, delta *)
+        public double rightAscension, declination;  //(* alpha, delta *)
         public double parallax;
         public double elevation, azimuth;//          (* h, A *)
 
@@ -38,15 +38,25 @@ double di;*/
             this.longitude_deg = crd.longitude;
             this.latitude_deg = crd.latitude;
 
-            this.rektaszension = eqc.rightAscension;
+            // equaltorial coordinates
+            this.rightAscension = eqc.rightAscension;
             this.declination = eqc.declination;
+        }
+
+        public static void Calculate(double jd, out double L, out double B, out double R)
+        {
+            GCMoonData md = new GCMoonData();
+            md.Calculate(jd);
+            L = md.longitude_deg;
+            B = md.latitude_deg;
+            R = md.radius;
         }
 
         //==================================================================================
         //
         //==================================================================================
 
-        public static void CalcMoonTimes(GCEarthData e, GregorianDateTime vc, double nDaylightSavingShift, out GCHourTime rise, out GCHourTime set)
+        public static void CalcMoonTimes(GCEarthData e, GregorianDateTime vc, double biasHours, out GCHourTime rise, out GCHourTime set)
         {
             double UT;
             int i;
@@ -61,11 +71,11 @@ double di;*/
             set.SetValue(-1);
 
             // inicializacia prvej hodnoty ELEVATION
-            vc.shour = (-nDaylightSavingShift - 1.0) / 24.0;
+            vc.shour = (-biasHours - 1.0) / 24.0;
             prev_elev = MoonCalcElevation(e, vc);
 
             // prechod cez vsetky hodiny
-            for (UT = (-0.1 - nDaylightSavingShift); UT <= (24.1 - nDaylightSavingShift); UT += 1.0)
+            for (UT = (-0.1 - biasHours); UT <= (24.1 - biasHours); UT += 1.0)
             {
                 vc.shour = UT / 24.0;
                 elev = MoonCalcElevation(e, vc);
@@ -104,11 +114,11 @@ double di;*/
 
                     if (nType == 1)
                     {
-                        rise.SetDayTime((c + nDaylightSavingShift) / 24.0);
+                        rise.SetDayTime((c + biasHours) / 24.0);
                     }
                     else
                     {
-                        set.SetDayTime((c + nDaylightSavingShift) / 24.0);
+                        set.SetDayTime((c + biasHours) / 24.0);
                     }
 
                     nFound |= nType;
@@ -231,7 +241,7 @@ double di;*/
             GCMoonData moon = new GCMoonData();
             double d = vc.GetJulianComplete();
             moon.Calculate(d);
-            moon.correct_position(d, e.latitudeDeg, e.longitudeDeg, 0);
+            moon.CorrectEqatorialWithParallax(d, e.latitudeDeg, e.longitudeDeg, 0);
             moon.calc_horizontal(d, e.longitudeDeg, e.latitudeDeg);
 
             return moon.elevation;
@@ -241,7 +251,7 @@ double di;*/
         {
             double h;
 
-            h = GCMath.putIn360(GCEarthData.star_time(date) - this.rektaszension + longitude);
+            h = GCMath.putIn360(GCEarthData.SiderealTimeGreenwich(date) - this.rightAscension + longitude);
 
             this.azimuth = GCMath.rad2deg(Math.Atan2(GCMath.sinDeg(h),
                                    GCMath.cosDeg(h) * GCMath.sinDeg(latitude) -
@@ -256,7 +266,7 @@ double di;*/
             double u, h, delta_alpha;
             double rho_sin, rho_cos;
             const double b_a = 0.99664719;
-            GCEquatorialCoords tec;
+            GCEquatorialCoords tec = new GCEquatorialCoords();
 
             double altitude = 0;
 
@@ -271,15 +281,15 @@ double di;*/
             double parallax = GCMath.arcSinDeg(GCMath.sinDeg(8.794 / 3600) / (radius / GCMath.AU));
 
             // geocentric hour angle of the body
-            h = GCEarthData.star_time(jdate) + obs.longitudeDeg - rektaszension;
+            h = GCEarthData.SiderealTimeGreenwich(jdate) + obs.longitudeDeg - rightAscension;
 
 
             // 39.2
             delta_alpha = GCMath.arcTanDeg(
                         (-rho_cos * GCMath.sinDeg(parallax) * GCMath.sinDeg(h)) /
                         (GCMath.cosDeg(this.declination) - rho_cos * GCMath.sinDeg(parallax) * GCMath.cosDeg(h)));
-            tec.rightAscension = rektaszension + delta_alpha;
-            tec.declination = GCMath.arcTanDeg(
+            tec.rightAscension = rightAscension + delta_alpha;
+            tec.declination = declination + GCMath.arcTanDeg(
                 ((GCMath.sinDeg(declination) - rho_sin * GCMath.sinDeg(parallax)) * GCMath.cosDeg(delta_alpha)) /
                 (GCMath.cosDeg(declination) - rho_cos * GCMath.sinDeg(parallax) * GCMath.cosDeg(h)));
 
@@ -287,29 +297,28 @@ double di;*/
         }
 
 
-        public void correct_position(double jdate, double latitude, double longitude, double height)
+        public void CorrectEqatorialWithParallax(double jdate, double latitude, double longitude, double height)
         {
-            double u, h, delta_alpha;
+            double u, hourAngleBody, delta_alpha;
             double rho_sin, rho_cos;
             const double b_a = 0.99664719;
 
+            // calculate geocentric longitude and latitude of observer
             u = GCMath.arcTanDeg(b_a * b_a * GCMath.tanDeg(latitude));
             rho_sin = b_a * GCMath.sinDeg(u) + height / 6378140.0 * GCMath.sinDeg(latitude);
             rho_cos = GCMath.cosDeg(u) + height / 6378140.0 * GCMath.cosDeg(latitude);
 
+            // calculate paralax
             this.parallax = GCMath.arcSinDeg(GCMath.sinDeg(8.794 / 3600) / (MoonDistance(jdate) / GCMath.AU));
 
-            h = GCEarthData.star_time(jdate) - longitude - this.rektaszension;
-            delta_alpha = GCMath.arcTanDeg(
-                        (-rho_cos * GCMath.sinDeg(this.parallax) * GCMath.sinDeg(h)) /
-                        (GCMath.cosDeg(this.declination) -
-                          rho_cos * GCMath.sinDeg(this.parallax) * GCMath.cosDeg(h)));
-            this.rektaszension = this.rektaszension + delta_alpha;
-            this.declination = GCMath.arcTanDeg(
-              ((GCMath.sinDeg(this.declination)
-                - rho_sin * GCMath.sinDeg(this.parallax)) * GCMath.cosDeg(delta_alpha)) /
-              (GCMath.cosDeg(this.declination)
-               - rho_cos * GCMath.sinDeg(this.parallax) * GCMath.cosDeg(h)));
+            // calculate correction of equatorial coordinates
+            hourAngleBody = GCEarthData.SiderealTimeGreenwich(jdate) + longitude - this.rightAscension;
+            delta_alpha = GCMath.arcTan2Deg(-rho_cos * GCMath.sinDeg(this.parallax) * GCMath.sinDeg(hourAngleBody),
+                        GCMath.cosDeg(this.declination) - rho_cos * GCMath.sinDeg(this.parallax) * GCMath.cosDeg(hourAngleBody));
+            this.rightAscension += delta_alpha;
+            this.declination += GCMath.arcTan2Deg(  
+                (GCMath.sinDeg(this.declination) - rho_sin * GCMath.sinDeg(this.parallax)) * GCMath.cosDeg(delta_alpha) ,
+                 GCMath.cosDeg(this.declination) - rho_cos * GCMath.sinDeg(this.parallax) * GCMath.cosDeg(hourAngleBody));
         }
 
         private static int[,] arg_lr = {

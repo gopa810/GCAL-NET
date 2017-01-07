@@ -29,7 +29,7 @@ namespace GCAL.CompositeViews
             pictureBox1.Dock = DockStyle.Fill;
 
             selectedDate = new GregorianDateTime();
-            LocationText(GCGlobal.myLocation.locationName);
+            LocationText(GCGlobal.myLocation.Title);
             StartDateText(selectedDate.ToString());
             SetMode(Properties.Settings.Default.TodayShowMode);
         }
@@ -134,11 +134,11 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.myLocation = lr;
-                LocationText(lr.locationName);
+                LocationText(lr.Title);
                 Recalculate();
             }
         }
@@ -147,7 +147,7 @@ namespace GCAL.CompositeViews
         {
             StartDatePanel d = new StartDatePanel();
             d.CustomTitle = "Enter Date";
-            d.EarthLocation = GCGlobal.myLocation.EARTHDATA();
+            d.EarthLocation = GCGlobal.myLocation.GetEarthData();
             d.OnStartDateDone += new TBButtonPressed(onDateRangeClickDone);
             d.GregorianTime = selectedDate;
 

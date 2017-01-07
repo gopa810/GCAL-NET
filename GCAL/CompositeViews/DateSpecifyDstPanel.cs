@@ -14,57 +14,43 @@ namespace GCAL.CompositeViews
 {
     public partial class DateSpecifyDstPanel : UserControl
     {
-        public UInt32 Value
+        public TTimeZoneDst Value
         {
             get
             {
-                int[] a = new int[4];
-                int val = 0;
+                TTimeZoneDst val = new TTimeZoneDst();
 
-                a[0] = comboBoxMonth.SelectedIndex + 1;
-                a[1] = comboBoxType.SelectedIndex;
-                if (a[1] == 0)
+                val.Month = comboBoxMonth.SelectedIndex + 1;
+                val.Type = comboBoxType.SelectedIndex;
+                if (val.Type == 0)
                 {
-                    a[3] = comboBoxDayOfWeek.SelectedIndex;
-                    a[2] = comboBoxWeekOfMonth.SelectedIndex + 1;
+                    val.Day = comboBoxDayOfWeek.SelectedIndex;
+                    val.Week = comboBoxWeekOfMonth.SelectedIndex + 1;
                 }
                 else
                 {
-                    a[3] = comboBoxDayOfMonth.SelectedIndex + 1;
+                    val.Day = comboBoxDayOfMonth.SelectedIndex + 1;
                 }
 
-                val = (a[0] << 12) | (a[1] << 10) | (a[2] << 4) | a[3];
-                return (UInt32)val;
+                return val;
             }
             set
             {
-                UInt32[] a = new UInt32[4];
-                UInt32 val = value;
-                a[3] = (val & 0xf);
-                val >>= 4;
-                a[2] = (val & 0x3f);
-                val >>= 6;
-                a[1] = (val & 0x3);
-                val >>= 2;
-                a[0] = (val & 0xf);
-
-                //Debugger.Log(0, "", string.Format("Values: {0},{1},{2},{3}\n", a[0], a[1], a[2], a[3]));
-
-                if (a[0] < 12)
-                    comboBoxMonth.SelectedIndex = (int)a[0] - 1;
-                if (a[1] < 2)
-                    comboBoxType.SelectedIndex = (int)a[1];
-                if (a[1] == 0)
+                if (value.Month < 12)
+                    comboBoxMonth.SelectedIndex = value.Month - 1;
+                if (value.Type < 2)
+                    comboBoxType.SelectedIndex = value.Type;
+                if (value.Type == 0)
                 {
-                    comboBoxDayOfWeek.SelectedIndex = (int)a[3];
-                    comboBoxWeekOfMonth.SelectedIndex = (int)a[2] - 1;
+                    comboBoxDayOfWeek.SelectedIndex = value.Day;
+                    comboBoxWeekOfMonth.SelectedIndex = value.Week - 1;
                     comboBoxDayOfMonth.SelectedIndex = -1;
                 }
-                else if (a[1] == 1)
+                else if (value.Type == 1)
                 {
                     comboBoxDayOfWeek.SelectedIndex = -1;
                     comboBoxWeekOfMonth.SelectedIndex = -1;
-                    comboBoxDayOfMonth.SelectedIndex = (int)a[3] - 1;
+                    comboBoxDayOfMonth.SelectedIndex = value.Day - 1;
                 }
             }
         }

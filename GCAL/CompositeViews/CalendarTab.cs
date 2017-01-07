@@ -26,7 +26,7 @@ namespace GCAL.CompositeViews
         public int printMonthEnd;
 
         public CalendarTabController Controller { get; set; }
-        public CLocationRef calLocation = null;
+        public GCLocation calLocation = null;
         public GregorianDateTime calStartDate = new GregorianDateTime();
         public GregorianDateTime calEndDate = new GregorianDateTime();
 
@@ -42,7 +42,7 @@ namespace GCAL.CompositeViews
             string s = Properties.Settings.Default.CalendarLocation;
             if (s.Length < 1)
                 s = GCGlobal.LastLocation.EncodedString;
-            calLocation = new CLocationRef();
+            calLocation = new GCLocation();
             calLocation.EncodedString = s;
             s = Properties.Settings.Default.CalendarStartDate;
             if (s.Length > 1)
@@ -173,9 +173,9 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 calLocation = lr;
                 Recalculate();
@@ -186,7 +186,7 @@ namespace GCAL.CompositeViews
         {
             EnterPeriodPanel d = new EnterPeriodPanel();
             d.OnPeriodSelected += new TBButtonPressed(d_OnPeriodSelected);
-            d.EarthLocation = calLocation.EARTHDATA();
+            d.EarthLocation = calLocation.GetEarthData();
             d.InputStartDate = calStartDate;
             d.InputEndDate = calEndDate;
             EnterPeriodPanelController dlg15 = new EnterPeriodPanelController(d);
@@ -208,7 +208,7 @@ namespace GCAL.CompositeViews
         private void toolBarInfoLabel2_ButtonPressed(object sender, EventArgs e)
         {
             EnterPeriodPanel d = new EnterPeriodPanel();
-            d.EarthLocation = calLocation.EARTHDATA();
+            d.EarthLocation = calLocation.GetEarthData();
             d.OnPeriodSelected += new TBButtonPressed(d_OnPeriodSelected);
             d.InputStartDate = calStartDate;
             d.InputEndDate = calEndDate;
@@ -243,7 +243,7 @@ namespace GCAL.CompositeViews
             }
             if (p_mode == 0 || p_mode == 1)
             {
-                LocationText(calLocation.locationName);
+                LocationText(calLocation.Title);
                 StartDateText(calStartDate.ToString());
                 EndDateText(calEndDate.ToString());
                 m_calendar = new TResultCalendar();
@@ -346,6 +346,7 @@ namespace GCAL.CompositeViews
                     GregorianDateTime endDate = new GregorianDateTime(printYearEnd, printMonthEnd, 1);
                     m_calendarToPrint.CalculateCalendar(calLocation, startDate, endDate.GetJulianInteger() - startDate.GetJulianInteger() + 31);
                     printDocumentTable.PrinterSettings = pd.PrinterSettings;
+                    printDocumentTable.DocumentName = string.Format("{0}_{1}", calLocation.Title, printYearStart);
                     printDocumentTable.Print();
                 }
             }
@@ -472,6 +473,43 @@ namespace GCAL.CompositeViews
         {
             GCLayoutData.LayoutSizeIndex = 4;
             DisplayCalendarResult();
+        }
+
+        private void printMultipleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintDialog pd = new PrintDialog();
+
+            if (pd.ShowDialog() != DialogResult.OK)
+                return;
+
+            DialogResult dr = MessageBox.Show("Do you want to print a whole year ?", "Time Period", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                printMonthStart = 1;
+                printMonthEnd = 12;
+                printYearStart = calendarTableView1.CurrentYear;
+                printYearEnd = printYearStart;
+            }
+            else if (dr == DialogResult.No)
+            {
+                printMonthEnd = printMonthStart = calendarTableView1.CurrentMonth;
+                printYearStart = printYearEnd = calendarTableView1.CurrentYear;
+            }
+            else
+            {
+                printMonthStart = printMonthEnd = -1;
+                printYearStart = printYearEnd = -1;
+            }
+
+            if (printYearStart > 0)
+            {
+                m_calendarToPrint = new TResultCalendar();
+                GregorianDateTime startDate = new GregorianDateTime(printYearStart, printMonthStart, 1);
+                GregorianDateTime endDate = new GregorianDateTime(printYearEnd, printMonthEnd, 1);
+                m_calendarToPrint.CalculateCalendar(calLocation, startDate, endDate.GetJulianInteger() - startDate.GetJulianInteger() + 31);
+                printDocumentTable.PrinterSettings = pd.PrinterSettings;
+                printDocumentTable.Print();
+            }
         }
     }
 }

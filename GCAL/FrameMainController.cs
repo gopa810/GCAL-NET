@@ -51,14 +51,14 @@ namespace GCAL
                 case "showTipAtStartup":
                     if (Properties.Settings.Default.ShowStartupTips)
                     {
-                        TipOfDayPanelController dc = new TipOfDayPanelController(new TipOfDayPanel());
+                        TipOfDayPanelController dc = new TipOfDayPanelController(new HelpTipOfDayPanel());
                         dc.ViewContainer = ViewContainer;
                         ViewContainer.AddControl(dc, GVControlAlign.Center);
                     }
                     break;
                 case "showTipOfTheDay":
                     {
-                        TipOfDayPanelController dc = new TipOfDayPanelController(new TipOfDayPanel());
+                        TipOfDayPanelController dc = new TipOfDayPanelController(new HelpTipOfDayPanel());
                         dc.ViewContainer = ViewContainer;
                         ViewContainer.AddControl(dc, GVControlAlign.Center);
                     }

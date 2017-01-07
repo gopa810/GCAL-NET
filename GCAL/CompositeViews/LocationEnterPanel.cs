@@ -15,7 +15,7 @@ namespace GCAL.CompositeViews
 {
     public partial class LocationEnterPanel : UserControl
     {
-        private CLocationRef loc = new CLocationRef();
+        private GCLocation loc = new GCLocation();
         public LocationEnterPanelController Controller { get; set; }
         public event TBButtonPressed OnLocationSelected;
 
@@ -28,9 +28,9 @@ namespace GCAL.CompositeViews
         {
             InitializeComponent();
 
-            if (TTimeZone.gzone != null)
+            if (TTimeZone.TimeZoneList != null)
             {
-                foreach (TTimeZone tz in TTimeZone.gzone)
+                foreach (TTimeZone tz in TTimeZone.TimeZoneList)
                 {
                     cbTimezones.Items.Add(tz);
                 }
@@ -40,22 +40,20 @@ namespace GCAL.CompositeViews
         /// <summary>
         /// Gets or sets main edited data in the panel.
         /// </summary>
-        public CLocationRef LocationRef
+        public GCLocation LocationRef
         {
             get
             {
-                loc = new CLocationRef();
+                loc = new GCLocation();
 
-                loc.locationName = textBox1.Text;
-                loc.latitudeDeg = DoubleFromDialog(tbLatDeg, tbLatArc, signOfLatitude);
-                loc.longitudeDeg = DoubleFromDialog(tbLongDeg, tbLongArc, signOfLongitude);
+                loc.Title = textBox1.Text;
+                loc.Latitude = DoubleFromDialog(tbLatDeg, tbLatArc, signOfLatitude);
+                loc.Longitude = DoubleFromDialog(tbLongDeg, tbLongArc, signOfLongitude);
 
                 TTimeZone tz = cbTimezones.SelectedItem as TTimeZone;
                 if (tz != null)
                 {
-                    loc.offsetUtcHours = tz.OffsetMinutes / 60.0;
-                    loc.timezoneId = tz.TimezoneId;
-                    loc.timeZoneName = tz.Name;
+                    loc.TimeZone = tz;
                 }
 
                 return loc;
@@ -63,14 +61,14 @@ namespace GCAL.CompositeViews
             set
             {
                 if (value == null)
-                    loc = new CLocationRef();
+                    loc = new GCLocation();
                 else
                     loc = value;
                 b_upd = true;
-                textBox1.Text = loc.locationName;
-                DialogLatitude = loc.latitudeDeg;
-                DialogLongitude = loc.longitudeDeg;
-                SelectTimezoneById(loc.timezoneId);
+                textBox1.Text = loc.Title;
+                DialogLatitude = loc.Latitude;
+                DialogLongitude = loc.Longitude;
+                SelectTimezone(loc.TimeZone);
                 b_upd = false;
             }
         }
@@ -135,23 +133,15 @@ namespace GCAL.CompositeViews
             }
         }
 
-        private bool SelectTimezoneById(int id)
+        private void SelectTimezone(TTimeZone timeZone)
         {
-            foreach (TTimeZone tz in cbTimezones.Items)
-            {
-                if (tz.TimezoneId == id)
-                {
-                    cbTimezones.SelectedItem = tz;
-                    return true;
-                }
-            }
-            return false;
+             cbTimezones.SelectedItem = timeZone;
         }
 
         public GCEarthData GetEarthData()
         {
-            CLocationRef L = LocationRef;
-            return L.EARTHDATA();
+            GCLocation L = LocationRef;
+            return L.GetEarthData();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -210,8 +200,8 @@ namespace GCAL.CompositeViews
 
             if (GCUserInterface.dstSelectionMethod == 2 && b_upd == true)
             {
-                loc.longitudeDeg = DoubleFromDialog(tbLongDeg, tbLongArc, signOfLongitude);
-                UpdateDstByTimezone(loc.offsetUtcHours);
+                loc.Longitude = DoubleFromDialog(tbLongDeg, tbLongArc, signOfLongitude);
+                UpdateDstByTimezone(loc.OffsetUtcHours);
             }
         }
 
@@ -230,8 +220,8 @@ namespace GCAL.CompositeViews
 
             if (GCUserInterface.dstSelectionMethod == 2 && b_upd == true)
             {
-                loc.latitudeDeg = DoubleFromDialog(tbLatDeg, tbLatArc, signOfLatitude);
-                UpdateDstByTimezone(loc.offsetUtcHours);
+                loc.Latitude = DoubleFromDialog(tbLatDeg, tbLatArc, signOfLatitude);
+                UpdateDstByTimezone(loc.OffsetUtcHours);
             }
         }
 

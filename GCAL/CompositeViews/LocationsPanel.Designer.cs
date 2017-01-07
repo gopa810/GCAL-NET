@@ -30,7 +30,7 @@
         {
             this.m_wndCountry = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.m_wndLocs = new System.Windows.Forms.ListView();
+            this.listViewLocations = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,6 +45,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.labelLimitInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // m_wndCountry
@@ -53,7 +54,7 @@
             this.m_wndCountry.FormattingEnabled = true;
             this.m_wndCountry.Location = new System.Drawing.Point(6, 77);
             this.m_wndCountry.Name = "m_wndCountry";
-            this.m_wndCountry.Size = new System.Drawing.Size(375, 21);
+            this.m_wndCountry.Size = new System.Drawing.Size(277, 21);
             this.m_wndCountry.TabIndex = 10;
             this.m_wndCountry.SelectedIndexChanged += new System.EventHandler(this.m_wndCountry_SelectedIndexChanged);
             // 
@@ -68,22 +69,22 @@
             // 
             // m_wndLocs
             // 
-            this.m_wndLocs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listViewLocations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_wndLocs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewLocations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.m_wndLocs.FullRowSelect = true;
-            this.m_wndLocs.Location = new System.Drawing.Point(6, 104);
-            this.m_wndLocs.Name = "m_wndLocs";
-            this.m_wndLocs.Size = new System.Drawing.Size(660, 350);
-            this.m_wndLocs.TabIndex = 2;
-            this.m_wndLocs.UseCompatibleStateImageBehavior = false;
-            this.m_wndLocs.View = System.Windows.Forms.View.Details;
+            this.listViewLocations.FullRowSelect = true;
+            this.listViewLocations.Location = new System.Drawing.Point(6, 104);
+            this.listViewLocations.Name = "m_wndLocs";
+            this.listViewLocations.Size = new System.Drawing.Size(660, 320);
+            this.listViewLocations.TabIndex = 2;
+            this.listViewLocations.UseCompatibleStateImageBehavior = false;
+            this.listViewLocations.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -117,7 +118,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "New";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.buttonNew_Click);
             // 
             // button2
             // 
@@ -128,7 +129,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // button3
             // 
@@ -139,7 +140,7 @@
             this.button3.TabIndex = 5;
             this.button3.Text = "Delete";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // button4
             // 
@@ -189,25 +190,37 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(387, 77);
+            this.textBox1.Location = new System.Drawing.Point(289, 77);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(279, 20);
+            this.textBox1.Size = new System.Drawing.Size(377, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.onTextFilterChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(384, 61);
+            this.label2.Location = new System.Drawing.Point(286, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(283, 13);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Search (put # at the start of text when you filter by country)";
+            this.label2.Text = "Search";
+            // 
+            // labelLimitInfo
+            // 
+            this.labelLimitInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelLimitInfo.Location = new System.Drawing.Point(6, 427);
+            this.labelLimitInfo.Name = "labelLimitInfo";
+            this.labelLimitInfo.Size = new System.Drawing.Size(660, 30);
+            this.labelLimitInfo.TabIndex = 12;
+            this.labelLimitInfo.Text = "Limited";
+            this.labelLimitInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LocationsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelLimitInfo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button7);
@@ -217,7 +230,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.m_wndLocs);
+            this.Controls.Add(this.listViewLocations);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_wndCountry);
             this.Name = "LocationsPanel";
@@ -231,7 +244,7 @@
 
         private System.Windows.Forms.ComboBox m_wndCountry;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView m_wndLocs;
+        private System.Windows.Forms.ListView listViewLocations;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -246,5 +259,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelLimitInfo;
     }
 }

@@ -18,7 +18,7 @@ namespace GCAL.CompositeViews
 {
     public partial class SearchTab : UserControl
     {
-        public CLocationRef EarthLocation = null;
+        public GCLocation EarthLocation = null;
         public SearchTabController Controller { get; set; }
 
         public SearchTab()
@@ -158,11 +158,11 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
-                LocationText(lr.locationName);
+                LocationText(lr.Title);
                 Recalculate();
             }
         }

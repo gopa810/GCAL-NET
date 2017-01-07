@@ -399,5 +399,17 @@ namespace GCAL.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To calculate a full calendar for any location, press F8, or choose Calendar from the Calculate menu.
+        ///Whenever you start GCal it will first show you today&apos;s events for the default location. Be sure to tell GCal where you are in the world - choose My Location from the Settings menu.
+        ///You can quickly see the events coming up in the next few days at your location. From the Today screen, press F7. To move to the day before, press F5. To return to the current day, press F6.
+        ///Screen output formatting can be custo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string tips {
+            get {
+                return ResourceManager.GetString("tips", resourceCulture);
+            }
+        }
     }
 }

@@ -263,11 +263,11 @@
     <Compile Include="CompositeViews\TimezoneDetails.Designer.cs">
       <DependentUpon>TimezoneDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompositeViews\TipOfDayPanel.cs">
+    <Compile Include="CompositeViews\HelpTipOfDayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CompositeViews\TipOfDayPanel.Designer.cs">
-      <DependentUpon>TipOfDayPanel.cs</DependentUpon>
+    <Compile Include="CompositeViews\HelpTipOfDayPanel.Designer.cs">
+      <DependentUpon>HelpTipOfDayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="CompositeViews\TodayTab.cs">
       <SubType>UserControl</SubType>
@@ -282,11 +282,11 @@
     <Compile Include="CompositeViews\ToolBarInfoLabel.Designer.cs">
       <DependentUpon>ToolBarInfoLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompositeViews\ChooseLocationPanel.cs">
+    <Compile Include="CompositeViews\LocationChoosePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CompositeViews\ChooseLocationPanel.Designer.cs">
-      <DependentUpon>ChooseLocationPanel.cs</DependentUpon>
+    <Compile Include="CompositeViews\LocationChoosePanel.Designer.cs">
+      <DependentUpon>LocationChoosePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="CompositeViews\CountriesPanel.cs">
       <SubType>UserControl</SubType>
@@ -507,8 +507,8 @@
     <EmbeddedResource Include="CompositeViews\TimezoneDetails.resx">
       <DependentUpon>TimezoneDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompositeViews\TipOfDayPanel.resx">
-      <DependentUpon>TipOfDayPanel.cs</DependentUpon>
+    <EmbeddedResource Include="CompositeViews\HelpTipOfDayPanel.resx">
+      <DependentUpon>HelpTipOfDayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CompositeViews\TodayTab.resx">
       <DependentUpon>TodayTab.cs</DependentUpon>
@@ -516,8 +516,8 @@
     <EmbeddedResource Include="CompositeViews\ToolBarInfoLabel.resx">
       <DependentUpon>ToolBarInfoLabel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompositeViews\ChooseLocationPanel.resx">
-      <DependentUpon>ChooseLocationPanel.cs</DependentUpon>
+    <EmbeddedResource Include="CompositeViews\LocationChoosePanel.resx">
+      <DependentUpon>LocationChoosePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CompositeViews\CountriesPanel.resx">
       <DependentUpon>CountriesPanel.cs</DependentUpon>
@@ -590,6 +590,7 @@
     <Content Include="GCalIcon.ico" />
     <Content Include="GCalIcon2.ico" />
     <Content Include="IconSearch.ico" />
+    <EmbeddedResource Include="Resources\tips.txt" />
     <None Include="Resources\set_today.png" />
     <None Include="Resources\set_startpage.png" />
     <None Include="Resources\set_search.png" />

@@ -15,7 +15,7 @@ namespace GCAL.Base
         public int n_countYears;
         public int n_countMasa;
         public int n_startYear;
-        public CLocationRef m_location;
+        public GCLocation m_location;
 
 
         public TResultMasaList()
@@ -60,13 +60,13 @@ namespace GCAL.Base
         /// <param name="nYear">Starting year</param>
         /// <param name="nCount">Number of years</param>
         /// <returns></returns>
-        public int CalculateMasaList(CLocationRef loc, int nYear, int nCount)
+        public int CalculateMasaList(GCLocation loc, int nYear, int nCount)
         {
             GCAstroData day = new GCAstroData();
             GregorianDateTime d = new GregorianDateTime(), de = new GregorianDateTime(), t = new GregorianDateTime();
             int lm = -1;
             TResultMasaList mlist = this;
-            GCEarthData earth = loc.EARTHDATA();
+            GCEarthData earth = loc.GetEarthData();
 
             mlist.n_startYear = nYear;
             mlist.n_countYears = nCount;

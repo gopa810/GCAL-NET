@@ -42,6 +42,14 @@ namespace GCAL.Base
             TimezoneHours = 0.0;
         }
 
+        public string LongTime
+        {
+            get
+            {
+                return LongTimeString();
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("{0} {1} {2:0000}", day, GregorianDateTime.GetMonthAbreviation(month), year);
@@ -399,11 +407,11 @@ namespace GCAL.Base
         //* Note:											*/
         //***********************************************************************/
 
-        public void SetFromJulian(double jd)
+        public void SetFromJulian(double julianUtcDate)
         {
-	        double z = Math.Floor(jd + 0.5);
+	        double z = Math.Floor(julianUtcDate + 0.5);
 
-	        double f = (jd + 0.5) - z;
+	        double f = (julianUtcDate + 0.5) - z;
 
 	        double A, B, C, D, E, alpha;
 
@@ -425,7 +433,7 @@ namespace GCAL.Base
 	        month = Convert.ToInt32((E < 14) ? E - 1 : E - 13);
 	        year = Convert.ToInt32((month > 2) ? C - 4716 : C - 4715);
 	        TimezoneHours = 0.0;
-	        shour = jd + 0.5 - Math.Floor(jd + 0.5);
+	        shour = julianUtcDate + 0.5 - Math.Floor(julianUtcDate + 0.5);
         }
 
         public void Clear()
@@ -745,6 +753,43 @@ namespace GCAL.Base
         {
             shour += ndst / 24.0;
             NormalizeValues();
+        }
+
+        /// <summary>
+        /// Tests whether this date is equal or after the date, when given weekday in given week occurs.
+        /// </summary>
+        /// <param name="weekNumber">Number of week. values 1, 2, 3, 4 are order of week, value 5 means last week of the month</param>
+        /// <param name="dayNumber">Number of weekday, value 0 is Sunday, 1 is Monday, .... 6 is Saturday</param>
+        /// <returns>Returns true, if this date is equal or is after the date given by weeknumber and daynumber</returns>
+        public bool IsEqualOrAfterWeekdayInWeek(int weekNumber, int dayNumber)
+        {
+            GregorianDateTime vc = this;
+            int[] xx = { 1, 7, 6, 5, 4, 3, 2 };
+
+            int dowFirstDay, firstGivenWeekday, requiredGivenWeekday, lastDayInMonth;
+
+            // prvy den mesiaca
+            dowFirstDay = xx[(7 + vc.day - vc.dayOfWeek) % 7];
+
+            // 1. x-day v mesiaci ma datum
+            firstGivenWeekday = xx[(dowFirstDay - dayNumber + 7) % 7];
+
+            // n-ty x-day ma datum
+            if ((weekNumber < 0) || (weekNumber >= 5))
+            {
+                requiredGivenWeekday = firstGivenWeekday + 28;
+                lastDayInMonth = GregorianDateTime.GetMonthMaxDays(vc.year, vc.month);
+                while (requiredGivenWeekday > lastDayInMonth)
+                {
+                    requiredGivenWeekday -= 7;
+                }
+            }
+            else
+            {
+                requiredGivenWeekday = Convert.ToInt32(firstGivenWeekday + (weekNumber - 1) * 7);
+            }
+
+            return vc.day >= requiredGivenWeekday;
         }
     }
 }

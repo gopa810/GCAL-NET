@@ -12,9 +12,9 @@ namespace GCAL.Base
 {
     public class GCGlobal
     {
-        public static CLocationRef myLocation = new CLocationRef();
+        public static GCLocation myLocation = new GCLocation();
 
-        public static List<CLocationRef> recentLocations = new List<CLocationRef>();
+        public static List<GCLocation> recentLocations = new List<GCLocation>();
 
         public static GregorianDateTime dateTimeShown = new GregorianDateTime();
 
@@ -92,24 +92,19 @@ namespace GCAL.Base
                 {
                     switch (rf.TagInt)
                     {
-                        case 12701:
-                            myLocation.locationName = rf.GetField(0);
-                            myLocation.longitudeDeg = double.Parse(rf.GetField(1));
-                            myLocation.latitudeDeg = double.Parse(rf.GetField(2));
-                            myLocation.offsetUtcHours = double.Parse(rf.GetField(3));
-                            myLocation.timeZoneName = rf.GetField(4);
-                            myLocation.timezoneId = TTimeZone.GetID(rf.GetField(4));
+                        case 12703:
+                            myLocation.Title = rf.GetField(0);
+                            myLocation.Longitude = double.Parse(rf.GetField(1));
+                            myLocation.Latitude = double.Parse(rf.GetField(2));
+                            myLocation.TimeZoneName = rf.GetField(3);
                             break;
-                        case 12702:
+                        case 12704:
                             {
-                                CLocationRef loc = new CLocationRef();
-                                loc.locationName = rf.GetField(0);
-                                loc.longitudeDeg = double.Parse(rf.GetField(1));
-                                loc.latitudeDeg = double.Parse(rf.GetField(2));
-                                loc.offsetUtcHours = double.Parse(rf.GetField(3));
-                                loc.timeZoneName = rf.GetField(4);
-                                loc.timezoneId = TTimeZone.GetID(rf.GetField(4));
-
+                                GCLocation loc = new GCLocation();
+                                loc.Title = rf.GetField(0);
+                                loc.Longitude = double.Parse(rf.GetField(1));
+                                loc.Latitude = double.Parse(rf.GetField(2));
+                                loc.TimeZoneName = rf.GetField(3);
                                 recentLocations.Add(loc);
                             }
                             break;
@@ -147,13 +142,12 @@ namespace GCAL.Base
 
             using(StreamWriter f = new StreamWriter(fileName))
             {
-                f.WriteLine("12701 {0}|{1}|{2}|{3}|{4}", myLocation.locationName, myLocation.longitudeDeg, myLocation.latitudeDeg,
-                    myLocation.offsetUtcHours, TTimeZone.GetTimeZoneName(myLocation.timezoneId));
-                foreach (CLocationRef loc in recentLocations)
+                f.WriteLine("12703 {0}|{1}|{2}|{3}", myLocation.Title, 
+                    myLocation.Longitude, myLocation.Latitude, myLocation.TimeZoneName);
+                foreach (GCLocation loc in recentLocations)
                 {
-                    f.WriteLine("12702 {0}|{1}|{2}|{3}|{4}", loc.locationName,
-                        loc.longitudeDeg, loc.latitudeDeg,
-                        loc.offsetUtcHours, TTimeZone.GetTimeZoneName(loc.timezoneId));
+                    f.WriteLine("12704 {0}|{1}|{2}|{3}", loc.Title,
+                        loc.Longitude, loc.Latitude, loc.TimeZoneName);
                 }
                 f.WriteLine("12710 {0}", rcs.getStringValue());
                 for (int y = 0; y < GCDisplaySettings.getCount(); y++)
@@ -191,13 +185,15 @@ namespace GCAL.Base
             GCStrings.readFile(getFileName(GlobalStringsEnum.GSTR_TEXT_FILE));
 
             // inicializacia timezones
-            TTimeZone.OpenFile(getFileName(GlobalStringsEnum.GSTR_TZ_FILE));
+            TTimeZone.LoadFile(getFileName(GlobalStringsEnum.GSTR_TZ_FILE));
 
             // inicializacia countries
-            TCountry.InitWithFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
+            TCountry.LoadFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
 
             // inicializacia miest a kontinentov
-            CLocationList.OpenFile(getFileName(GlobalStringsEnum.GSTR_LOCX_FILE));
+            // lazy loading of data
+            TLocationDatabase.FileName = getFileName(GlobalStringsEnum.GSTR_LOCX_FILE);
+            //CLocationList.OpenFile();
 
             // inicializacia zobrazovanych nastaveni
             GCDisplaySettings.readFile(getFileName(GlobalStringsEnum.GSTR_SSET_FILE));
@@ -209,9 +205,9 @@ namespace GCAL.Base
             GCConfigRatedManager.RefreshListFromDirectory(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
 
             // initialization of global variables
-            myLocation.EncodedString = CLocationRef.DefaultEncodedString;
+            myLocation.EncodedString = GCLocation.DefaultEncodedString;
 
-            recentLocations.Add(new CLocationRef(myLocation));
+            recentLocations.Add(new GCLocation(myLocation));
 
             OpenFile(getFileName(GlobalStringsEnum.GSTR_CONFX_FILE));
             // refresh fasting style after loading user settings
@@ -229,14 +225,14 @@ namespace GCAL.Base
         {
             SaveFile(getFileName(GlobalStringsEnum.GSTR_CONFX_FILE));
 
-            if (CLocationList.IsModified())
+            if (TLocationDatabase.Modified)
             {
-                CLocationList.SaveAs(getFileName(GlobalStringsEnum.GSTR_LOCX_FILE), 4);//GCAL 3.0
+                TLocationDatabase.SaveFile(getFileName(GlobalStringsEnum.GSTR_LOCX_FILE), 4);//GCAL 3.0
             }
 
             if (TCountry.IsModified())
             {
-                TCountry.SaveToFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
+                TCountry.SaveFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
             }
 
             if (GCStrings.gstr_Modified)
@@ -256,7 +252,7 @@ namespace GCAL.Base
         }
 
 
-        public static void AddRecentLocation(CLocationRef cLocationRef)
+        public static void AddRecentLocation(GCLocation cLocationRef)
         {
             int rl = recentLocations.IndexOf(cLocationRef);
             if (rl != 0)
@@ -269,7 +265,7 @@ namespace GCAL.Base
             }
         }
 
-        public static CLocationRef LastLocation
+        public static GCLocation LastLocation
         {
             get
             {

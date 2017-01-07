@@ -1,10 +1,18 @@
-12701 Bratislava (Slovakia)|17.116667|48.150002|1|Europe/Bratislava
-12702 Bratislava (Slovakia)|17.116667|48.150002|1|Europe/Bratislava
-12702 Radhadesh [Belgium]|5.41666666666667|50.3166666666667|1|Undefined
-12702 Berlin (Germany)|13.4|52.516666|1|Undefined
-12702 Bratislava (Slovakia)|17.116667|48.150002|1|Undefined
-12702 Praha (Czech)|14.424132|50.087837|1|Undefined
-12710 104|104|770|673
+12703 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
+12704 Prague (Czechia)|14.42076|50.08804|Europe/Prague
+12704 Kolkata (India)|88.36304|22.56263|Asia/Kolkata
+12704 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
+12704 Fendels (Austria)|10.65|47.0333333333333|Europe/Vienna
+12704 Brno (Czechia)|16.60796|49.19522|Europe/Prague
+12704 Jandelsbrun (Simhacalam) (Germany)|13.6833333333333|48.7166666666667|Europe/Berlin
+12704 Dublin (Ireland)|-6.24889|53.33306|Europe/Dublin
+12704 Klagenfurt am Wörthersee (Austria)|14.30528|46.62472|Europe/Vienna
+12704 Postupice (Czechia)|14.7666666666667|49.7|Europe/Prague
+12704 Ostrava (Czechia)|18.28204|49.83465|Europe/Prague
+12704 Prešov (Slovakia)|21.23393|48.99839|Europe/Bratislava
+12704 Martin (Slovakia)|18.92399|49.06651|Europe/Bratislava
+12704 Zlín (Czechia)|17.67065|49.22645|Europe/Prague
+12710 80|172|746|741
 12711 0|0
 12711 1|0
 12711 2|0

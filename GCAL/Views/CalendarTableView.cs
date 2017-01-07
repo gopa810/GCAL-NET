@@ -18,7 +18,7 @@ namespace GCAL.Views
         private TResultCalendar calendar = null;
         private bool liveRefresh = false;
         private CalendarTableDrawer drawer = new CalendarTableDrawer();
-        public CLocationRef calLocation = null;
+        public GCLocation calLocation = null;
 
         public bool LiveRefresh
         {

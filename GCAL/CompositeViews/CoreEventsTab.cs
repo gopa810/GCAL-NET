@@ -18,7 +18,7 @@ namespace GCAL.CompositeViews
         TResultEvents m_events = null;
         public CoreEventsTabController Controller { get; set; }
         private int p_mode = 0;
-        public CLocationRef coreLocation = null;
+        public GCLocation coreLocation = null;
         public GregorianDateTime coreStartDate = new GregorianDateTime();
         public GregorianDateTime coreEndDate = new GregorianDateTime();
 
@@ -31,7 +31,7 @@ namespace GCAL.CompositeViews
             string s = Properties.Settings.Default.CoreEventsLocation;
             if (s.Length < 1)
                 s = GCGlobal.LastLocation.EncodedString;
-            coreLocation = new CLocationRef();
+            coreLocation = new GCLocation();
             coreLocation.EncodedString = s;
             s = Properties.Settings.Default.CoreEventsStartDate;
             if (s.Length > 1)
@@ -132,7 +132,7 @@ namespace GCAL.CompositeViews
 
             if (p_mode == 0 || p_mode == 1)
             {
-                LocationText(coreLocation.locationName);
+                LocationText(coreLocation.Title);
                 StartDateText(coreStartDate.ToString());
                 EndDateText(coreEndDate.ToString());
 
@@ -170,9 +170,9 @@ namespace GCAL.CompositeViews
 
         private void onLocationDone(object sender, EventArgs e)
         {
-            if (sender is CLocationRef)
+            if (sender is GCLocation)
             {
-                CLocationRef lr = sender as CLocationRef;
+                GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 coreLocation = lr;
                 Recalculate();
@@ -182,7 +182,7 @@ namespace GCAL.CompositeViews
         private void onDateRangeClick(object sender, EventArgs e)
         {
             EnterPeriodPanel d = new EnterPeriodPanel();
-            d.EarthLocation = coreLocation.EARTHDATA();
+            d.EarthLocation = coreLocation.GetEarthData();
             d.OnPeriodSelected += new TBButtonPressed(d_OnPeriodSelected);
             d.InputStartDate = coreStartDate;
             d.InputEndDate = coreEndDate;

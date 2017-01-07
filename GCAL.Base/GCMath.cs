@@ -54,9 +54,9 @@ namespace GCAL.Base
         // it is calculating arctan(x/y)
         // with testing values
 
-        public static double arcTan2Deg(double x, double y)
+        public static double arcTan2Deg(double y, double x)
         {
-            return Math.Atan2(x, y) / RADS;
+            return Math.Atan2(y, x) / RADS;
         }
 
         /////////////////////////////////////
@@ -111,6 +111,10 @@ namespace GCAL.Base
         public static double putIn360(double id)
         {
             double d = id;
+/*            if (d < 0.0)
+                d += Math.Floor(-d / 360.0) * 360.0;
+            if (d > 360.0)
+                d -= Math.Floor(d / 360.0) * 360;*/
             while (d >= 360.0)
                 d -= 360.0;
             while (d < 0.0)

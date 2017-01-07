@@ -31,7 +31,7 @@ namespace GCAL.CompositeViews
             CaptionFont = new Font(FontFamily.GenericSansSerif, 13);
             TextFont = new Font(FontFamily.GenericSansSerif, 10);
 
-            foreach (CLocationRef loc in GCGlobal.recentLocations)
+            foreach (GCLocation loc in GCGlobal.recentLocations)
             {
                 listBox1.Items.Add(loc);
             }
@@ -50,7 +50,7 @@ namespace GCAL.CompositeViews
         {
             if (e.Index >= 0 && e.Index < GCGlobal.recentLocations.Count)
             {
-                CLocationRef cr = GCGlobal.recentLocations[e.Index];
+                GCLocation cr = GCGlobal.recentLocations[e.Index];
 
                 if ((e.State & DrawItemState.Selected) != 0)
                 {
@@ -62,7 +62,7 @@ namespace GCAL.CompositeViews
                 }
 
                 SizeF a = e.Graphics.MeasureString("A", CaptionFont);
-                e.Graphics.DrawString(cr.locationName, CaptionFont, Brushes.Black, PaddingX, e.Bounds.Top + PaddingX);
+                e.Graphics.DrawString(cr.Title, CaptionFont, Brushes.Black, PaddingX, e.Bounds.Top + PaddingX);
                 e.Graphics.DrawString(cr.Format("{longitudeText} {latitudeText}, {timeZoneName}"),
                     TextFont, Brushes.Gray, PaddingX, e.Bounds.Top + PaddingX + a.Height + Spacing);
             }
@@ -89,7 +89,7 @@ namespace GCAL.CompositeViews
 
         private void buttonChoose_Click(object sender, EventArgs e)
         {
-            ChooseLocationPanel d = new ChooseLocationPanel();
+            LocationChoosePanel d = new LocationChoosePanel();
             d.OnLocationSelected += this.OnLocationSelected;
             ChooseLocationPanelController dc = new ChooseLocationPanelController(d);
             dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);

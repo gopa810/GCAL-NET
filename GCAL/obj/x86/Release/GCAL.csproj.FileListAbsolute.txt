@@ -6,7 +6,6 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\Release\GCAL.Base.pdb
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.csprojResolveAssemblyReference.cache
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.AppDayTab.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.ApplicationTab.resources
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.AskDeleteEvent.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.AskEventType.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.CalendarTab.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.CoreEventsTab.resources
@@ -35,7 +34,6 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeVi
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.SearchTab.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.SelectLocationInputPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.TimezoneDetails.resources
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.TipOfDayPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.TodayTab.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.ToolBarInfoLabel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.ChooseLocationPanel.resources
@@ -49,7 +47,6 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeVi
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.LocationsPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.StartDatePanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.TimezonesPanel.resources
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.DlgRatedEventSelection.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.FrameMain.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.Properties.Resources.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.Views.CalendarTableView.resources
@@ -61,3 +58,7 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.exe
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.pdb
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.RatedEventDetails.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.RatedEventsEditor.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.AskDeleteObject.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.RatedEventNewTitle.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.RatedSubeventPanel.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release\GCAL.CompositeViews.HelpTipOfDayPanel.resources

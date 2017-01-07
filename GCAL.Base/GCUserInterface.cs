@@ -73,8 +73,8 @@ namespace GCAL.Base
                 case "getTimezoneOffset":
                     {
                         string tzname = args.getSafe(0).getStringValue();
-                        int tzid = TTimeZone.GetID(tzname);
-                        int tzoffset = TTimeZone.GetTimeZoneOffsetMinutes(tzid);
+                        TTimeZone tzid = TTimeZone.FindTimeZoneByName(tzname);
+                        int tzoffset = tzid.OffsetMinutes;
                         char sign = (tzoffset > 0) ? '+' : '-';
                         tzoffset = Math.Abs(tzoffset);
                         result = new GSString(string.Format("{0}{1:00}{2:00}", sign, tzoffset / 60, Math.Abs(tzoffset) % 60));
@@ -83,8 +83,8 @@ namespace GCAL.Base
                 case "getTimezoneOffsetBias":
                     {
                         string tzname = args.getSafe(0).getStringValue();
-                        int tzid = TTimeZone.GetID(tzname);
-                        int tzoffset = TTimeZone.GetTimeZoneOffsetMinutes(tzid) + TTimeZone.GetTimeZoneBias(tzid);
+                        TTimeZone tzid = TTimeZone.FindTimeZoneByName(tzname);
+                        int tzoffset = tzid.OffsetMinutes + tzid.BiasMinutes;
                         char sign = (tzoffset > 0) ? '+' : '-';
                         tzoffset = Math.Abs(tzoffset);
                         result = new GSString(string.Format("{0}{1:00}{2:00}", sign, tzoffset / 60, Math.Abs(tzoffset) % 60));
@@ -95,8 +95,8 @@ namespace GCAL.Base
                         GregorianDateTime vc = new GregorianDateTime();
                         string loc_timezoneId = args.getSafe(0).getStringValue();
                         int year = (int)args.getSafe(1).getIntegerValue();
-                        int tzid = TTimeZone.GetID(loc_timezoneId);
-                        TTimeZone.GetDaylightTimeStartDate(tzid, year, ref vc);
+                        TTimeZone tzid = TTimeZone.FindTimeZoneByName(loc_timezoneId);
+                        tzid.GetDaylightTimeStartDate(year, ref vc);
                         result = vc;
                     }
                     break;
@@ -105,8 +105,8 @@ namespace GCAL.Base
                         GregorianDateTime vc = new GregorianDateTime();
                         string loc_timezoneId = args.getSafe(0).getStringValue();
                         int year = (int)args.getSafe(1).getIntegerValue();
-                        int tzid = TTimeZone.GetID(loc_timezoneId);
-                        TTimeZone.GetNormalTimeStartDate(tzid, year, ref vc);
+                        TTimeZone tzid = TTimeZone.FindTimeZoneByName(loc_timezoneId);
+                        tzid.GetNormalTimeStartDate(year, ref vc);
                         result = vc;
                     }
                     break;
@@ -143,7 +143,7 @@ namespace GCAL.Base
             return base.GetPropertyValue(Token);
         }
 
-        public static int CalculateCalendar(TResultCalendar daybuff, CLocationRef loc, GregorianDateTime date, int nDaysCount)
+        public static int CalculateCalendar(TResultCalendar daybuff, GCLocation loc, GregorianDateTime date, int nDaysCount)
         {
             bool bCalcMoon = (GCDisplaySettings.getValue(4) > 0 || GCDisplaySettings.getValue(5) > 0);
 

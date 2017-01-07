@@ -153,7 +153,7 @@ namespace GCAL.Base
         }
 
 
-        public static int writeXml(string fileName, CLocationRef loc, GregorianDateTime vc, int nDaysCount)
+        public static int writeXml(string fileName, GCLocation loc, GregorianDateTime vc, int nDaysCount)
         {
             using (StreamWriter xml = new StreamWriter(fileName))
             {
@@ -162,13 +162,13 @@ namespace GCAL.Base
                 xml.Write(GCStrings.getString(130));
                 xml.Write("\">\n");
                 xml.Write("\t\t<arg name=\"longitude\" val=\"");
-                xml.Write(loc.longitudeDeg);
+                xml.Write(loc.Longitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"latitude\" val=\"");
-                xml.Write(loc.latitudeDeg);
+                xml.Write(loc.Latitude);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"timezone\" val=\"");
-                xml.Write(loc.offsetUtcHours);
+                xml.Write(loc.OffsetUtcHours);
                 xml.Write("\" />\n");
                 xml.Write("\t\t<arg name=\"startdate\" val=\"");
                 xml.Write(vc);
@@ -181,12 +181,12 @@ namespace GCAL.Base
 
                 GregorianDateTime d = new GregorianDateTime();
                 d.Set(vc);
-                d.TimezoneHours = loc.offsetUtcHours;
+                d.TimezoneHours = loc.OffsetUtcHours;
                 GregorianDateTime dn;
                 GCHourTime dt = new GCHourTime();
                 GCSunData sun = new GCSunData();
                 int nak;
-                GCEarthData earth = loc.EARTHDATA();
+                GCEarthData earth = loc.GetEarthData();
 
                 for (int i = 0; i < 30; i++)
                 {

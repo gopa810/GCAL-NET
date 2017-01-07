@@ -15,6 +15,31 @@ namespace GCAL.Base
         public double ratingNeg = 0.0;
         public string Title;
         public string[] Notes;
+        public int ResultRatio = 0;
+
+        public class IntervalComparer : Comparer<GCRatedInterval>
+        {
+            public override int Compare(GCRatedInterval x, GCRatedInterval y)
+            {
+                double A, B;
+                A = x.ratingPos + x.ratingNeg;
+                B = y.ratingPos + y.ratingNeg;
+
+                if (x.ResultRatio < y.ResultRatio) return 1;
+                else if (x.ResultRatio > y.ResultRatio) return -1;
+
+                int dc = x.startTime.CompareYMD(y.startTime);
+                if (dc != 0) return dc;
+
+                if (A < B) return 1;
+                else if (A > B) return -1;
+
+                if (x.ratingPos < y.ratingPos) return 1;
+                else if (x.ratingPos > y.ratingPos) return -1;
+
+                return 0;
+            }
+        }
 
         public override string ToString()
         {
@@ -57,9 +82,12 @@ namespace GCAL.Base
                             list.Parts.Add(new GSString(str));
                         return list;
                     }
+                case "ratio":
+                    return new GSNumber(ResultRatio);
                 default:
                     return base.GetPropertyValue(s);
             }
         }
+
     }
 }

@@ -42,6 +42,22 @@ namespace GCAL.Base
    http://www.gnu.org/licenses/agpl.html
 
 */
+        /// <summary>
+        /// Calculates coordinates for celestial body
+        /// </summary>
+        /// <param name="julianDate"></param>
+        /// <param name="L">Longitude in degrees (0deg to 360deg)</param>
+        /// <param name="B">Latitude in degrees (-180deg to 180deg)</param>
+        /// <param name="R">Radius in AU</param>
+        public static void Calculate(double julianDate, out double L, out double B, out double R)
+        {
+            double t = (julianDate - 2451545) / 365250;
+
+            L = GCMath.putIn360(GCMath.rad2deg(Jupiter_L0(t) + Jupiter_L1(t) + Jupiter_L2(t) + Jupiter_L3(t) + Jupiter_L4(t) + Jupiter_L5(t)));
+            B = GCMath.putIn180(GCMath.rad2deg(Jupiter_B0(t) + Jupiter_B1(t) + Jupiter_B2(t) + Jupiter_B3(t) + Jupiter_B4(t) + Jupiter_B5(t)));
+            R = Jupiter_R0(t) + Jupiter_R1(t) + Jupiter_R2(t) + Jupiter_R3(t) + Jupiter_R4(t) + Jupiter_R5(t);
+        }
+
 
 
         static double Jupiter_L0(double t) // 760 terms of order 0

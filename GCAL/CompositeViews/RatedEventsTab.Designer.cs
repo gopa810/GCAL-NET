@@ -54,6 +54,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.printToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -76,7 +77,7 @@
             this.pictureBox1.Image = global::GCAL.Properties.Resources.ajax_loader;
             this.pictureBox1.Location = new System.Drawing.Point(146, 310);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(115, 114);
+            this.pictureBox1.Size = new System.Drawing.Size(171, 114);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -282,6 +283,11 @@
             this.printToolStripMenuItem2.Text = "Print";
             this.printToolStripMenuItem2.Click += new System.EventHandler(this.printToolStripMenuItem2_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // RatedEventsTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,5 +332,6 @@
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem2;
         private System.Windows.Forms.ToolStripComboBox templateComboBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

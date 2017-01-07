@@ -66,13 +66,18 @@ namespace GCAL.Base
         /// <returns></returns>
         public static string GetName(int i)
         {
-            switch (GCDisplaySettings.getValue(49))
+            return GetNameEx(i, GCDisplaySettings.getValue(49));
+        }
+
+        public static string GetNameEx(int masaIndex, int formatIndex)
+        {
+            switch (formatIndex)
             {
-                case 0: return GetGaudiyaName(i);
-                case 1: return string.Format("{0} ({1})", GetGaudiyaName(i), GetVedicName(i));
-                case 2: return GetVedicName(i);
-                case 3: return string.Format("{0} ({1})", GetVedicName(i), GetGaudiyaName(i));
-                default: return GetGaudiyaName(i);
+                case 0: return GetGaudiyaName(masaIndex);
+                case 1: return string.Format("{0} ({1})", GetGaudiyaName(masaIndex), GetVedicName(masaIndex));
+                case 2: return GetVedicName(masaIndex);
+                case 3: return string.Format("{0} ({1})", GetVedicName(masaIndex), GetGaudiyaName(masaIndex));
+                default: return GetGaudiyaName(masaIndex);
             }
         }
 

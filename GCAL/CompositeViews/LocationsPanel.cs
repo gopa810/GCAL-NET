@@ -34,13 +34,13 @@ namespace GCAL.CompositeViews
             //	m_wndCtrs.DeleteAllItems();
             m_wndCountry.BeginUpdate();
             m_wndCountry.Items.Clear();
-            m = TCountry.GetCountryCount();
-            for (i = 0; i < m; i++)
+            foreach (TCountry country in TCountry.Countries)
             {
-                a = m_wndCountry.Items.Add(TCountry.GetCountryByIndex(i));
+                a = m_wndCountry.Items.Add(country);
             }
             m_wndCountry.Sorted = true;
             m_wndCountry.EndUpdate();
+            m_wndCountry.Sorted = false;
             m_wndCountry.Items.Insert(0, "<all countries>");
 
         }
@@ -50,36 +50,81 @@ namespace GCAL.CompositeViews
             UpdateLocationList();
         }
 
+        /// <summary>
+        /// Filling ListView with cities
+        /// </summary>
         private void UpdateLocationList()
         {
+            string sp = textBox1.Text.Trim();
+            bool emptySp = (sp.Length == 0);
             object obj = m_wndCountry.SelectedItem;
-            string country = null;
+            TCountry country = (obj is TCountry) ? (obj as TCountry) : null;
+            int A = 0, B = 100;
+            int lastCompare = 2;
 
-            if (obj is TCountry)
+            listViewLocations.BeginUpdate();
+            listViewLocations.Items.Clear();
+            List<TLocation>[] p = {
+                                      new List<TLocation>(),
+                                      new List<TLocation>(),
+                                      new List<TLocation>()
+                                  };
+            foreach (TLocation L in TLocationDatabase.LocationList)
             {
-                country = (obj as TCountry).name;
-            }
-
-            m_wndLocs.BeginUpdate();
-            m_wndLocs.Items.Clear();
-            foreach (CLocation L in CLocationList.locationList)
-            {
-                if (country == null || L.countryName.Equals(country))
+                if (country == null || L.CountryISOCode.Equals(country.ISOCode))
                 {
-                    ListViewItem lvi = ListItemFromLocation(L);
-                    m_wndLocs.Items.Add(lvi);
+                    if (emptySp || (lastCompare = L.ContainsSubstring(sp)) > 0)
+                    {
+                        switch (lastCompare)
+                        {
+                            case 1:
+                                p[0].Add(L);
+                                break;
+                            case 2:
+                                p[1].Add(L);
+                                break;
+                            default:
+                                p[2].Add(L);
+                                break;
+                        }
+                        A++;
+                    }
+                }
+
+                if (A > B)
+                {
+                    break;
                 }
             }
-            m_wndLocs.EndUpdate();
+            for (int j = 0; j < 3; j++)
+            {
+                foreach (TLocation L in p[j])
+                {
+                    listViewLocations.Items.Add(ListItemFromLocation(L));
+                }
+                p[j].Clear();
+            }
+            listViewLocations.EndUpdate();
+
+            if (A > B)
+            {
+                labelLimitInfo.Text = string.Format("Number of results limited to {0}", A);
+                labelLimitInfo.ForeColor = Color.DarkRed;
+            }
+            else
+            {
+                labelLimitInfo.Text = string.Format("Number of results: {0}", A);
+                labelLimitInfo.ForeColor = Color.DarkGreen;
+            }
         }
 
-        private ListViewItem ListItemFromLocation(CLocation L)
+        private ListViewItem ListItemFromLocation(TLocation L)
         {
-            ListViewItem lvi = new ListViewItem(L.cityName);
-            lvi.SubItems.Add(L.countryName);
-            lvi.SubItems.Add(GCEarthData.GetTextLatitude(L.latitudeDeg));
-            lvi.SubItems.Add(GCEarthData.GetTextLongitude(L.longitudeDeg));
-            lvi.SubItems.Add(TTimeZone.GetTimeZoneName(L.timezoneId));
+            ListViewItem lvi = new ListViewItem(L.CityName);
+            lvi.SubItems.Add(L.Country.Name);
+            lvi.SubItems.Add(GCEarthData.GetTextLatitude(L.Latitude));
+            lvi.SubItems.Add(GCEarthData.GetTextLongitude(L.Longitude));
+            lvi.SubItems.Add(L.TimeZoneName);
             lvi.Tag = L;
 
             return lvi;
@@ -90,7 +135,7 @@ namespace GCAL.CompositeViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonNew_Click(object sender, EventArgs e)
         {
             EditLocationPanel d = new EditLocationPanel();
             d.setLocation(null);
@@ -107,29 +152,36 @@ namespace GCAL.CompositeViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonEdit_Click(object sender, EventArgs e)
         {
-            if (m_wndLocs.SelectedItems.Count == 0)
+            if (listViewLocations.SelectedItems.Count == 0)
                 return;
 
-            CLocation loc = m_wndLocs.SelectedItems[0].Tag as CLocation;
+            TLocation loc = listViewLocations.SelectedItems[0].Tag as TLocation;
 
             EditLocationPanel d = new EditLocationPanel();
             d.setLocation(loc);
             d.PrefferedCountry = m_wndCountry.SelectedItem;
             d.OnEditLocationDone += new TBButtonPressed(OnEditLocationDone);
             EditLocationPanelController dc = new EditLocationPanelController(d);
-            dc.ViewContainer = Controller.ViewContainer;
-
-            Controller.ViewContainer.AddControl(dc, GVControlAlign.Center);
+            dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);
         }
 
         private void OnEditLocationDone(object sender, EventArgs e)
         {
             if (sender is EditLocationPanel)
             {
-                CLocationList.m_bModified = true;
+                TLocationDatabase.Modified = true;
                 UpdateLocationList();
+            }
+            else if (sender is EditLocationPanel.LocationWrapper)
+            {
+                EditLocationPanel.LocationWrapper lw = (EditLocationPanel.LocationWrapper)sender;
+                if (lw.created)
+                {
+                    TLocationDatabase.LocationList.Add(lw.location);
+                    TLocationDatabase.Modified = true;
+                }
             }
         }
 
@@ -138,19 +190,19 @@ namespace GCAL.CompositeViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (m_wndLocs.SelectedItems.Count == 0)
+            if (listViewLocations.SelectedItems.Count == 0)
                 return;
 
-            CLocation loc = m_wndLocs.SelectedItems[0].Tag as CLocation;
+            TLocation loc = listViewLocations.SelectedItems[0].Tag as TLocation;
 
-            string ask = string.Format("Do you want to remove location for city \"{0}\" ?", loc.cityName);
+            string ask = string.Format("Do you want to remove location for city \"{0}\" ?", loc.CityName);
 
             if (MessageBox.Show(ask, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                CLocationList.locationList.Remove(loc);
-                CLocationList.m_bModified = true;
+                TLocationDatabase.LocationList.Remove(loc);
+                TLocationDatabase.Modified = true;
                 UpdateLocationList();
             }
 
@@ -187,14 +239,14 @@ namespace GCAL.CompositeViews
             if (dr == DialogResult.Cancel)
                 return;
 
-            if (CLocationList.ImportFile(ofd.FileName, (dr == DialogResult.No)) == false)
+            if (TLocationDatabase.ImportFile(ofd.FileName, (dr == DialogResult.No)) == false)
 	        {
 		        MessageBox.Show("Importing of file was not succesful.", "Importing progress");
 		        return;
 	        }
 
 	        // opatovna inicializacia dialog boxu
-	        m_wndLocs.Items.Clear(); // m_wndList.ResetContent();
+	        listViewLocations.Items.Clear(); // m_wndList.ResetContent();
 	        m_wndCountry.Items.Clear();
 
 	        // setting the current country
@@ -211,11 +263,11 @@ namespace GCAL.CompositeViews
         {
             SaveFileDialog sfd = new SaveFileDialog();
 
-            sfd.Filter = "XML file (*.xml)|*.xml|Text file (*.txt)|*.txt|Locations List (*.lox)|*.lox|Rich List Format (*.rl)|*.rl||";
+            sfd.Filter = "XML file (*.xml)|*.xml|Text file (*.txt)|*.txt|Locations List (*.lox)|*.lox|Text File - tab separated values(*.txt)|*.txt||";
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                CLocationList.SaveAs( sfd.FileName, sfd.FilterIndex);
+                TLocationDatabase.SaveFile( sfd.FileName, sfd.FilterIndex);
             }
         }
 
@@ -226,15 +278,15 @@ namespace GCAL.CompositeViews
         /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
-            if (m_wndLocs.SelectedItems.Count == 0)
+            if (listViewLocations.SelectedItems.Count == 0)
                 return;
 
-	        CLocation loc = m_wndLocs.SelectedItems[0].Tag as CLocation;
+	        TLocation loc = listViewLocations.SelectedItems[0].Tag as TLocation;
 
 		    if (loc != null)
 		    {
 			    string str = string.Format("<html><head><meta http-equiv=\"REFRESH\" content=\"0;url=http://maps.google.com/?ie=UTF8&ll={0},{1}&spn=0.774196,1.235962&z=10" +
-						        "\"></head><body></body><html>", loc.latitudeDeg, loc.longitudeDeg);
+						        "\"></head><body></body><html>", loc.Latitude, loc.Longitude);
 			    string fileName = GCGlobal.getFileName(GlobalStringsEnum.GSTR_TEMFOLDER);
 			    fileName += "temp.html";
                 File.WriteAllText(fileName, str);
@@ -251,57 +303,14 @@ namespace GCAL.CompositeViews
         {
 	        if (MessageBox.Show("Are you sure to revert list of locations to the internal build-in list of locations?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
 	        {
-		        string fileName = GCGlobal.getFileName(GlobalStringsEnum.GSTR_LOCX_FILE);
-		        CLocationList.RemoveAll();
-		        CLocationList.InitInternal(fileName);
-
+		        TLocationDatabase.SetDefaultDatabase();
                 UpdateLocationList();
 	        }
         }
 
         private void onTextFilterChanged(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length == 0)
-            {
-                UpdateLocationList();
-                return;
-            }
-
-            string[] sp = textBox1.Text.Trim().ToLower().Split(' ');
-
-            if (sp.Length == 0)
-            {
-                UpdateLocationList();
-                return;
-            }
-            int A, B;
-            m_wndLocs.BeginUpdate();
-            m_wndLocs.Items.Clear();
-            foreach (CLocation L in CLocationList.locationList)
-            {
-                A = B = 0;
-                foreach (string s in sp)
-                {
-                    A++;
-                    if (s.StartsWith("#"))
-                    {
-                        if (L.countryName.IndexOf(s.Substring(1), 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                            B++;
-                    }
-                    else
-                    {
-                        if (L.cityName.IndexOf(s.Substring(1), 0, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                            B++;
-                    }
-                }
-
-                if (A == B)
-                {
-                    ListViewItem lvi = ListItemFromLocation(L);
-                    m_wndLocs.Items.Add(lvi);
-                }
-            }
-            m_wndLocs.EndUpdate();
+            UpdateLocationList();
         }
     }
 

@@ -30,10 +30,10 @@ namespace GCAL.CompositeViews
         {
             listView1.Items.Clear();
             listView1.BeginUpdate();
-            foreach (TCountry tc in TCountry.gcountries)
+            foreach (TCountry tc in TCountry.Countries)
             {
-                ListViewItem lvi = new ListViewItem(tc.abbreviatedName);
-                lvi.SubItems.Add(tc.name);
+                ListViewItem lvi = new ListViewItem(tc.ISOCode);
+                lvi.SubItems.Add(tc.Name);
                 lvi.Tag = tc;
                 listView1.Items.Add(lvi);
             }

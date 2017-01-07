@@ -43,8 +43,23 @@ namespace GCAL.Base
 
 */
 
+        /// <summary>
+        /// Calculates coordinates for celestial body
+        /// </summary>
+        /// <param name="julianDate"></param>
+        /// <param name="L">Longitude in degrees (0deg to 360deg)</param>
+        /// <param name="B">Latitude in degrees (-180deg to 180deg)</param>
+        /// <param name="R">Radius in AU</param>
+        public static void Calculate(double julianDate, out double L, out double B, out double R)
+        {
+            double t = (julianDate - 2451545) / 365250;
 
-        static double Earth_L0(double t) // 559 terms of order 0
+            L = GCMath.putIn360(GCMath.rad2deg(Earth_L0(t) + Earth_L1(t) + Earth_L2(t) + Earth_L3(t) + Earth_L4(t) + Earth_L5(t)));
+            B = GCMath.putIn180(GCMath.rad2deg(Earth_B0(t) + Earth_B1(t) + Earth_B2(t) + Earth_B3(t) + Earth_B4(t) + Earth_B5(t)));
+            R = Earth_R0(t) + Earth_R1(t) + Earth_R2(t) + Earth_R3(t) + Earth_R4(t) + Earth_R5(t);
+        }
+
+        public static double Earth_L0(double t) // 559 terms of order 0
         {
             double L0 = 0;
             L0 += 1.75347045673;
@@ -611,7 +626,7 @@ namespace GCAL.Base
 
 
 
-        static double Earth_L1(double t) // 341 terms of order 1
+        public static double Earth_L1(double t) // 341 terms of order 1
         {
             double L1 = 0;
             L1 += 6283.31966747491;
@@ -960,7 +975,7 @@ namespace GCAL.Base
 
 
 
-        static double Earth_L2(double t) // 142 terms of order 2
+        public static double Earth_L2(double t) // 142 terms of order 2
         {
             double L2 = 0;
             L2 += 0.00052918870;
@@ -1110,7 +1125,7 @@ namespace GCAL.Base
 
 
 
-        static double Earth_L3(double t) // 22 terms of order 3
+        public static double Earth_L3(double t) // 22 terms of order 3
         {
             double L3 = 0;
             L3 += 0.00000289226 * Math.Cos(5.84384198723 + 6283.0758499914 * t);
@@ -1140,7 +1155,7 @@ namespace GCAL.Base
 
 
 
-        static double Earth_L4(double t) // 11 terms of order 4
+        public static double Earth_L4(double t) // 11 terms of order 4
         {
             double L4 = 0;
             L4 -= 0.00000114084;
@@ -1159,7 +1174,7 @@ namespace GCAL.Base
 
 
 
-        static double Earth_L5(double t) // 5 terms of order 5
+        public static double Earth_L5(double t) // 5 terms of order 5
         {
             double L5 = 0;
             L5 -= 0.00000000878;

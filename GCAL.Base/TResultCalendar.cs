@@ -13,7 +13,7 @@ namespace GCAL.Base
         public VAISNAVADAY[] m_pData;
         public int m_nCount;
         public int m_PureCount;
-        public CLocationRef m_Location;
+        public GCLocation m_Location;
         public GregorianDateTime m_vcStart;
         public int m_vcCount;
         public bool updateCalculationProgress;
@@ -51,7 +51,7 @@ namespace GCAL.Base
             switch(token)
             {
                 case "getDay":
-                    return GetDay((int)args.getSafe(0).getIntegerValue());
+                    return GetDay((int)args.getSafe(0).getIntegerValue() - BEFORE_DAYS);
                 case "daysToEndweek":
                     return new GSNumber(DAYS_TO_ENDWEEK((int)args.getSafe(0).getIntegerValue()));
                 case "daysFromBeginweek":
@@ -167,7 +167,7 @@ namespace GCAL.Base
         /******************************************************************************************/
 
 
-        public int CalculateCalendar(CLocationRef loc, GregorianDateTime begDate, int iCount)
+        public int CalculateCalendar(GCLocation loc, GregorianDateTime begDate, int iCount)
         {
             int i, weekday;
             int nTotalCount = BEFORE_DAYS + iCount + BEFORE_DAYS;
@@ -186,7 +186,7 @@ namespace GCAL.Base
             m_Location = loc;
             m_vcStart = new GregorianDateTime(begDate);
             m_vcCount = iCount;
-            earth = loc.EARTHDATA();
+            earth = loc.GetEarthData();
 
             // alokacia pola
             m_pData = new VAISNAVADAY[nTotalCount];
@@ -198,7 +198,7 @@ namespace GCAL.Base
             date = new GregorianDateTime();
             date.Set(begDate);
             date.shour = 0.0;
-            date.TimezoneHours = loc.offsetUtcHours;
+            date.TimezoneHours = loc.OffsetUtcHours;
             date.SubtractDays(BEFORE_DAYS);
             date.InitWeekDay();
 
@@ -223,7 +223,7 @@ namespace GCAL.Base
             // calculating moon times
             for (i = 0; i < nTotalCount; i++)
             {
-                m_pData[i].nDST = TTimeZone.determineDaylightStatus(m_pData[i].date, loc.timezoneId);
+                m_pData[i].BiasMinutes = loc.TimeZone.GetBiasMinutesForDay(m_pData[i].date);
                 //		TRACE("DST %d.%d.%d = %d ", m_pData[i].date.day, m_pData[i].date.month, m_pData[i].date.year, m_pData[i].nDST);
             }
 
@@ -232,7 +232,7 @@ namespace GCAL.Base
             {
                 for (i = 0; i < nTotalCount; i++)
                 {
-                    GCMoonData.CalcMoonTimes(earth, m_pData[i].date, Convert.ToDouble(m_pData[i].nDST), out m_pData[i].moonrise, out m_pData[i].moonset);
+                    GCMoonData.CalcMoonTimes(earth, m_pData[i].date, Convert.ToDouble(m_pData[i].BiasMinutes/60.0), out m_pData[i].moonrise, out m_pData[i].moonset);
 
                     if (GCDisplaySettings.getValue(GCDS.CAL_MOON_RISE) != 0 && m_pData[i].moonrise.hour >= 0)
                     {
@@ -292,28 +292,28 @@ namespace GCAL.Base
                 if (GCDisplaySettings.getValue(GCDS.CAL_ARUN_TIME) != 0)
                 {
                     tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Time of Arunodaya"), m_pData[i].astrodata.sun.arunodaya.ToShortTimeString()
-                        , GCStrings.GetDSTSignature(m_pData[i].nDST));
+                        , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ARUN, GCDS.CAL_ARUN_TIME, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_SUN_RISE) != 0)
                 {
                     tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Sunrise"), 
-                        m_pData[i].astrodata.sun.rise.ToShortTimeString(), GCStrings.GetDSTSignature(m_pData[i].nDST));
+                        m_pData[i].astrodata.sun.rise.ToShortTimeString(), GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_RISE, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_SUN_NOON) != 0)
                 {
                     tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Noon"), m_pData[i].astrodata.sun.noon.ToShortTimeString()
-                        , GCStrings.GetDSTSignature(m_pData[i].nDST));
+                        , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_NOON, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_SUN_SET) != 0)
                 {
                     tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Sunset"), m_pData[i].astrodata.sun.set.ToShortTimeString()
-                        , GCStrings.GetDSTSignature(m_pData[i].nDST));
+                        , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_SET, tempStr);
                 }
 
@@ -367,9 +367,9 @@ namespace GCAL.Base
             {
                 for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS + 2; i++)
                 {
-                    if (m_pData[i - 1].nDST == 0 && m_pData[i].nDST == 1)
+                    if (m_pData[i - 1].BiasMinutes == 0 && m_pData[i].BiasMinutes != 0)
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_DST_CHANGE, GCDS.CAL_DST_CHANGE, GCStrings.Localized("First day of Daylight Saving Time"));
-                    else if (m_pData[i].nDST == 1 && m_pData[i + 1].nDST == 0)
+                    else if (m_pData[i].BiasMinutes != 0 && m_pData[i + 1].BiasMinutes == 0)
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_DST_CHANGE, GCDS.CAL_DST_CHANGE, GCStrings.Localized("Last day of Daylight Saving Time"));
                 }
             }
@@ -437,20 +437,20 @@ namespace GCAL.Base
             {
                 if (m_pData[i].eparana_time1 > 0.0)
                 {
-                    m_pData[i].eparana_time1 += m_pData[i].nDST;
+                    m_pData[i].eparana_time1 += m_pData[i].BiasMinutes/60.0;
                 }
 
                 if (m_pData[i].eparana_time2 > 0.0)
                 {
-                    m_pData[i].eparana_time2 += m_pData[i].nDST;
+                    m_pData[i].eparana_time2 += m_pData[i].BiasMinutes/60.0;
                 }
 
                 if (m_pData[i].astrodata.sun.longitude_deg > 0.0)
                 {
-                    m_pData[i].astrodata.sun.rise.hour += m_pData[i].nDST;
-                    m_pData[i].astrodata.sun.set.hour += m_pData[i].nDST;
-                    m_pData[i].astrodata.sun.noon.hour += m_pData[i].nDST;
-                    m_pData[i].astrodata.sun.arunodaya.hour += m_pData[i].nDST;
+                    m_pData[i].astrodata.sun.rise.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sun.set.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sun.noon.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sun.arunodaya.AddMinutes(m_pData[i].BiasMinutes);
                 }
             }
         }
@@ -458,7 +458,7 @@ namespace GCAL.Base
         private int CalculateKsayaVriddhiTithis()
         {
             int i;
-            GCEarthData earth = m_Location.EARTHDATA();
+            GCEarthData earth = m_Location.GetEarthData();
 
             for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS; i++)
             {
@@ -478,7 +478,7 @@ namespace GCAL.Base
 
                     day1 = new GregorianDateTime();
                     day1.Set(m_pData[i].date);
-                    day1.shour = m_pData[i].astrodata.sun.sunrise_deg / 360.0 + earth.offsetUtcHours / 24.0;
+                    day1.shour = m_pData[i].astrodata.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
 
                     GCTithi.GetPrevTithiStart(earth, day1, out d2);
                     day1.Set(d2);
@@ -486,8 +486,8 @@ namespace GCAL.Base
                     day1.NormalizeValues();
                     GCTithi.GetPrevTithiStart(earth, day1, out d1);
 
-                    d1.shour += (m_pData[i].nDST / 24.0);
-                    d2.shour += (m_pData[i].nDST / 24.0);
+                    d1.shour += (m_pData[i].BiasMinutes / 1440.0);
+                    d2.shour += (m_pData[i].BiasMinutes / 1440.0);
 
                     d1.NormalizeValues();
                     d2.NormalizeValues();
@@ -530,7 +530,7 @@ namespace GCAL.Base
             do
             {
                 date.Set(GCSankranti.GetNextSankranti(date, out zodiac));
-                date.shour += TTimeZone.determineDaylightStatus(date, m_Location.timezoneId) / 24.0;
+                date.shour += m_Location.TimeZone.GetBiasMinutesForDay(date) / 1440.0;
                 date.NormalizeValues();
 
                 bFoundSan = false;
@@ -1173,7 +1173,7 @@ namespace GCAL.Base
             double parBeg = -1.0, parEnd = -1.0;
             double tithi_len;
 
-            sunRise = t.astrodata.sun.sunrise_deg / 360.0 + earth.offsetUtcHours / 24.0;
+            sunRise = t.astrodata.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
             third_day = sunRise + t.astrodata.sun.length_deg / 1080.0;
             tithi_len = GCTithi.GetTithiTimes(earth, t.date, out titBeg, out titEnd, sunRise);
             tithi_quart = tithi_len / 4.0 + titBeg;
@@ -1494,6 +1494,9 @@ namespace GCAL.Base
                 case "htmlTable":
                     script.readTextTemplate(Properties.Resources.TplCalendarHtmlTable);
                     break;
+                case "htmlSadhana":
+                    script.readTextTemplate(Properties.Resources.TplCalendarSadhana);
+                    break;
                 default:
                     break;
             }
@@ -1521,6 +1524,7 @@ namespace GCAL.Base
             coll.Formats.Add(new TResultFormat("Comma Separated Values", "csv", GCDataFormat.CSV));
             coll.Formats.Add(new TResultFormat("HTML File (in Table format)", "htm", "htmlTable"));
             coll.Formats.Add(new TResultFormat("HTML File (in List format)", "htm", GCDataFormat.HTML));
+            coll.Formats.Add(new TResultFormat("HTML format daily sadhana", "htm", "htmlSadhana"));
             return coll;
         }
 

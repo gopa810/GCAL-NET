@@ -17,7 +17,7 @@ namespace GCAL.Base
             calendar = new TResultCalendar();
         }
 
-        public void Calculate(GregorianDateTime dateTime, CLocationRef location)
+        public void Calculate(GregorianDateTime dateTime, GCLocation location)
         {
             GregorianDateTime vc2 = new GregorianDateTime();
             currentDay = new GregorianDateTime();
@@ -25,7 +25,7 @@ namespace GCAL.Base
             currentDay.InitWeekDay();
             vc2.Set(currentDay);
 
-            vc2.TimezoneHours = location.offsetUtcHours;
+            vc2.TimezoneHours = location.OffsetUtcHours;
             vc2.PreviousDay();
             vc2.PreviousDay();
             vc2.PreviousDay();

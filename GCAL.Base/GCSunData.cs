@@ -480,13 +480,13 @@ namespace GCAL.Base
 
             // arunodaya is 96 min before sunrise
             //  sunrise_deg is from range 0-360 so 96min=24deg
-            this.arunodaya.SetDegTime(this.arunodaya_deg + earth.offsetUtcHours * 15.0);
+            this.arunodaya.SetDegTime(this.arunodaya_deg + earth.OffsetUtcHours * 15.0);
             // sunrise
-            this.rise.SetDegTime(this.sunrise_deg + earth.offsetUtcHours * 15.0);
+            this.rise.SetDegTime(this.sunrise_deg + earth.OffsetUtcHours * 15.0);
             // noon
-            this.noon.SetDegTime((this.sunset_deg + this.sunrise_deg) / 2 + earth.offsetUtcHours * 15.0);
+            this.noon.SetDegTime((this.sunset_deg + this.sunrise_deg) / 2 + earth.OffsetUtcHours * 15.0);
             // sunset
-            this.set.SetDegTime(this.sunset_deg + earth.offsetUtcHours * 15.0);
+            this.set.SetDegTime(this.sunset_deg + earth.OffsetUtcHours * 15.0);
             // length
             this.length.SetDegTime(this.length_deg);
 

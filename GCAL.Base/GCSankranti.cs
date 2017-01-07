@@ -88,7 +88,7 @@ namespace GCAL.Base
             return d;
         }
 
-        public static XmlDocument GetSankrantiListXml(CLocationRef loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
+        public static XmlDocument GetSankrantiListXml(GCLocation loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
         {
             GregorianDateTime d = new GregorianDateTime();
             int zodiac;
@@ -106,9 +106,9 @@ namespace GCAL.Base
             e2.SetAttribute("name", "Sankranti");
             e2.SetAttribute("version", GCStrings.getString(130));
 
-            e2.SetAttribute("longitude", loc.longitudeDeg.ToString());
-            e2.SetAttribute("latitude", loc.latitudeDeg.ToString());
-            e2.SetAttribute("timezone", loc.offsetUtcHours.ToString());
+            e2.SetAttribute("longitude", loc.Longitude.ToString());
+            e2.SetAttribute("latitude", loc.Latitude.ToString());
+            e2.SetAttribute("timezone", loc.OffsetUtcHours.ToString());
             e2.SetAttribute("startdate", vcStart.ToString());
             e2.SetAttribute("enddate", vcEnd.ToString());
 
