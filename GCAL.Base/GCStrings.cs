@@ -170,7 +170,7 @@ namespace GCAL.Base
                 }
             }
 
-            return null;
+            return "";
         }
 
         public static string getString(int i)

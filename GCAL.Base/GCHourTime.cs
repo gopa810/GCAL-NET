@@ -14,6 +14,170 @@ namespace GCAL.Base
         public int sec;
         public int mili;
 
+        public double longitude;
+        public double longitudeMoon;
+        public double Ayanamsa;
+
+        public GCHourTime(GCHourTime rise, int p)
+        {
+            // TODO: Complete member initialization
+            hour = rise.hour;
+            min = rise.min;
+            sec = rise.sec;
+            mili = rise.mili;
+            longitude = 0.0;
+            longitudeMoon = 0.0;
+            Ayanamsa = 0.0;
+            AddMinutes(p);
+        }
+
+        public int Tithi
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon - longitude - 180.0) / 12.0;
+                return GCMath.IntFloor(d);
+            }
+        }
+
+        public double TithiElapse
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon - longitude - 180.0) / 12.0;
+                return (d - Math.Floor(d)) * 100.0;
+            }
+        }
+
+        public int Paksa
+        {
+            get
+            {
+                return Tithi >= 15 ? 1 : 0;
+            }
+        }
+
+        public int Naksatra
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon - Ayanamsa);
+                d = (d * 3.0) / 40.0;
+                return GCMath.IntFloor(d);
+            }
+        }
+
+        public double NaksatraElapse
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon - Ayanamsa);
+                d = (d * 3.0) / 40.0;
+                return (d - Math.Floor(d)) * 100.0;
+            }
+        }
+
+        public int NaksatraPada
+        {
+            get
+            {
+                return GCMath.IntFloor(NaksatraElapse / 25.0);
+            }
+        }
+
+
+        public int Yoga
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon + longitude - 2 * Ayanamsa);
+                d = (d * 3.0) / 40.0;
+                return GCMath.IntFloor(d);
+            }
+        }
+
+        public double YogaElapse
+        {
+            get
+            {
+                double d = GCMath.putIn360(longitudeMoon + longitude - 2 * Ayanamsa);
+                d = (d * 3.0) / 40.0;
+                return (d - Math.Floor(d)) * 100.0;
+            }
+        }
+        
+        public int RasiOfSun
+        {
+            get
+            {
+                return GCRasi.GetRasi(longitude, Ayanamsa);
+            }
+        }
+
+        public int RasiOfMoon
+        {
+            get
+            {
+                return GCRasi.GetRasi(longitudeMoon, Ayanamsa);
+            }
+        }
+
+
+        public double TotalDays
+        {
+            get
+            {
+                return hour / 24.0 + min / 1440.0 + sec / 86400.0 + mili / 86400000.0;
+            }
+            set
+            {
+                SetDayTime(value);
+            }
+        }
+
+        public double TotalHours
+        {
+            get
+            {
+                return hour + min / 60.0 + sec / 3600.0 + mili / 3600000.0;
+            }
+        }
+
+        public double TotalMinutes
+        {
+            get
+            {
+                return hour * 60.0 + min + sec / 60.0 + mili / 60000.0;
+            }
+        }
+
+        public double TotalSeconds
+        {
+            get
+            {
+                return hour * 3600.0 + min * 60.0 + sec + mili / 1000.0;
+            }
+        }
+
+        public string ShortSandhyaString()
+        {
+            GCHourTime start, end;
+
+            start = new GCHourTime(this, -96);
+            end = new GCHourTime(this, -48);
+
+            return string.Format("{0}-{1}", start.ToShortTimeString(), end.ToShortTimeString());
+        }
+
+        public string ShortMuhurtaString(int nMuhurta)
+        {
+            GCHourTime start, end;
+
+            start = new GCHourTime(this, nMuhurta*48);
+            end = new GCHourTime(this, nMuhurta*48 + 48);
+
+            return string.Format("{0}-{1}", start.ToShortTimeString(), end.ToShortTimeString());
+        }
 
         public bool IsGreaterThan(GCHourTime dt)
         {
@@ -109,16 +273,16 @@ namespace GCAL.Base
         }
 
 
-        public void AddMinutes(int mn)
+        public void AddMinutes(double mn)
         {
-            min += mn;
+            min += Convert.ToInt32(Math.Floor(mn));
             while (min < 0) { min += 60; hour--; }
             while (min > 59) { min -= 60; hour++; }
         }
 
         public double GetDayTime()
         {
-            return ((Convert.ToDouble(hour) * 60.0 + Convert.ToDouble(min)) * 60.0 + Convert.ToDouble(sec)) / 86400.0;
+            return TotalDays;
         }
 
         public double GetDayTime(double DstOffsetHours)

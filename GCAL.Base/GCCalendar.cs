@@ -61,7 +61,7 @@ namespace GCAL.Base
             day.DayCalc(vc, earth);
             day.MasaCalc(vc, earth);
 
-            return day.nGaurabdaYear;
+            return day.GaurabdaYear;
         }
 
         public static string FormatDate(GregorianDateTime vc, GaurabdaDate va)
@@ -92,8 +92,8 @@ namespace GCAL.Base
             day.DayCalc(vc, earth);
             va = new GaurabdaDate();
             va.masa = day.MasaCalc(vc, earth);
-            va.tithi = day.nTithi;
-            va.gyear = day.nGaurabdaYear;
+            va.tithi = day.sunRise.Tithi;
+            va.gyear = day.GaurabdaYear;
         }
 
         public static int LimitForPeriodUnit(PeriodUnit pu)

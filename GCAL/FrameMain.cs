@@ -29,6 +29,8 @@ namespace GCAL
         {
             InitializeComponent();
 
+            GCCoreAstronomy.System = (GCCoreAstronomy.AstronomySystem)Properties.Settings.Default.CoreAstroSystem;
+
             frameDelegate = new FrameMainController(this);
             if (GCUserInterface.windowController == null)
                 GCUserInterface.windowController = frameDelegate;
@@ -54,6 +56,13 @@ namespace GCAL
 
 
             GCAL.Base.VSOP87.Testing.Test();
+
+            string p = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (p.IndexOf("Siddhanta") >= 0)
+            {
+                Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.SuryaSiddhanta;
+            }
+            RefreshTitleText();
         }
 
         private string GetTimeStr(double d)
@@ -169,5 +178,18 @@ namespace GCAL
                 ev.HasMorePages = false;
         }
 
+
+        public void RefreshTitleText()
+        {
+            switch (GCCoreAstronomy.System)
+            {
+                case GCCoreAstronomy.AstronomySystem.Meeus:
+                    this.Text = "Gaurabda Calendar";
+                    break;
+                case GCCoreAstronomy.AstronomySystem.SuryaSiddhanta:
+                    this.Text = "Siddhanta Panchang";
+                    break;
+            }
+        }
     }
 }

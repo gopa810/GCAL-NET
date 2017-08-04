@@ -42,6 +42,13 @@ namespace GCAL.Base
             TimezoneHours = 0.0;
         }
 
+        public GregorianDateTime(GregorianDateTime a, int daysOffset)
+        {
+            Set(a);
+            AddDays(daysOffset);
+        }
+
+
         public string LongTime
         {
             get
@@ -565,25 +572,25 @@ namespace GCAL.Base
             StringBuilder sb = new StringBuilder(format);
 
             if (format.IndexOf("{day}") >= 0)
-                format.Replace("{day}", day.ToString());
+                sb.Replace("{day}", day.ToString());
             if (format.IndexOf("{month}") >= 0)
-                format.Replace("{month}", month.ToString());
+                sb.Replace("{month}", month.ToString());
             if (format.IndexOf("{monthAbr}") >= 0)
-                format.Replace("{monthAbr}", GetMonthAbreviation(month));
+                sb.Replace("{monthAbr}", GetMonthAbreviation(month));
             if (format.IndexOf("{monthName}") >= 0)
-                format.Replace("{monthName}", GetMonthName(month));
+                sb.Replace("{monthName}", GetMonthName(month));
             if (format.IndexOf("{hour}") >= 0)
-                format.Replace("{hour}", GetHour().ToString("D2"));
+                sb.Replace("{hour}", GetHour().ToString("D2"));
             if (format.IndexOf("{min}") >= 0)
-                format.Replace("{min}", GetMinute().ToString("D2"));
+                sb.Replace("{min}", GetMinute().ToString("D2"));
             if (format.IndexOf("{minRound}") >= 0)
-                format.Replace("{minRound}", GetMinuteRound().ToString("D2"));
+                sb.Replace("{minRound}", GetMinuteRound().ToString("D2"));
             if (format.IndexOf("{sec}") >= 0)
-                format.Replace("{sec}", GetSecond().ToString("D2"));
+                sb.Replace("{sec}", GetSecond().ToString("D2"));
             if (format.IndexOf("{year}") >= 0)
-                format.Replace("{year}", year.ToString());
+                sb.Replace("{year}", year.ToString());
 
-            return format.ToString();
+            return sb.ToString();
         }
 
         public static double CalculateJulianDay(int year, int month, int day)
@@ -790,6 +797,11 @@ namespace GCAL.Base
             }
 
             return vc.day >= requiredGivenWeekday;
+        }
+
+        public bool EqualDay(GregorianDateTime that)
+        {
+            return this.day == that.day && this.month == that.month && this.year == that.year;
         }
     }
 }

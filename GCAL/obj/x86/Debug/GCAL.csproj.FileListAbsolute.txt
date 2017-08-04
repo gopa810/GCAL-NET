@@ -83,6 +83,7 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeView
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.HelpTipOfDayPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.TodayTab.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.ToolBarInfoLabel.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.LocationChoosePanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.CountriesPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.DateSpecifyDstPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.DateTimePanel.resources
@@ -93,7 +94,11 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeView
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.LocationsPanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.StartDatePanel.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.TimezonesPanel.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgCalcEkadasiBoundaries.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteDataDlg.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteProgressDlg.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.FrameMain.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.GetEkadasiName.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Properties.Resources.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.CalendarTableView.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.GVControlContainer.resources
@@ -102,4 +107,4 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.GVTabBa
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.csproj.GenerateResource.Cache
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.exe
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.pdb
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.LocationChoosePanel.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DialogAdvancedSettings.resources

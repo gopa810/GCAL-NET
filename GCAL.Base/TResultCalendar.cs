@@ -97,7 +97,7 @@ namespace GCAL.Base
 
             for (i = 0; i < BEFORE_DAYS; i++)
             {
-                nTithi = m_pData[nIndex].astrodata.nTithi;
+                nTithi = m_pData[nIndex].astrodata.sunRise.Tithi;
                 if ((nTithi == nPrevTithi) && GCTithi.TITHI_FULLNEW_MOON(nTithi))
                 {
                     return true;
@@ -116,31 +116,32 @@ namespace GCAL.Base
             VAISNAVADAY u = m_pData[nIndex + 1];
 
             nMahaType = MahadvadasiType.EV_NULL;
+            int sunRiseNaksatra = t.astrodata.sunRise.Naksatra;
 
-            if (t.astrodata.nNaksatra != u.astrodata.nNaksatra)
+            if (sunRiseNaksatra != u.astrodata.sunRise.Naksatra)
                 return false;
 
-            if (t.astrodata.nPaksa != 1)
+            if (t.astrodata.sunRise.Paksa != 1)
                 return false;
 
-            if (t.astrodata.nTithi == t.astrodata.nTithiSunset)
+            if (t.astrodata.sunRise.Tithi == t.astrodata.sunSet.Tithi)
             {
-                if (t.astrodata.nNaksatra == 6) // punarvasu
+                if (sunRiseNaksatra == 6) // punarvasu
                 {
                     nMahaType = MahadvadasiType.EV_JAYA;
                     return true;
                 }
-                else if (t.astrodata.nNaksatra == 3) // rohini
+                else if (sunRiseNaksatra == 3) // rohini
                 {
                     nMahaType = MahadvadasiType.EV_JAYANTI;
                     return true;
                 }
-                else if (t.astrodata.nNaksatra == 7) // pusyami
+                else if (sunRiseNaksatra == 7) // pusyami
                 {
                     nMahaType = MahadvadasiType.EV_PAPA_NASINI;
                     return true;
                 }
-                else if (t.astrodata.nNaksatra == 21) // sravana
+                else if (sunRiseNaksatra == 21) // sravana
                 {
                     nMahaType = MahadvadasiType.EV_VIJAYA;
                     return true;
@@ -150,7 +151,7 @@ namespace GCAL.Base
             }
             else
             {
-                if (t.astrodata.nNaksatra == 21) // sravana
+                if (sunRiseNaksatra == 21) // sravana
                 {
                     nMahaType = MahadvadasiType.EV_VIJAYA;
                     return true;
@@ -268,8 +269,8 @@ namespace GCAL.Base
 
             for (i = 0; i < nTotalCount; i++)
             {
-                calc_masa = (m_pData[i].astrodata.nPaksa != prev_paksa);
-                prev_paksa = m_pData[i].astrodata.nPaksa;
+                calc_masa = (m_pData[i].astrodata.sunRise.Paksa != prev_paksa);
+                prev_paksa = m_pData[i].astrodata.sunRise.Paksa;
 
                 if (i == 0)
                     calc_masa = true;
@@ -277,67 +278,46 @@ namespace GCAL.Base
                 if (calc_masa)
                 {
                     m_pData[i].astrodata.MasaCalc(m_pData[i].date, earth);
-                    lastMasa = m_pData[i].astrodata.nMasa;
-                    lastGYear = m_pData[i].astrodata.nGaurabdaYear;
+                    lastMasa = m_pData[i].astrodata.Masa;
+                    lastGYear = m_pData[i].astrodata.GaurabdaYear;
                 }
-                m_pData[i].astrodata.nMasa = lastMasa;
-                m_pData[i].astrodata.nGaurabdaYear = lastGYear;
+                m_pData[i].astrodata.Masa = lastMasa;
+                m_pData[i].astrodata.GaurabdaYear = lastGYear;
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_ARUN_TITHI) != 0)
                 {
-                    tempStr = string.Format("{0}: {1}", GCStrings.Localized("Tithi at Arunodaya"), GCTithi.GetName(m_pData[i].astrodata.nTithiArunodaya));
+                    tempStr = string.Format("{0}: {1}", GCStrings.Localized("Tithi at Arunodaya"), GCTithi.GetName(m_pData[i].astrodata.sunArunodaya.Tithi));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ARUN, GCDS.CAL_ARUN_TITHI, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_ARUN_TIME) != 0)
                 {
-                    tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Time of Arunodaya"), m_pData[i].astrodata.sun.arunodaya.ToShortTimeString()
+                    tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Time of Arunodaya"), m_pData[i].astrodata.sunArunodaya.ToShortTimeString()
                         , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ARUN, GCDS.CAL_ARUN_TIME, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_RISE) != 0)
-                {
-                    tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Sunrise"), 
-                        m_pData[i].astrodata.sun.rise.ToShortTimeString(), GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
-                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_RISE, tempStr);
-                }
-
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_NOON) != 0)
-                {
-                    tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Noon"), m_pData[i].astrodata.sun.noon.ToShortTimeString()
-                        , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
-                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_NOON, tempStr);
-                }
-
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_SET) != 0)
-                {
-                    tempStr = string.Format("{0} {1} ({2})", GCStrings.Localized("Sunset"), m_pData[i].astrodata.sun.set.ToShortTimeString()
-                        , GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
-                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_SET, tempStr);
-                }
-
                 if (GCDisplaySettings.getValue(GCDS.CAL_SUN_LONG) != 0)
                 {
-                    tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Sun Longitude"), m_pData[i].astrodata.sun.longitude_deg);
+                    tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Sun Longitude"), m_pData[i].astrodata.sunRise.longitude);
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_SUN_LONG, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_MOON_LONG) != 0)
                 {
-                    tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Moon Longitude"), m_pData[i].astrodata.moon.longitude_deg);
+                    tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Moon Longitude"), m_pData[i].astrodata.sunRise.longitudeMoon);
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_MOON_LONG, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_AYANAMSHA) != 0)
                 {
-                    tempStr = string.Format("{0} {1} ({2}) (*)", GCStrings.Localized("Ayanamsha"), m_pData[i].astrodata.msAyanamsa, GCAyanamsha.GetAyanamsaName(GCAyanamsha.GetAyanamsaType()));
+                    tempStr = string.Format("{0} {1} ({2}) (*)", GCStrings.Localized("Ayanamsha"), m_pData[i].astrodata.Ayanamsa, GCAyanamsha.GetAyanamsaName(GCAyanamsha.GetAyanamsaType()));
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_AYANAMSHA, tempStr);
                 }
 
                 if (GCDisplaySettings.getValue(GCDS.CAL_JULIAN) != 0)
                 {
-                    tempStr = string.Format("{0} {1} (*)", GCStrings.Localized("Julian Time"), m_pData[i].astrodata.jdate);
+                    tempStr = string.Format("{0} {1} (*)", GCStrings.Localized("Julian Time"), m_pData[i].astrodata.JulianDay);
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_JULIAN, tempStr);
                 }
             }
@@ -349,13 +329,13 @@ namespace GCAL.Base
 
                 for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS + 2; i++)
                 {
-                    if (m_pData[i - 1].astrodata.nMasa != m_pData[i].astrodata.nMasa)
+                    if (m_pData[i - 1].astrodata.Masa != m_pData[i].astrodata.Masa)
                     {
                         str = m_pData[i].Format(GCStrings.Localized("First day of {masaName} Masa"));
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_MASA_CHANGE, GCDS.CAL_MASA_CHANGE, str);
                     }
 
-                    if (m_pData[i + 1].astrodata.nMasa != m_pData[i].astrodata.nMasa)
+                    if (m_pData[i + 1].astrodata.Masa != m_pData[i].astrodata.Masa)
                     {
                         str = m_pData[i].Format(GCStrings.Localized("Last day of {masaName} Masa"));
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_MASA_CHANGE, GCDS.CAL_MASA_CHANGE, str);
@@ -407,7 +387,6 @@ namespace GCAL.Base
             {
                 ExtendedCalc(i, earth);
             }*/
-
             //
             // apply daylight saving time
             ApplyDaylightSavingHours();
@@ -417,7 +396,97 @@ namespace GCAL.Base
             for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS; i++)
             {
                 ResolveFestivalsFasting(i);
+
+
+
+                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_RISE) != 0)
+                {
+                    tempStr = string.Format("{0}-{1}-{2}  {3} - {4} - {5} ({6})",
+                        GCStrings.Localized("Sunrise"),
+                        GCStrings.Localized("Noon"),
+                        GCStrings.Localized("Sunset"),
+                        m_pData[i].astrodata.sunRise.ToShortTimeString(),
+                        m_pData[i].astrodata.sunNoon.ToShortTimeString(),
+                        m_pData[i].astrodata.sunSet.ToShortTimeString(),
+                        GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
+                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_RISE, tempStr);
+                }
+
+                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_SANDHYA) != 0)
+                {
+                    tempStr = string.Format("{0}: {1} | {2} | {3}   ({4})",
+                        GCStrings.Localized("Sandhyas"),
+                        m_pData[i].astrodata.sunRise.ShortSandhyaString(),
+                        m_pData[i].astrodata.sunNoon.ShortSandhyaString(),
+                        m_pData[i].astrodata.sunSet.ShortSandhyaString(),
+                        GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
+                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_SANDHYA, tempStr);
+                }
+
+                if (GCDisplaySettings.getValue(GCDS.CAL_BRAHMA_MUHURTA) != 0)
+                {
+                    tempStr = string.Format("{0}: {1}   ({2})",
+                        GCStrings.Localized("Brahma Muhurta"),
+                        m_pData[i].astrodata.sunRise.ShortMuhurtaString(-2),
+                        GCStrings.GetDSTSignature(m_pData[i].BiasMinutes));
+                    m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_BRAHMA_MUHURTA, tempStr);
+                }
+
+
             }
+
+
+
+            if (GCDisplaySettings.getValue(GCDS.CAL_COREEVENTS) != 0)
+            {
+                TResultEvents coreEvents = new TResultEvents();
+                GCDisplaySettings.Push();
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_CONJUNCTION, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SUN, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, 1);
+                coreEvents.CalculateEvents(loc, begDate, new GregorianDateTime(begDate, iCount));
+                for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS; i++)
+                {
+                    for (int j = 0; j < coreEvents.p_events.Count; j++)
+                    {
+                        TDayEvent tde = coreEvents.p_events[j];
+                        if (tde.Time.EqualDay(m_pData[i].date))
+                        {
+                            if (m_pData[i].BiasMinutes != 0)
+                                tde.Time.AddHours(m_pData[i].BiasMinutes / 60.0);
+                        }
+                    }
+                }
+                coreEvents.Sort(TResultEvents.SORTING_BY_DATE);
+                GCDisplaySettings.Pop();
+
+                for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS; i++)
+                {
+                    int number = 0;
+                    for (int j = 0; j < coreEvents.p_events.Count; j++)
+                    {
+                        TDayEvent tde = coreEvents.p_events[j];
+                        if (tde.Time.EqualDay(m_pData[i].date))
+                        {
+                            m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO + number, GCDS.CAL_COREEVENTS,
+                                tde.TypeString + "   " + tde.Time.LongTime + " ("
+                                + GCStrings.GetDSTSignature(m_pData[i].BiasMinutes) + ")");
+                            number++;
+                        }
+                    }
+                }
+            }
+
 
             // sorting day events according priority
             VAISNAVAEVENTComparer vec = new VAISNAVAEVENTComparer();
@@ -445,12 +514,12 @@ namespace GCAL.Base
                     m_pData[i].eparana_time2 += m_pData[i].BiasMinutes/60.0;
                 }
 
-                if (m_pData[i].astrodata.sun.longitude_deg > 0.0)
+                if (m_pData[i].astrodata.sunRise.longitude > 0.0)
                 {
-                    m_pData[i].astrodata.sun.rise.AddMinutes(m_pData[i].BiasMinutes);
-                    m_pData[i].astrodata.sun.set.AddMinutes(m_pData[i].BiasMinutes);
-                    m_pData[i].astrodata.sun.noon.AddMinutes(m_pData[i].BiasMinutes);
-                    m_pData[i].astrodata.sun.arunodaya.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sunRise.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sunSet.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sunNoon.AddMinutes(m_pData[i].BiasMinutes);
+                    m_pData[i].astrodata.sunArunodaya.AddMinutes(m_pData[i].BiasMinutes);
                 }
             }
         }
@@ -462,23 +531,23 @@ namespace GCAL.Base
 
             for (i = BEFORE_DAYS; i < m_PureCount + BEFORE_DAYS; i++)
             {
-                if (m_pData[i].astrodata.nTithi == m_pData[i - 1].astrodata.nTithi)
+                if (m_pData[i].astrodata.sunRise.Tithi == m_pData[i - 1].astrodata.sunRise.Tithi)
                 {
                     m_pData[i].vriddhiDayNo = 2;
                     if (GCDisplaySettings.getValue(GCDS.CAL_VRDDHI) != 0)
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_KSAYA, GCDS.CAL_VRDDHI, GCStrings.getString(90));
                 }
-                else if (m_pData[i].astrodata.nTithi != GCTithi.NEXT_TITHI(m_pData[i - 1].astrodata.nTithi))
+                else if (m_pData[i].astrodata.sunRise.Tithi != GCTithi.NEXT_TITHI(m_pData[i - 1].astrodata.sunRise.Tithi))
                 {
-                    m_pData[i - 1].ksayaTithi = GCTithi.NEXT_TITHI(m_pData[i - 1].astrodata.nTithi);
-                    m_pData[i - 1].ksayaMasa = (m_pData[i - 1].ksayaTithi == 0 ? m_pData[i].astrodata.nMasa : m_pData[i - 1].astrodata.nMasa);
+                    m_pData[i - 1].ksayaTithi = GCTithi.NEXT_TITHI(m_pData[i - 1].astrodata.sunRise.Tithi);
+                    m_pData[i - 1].ksayaMasa = (m_pData[i - 1].ksayaTithi == 0 ? m_pData[i].astrodata.Masa : m_pData[i - 1].astrodata.Masa);
 
                     String str;
                     GregorianDateTime day1, d1, d2;
 
                     day1 = new GregorianDateTime();
                     day1.Set(m_pData[i].date);
-                    day1.shour = m_pData[i].astrodata.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
+                    day1.shour = m_pData[i].astrodata.sunRise.TotalDays;
 
                     GCTithi.GetPrevTithiStart(earth, day1, out d2);
                     day1.Set(d2);
@@ -524,12 +593,13 @@ namespace GCAL.Base
             // init for sankranti
             GregorianDateTime date = new GregorianDateTime(m_pData[0].date);
             int i = 0;
+            GCEarthData earth = m_Location.GetEarthData();
             bool bFoundSan;
             int zodiac;
             int i_target;
             do
             {
-                date.Set(GCSankranti.GetNextSankranti(date, out zodiac));
+                date.Set(GCSankranti.GetNextSankranti(date, earth, out zodiac));
                 date.shour += m_Location.TimeZone.GetBiasMinutesForDay(date) / 1440.0;
                 date.NormalizeValues();
 
@@ -549,7 +619,7 @@ namespace GCAL.Base
                         case 1:
                             if (date.CompareYMD(m_pData[i].date) == 0)
                             {
-                                if (date.shour < m_pData[i].astrodata.sun.rise.GetDayTime())
+                                if (date.shour < m_pData[i].astrodata.sunRise.TotalDays)
                                 {
                                     i_target = i - 1;
                                 }
@@ -562,7 +632,7 @@ namespace GCAL.Base
                         case 2:
                             if (date.CompareYMD(m_pData[i].date) == 0)
                             {
-                                if (date.shour > m_pData[i].astrodata.sun.noon.GetDayTime())
+                                if (date.shour > m_pData[i].astrodata.sunNoon.TotalDays)
                                 {
                                     i_target = i + 1;
                                 }
@@ -575,7 +645,7 @@ namespace GCAL.Base
                         case 3:
                             if (date.CompareYMD(m_pData[i].date) == 0)
                             {
-                                if (date.shour > m_pData[i].astrodata.sun.set.GetDayTime())
+                                if (date.shour > m_pData[i].astrodata.sunSet.TotalDays)
                                 {
                                     i_target = i + 1;
                                 }
@@ -617,10 +687,10 @@ namespace GCAL.Base
             VAISNAVADAY t = m_pData[nIndex];
             VAISNAVADAY u = m_pData[nIndex + 1];
 
-            if (GCTithi.TITHI_EKADASI(t.astrodata.nTithi))
+            if (GCTithi.TITHI_EKADASI(t.astrodata.sunRise.Tithi))
             {
                 // if TAT < 11 then NOT_EKADASI
-                if (GCTithi.TITHI_LESS_EKADASI(t.astrodata.nTithiArunodaya))
+                if (GCTithi.TITHI_LESS_EKADASI(t.astrodata.sunArunodaya.Tithi))
                 {
                     t.nMahadvadasiID = MahadvadasiType.EV_NULL;
                     t.ekadasi_vrata_name = "";
@@ -629,33 +699,33 @@ namespace GCAL.Base
                 else
                 {
                     // else ak MD13 then MHD1 and/or 3
-                    if (GCTithi.TITHI_EKADASI(s.astrodata.nTithi) && GCTithi.TITHI_EKADASI(s.astrodata.nTithiArunodaya))
+                    if (GCTithi.TITHI_EKADASI(s.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunArunodaya.Tithi))
                     {
-                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.nTithi))
+                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.sunRise.Tithi))
                         {
                             t.nMahadvadasiID = MahadvadasiType.EV_UNMILANI_TRISPRSA;
-                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.nMasa, t.astrodata.nPaksa);
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
                             t.nFastID = FastType.FAST_EKADASI;
                         }
                         else
                         {
                             t.nMahadvadasiID = MahadvadasiType.EV_UNMILANI;
-                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.nMasa, t.astrodata.nPaksa);
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
                             t.nFastID = FastType.FAST_EKADASI;
                         }
                     }
                     else
                     {
-                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.nTithi))
+                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.sunRise.Tithi))
                         {
                             t.nMahadvadasiID = MahadvadasiType.EV_TRISPRSA;
-                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.nMasa, t.astrodata.nPaksa);
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
                             t.nFastID = FastType.FAST_EKADASI;
                         }
                         else
                         {
                             // else ak U je MAHADVADASI then NOT_EKADASI
-                            if (GCTithi.TITHI_EKADASI(u.astrodata.nTithi) || (u.nMahadvadasiID >= MahadvadasiType.EV_SUDDHA))
+                            if (GCTithi.TITHI_EKADASI(u.astrodata.sunRise.Tithi) || (u.nMahadvadasiID >= MahadvadasiType.EV_SUDDHA))
                             {
                                 t.nMahadvadasiID = MahadvadasiType.EV_NULL;
                                 t.ekadasi_vrata_name = "";
@@ -665,7 +735,7 @@ namespace GCAL.Base
                             {
                                 // else suddha ekadasi
                                 t.nMahadvadasiID = MahadvadasiType.EV_SUDDHA;
-                                t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.nMasa, t.astrodata.nPaksa);
+                                t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
                                 t.nFastID = FastType.FAST_EKADASI;
                             }
                         }
@@ -912,7 +982,7 @@ namespace GCAL.Base
             if (GCDisplaySettings.getValue(51) != 2 && fb.StartYear > -7000)
             {
                 String ss1;
-                int years = t.astrodata.nGaurabdaYear - (fb.StartYear - 1496);
+                int years = t.astrodata.GaurabdaYear - (fb.StartYear - 1496);
                 string appx = "th";
                 if (years % 10 == 1) appx = "st";
                 else if (years % 10 == 2) appx = "nd";
@@ -954,17 +1024,17 @@ namespace GCAL.Base
 
             // if yesterday is dvadasi
             // then we skip this day
-            if (GCTithi.TITHI_DVADASI(s.astrodata.nTithi))
+            if (GCTithi.TITHI_DVADASI(s.astrodata.sunRise.Tithi))
                 return 1;
 
-            if (TithiId.TITHI_GAURA_DVADASI == t.astrodata.nTithi && TithiId.TITHI_GAURA_DVADASI == t.astrodata.nTithiSunset && IsMhd58(nIndex, out nMahaType))
+            if (TithiId.TITHI_GAURA_DVADASI == t.astrodata.sunRise.Tithi && TithiId.TITHI_GAURA_DVADASI == t.astrodata.sunSet.Tithi && IsMhd58(nIndex, out nMahaType))
             {
                 t.nMahadvadasiID = nMahaType;
                 nMhdDay = nIndex;
             }
-            else if (GCTithi.TITHI_DVADASI(t.astrodata.nTithi))
+            else if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
             {
-                if (GCTithi.TITHI_DVADASI(u.astrodata.nTithi) && GCTithi.TITHI_EKADASI(s.astrodata.nTithi) && GCTithi.TITHI_EKADASI(s.astrodata.nTithiArunodaya))
+                if (GCTithi.TITHI_DVADASI(u.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunArunodaya.Tithi))
                 {
                     t.nMahadvadasiID = MahadvadasiType.EV_VYANJULI;
                     nMhdDay = nIndex;
@@ -974,7 +1044,7 @@ namespace GCAL.Base
                     t.nMahadvadasiID = MahadvadasiType.EV_PAKSAVARDHINI;
                     nMhdDay = nIndex;
                 }
-                else if (GCTithi.TITHI_LESS_EKADASI(s.astrodata.nTithiArunodaya))
+                else if (GCTithi.TITHI_LESS_EKADASI(s.astrodata.sunArunodaya.Tithi))
                 {
                     t.nMahadvadasiID = MahadvadasiType.EV_SUDDHA;
                     nMhdDay = nIndex;
@@ -985,7 +1055,7 @@ namespace GCAL.Base
             {
                 // fasting day
                 m_pData[nMhdDay].nFastID = FastType.FAST_EKADASI;
-                m_pData[nMhdDay].ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.nMasa, t.astrodata.nPaksa);
+                m_pData[nMhdDay].ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
                 m_pData[nMhdDay].ekadasi_parana = false;
                 m_pData[nMhdDay].eparana_time1 = 0.0;
                 m_pData[nMhdDay].eparana_time2 = 0.0;
@@ -1173,8 +1243,8 @@ namespace GCAL.Base
             double parBeg = -1.0, parEnd = -1.0;
             double tithi_len;
 
-            sunRise = t.astrodata.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
-            third_day = sunRise + t.astrodata.sun.length_deg / 1080.0;
+            sunRise = t.astrodata.sunRise.TotalDays;
+            third_day = sunRise + (t.astrodata.sunSet.TotalDays - sunRise)/3;
             tithi_len = GCTithi.GetTithiTimes(earth, t.date, out titBeg, out titEnd, sunRise);
             tithi_quart = tithi_len / 4.0 + titBeg;
 
@@ -1210,7 +1280,7 @@ namespace GCAL.Base
                 case MahadvadasiType.EV_VIJAYA:
 
                     naksEnd = GCNaksatra.GetEndHour(earth, s.date, t.date); //GetNextNaksatra(earth, snd, nend);
-                    if (GCTithi.TITHI_DVADASI(t.astrodata.nTithi))
+                    if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
                     {
                         if (naksEnd < titEnd)
                         {
@@ -1260,7 +1330,7 @@ namespace GCAL.Base
 
                     naksEnd = GCNaksatra.GetEndHour(earth, s.date, t.date); //GetNextNaksatra(earth, snd, nend);
 
-                    if (GCTithi.TITHI_DVADASI(t.astrodata.nTithi))
+                    if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
                     {
                         if (naksEnd < titEnd)
                         {
@@ -1325,7 +1395,7 @@ namespace GCAL.Base
                     else
                         t.eparana_type1 = EkadasiParanaType.EP_TYPE_4TITHI;
 
-                    if (GCTithi.TITHI_DVADASI(s.astrodata.nTithi))
+                    if (GCTithi.TITHI_DVADASI(s.astrodata.sunRise.Tithi))
                     {
                         parBeg = sunRise;
                         t.eparana_type1 = EkadasiParanaType.EP_TYPE_SUNRISE;

@@ -57,8 +57,11 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.printToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.printDocumentTable = new System.Drawing.Printing.PrintDocument();
             this.printMultipleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.ekadasiMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printDocumentTable = new System.Drawing.Printing.PrintDocument();
+            this.exportCompleteDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -124,7 +127,8 @@
             this.toolStripButton5,
             this.toolStripButton6,
             this.toolStripDropDownButton2,
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -333,16 +337,42 @@
             this.printToolStripMenuItem2.Text = "Print";
             this.printToolStripMenuItem2.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
-            // printDocumentTable
-            // 
-            this.printDocumentTable.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // printMultipleToolStripMenuItem
             // 
             this.printMultipleToolStripMenuItem.Name = "printMultipleToolStripMenuItem";
             this.printMultipleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.printMultipleToolStripMenuItem.Text = "Print Multiple";
             this.printMultipleToolStripMenuItem.Click += new System.EventHandler(this.printMultipleToolStripMenuItem_Click);
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ekadasiMapToolStripMenuItem,
+            this.exportCompleteDataToolStripMenuItem});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(60, 22);
+            this.toolStripSplitButton1.Text = "Special";
+            // 
+            // ekadasiMapToolStripMenuItem
+            // 
+            this.ekadasiMapToolStripMenuItem.Name = "ekadasiMapToolStripMenuItem";
+            this.ekadasiMapToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.ekadasiMapToolStripMenuItem.Text = "Ekadasi Map";
+            this.ekadasiMapToolStripMenuItem.Click += new System.EventHandler(this.ekadasiMapToolStripMenuItem_Click);
+            // 
+            // printDocumentTable
+            // 
+            this.printDocumentTable.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // exportCompleteDataToolStripMenuItem
+            // 
+            this.exportCompleteDataToolStripMenuItem.Name = "exportCompleteDataToolStripMenuItem";
+            this.exportCompleteDataToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.exportCompleteDataToolStripMenuItem.Text = "Export Complete Data";
+            this.exportCompleteDataToolStripMenuItem.Click += new System.EventHandler(this.exportCompleteDataToolStripMenuItem_Click);
             // 
             // CalendarTab
             // 
@@ -393,5 +423,8 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabelStart;
         private System.Windows.Forms.ToolStripLabel toolStripLabelEnd;
         private System.Windows.Forms.ToolStripMenuItem printMultipleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem ekadasiMapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportCompleteDataToolStripMenuItem;
     }
 }

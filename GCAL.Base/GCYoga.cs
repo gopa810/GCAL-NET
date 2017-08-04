@@ -10,10 +10,10 @@ namespace GCAL.Base
         public static int GetNextYogaStart(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
 	        double phi = 40.0/3.0;
-	        double l1, l2, sunl;
+	        double l1, l2, longitudeSun;
 	        double jday = startDate.GetJulianComplete();
 	        double xj;
-	        GCMoonData moon = new GCMoonData();
+            double longitudeMoon;
 	        GregorianDateTime d = new GregorianDateTime();
 	        d.Set(startDate);
 	        GregorianDateTime xd = new GregorianDateTime();
@@ -21,9 +21,10 @@ namespace GCAL.Base
 	        int prev_tit = 0;
 	        int new_tit = -1;
 	        double ayanamsha = GCAyanamsha.GetAyanamsa(jday);
-	        moon.Calculate(jday);
-	        sunl = GCSunData.GetSunLongitude(d);
-	        l1 = GCMath.putIn360( moon.longitude_deg + sunl - 2*ayanamsha);
+
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+	        l1 = GCMath.putIn360( longitudeMoon + longitudeSun - 2*ayanamsha);
 	        prev_tit = Convert.ToInt32(Math.Floor(l1/phi));
 
 	        int counter = 0;
@@ -40,9 +41,9 @@ namespace GCAL.Base
 			        d.NextDay();
 		        }
 
-		        moon.Calculate(jday);
-		        sunl = GCSunData.GetSunLongitude(d);
-		        l2 = GCMath.putIn360( moon.longitude_deg + sunl - 2*ayanamsha);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+		        l2 = GCMath.putIn360( longitudeMoon + longitudeSun - 2*ayanamsha);
 		        new_tit = Convert.ToInt32(Math.Floor(l2/phi));
 
 		        if (prev_tit != new_tit)

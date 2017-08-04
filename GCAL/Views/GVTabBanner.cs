@@ -358,7 +358,10 @@ namespace GCAL.Views
         public bool SelectTab(string tabTag)
         {
             if (Controller != null && p_selectedTab != null)
+            {
                 Controller.ExecuteMessage(MsgTabWillHide, new GSString(p_selectedTab));
+                GVTabBannerTab tabBanner = FindTab(tabTag);
+            }
             p_selectedTab = tabTag;
             if (ExistsTag(tabTag))
             {
@@ -369,6 +372,19 @@ namespace GCAL.Views
             }
 
             return false;
+        }
+
+        public GVTabBannerTab FindTab(string tag)
+        {
+            foreach (GVTabBannerTab t in Tabs)
+            {
+                if (t.TagName.Equals(tag))
+                {
+                    return t;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

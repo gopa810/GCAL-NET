@@ -34,6 +34,8 @@ namespace GCAL
         RatedEventsTabController ratedTab = null;
         TResultBase currentObject = null;
 
+        public bool DisplaySettingsChanged = false;
+
         public FrameMainController(FrameMain inframe)
         {
             frame = inframe;
@@ -98,6 +100,22 @@ namespace GCAL
                         }
                     }
                     break;
+                case GVTabBanner.MsgTabWillHide:
+                    {
+                        GSCore a2 = args.getSafe(0);
+                        switch (a2.getStringValue())
+                        {
+                            case "app":
+                                if (appTab != null)
+                                {
+                                    appTab.ExecuteMessage("saveSettings");
+                                    DisplaySettingsChanged = true;
+                                    frame.RefreshTitleText();
+                                }
+                                break;
+                        }
+                    }
+                    break;
                 case GVTabBanner.MsgTabChanged:
                     {
                         GSCore a2 = args.getSafe(0);
@@ -125,6 +143,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 calendarTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = calendarTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    calendarTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             case "events":
                                 if (coreEventsTab == null)
@@ -132,6 +155,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 coreEventsTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = coreEventsTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    coreEventsTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             case "appday":
                                 if (appDayTab == null)
@@ -142,6 +170,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 appDayTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = appDayTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    appDayTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             case "masalist":
                                 if (masaTab == null)
@@ -149,6 +182,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 masaTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = masaTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    masaTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             case "today":
                                 if (todayTab == null)
@@ -156,6 +194,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 todayTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = todayTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    todayTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             case "ratedevents":
                                 if (ratedTab == null)
@@ -163,6 +206,11 @@ namespace GCAL
                                 frame.TabBanner.RemoveAll();
                                 ratedTab.ShowInContainer(frame.TabBanner, GVControlAlign.Fill);
                                 currentObject = ratedTab.ExecuteMessage("getCurrentContent") as TResultBase;
+                                if (DisplaySettingsChanged)
+                                {
+                                    ratedTab.getView().Recalculate();
+                                    DisplaySettingsChanged = false;
+                                }
                                 break;
                             default:
                                 break;

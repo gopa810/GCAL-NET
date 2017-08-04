@@ -15,7 +15,31 @@ namespace GCAL.Base.VSOP87
         public static void Test()
         {
             StringBuilder sb = new StringBuilder();
+            /*
+            GregorianDateTime g = new GregorianDateTime(2017, 7, 27);
+            g.shour = 5.0;
+            g.TimezoneHours = 2.0;
 
+            GCEarthData e = new GCEarthData();
+            e.latitudeDeg = 48.0;
+            e.longitudeDeg = 17.0;
+
+
+            SuryaSiddhanta_by_VinayJha ss = new SuryaSiddhanta_by_VinayJha();
+
+            for (int i = 7; i < 31; i++)
+            {
+                g.day = i;
+                SuryaChandraData scd = ss.CalculateSunMoon(g, e);
+                int tithi = (int)(scd.dChandra - scd.dSurya) / 12;
+                if (tithi < 0) tithi += 30;
+                sb.AppendFormat("{0}   {1}\n", g.ToString(), tithi);
+            }
+
+            Debugger.Log(0,"", "\n------------ DATA ----------\n");
+            Debugger.Log(0,"", sb.ToString());*/
+
+            //e = null;
             //TestScripting1();
 
             //TestAscendant();
@@ -31,6 +55,7 @@ namespace GCAL.Base.VSOP87
             g.shour = 0.0;
             g.TimezoneHours = 0.0;
 
+            GCEarthData earth = GCGlobal.myLocation.GetEarthData();
             GCEarth e = new GCEarth();
             sb.AppendLine(string.Format("{0,12} {1,8} {2,-15}  ", "Date", "Time", "Julian"));
             sb.AppendLine("---------------------------------------------------------------------------------------");
@@ -38,7 +63,7 @@ namespace GCAL.Base.VSOP87
             {
                 double jd = g.GetJulianComplete();
                 double t = (jd - 2451545) / 365250;
-                double sl1 = GCSunData.GetSunLongitude(g);
+                double sl1 = GCCoreAstronomy.GetSunLongitude(g, earth);
                 double el, eb, er;
                 GCEarth.Calculate(jd, out el, out eb, out er);
                 double rl, rb, rr;
@@ -50,7 +75,7 @@ namespace GCAL.Base.VSOP87
                 sb.AppendLine();
                 for (int j = 5; j < 6; j++)
                 {
-                    GCAstronomy.GetGeocentricCoordinates(j, jd, out rl, out rb, out rr);
+                    GCVSOPAstronomy.GetGeocentricCoordinates(j, jd, out rl, out rb, out rr);
                     sb.AppendLine(string.Format("    {0,14} {1:F6}", GCStrings.GetPlanetNameEn(j), rl));
                 }
                 sb.AppendLine();

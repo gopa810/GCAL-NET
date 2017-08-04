@@ -62,6 +62,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox33
@@ -109,9 +110,9 @@
             this.checkBox29.AutoSize = true;
             this.checkBox29.Location = new System.Drawing.Point(29, 650);
             this.checkBox29.Name = "checkBox29";
-            this.checkBox29.Size = new System.Drawing.Size(85, 17);
+            this.checkBox29.Size = new System.Drawing.Size(104, 17);
             this.checkBox29.TabIndex = 79;
-            this.checkBox29.Text = "Sunset Time";
+            this.checkBox29.Text = "Brahma Muhurta";
             this.checkBox29.UseVisualStyleBackColor = true;
             // 
             // checkBox28
@@ -119,9 +120,9 @@
             this.checkBox28.AutoSize = true;
             this.checkBox28.Location = new System.Drawing.Point(29, 627);
             this.checkBox28.Name = "checkBox28";
-            this.checkBox28.Size = new System.Drawing.Size(78, 17);
+            this.checkBox28.Size = new System.Drawing.Size(99, 17);
             this.checkBox28.TabIndex = 78;
-            this.checkBox28.Text = "Noon Time";
+            this.checkBox28.Text = "Sandhya Times";
             this.checkBox28.UseVisualStyleBackColor = true;
             // 
             // checkBox27
@@ -418,10 +419,21 @@
             this.comboBox4.Size = new System.Drawing.Size(166, 21);
             this.comboBox4.TabIndex = 50;
             // 
+            // checkBox19
+            // 
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Location = new System.Drawing.Point(250, 673);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(84, 17);
+            this.checkBox19.TabIndex = 84;
+            this.checkBox19.Text = "Core Events";
+            this.checkBox19.UseVisualStyleBackColor = true;
+            // 
             // DispSetCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox19);
             this.Controls.Add(this.checkBox33);
             this.Controls.Add(this.checkBox32);
             this.Controls.Add(this.checkBox31);
@@ -500,5 +512,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.CheckBox checkBox19;
     }
 }

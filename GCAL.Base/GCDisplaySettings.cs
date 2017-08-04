@@ -95,6 +95,7 @@ namespace GCAL.Base
 	        new CShowSetting(0, 0, "CE13", "Abhijit Muhurta"), //64
 	        new CShowSetting(0, 0, "CE14", "Yoga Events"), //65
 	        new CShowSetting(1, 1, "CSYS", "Caturmasya System"), //66
+            new CShowSetting(0, 0, "CCEL", "Core Events in Calendar"),
 	        new CShowSetting(0, 0, null, null)
         };
 
@@ -195,6 +196,32 @@ namespace GCAL.Base
                 }
             }
         }
+
+        protected static List<int[]> SettingsStack = new List<int[]>();
+
+        public static void Push()
+        {
+            int[] arr = new int[gss.Length];
+            for (int i = 0; i < gss.Length; i++)
+            {
+                arr[i] = gss[i].val;
+            }
+
+            SettingsStack.Add(arr);
+        }
+
+        public static void Pop()
+        {
+            if (SettingsStack.Count > 0)
+            {
+                int[] arr = SettingsStack[SettingsStack.Count - 1];
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    gss[i].val = arr[i];
+                }
+                SettingsStack.RemoveAt(SettingsStack.Count - 1);
+            }
+        }
     }
 
     public sealed class GCDS
@@ -203,8 +230,8 @@ namespace GCAL.Base
         public static readonly int CAL_ARUN_TIME = 1;
         public static readonly int CAL_ARUN_TITHI = 0;
         public static readonly int CAL_SUN_RISE = 2;
-        public static readonly int CAL_SUN_NOON = 34;
-        public static readonly int CAL_SUN_SET = 3;
+        public static readonly int CAL_SUN_SANDHYA = 34;
+        public static readonly int CAL_BRAHMA_MUHURTA = 3;
         public static readonly int CAL_MOON_RISE = 4;
         public static readonly int CAL_MOON_SET = 5;
         public static readonly int CAL_KSAYA = 7;
@@ -248,6 +275,7 @@ namespace GCAL.Base
         public static readonly int COREEVENTS_SORT = 63;
         public static readonly int COREEVENTS_ABHIJIT_MUHURTA = 64;
         public static readonly int COREEVENTS_YOGA = 65;
+        public static readonly int CAL_COREEVENTS = 67;
     };
 
     public sealed class DisplayPriorities
@@ -273,6 +301,7 @@ namespace GCAL.Base
         public static readonly int PRIO_ARUN = 975;
         public static readonly int PRIO_SUN = 980;
         public static readonly int PRIO_MOON = 990;
+        public static readonly int PRIO_CORE_ASTRO = 995;
         public static readonly int PRIO_ASTRO = 1000;
 
     };

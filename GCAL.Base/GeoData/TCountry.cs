@@ -30,6 +30,10 @@ namespace GCAL.Base
         }
         public string Neighbours { get; set; }
 
+
+        public static TCountry DefaultCountry = new TCountry() { ISOCode = "UC", ISO3Code = "UCO", Name = "(Unknown Country)",
+        Population = 1000000, Area = 189230.0, Capital = "(Uknown City)", ContinentISOCode = "EP", Fips = "", Neighbours = ""};
+
         public override string ToString()
         {
             return Name;

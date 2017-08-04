@@ -72,6 +72,17 @@ namespace GCAL.CompositeViews
             }
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogAdvancedSettings dlg = new DialogAdvancedSettings();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                GCCoreAstronomy.System = dlg.SystemB;
+                Properties.Settings.Default.CoreAstroSystem = (int)dlg.SystemB;
+            }
+        }
     }
 
     public class DispSetGeneralDelegate : GVCore

@@ -8,87 +8,21 @@ namespace GCAL.Base
 {
     public class GCSunData
     {
-        public double length_deg;
-        public double arunodaya_deg;
-        public double sunrise_deg;
-        public double sunset_deg;
+        // ecliptical coordinates
+        // in degrees
+        public double longitudeDeg;
+        /// in degrees
+        public double meanLongitudeOfSun;
 
-        public double declination_deg;
-        public double longitude_deg;
-        public double longitude_set_deg;
-        public double longitude_arun_deg;
-        public double right_asc_deg;
+        // equatorial coordinates
+        // in degrees
+        public double declinationDeg;
+        // in degrees
+        public double rightAscensionDeg;
 
-        // time of arunodaya - 96 mins before sunrise
-        public GCHourTime arunodaya;
-        // time of sunrise
-        public GCHourTime rise;
-        // time of noon
-        public GCHourTime noon;
-        // time of sunset
-        public GCHourTime set;
-        // length of the day
-        public GCHourTime length;
+        /// in degrees
+        public double equationOfTime;
 
-
-
-        //
-        // takes values year, month, day, shour, TimeZone
-        //
-        public static double GetSunLongitude(GregorianDateTime vct)
-        {
-            //	double mel = 0.0;
-            double DG = GCMath.PI / 180;
-            double RAD = 180 / GCMath.PI;
-
-            // mean ecliptic longitude of the sun 
-            double mel = GCSunData.SunGetMeanLong(vct.year, vct.month, vct.day) + (360 / 365.25) * (vct.shour - 0.5 - vct.TimezoneHours / 24.0);
-
-            // ecliptic longitude of perigee 
-            double elp = GCSunData.SunGetPerigee(vct.year, vct.month, vct.day);
-
-            // mean anomaly of the sun
-            double mas = mel - elp;
-
-            // ecliptic longitude of the sun
-            //double els = 0.0;
-            return mel + 1.915 * Math.Sin(mas * DG) + 0.02 * Math.Sin(2 * DG * mas);
-
-            /*double tmpl, x;
-            double double = date.shour - date.TimeZone/24.0;
-            VCTIME tct;
-	
-            if (double < 0.5)
-            {
-                tct = date;
-                tct.PreviousDay();
-                tmpl = SunGetMeanLong(tct.year, tct.month, tct.day); 
-                mel = SunGetMeanLong(date.year, date.month, date.day);
-                x = 0.5 + double;
-                mel = tmpl * (1-x) + mel * x;
-            }
-            else
-            {
-                tct = date;
-                tct.NextDay();
-                mel = SunGetMeanLong(tct.year, tct.month, tct.day);
-                tmpl = SunGetMeanLong(date.year, date.month, date.day);
-                x = double - 0.5;
-                mel = tmpl * (1-x) + mel * x;
-            }
-
-            //mel = SunGetMeanLong(date.year, date.month, date.day);
-
-            // ecliptic longitude of perigee 
-            double elp = SunGetPerigee(date.year, date.month, date.day);
-
-            // mean anomaly of the sun in GCMath::RADS
-            double mas = (mel - elp) * pi / 180.0;
-
-            // ecliptic longitude of the sun
-            return (mel + 1.915 * sin(mas) + 0.02 * sin (2 * mas));
-        */
-        }
 
         static double[] sun_long = {
 		339.226,009.781,039.351,069.906,099.475,130.030,160.585,190.155,220.710,250.279,280.834,311.390,
@@ -142,7 +76,7 @@ namespace GCAL.Base
         // find mean ecliptic longitude of the sun for your chosen day
         //
 
-        public static double SunGetMeanLong(int year, int month, int day)
+        private static double SunGetMeanLong(int year, int month, int day)
         {
             /*	VCTIME date;
 
@@ -315,7 +249,7 @@ namespace GCAL.Base
         // for the mean summer solstice of your chosen year 
         // (and effectively for the entire year)
 
-        public static double SunGetPerigee(int year, int month, int day)
+        private static double SunGetPerigee(int year, int month, int day)
         {
 
             double per = 0.0;
@@ -360,18 +294,101 @@ namespace GCAL.Base
         // from vct uses members: year, month, day
         // double is in range 0.0 - 1.0
 
-        public void SunPosition(GregorianDateTime vct, GCEarthData ed, double dayHours)
+        private void SunPosition(GregorianDateTime vct, GCEarthData ed, double dayHours)
         {
             double DG = GCMath.PI / 180;
             double RAD = 180 / GCMath.PI;
-
-            double x;
 
             double dLatitude = ed.latitudeDeg;
             double dLongitude = ed.longitudeDeg;
 
             // mean ecliptic longitude of the sun 
-            double mel = GCSunData.SunGetMeanLong(vct.year, vct.month, vct.day) + (360 / 365.25) * dayHours / 360.0;
+            meanLongitudeOfSun = GCSunData.SunGetMeanLong(vct.year, vct.month, vct.day) + (360 / 365.25) * dayHours / 360.0;
+
+            // ecliptic longitude of perigee 
+            double elp = GCSunData.SunGetPerigee(vct.year, vct.month, vct.day);
+
+            // mean anomaly of the sun
+            double mas = meanLongitudeOfSun - elp;
+
+            // ecliptic longitude of the sun
+            double els = 0.0;
+            this.longitudeDeg = els = meanLongitudeOfSun + 1.915 * Math.Sin(mas * DG) + 0.02 * Math.Sin(2 * DG * mas);
+
+            // declination of the sun
+            this.declinationDeg = RAD * Math.Asin(0.39777 * Math.Sin(els * DG));
+
+            // right ascension of the sun
+            this.rightAscensionDeg = els - RAD * Math.Atan2(Math.Sin(2 * els * DG), 23.2377 + Math.Cos(2 * DG * els));
+
+            // equation of time
+            equationOfTime = this.rightAscensionDeg - meanLongitudeOfSun;
+        }
+
+        public static GCHourTime CalcSunrise(GregorianDateTime vct, GCEarthData earth)
+        {
+            double tempSunrise = 180.0;
+            GCSunData sun = new GCSunData();
+
+            for (int i = 0; i < 3; i++)
+            {
+                sun.SunPosition(vct, earth, tempSunrise - 180.0);
+
+                double x;
+                // definition of event
+                double eventdef = 0.01454;
+                /*	switch(ed.obs)
+                    {
+                    case 1:	// civil twilight
+                        eventdef = 0.10453;
+                        break;
+                    case 2:	// nautical twilight
+                        eventdef = 0.20791;
+                        break;
+                    case 3:	// astronomical twilight
+                        eventdef = 0.30902;
+                        break;
+                    default:// center of the sun on the horizont
+                        eventdef = 0.01454;
+                        break;
+                    }*/
+
+                eventdef = (eventdef / GCMath.cosDeg(earth.latitudeDeg)) / GCMath.cosDeg(sun.declinationDeg);
+
+                x = GCMath.tanDeg(earth.latitudeDeg) * GCMath.tanDeg(sun.declinationDeg) + eventdef;
+
+                if ((x >= -1.0) && (x <= 1.0))
+                {
+                    // time of sunrise
+                    tempSunrise = 90.0 - earth.longitudeDeg - GCMath.arcSinDeg(x) + sun.equationOfTime;
+                }
+                else
+                {
+                    // initial values for the case
+                    // that no rise no set for that day
+                    tempSunrise = -360.0;
+                    break;
+                }
+            }
+
+            GCHourTime result = new GCHourTime();
+            result.longitude = sun.longitudeDeg;
+            result.SetDegTime(tempSunrise + earth.OffsetUtcHours * 15.0);
+            return result;
+        }
+
+
+        //
+        // takes values year, month, day, shour, TimeZone
+        //
+        public static double GetSunLongitude(GregorianDateTime vct)
+        {
+            //	double mel = 0.0;
+            double DG = GCMath.PI / 180;
+            double RAD = 180 / GCMath.PI;
+
+            // mean ecliptic longitude of the sun 
+            double mel = GCSunData.SunGetMeanLong(vct.year, vct.month, vct.day) + (360 / 365.25) * (vct.shour - 0.5 - vct.TimezoneHours / 24.0);
 
             // ecliptic longitude of perigee 
             double elp = GCSunData.SunGetPerigee(vct.year, vct.month, vct.day);
@@ -380,115 +397,70 @@ namespace GCAL.Base
             double mas = mel - elp;
 
             // ecliptic longitude of the sun
-            double els = 0.0;
-            this.longitude_deg = els = mel + 1.915 * Math.Sin(mas * DG) + 0.02 * Math.Sin(2 * DG * mas);
-
-            // declination of the sun
-            this.declination_deg = RAD * Math.Asin(0.39777 * Math.Sin(els * DG));
-
-            // right ascension of the sun
-            this.right_asc_deg = els - RAD * Math.Atan2(Math.Sin(2 * els * DG), 23.2377 + Math.Cos(2 * DG * els));
-
-            // equation of time
-            double eqt = 0.0;
-            eqt = this.right_asc_deg - mel;
-
-
-            // definition of event
-            double eventdef = 0.01454;
-            /*	switch(ed.obs)
-                {
-                case 1:	// civil twilight
-                    eventdef = 0.10453;
-                    break;
-                case 2:	// nautical twilight
-                    eventdef = 0.20791;
-                    break;
-                case 3:	// astronomical twilight
-                    eventdef = 0.30902;
-                    break;
-                default:// center of the sun on the horizont
-                    eventdef = 0.01454;
-                    break;
-                }*/
-
-            eventdef = (eventdef / Math.Cos(dLatitude * DG)) / Math.Cos(this.declination_deg * DG);
-
-            x = Math.Tan(dLatitude * DG) * Math.Tan(this.declination_deg * DG) + eventdef;
-
-            // initial values for the case
-            // that no rise no set for that day
-            this.sunrise_deg = this.sunset_deg = -360.0;
-
-            if ((x >= -1.0) && (x <= 1.0))
-            {
-                // time of sunrise
-                this.sunrise_deg = 90.0 - dLongitude - RAD * Math.Asin(x) + eqt;
-
-                // time of sunset
-                this.sunset_deg = 270.0 - dLongitude + RAD * Math.Asin(x) + eqt;
-            }
-
-
-
+            //double els = 0.0;
+            return mel + 1.915 * Math.Sin(mas * DG) + 0.02 * Math.Sin(2 * DG * mas);
         }
 
-
-        //////////////////////////////////////////////////////////////////////////////////
-        //
-        // return values are in sun.arunodaya, sun.rise, sun.set, sun.noon, sun.length
-        // if values are less than zero, that means, no sunrise, no sunset in that day
-        //
-        // brahma 1 = calculation at brahma muhurta begining
-        // brahma 0 = calculation at sunrise
-
-
-        public void SunCalc(GregorianDateTime vct, GCEarthData earth)
+        public static double RiseAngleLevel
         {
-            GCSunData s_rise = new GCSunData();
-            GCSunData s_set = new GCSunData();
+            get
+            {
+                double eventdef = 0.01454;
+                /*	switch(ed.obs)
+                    {
+                    case 1:	// civil twilight
+                        eventdef = 0.10453;
+                        break;
+                    case 2:	// nautical twilight
+                        eventdef = 0.20791;
+                        break;
+                    case 3:	// astronomical twilight
+                        eventdef = 0.30902;
+                        break;
+                    default:// center of the sun on the horizont
+                        eventdef = 0.01454;
+                        break;
+                    }*/
+                return eventdef;
+            }
+        }
+
+        public static GCHourTime CalcSunset(GregorianDateTime vct, GCEarthData earth)
+        {
+            double tempSunset = 180.0;
+            GCSunData sun = new GCSunData();
+
+            for (int i = 0; i < 3; i++)
+            {
+                sun.SunPosition(vct, earth, tempSunset - 180.0);
+
+                double x;
+                // definition of event
+                double eventdef = GCSunData.RiseAngleLevel;
+
+                eventdef = (eventdef / GCMath.cosDeg(earth.latitudeDeg)) / GCMath.cosDeg(sun.declinationDeg);
+
+                x = GCMath.tanDeg(earth.latitudeDeg) * GCMath.tanDeg(sun.declinationDeg) + eventdef;
 
 
-            // first calculation
-            // for 12:00 universal time
-            s_rise.SunPosition(vct, earth, 0.0);
-            // second calculation
-            // for time of sunrise
-            s_rise.SunPosition(vct, earth, s_rise.sunrise_deg - 180);
-            // third (last) calculation
-            // for time of sunrise
-            s_rise.SunPosition(vct, earth, s_rise.sunrise_deg - 180);
-            // first calculation
-            // for 12:00 universal time
-            s_set.SunPosition(vct, earth, 0.0);
-            // second calculation
-            // for time of sunrise
-            s_set.SunPosition(vct, earth, s_set.sunset_deg - 180);
-            // third (last) calculation
-            // for time of sunrise
-            s_set.SunPosition(vct, earth, s_set.sunset_deg - 180);
+                if ((x >= -1.0) && (x <= 1.0))
+                {
+                    // time of sunset
+                    tempSunset = 270.0 - earth.longitudeDeg + GCMath.arcSinDeg(x) + sun.equationOfTime;
+                }
+                else
+                {
+                    // initial values for the case
+                    // that no rise no set for that day
+                    tempSunset = -360.0;
+                    break;
+                }
+            }
 
-            // calculate times
-            this.longitude_arun_deg = s_rise.longitude_deg - (24.0 / 365.25);
-            this.longitude_deg = s_rise.longitude_deg;
-            this.longitude_set_deg = s_set.longitude_deg;
-
-            this.arunodaya_deg = s_rise.sunrise_deg - 24.0;
-            this.sunrise_deg = s_rise.sunrise_deg;
-            this.sunset_deg = s_set.sunset_deg;
-            this.length_deg = s_set.sunset_deg - s_rise.sunrise_deg;
-
-            // arunodaya is 96 min before sunrise
-            //  sunrise_deg is from range 0-360 so 96min=24deg
-            this.arunodaya.SetDegTime(this.arunodaya_deg + earth.OffsetUtcHours * 15.0);
-            // sunrise
-            this.rise.SetDegTime(this.sunrise_deg + earth.OffsetUtcHours * 15.0);
-            // noon
-            this.noon.SetDegTime((this.sunset_deg + this.sunrise_deg) / 2 + earth.OffsetUtcHours * 15.0);
-            // sunset
-            this.set.SetDegTime(this.sunset_deg + earth.OffsetUtcHours * 15.0);
-            // length
-            this.length.SetDegTime(this.length_deg);
+            GCHourTime result = new GCHourTime();
+            result.longitude = sun.longitudeDeg;
+            result.SetDegTime(tempSunset + earth.OffsetUtcHours * 15.0);
+            return result;
 
         }
 
@@ -660,7 +632,6 @@ namespace GCAL.Base
             coords.elevation = el;
             return coords;
         }
-
 
     }
 

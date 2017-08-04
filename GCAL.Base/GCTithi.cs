@@ -22,10 +22,9 @@ namespace GCAL.Base
         public static int GetNextTithiStart(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
             double phi = 12.0;
-            double l1, l2, sunl, sun2;
+            double l1, l2, longitudeSun, longitudeMoon;
             double jday = startDate.GetJulianComplete();
             double xj;
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(startDate);
             GregorianDateTime xd = new GregorianDateTime();
@@ -33,10 +32,9 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday);
-            sunl = GCSunData.GetSunLongitude(d);
-            //	SunPosition(d, ed, sun, d.shour - 0.5 + d.tzone/24.0);
-            l1 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
+            longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            l1 = GCMath.putIn360(longitudeMoon - longitudeSun - 180.0);
             prev_tit = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -53,11 +51,9 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday);
-                //SunPosition(d, ed, sun, d.shour - 0.5 + d.tzone/24.0);
-                //l2 = GCMath.putIn360(moon.longitude_deg - sun.longitude_deg - 180.0);
-                sunl = GCSunData.GetSunLongitude(d);
-                l2 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
+                longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                l2 = GCMath.putIn360(longitudeMoon - longitudeSun - 180.0);
                 new_tit = GCMath.IntFloor(l2 / phi);
 
                 if (prev_tit != new_tit)
@@ -90,10 +86,9 @@ namespace GCAL.Base
         public static int GetPrevTithiStart(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
             double phi = 12.0;
-            double l1, l2, sunl;
+            double l1, l2, longitudeSun, longitudeMoon;
             double jday = startDate.GetJulianComplete();
             double xj;
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(startDate);
             GregorianDateTime xd = new GregorianDateTime();
@@ -101,9 +96,9 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday);
-            sunl = GCSunData.GetSunLongitude(d);
-            l1 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+            l1 = GCMath.putIn360(longitudeMoon - longitudeSun - 180.0);
             prev_tit = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -120,9 +115,9 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday);
-                sunl = GCSunData.GetSunLongitude(d);
-                l2 = GCMath.putIn360(moon.longitude_deg - sunl - 180.0);
+                longitudeSun = GCCoreAstronomy.GetSunLongitude(d, ed);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                l2 = GCMath.putIn360(longitudeMoon - longitudeSun - 180.0);
                 new_tit = GCMath.IntFloor(l2 / phi);
 
                 if (prev_tit != new_tit)
@@ -219,11 +214,11 @@ namespace GCAL.Base
             {
                 d.AddDays(13);
                 day.DayCalc(d, earth);
-                day.nMasa = day.MasaCalc(d, earth);
-                gy = day.nGaurabdaYear;
+                day.Masa = day.MasaCalc(d, earth);
+                gy = day.GaurabdaYear;
                 i++;
             }
-            while (((day.nPaksa != nPaksa) || (day.nMasa != nMasa)) && (i <= 30));
+            while (((day.sunRise.Paksa != nPaksa) || (day.Masa != nMasa)) && (i <= 30));
 
             if (i >= 30)
             {
@@ -236,7 +231,7 @@ namespace GCAL.Base
             // now we have to find tithi
             tithi = nTithi + nPaksa * 15;
 
-            if (day.nTithi == tithi)
+            if (day.sunRise.Tithi == tithi)
             {
                 // loc1
                 // find tithi juncts in this day and according to that times,
@@ -245,7 +240,7 @@ namespace GCAL.Base
             }
             else
             {
-                if (day.nTithi < tithi)
+                if (day.sunRise.Tithi < tithi)
                 {
                     // do increment of date until nTithi == tithi
                     //   but if nTithi > tithi
@@ -255,14 +250,14 @@ namespace GCAL.Base
                     {
                         d.NextDay();
                         day.DayCalc(d, earth);
-                        if (day.nTithi == tithi)
+                        if (day.sunRise.Tithi == tithi)
                             goto cont_2;
-                        if ((day.nTithi < tithi) && (day.nPaksa != nPaksa))
+                        if ((day.sunRise.Tithi < tithi) && (day.sunRise.Paksa != nPaksa))
                         {
                             d.PreviousDay();
                             goto cont_2;
                         }
-                        if (day.nTithi > tithi)
+                        if (day.sunRise.Tithi > tithi)
                         {
                             d.PreviousDay();
                             goto cont_2;
@@ -281,13 +276,13 @@ namespace GCAL.Base
                     {
                         d.PreviousDay();
                         day.DayCalc(d, earth);
-                        if (day.nTithi == tithi)
+                        if (day.sunRise.Tithi == tithi)
                             goto cont_2;
-                        if ((day.nTithi > tithi) && (day.nPaksa != nPaksa))
+                        if ((day.sunRise.Tithi > tithi) && (day.sunRise.Paksa != nPaksa))
                         {
                             goto cont_2;
                         }
-                        if (day.nTithi < tithi)
+                        if (day.sunRise.Tithi < tithi)
                         {
                             goto cont_2;
                         }
@@ -299,7 +294,7 @@ namespace GCAL.Base
 
                 }
             cont_2:
-                if (day.nTithi == tithi)
+                if (day.sunRise.Tithi == tithi)
                 {
                     // do the same as in loc1
                     nType = 1;
@@ -321,7 +316,7 @@ namespace GCAL.Base
             // nType = 2 means, we found day, when tithi started after sunrise
             //                  but ended before next sunrise
             //
-            sunrise = day.sun.sunrise_deg / 360 + earth.OffsetUtcHours / 24;
+            sunrise = day.sunRise.TotalDays;
             endTithi = new GregorianDateTime();
             if (nType == 1)
             {
@@ -389,8 +384,8 @@ namespace GCAL.Base
                 d.NextDay();
 
                 day.DayCalc(d, earth);
-                day.nMasa = day.MasaCalc(d, earth);
-                gy = day.nGaurabdaYear;
+                day.Masa = day.MasaCalc(d, earth);
+                gy = day.GaurabdaYear;
             }
             else
             {
@@ -411,11 +406,11 @@ namespace GCAL.Base
                 {
                     d.AddDays(13);
                     day.DayCalc(d, earth);
-                    day.nMasa = day.MasaCalc(d, earth);
-                    gy = day.nGaurabdaYear;
+                    day.Masa = day.MasaCalc(d, earth);
+                    gy = day.GaurabdaYear;
                     i++;
                 }
-                while (((day.nPaksa != nPaksa) || (day.nMasa != nMasa)) && (i <= 30));
+                while (((day.sunRise.Paksa != nPaksa) || (day.Masa != nMasa)) && (i <= 30));
             }
 
             if (i >= 30)
@@ -428,21 +423,21 @@ namespace GCAL.Base
             // now we have to find tithi
             tithi = nTithi + nPaksa * 15;
 
-            if (day.nTithi == tithi)
+            if (day.sunRise.Tithi == tithi)
             {
                 // loc1
                 // find tithi juncts in this day and according to that times,
                 // look in previous or next day for end and start of this tithi
                 d.PreviousDay();
                 day.DayCalc(d, earth);
-                if ((day.nTithi > tithi) && (day.nPaksa != nPaksa))
+                if ((day.sunRise.Tithi > tithi) && (day.sunRise.Paksa != nPaksa))
                 {
                     d.NextDay();
                 }
                 return d;
             }
 
-            if (day.nTithi < tithi)
+            if (day.sunRise.Tithi < tithi)
             {
                 // do increment of date until nTithi == tithi
                 //   but if nTithi > tithi
@@ -452,11 +447,11 @@ namespace GCAL.Base
                 {
                     d.NextDay();
                     day.DayCalc(d, earth);
-                    if (day.nTithi == tithi)
+                    if (day.sunRise.Tithi == tithi)
                         return d;
-                    if ((day.nTithi < tithi) && (day.nPaksa != nPaksa))
+                    if ((day.sunRise.Tithi < tithi) && (day.sunRise.Paksa != nPaksa))
                         return d;
-                    if (day.nTithi > tithi)
+                    if (day.sunRise.Tithi > tithi)
                         return d;
                     counter++;
                 }
@@ -472,14 +467,14 @@ namespace GCAL.Base
                 {
                     d.PreviousDay();
                     day.DayCalc(d, earth);
-                    if (day.nTithi == tithi)
+                    if (day.sunRise.Tithi == tithi)
                         return d;
-                    if ((day.nTithi > tithi) && (day.nPaksa != nPaksa))
+                    if ((day.sunRise.Tithi > tithi) && (day.sunRise.Paksa != nPaksa))
                     {
                         d.NextDay();
                         return d;
                     }
-                    if (day.nTithi < tithi)
+                    if (day.sunRise.Tithi < tithi)
                     {
                         d.NextDay();
                         return d;
@@ -541,7 +536,7 @@ namespace GCAL.Base
 
                 day.DayCalc(vc, earth);
 
-                d.shour = day.sun.sunrise_deg / 360.0 + loc.OffsetUtcHours / 24.0;
+                d.shour = day.sunRise.TotalDays;
 
                 GCTithi.GetPrevTithiStart(earth, d, out d1);
                 GCTithi.GetNextTithiStart(earth, d, out d2);
@@ -550,10 +545,10 @@ namespace GCAL.Base
                     dt.SetDegTime(d1.shour * 360);
                     // start tithi at t[0]
                     xml.Write("\t\t<tithi\n\t\t\tid=\"");
-                    xml.Write(day.nTithi);
+                    xml.Write(day.sunRise.Tithi);
                     xml.Write("\"\n");
                     xml.Write("\t\t\tname=\"");
-                    xml.Write(GCTithi.GetName(day.nTithi));
+                    xml.Write(GCTithi.GetName(day.sunRise.Tithi));
                     xml.Write("\"\n");
                     xml.Write("\t\t\tstartdate=\"");
                     xml.Write(d1);
@@ -639,7 +634,7 @@ namespace GCAL.Base
 
                 GCEarthData earth = loc.GetEarthData();
                 GregorianDateTime vcs = new GregorianDateTime(), vce = new GregorianDateTime(), today = new GregorianDateTime();
-                GCSunData sun = new GCSunData();
+                GCHourTime sun = new GCHourTime();
                 int A, B;
                 double sunrise;
                 GCAstroData day = new GCAstroData();
@@ -682,13 +677,13 @@ namespace GCAL.Base
                     // test ci je ksaya
                     today.Set(vcs);
                     today.shour = 0.5;
-                    sun.SunCalc(today, earth);
-                    sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
+                    sun = GCSunData.CalcSunrise(today, earth);
+                    sunrise = sun.TotalDays;
                     if (sunrise < vcs.shour)
                     {
                         today.Set(vce);
-                        sun.SunCalc(today, earth);
-                        sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
+                        sun = GCSunData.CalcSunrise(today, earth);
+                        sunrise = sun.TotalDays;
                         if (sunrise < vce.shour)
                         {
                             // normal type
@@ -700,10 +695,10 @@ namespace GCAL.Base
                             // ksaya
                             vcs.NextDay();
                             day.DayCalc(vcs, earth);
-                            oTithi = day.nTithi;
-                            oPaksa = day.nPaksa;
+                            oTithi = day.sunRise.Tithi;
+                            oPaksa = day.sunRise.Paksa;
                             oMasa = day.MasaCalc(vcs, earth);
-                            oYear = day.nGaurabdaYear;
+                            oYear = day.GaurabdaYear;
                             xml.Write("\t\ttype=\"ksaya\"\n");
                         }
                     }
@@ -711,8 +706,8 @@ namespace GCAL.Base
                     {
                         // normal, alebo prvy den vriddhi
                         today.Set(vce);
-                        sun.SunCalc(today, earth);
-                        if ((sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360 < vce.shour)
+                        sun = GCSunData.CalcSunrise(today, earth);
+                        if (sun.TotalDays < vce.shour)
                         {
                             // first day of vriddhi type
                             xml.Write("\t\ttype=\"vriddhi\"\n");
@@ -748,7 +743,7 @@ namespace GCAL.Base
         public static int writeGaurabdaNextTithiXml(string fileName, GCLocation loc, GregorianDateTime vcStart, GaurabdaDate vaStart)
         {
             int gmasa, gpaksa, gtithi;
-
+            GCHourTime sunRise;
 
             using (StreamWriter xml = new StreamWriter(fileName))
             {
@@ -787,7 +782,7 @@ namespace GCAL.Base
 
                 GCEarthData earth = loc.GetEarthData();
                 GregorianDateTime vcs = new GregorianDateTime(), vce = new GregorianDateTime(), today = new GregorianDateTime();
-                GCSunData sun = new GCSunData();
+                //GCSunData sun = new GCSunData();
                 int A;
                 double sunrise;
                 GCAstroData day = new GCAstroData();
@@ -819,13 +814,13 @@ namespace GCAL.Base
                         // test ci je ksaya
                         today.Set(vcs);
                         today.shour = 0.5;
-                        sun.SunCalc(today, earth);
-                        sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
+                        sunRise = GCSunData.CalcSunrise(today, earth);
+                        sunrise = sunRise.TotalDays;
                         if (sunrise < vcs.shour)
                         {
                             today.Set(vce);
-                            sun.SunCalc(today, earth);
-                            sunrise = (sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360;
+                            sunRise = GCSunData.CalcSunrise(today, earth);
+                            sunrise = sunRise.TotalDays;
                             if (sunrise < vce.shour)
                             {
                                 // normal type
@@ -837,10 +832,10 @@ namespace GCAL.Base
                                 // ksaya
                                 vcs.NextDay();
                                 day.DayCalc(vcs, earth);
-                                oTithi = day.nTithi;
-                                oPaksa = day.nPaksa;
+                                oTithi = day.sunRise.Tithi;
+                                oPaksa = day.sunRise.Paksa;
                                 oMasa = day.MasaCalc(vcs, earth);
-                                oYear = day.nGaurabdaYear;
+                                oYear = day.GaurabdaYear;
                                 xml.Write("\t\ttype=\"ksaya\"\n");
                             }
                         }
@@ -848,8 +843,8 @@ namespace GCAL.Base
                         {
                             // normal, alebo prvy den vriddhi
                             today.Set(vce);
-                            sun.SunCalc(today, earth);
-                            if ((sun.sunrise_deg + loc.OffsetUtcHours * 15.0) / 360 < vce.shour)
+                            sunRise = GCSunData.CalcSunrise(today, earth);
+                            if (sunRise.TotalDays < vce.shour)
                             {
                                 // first day of vriddhi type
                                 xml.Write("\t\ttype=\"vriddhi\"\n");

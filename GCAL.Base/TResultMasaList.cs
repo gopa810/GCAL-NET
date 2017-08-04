@@ -87,11 +87,11 @@ namespace GCAL.Base
             while (d.IsBeforeThis(de))
             {
                 day.DayCalc(d, earth);
-                if (prev_paksa != day.nPaksa)
+                if (prev_paksa != day.sunRise.Paksa)
                 {
-                    day.nMasa = day.MasaCalc(d, earth);
+                    day.Masa = day.MasaCalc(d, earth);
 
-                    if (lm != day.nMasa)
+                    if (lm != day.Masa)
                     {
                         if (lm >= 0)
                         {
@@ -102,15 +102,15 @@ namespace GCAL.Base
                             mlist.arr[current].vc_end = new GregorianDateTime(t);
                             current++;
                         }
-                        lm = day.nMasa;
+                        lm = day.Masa;
                         if (mlist.arr.Count <= current)
                             mlist.arr.Add(new TResultMasa());
-                        mlist.arr[current].masa = day.nMasa;
-                        mlist.arr[current].year = day.nGaurabdaYear;
+                        mlist.arr[current].masa = day.Masa;
+                        mlist.arr[current].year = day.GaurabdaYear;
                         mlist.arr[current].vc_start = new GregorianDateTime(d);
                     }
                 }
-                prev_paksa = day.nPaksa;
+                prev_paksa = day.sunRise.Paksa;
                 d.NextDay();
                 i++;
             }

@@ -1,17 +1,20 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCAL", "GCAL\GCAL.csproj", "{861D0347-4C88-4F89-97E3-FC59757556E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCAL.Base", "GCAL.Base\GCAL.Base.csproj", "{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GCAL Setup", "GCAL Setup\GCAL Setup.vdproj", "{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release SiddhantaPanchang|Any CPU = Release SiddhantaPanchang|Any CPU
+		Release SiddhantaPanchang|Mixed Platforms = Release SiddhantaPanchang|Mixed Platforms
+		Release SiddhantaPanchang|x86 = Release SiddhantaPanchang|x86
 		Release|Any CPU = Release|Any CPU
 		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
@@ -22,6 +25,11 @@ Global
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Debug|x86.ActiveCfg = Debug|x86
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Debug|x86.Build.0 = Debug|x86
+		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release SiddhantaPanchang|Any CPU.ActiveCfg = Release SiddhantaPanchang|x86
+		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release SiddhantaPanchang|Mixed Platforms.ActiveCfg = Release SiddhantaPanchang|x86
+		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release SiddhantaPanchang|Mixed Platforms.Build.0 = Release SiddhantaPanchang|x86
+		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release SiddhantaPanchang|x86.ActiveCfg = Release SiddhantaPanchang|x86
+		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release SiddhantaPanchang|x86.Build.0 = Release SiddhantaPanchang|x86
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release|Any CPU.ActiveCfg = Release|x86
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{861D0347-4C88-4F89-97E3-FC59757556E4}.Release|Mixed Platforms.Build.0 = Release|x86
@@ -32,17 +40,16 @@ Global
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release SiddhantaPanchang|Any CPU.ActiveCfg = Release SiddhantaPanchang|Any CPU
+		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release SiddhantaPanchang|Any CPU.Build.0 = Release SiddhantaPanchang|Any CPU
+		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release SiddhantaPanchang|Mixed Platforms.ActiveCfg = Release SiddhantaPanchang|Any CPU
+		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release SiddhantaPanchang|Mixed Platforms.Build.0 = Release SiddhantaPanchang|Any CPU
+		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release SiddhantaPanchang|x86.ActiveCfg = Release SiddhantaPanchang|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5CB62E2A-5F73-4B8F-9509-CE0EC54DA1D9}.Release|x86.ActiveCfg = Release|Any CPU
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|Any CPU.ActiveCfg = Debug
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Debug|x86.ActiveCfg = Debug
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|Any CPU.ActiveCfg = Release
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|Mixed Platforms.ActiveCfg = Release
-		{AA8498D7-778C-47E4-9D34-9B2C250DEEE8}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

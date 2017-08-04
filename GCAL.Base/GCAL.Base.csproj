@@ -30,6 +30,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release SiddhantaPanchang|AnyCPU'">
+    <OutputPath>bin\Release SiddhantaPanchang\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\GCAL.Base.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GCAscendant.cs" />
+    <Compile Include="GCCoreAstronomy.cs" />
     <Compile Include="GCConfigRatedEvents.cs" />
     <Compile Include="GCConfigRatedManager.cs" />
     <Compile Include="GCDataFormat.cs" />
@@ -91,8 +108,9 @@
     <Compile Include="GCEkadasi.cs" />
     <Compile Include="GCMasa.cs" />
     <Compile Include="GCPaksa.cs" />
+    <Compile Include="SuryaSiddhanta.cs" />
     <Compile Include="TResultBase.cs" />
-    <Compile Include="VSOP87\GCAstronomy.cs" />
+    <Compile Include="VSOP87\GCVSOPAstronomy.cs" />
     <Compile Include="VSOP87\GCEarth.cs" />
     <Compile Include="GCHourTime.cs" />
     <Compile Include="Enums.cs" />
@@ -270,6 +288,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TplCalendarSadhana.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TplCalendarHtmlComplete.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

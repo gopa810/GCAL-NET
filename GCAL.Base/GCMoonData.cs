@@ -7,12 +7,6 @@ namespace GCAL.Base
 {
     public class GCMoonData
     {
-        /*// illumination (synodic) phase
-double ip;
-// age of moon
-int age;
-// distance from anomalistic phase
-double di;*/
         // latitude from nodal (draconic) phase
         public double latitude_deg;
         // longitude from sidereal motion
@@ -72,13 +66,13 @@ double di;*/
 
             // inicializacia prvej hodnoty ELEVATION
             vc.shour = (-biasHours - 1.0) / 24.0;
-            prev_elev = MoonCalcElevation(e, vc);
+            prev_elev = GCCoreAstronomy.GetMoonElevation(e, vc);
 
             // prechod cez vsetky hodiny
             for (UT = (-0.1 - biasHours); UT <= (24.1 - biasHours); UT += 1.0)
             {
                 vc.shour = UT / 24.0;
-                elev = MoonCalcElevation(e, vc);
+                elev = GCCoreAstronomy.GetMoonElevation(e, vc);
 
                 if (prev_elev * elev <= 0.0)
                 {
@@ -99,7 +93,7 @@ double di;*/
                     {
                         c = (a + b) / 2.0;
                         vc.shour = c / 24.0;
-                        ce = MoonCalcElevation(e, vc);
+                        ce = GCCoreAstronomy.GetMoonElevation(e, vc);
                         if (ae * ce <= 0.0)
                         {
                             be = ce;
@@ -135,9 +129,8 @@ double di;*/
         public static int GetNextMoonRasi(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
             double phi = 30.0;
-            double l1, l2;
+            double l1, l2, longitudeMoon;
             double jday = startDate.GetJulianComplete();
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(startDate);
             double ayanamsa = GCAyanamsha.GetAyanamsa(jday);
@@ -148,8 +141,8 @@ double di;*/
             double xj;
             GregorianDateTime xd = new GregorianDateTime();
 
-            moon.Calculate(jday);
-            l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            l1 = GCMath.putIn360(longitudeMoon - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -166,8 +159,8 @@ double di;*/
                     d.NextDay();
                 }
 
-                moon.Calculate(jday);
-                l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                l2 = GCMath.putIn360(longitudeMoon - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
                 if (prev_naks != new_naks)
                 {
@@ -193,7 +186,6 @@ double di;*/
 
         public static GregorianDateTime GetNextRise(GCEarthData e, GregorianDateTime vc, bool bRise)
         {
-            int nFound = 0;
             double a, b;
 
             double[] h = new double[3];
@@ -205,11 +197,11 @@ double di;*/
             track.NormalizeValues();
 
             // inicializacia prvej hodnoty ELEVATION
-            h[0] = MoonCalcElevation(e, track);
+            h[0] = GCCoreAstronomy.GetMoonElevation(e, track);
             track.shour += hour;
-            h[1] = MoonCalcElevation(e, track);
+            h[1] = GCCoreAstronomy.GetMoonElevation(e, track);
             track.shour += hour;
-            h[2] = MoonCalcElevation(e, track);
+            h[2] = GCCoreAstronomy.GetMoonElevation(e, track);
 
             for (int c = 0; c < 24; c++)
             {
@@ -225,7 +217,7 @@ double di;*/
                 h[0] = h[1];
                 h[1] = h[2];
                 track.shour += hour;
-                h[2] = MoonCalcElevation(e, track);
+                h[2] = GCCoreAstronomy.GetMoonElevation(e, track);
             }
 
             return track;
@@ -236,16 +228,7 @@ double di;*/
         //
         //==================================================================================
 
-        public static double MoonCalcElevation(GCEarthData e, GregorianDateTime vc)
-        {
-            GCMoonData moon = new GCMoonData();
-            double d = vc.GetJulianComplete();
-            moon.Calculate(d);
-            moon.CorrectEqatorialWithParallax(d, e.latitudeDeg, e.longitudeDeg, 0);
-            moon.calc_horizontal(d, e.longitudeDeg, e.latitudeDeg);
 
-            return moon.elevation;
-        }
 
         public void calc_horizontal(double date, double longitude, double latitude)
         {

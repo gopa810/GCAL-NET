@@ -1,4 +1,7 @@
 12703 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
+12704 Seattle (United States)|-122.33207|47.60621|America/Los_Angeles
+12704 Dubai (United Arab Emirates)|55.17128|25.0657|Asia/Dubai
+12704 Washington, D.C. (United States)|-77.03637|38.89511|America/New_York
 12704 Prague (Czechia)|14.42076|50.08804|Europe/Prague
 12704 Kolkata (India)|88.36304|22.56263|Asia/Kolkata
 12704 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
@@ -12,7 +15,7 @@
 12704 Prešov (Slovakia)|21.23393|48.99839|Europe/Bratislava
 12704 Martin (Slovakia)|18.92399|49.06651|Europe/Bratislava
 12704 Zlín (Czechia)|17.67065|49.22645|Europe/Prague
-12710 80|172|746|741
+12710 52|52|718|621
 12711 0|0
 12711 1|0
 12711 2|0
@@ -26,13 +29,13 @@
 12711 10|0
 12711 11|0
 12711 12|0
-12711 13|1
-12711 14|0
+12711 13|0
+12711 14|1
 12711 15|0
-12711 16|1
+12711 16|0
 12711 17|1
 12711 18|0
-12711 19|0
+12711 19|1
 12711 20|0
 12711 21|1
 12711 22|1
@@ -65,21 +68,22 @@
 12711 49|0
 12711 50|0
 12711 51|0
-12711 52|1
+12711 52|0
 12711 53|1
 12711 54|1
-12711 55|1
+12711 55|0
 12711 56|1
 12711 57|0
 12711 58|0
 12711 59|0
-12711 60|0
-12711 61|0
+12711 60|1
+12711 61|1
 12711 62|0
 12711 63|1
 12711 64|0
-12711 65|0
-12711 66|0
+12711 65|1
+12711 66|1
+12711 67|0
 12800 1
 12802 2
 12900 C:Userspeter.kollathDocumentsGpslGCAL-NETGCALbinDebugconfiggcal_revs.rxml

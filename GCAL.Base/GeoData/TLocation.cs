@@ -35,7 +35,7 @@ namespace GCAL.Base
             {
                 if (p_country != null) return p_country;
                 p_country = TCountry.FindCountryByISOCode(CountryISOCode);
-                return p_country;
+                return p_country ?? TCountry.DefaultCountry;
             }
         }
         public int Population { get; set; }

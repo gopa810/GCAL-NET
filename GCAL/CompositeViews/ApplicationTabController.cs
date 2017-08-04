@@ -21,6 +21,7 @@ namespace GCAL.CompositeViews
         private TimezonesPanelDelegate timPanel = null;
         private HelpPanelController helpPanel = null;
 
+        private GVCore currentPanelDisplayed = null;
 
         public ApplicationTabController(ApplicationTab view)
         {
@@ -38,31 +39,37 @@ namespace GCAL.CompositeViews
                     case "dispSetGeneral":
                         if (dsGeneral == null)
                             dsGeneral = new DispSetGeneralDelegate(new DispSetGeneral());
+                        currentPanelDisplayed = dsGeneral;
                         ShowPanel(dsGeneral, GVControlAlign.Scroll);
                         break;
                     case "dispSetToday":
                         if (dsToday == null)
                             dsToday = new DispSetTodayDelegate(new DispSetToday());
+                        currentPanelDisplayed = dsToday;
                         ShowPanel(dsToday, GVControlAlign.Scroll);
                         break;
                     case "dispSetCalendar":
                         if (dsCalendar == null)
                             dsCalendar = new DispSetCalendarDelegate(new DispSetCalendar());
+                        currentPanelDisplayed = dsCalendar;
                         ShowPanel(dsCalendar, GVControlAlign.Scroll);
                         break;
                     case "dispSetCoreEvents":
                         if (dsCoreEvents == null)
                             dsCoreEvents = new DispSetCoreEventsDelegate(new DispSetCoreEvents());
+                        currentPanelDisplayed = dsCoreEvents;
                         ShowPanel(dsCoreEvents, GVControlAlign.Scroll);
                         break;
                     case "dispSetAppDay":
                         if (dsAppDay == null)
                             dsAppDay = new DispSetAppDayDelegate(new DispSetAppDay());
+                        currentPanelDisplayed = dsAppDay;
                         ShowPanel(dsAppDay, GVControlAlign.Scroll);
                         break;
                     case "locs":
                         if (locPanel == null)
                             locPanel = new LocationsPanelController(new LocationsPanel());
+                        currentPanelDisplayed = locPanel;
                         locPanel.ViewContainer = getView().ViewContainer;
                         ShowPanel(locPanel, GVControlAlign.Fill);
                         break;
@@ -73,6 +80,7 @@ namespace GCAL.CompositeViews
                             evPanel = new EventsPanelDelegate(ep);
                             evPanel.ViewContainer = getView().ViewContainer;
                         }
+                        currentPanelDisplayed = evPanel;
                         ShowPanel(evPanel, GVControlAlign.Fill);
                         break;
                     case "cntr":
@@ -82,6 +90,7 @@ namespace GCAL.CompositeViews
                             cp.ViewContainer = getView().ViewContainer;
                             couPanel = new CountriesPanelDelegate(cp);
                         }
+                        currentPanelDisplayed = couPanel;
                         ShowPanel(couPanel, GVControlAlign.Fill);
                         break;
                     case "tzones":
@@ -90,6 +99,7 @@ namespace GCAL.CompositeViews
                             timPanel = new TimezonesPanelDelegate(new TimezonesPanel());
                             timPanel.ViewContainer = getView().ViewContainer;
                         }
+                        currentPanelDisplayed = timPanel;
                         ShowPanel(timPanel, GVControlAlign.Fill);
                         break;
                     case "save":
@@ -112,6 +122,13 @@ namespace GCAL.CompositeViews
                         break;
                     default:
                         break;
+                }
+            }
+            else if (token.Equals("saveSettings"))
+            {
+                if (currentPanelDisplayed != null)
+                {
+                    currentPanelDisplayed.ExecuteMessage(GVControlContainer.MsgViewWillHide);
                 }
             }
             else

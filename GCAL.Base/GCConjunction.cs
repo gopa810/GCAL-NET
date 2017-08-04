@@ -67,8 +67,7 @@ namespace GCAL.Base
             double prevSun = 0.0, prevMoon = 0.0, prevDiff = 0.0;
             double nowSun = 0.0, nowMoon = 0.0, nowDiff = 0.0;
             //	SUNDATA sun;
-            GCMoonData moon = new GCMoonData();
-            double jd;
+            double jd, longitudeMoon;
             GregorianDateTime d = new GregorianDateTime();
 
             d.Set(date);
@@ -79,9 +78,9 @@ namespace GCAL.Base
             // set initial data for input day
             // NOTE: for grenwich
             //SunPosition(d, earth, sun);
-            moon.Calculate(jd);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
             prevSun = GCSunData.GetSunLongitude(d);
-            prevMoon = moon.longitude_deg;
+            prevMoon = longitudeMoon;
             prevDiff = GCMath.putIn180(prevSun - prevMoon);
 
             do
@@ -91,9 +90,9 @@ namespace GCAL.Base
                 jd -= 1.0;
                 // calculation
                 //SunPosition(d, earth, sun);
-                moon.Calculate(jd);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
                 nowSun = GCSunData.GetSunLongitude(d);
-                nowMoon = moon.longitude_deg;
+                nowMoon = longitudeMoon;
                 nowDiff = GCMath.putIn180(nowSun - nowMoon);
                 // if difference of previous has another sign than now calculated
                 // then it is the case that moon was faster than sun and he 
@@ -163,8 +162,7 @@ namespace GCAL.Base
             double prevSun = 0.0, prevMoon = 0.0, prevDiff = 0.0;
             double nowSun = 0.0, nowMoon = 0.0, nowDiff = 0.0;
             //SUNDATA sun;
-            GCMoonData moon = new GCMoonData();
-            double jd;
+            double jd, longitudeMoon;
             GregorianDateTime d = new GregorianDateTime();
 
             d.Set(date);
@@ -175,9 +173,9 @@ namespace GCAL.Base
             // set initial data for input day
             // NOTE: for grenwich
             //SunPosition(d, earth, sun, 0.0);
-            moon.Calculate(jd);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
             nowSun = GCMath.putIn360(GCSunData.GetSunLongitude(d));
-            nowMoon = GCMath.putIn360(moon.longitude_deg);
+            nowMoon = GCMath.putIn360(longitudeMoon);
             nowDiff = GCMath.putIn180(nowSun - nowMoon);
 
             do
@@ -187,9 +185,9 @@ namespace GCAL.Base
                 jd += 1.0;
                 // calculation
                 //SunPosition(d, earth, sun, 0.0);
-                moon.Calculate(jd);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
                 prevSun = GCSunData.GetSunLongitude(d);
-                prevMoon = moon.longitude_deg;
+                prevMoon = longitudeMoon;
                 prevDiff = GCMath.putIn180(prevSun - prevMoon);
                 // if difference of previous has another sign than now calculated
                 // then it is the case that moon was faster than sun and he 
@@ -243,7 +241,7 @@ namespace GCAL.Base
         public static double GetPrevConjunction(GregorianDateTime test_date, out GregorianDateTime found, bool this_conj, GCEarthData earth)
         {
             double phi = 12.0;
-            double l1, l2, sunl;
+            double l1, l2, sunl, longitudeMoon;
 
             if (this_conj)
             {
@@ -254,7 +252,6 @@ namespace GCAL.Base
 
             double jday = test_date.GetJulianComplete();
             double xj;
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(test_date);
             GregorianDateTime xd = new GregorianDateTime();
@@ -262,9 +259,9 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
             sunl = GCSunData.GetSunLongitude(d);
-            l1 = GCMath.putIn180(moon.longitude_deg - sunl);
+            l1 = GCMath.putIn180(longitudeMoon - sunl);
             prev_tit = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -281,9 +278,9 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
                 sunl = GCSunData.GetSunLongitude(d);
-                l2 = GCMath.putIn180(moon.longitude_deg - sunl);
+                l2 = GCMath.putIn180(longitudeMoon - sunl);
                 new_tit = GCMath.IntFloor(l2 / phi);
 
                 if (prev_tit >= 0 && new_tit < 0)
@@ -317,7 +314,7 @@ namespace GCAL.Base
         public static double GetNextConjunction(GregorianDateTime test_date, out GregorianDateTime found, bool this_conj, GCEarthData earth)
         {
             double phi = 12.0;
-            double l1, l2, sunl;
+            double l1, l2, longitudeSun, longitudeMoon;
 
             if (this_conj)
             {
@@ -328,7 +325,6 @@ namespace GCAL.Base
 
             double jday = test_date.GetJulianComplete();
             double xj;
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(test_date);
             GregorianDateTime xd = new GregorianDateTime();
@@ -336,9 +332,9 @@ namespace GCAL.Base
             int prev_tit = 0;
             int new_tit = -1;
 
-            moon.Calculate(jday);
-            sunl = GCSunData.GetSunLongitude(d);
-            l1 = GCMath.putIn180(moon.longitude_deg - sunl);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
+            longitudeSun = GCSunData.GetSunLongitude(d);
+            l1 = GCMath.putIn180(longitudeMoon - longitudeSun);
             prev_tit = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -355,9 +351,9 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday);
-                sunl = GCSunData.GetSunLongitude(d);
-                l2 = GCMath.putIn180(moon.longitude_deg - sunl);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, earth);
+                longitudeSun = GCSunData.GetSunLongitude(d);
+                l2 = GCMath.putIn180(longitudeMoon - longitudeSun);
                 new_tit = GCMath.IntFloor(l2 / phi);
 
                 if (prev_tit < 0 && new_tit >= 0)
@@ -377,7 +373,7 @@ namespace GCAL.Base
             }
             found = new GregorianDateTime();
             found.Set(d);
-            return sunl;
+            return longitudeSun;
         }
 
     }

@@ -216,7 +216,6 @@ namespace GCAL.Base
         private void CalculateEvents(GCLocation loc, GregorianDateTime vcStart, GregorianDateTime vcEnd, GCConfigRatedEvents rec)
         {
             GregorianDateTime vc = new GregorianDateTime(vcStart);
-            GCSunData sun = new GCSunData();
             double biasHours = 0;
 
             ShowAboveOnly = rec.useAcceptLimit;
@@ -244,7 +243,7 @@ namespace GCAL.Base
 
             vcAdd.InitWeekDay();
 
-            double sunRise, sunSet;
+            GCHourTime sunRise, sunSet;
             double muhurtaLength = 48.0 / 1440.0;
 
             GregorianDateTime muhurtaDate = new GregorianDateTime();
@@ -252,9 +251,13 @@ namespace GCAL.Base
             while (vcAdd.IsBeforeThis(vcEnd))
             {
                 biasHours = loc.TimeZone.GetBiasMinutesForDay(vcAdd)/60.0;
-                sun.SunCalc(vcAdd, earth);
+                sunRise = GCSunData.CalcSunrise(vcAdd, earth);
+                sunSet = GCSunData.CalcSunset(vcAdd, earth);
 
-                vcAdd.shour = sunRise = sun.rise.GetDayTime(biasHours);
+                sunRise.AddMinutes(biasHours*60);
+                sunSet.AddMinutes(biasHours * 60);
+
+                vcAdd.shour = sunRise.TotalDays;
                 vcAdd.InitWeekDay();
 
                 //AddEvent(vcAdd, CoreEventType.CCTYPE_S_RISE, 0, ndst);
@@ -285,11 +288,11 @@ namespace GCAL.Base
 
                 }
 
-                vcAdd.shour = sun.noon.GetDayTime(biasHours);
+                vcAdd.shour = (sunRise.TotalDays + sunSet.TotalDays)/2;
                 //AddEvent(vcAdd, CoreEventType.CCTYPE_S_NOON, 0, ndst);
                 AddRating(vcAdd, rec.rateDayHours[1], rec.rateDayHours[0]);
 
-                vcAdd.shour = sunSet = sun.set.GetDayTime(biasHours);
+                vcAdd.shour = sunSet.TotalDays;
                 //AddEvent(vcAdd, CoreEventType.CCTYPE_S_SET, 0, ndst);
                 AddRating(vcAdd, rec.rateDayHours[2], rec.rateDayHours[1]);
                 AddRating(vcAdd, rec.rateDay[1], rec.rateDayHours[0]);
@@ -298,22 +301,22 @@ namespace GCAL.Base
 
                 if (hasRahuKalam)
                 {
-                    CalculateKalam(vcAdd, sunRise, sunSet, KalaType.KT_RAHU_KALAM, rec);
+                    CalculateKalam(vcAdd, sunRise.TotalDays, sunSet.TotalDays, KalaType.KT_RAHU_KALAM, rec);
                 }
 
                 if (hasYamaghanti)
                 {
-                    CalculateKalam(vcAdd, sunRise, sunSet, KalaType.KT_YAMA_GHANTI, rec);
+                    CalculateKalam(vcAdd, sunRise.TotalDays, sunSet.TotalDays, KalaType.KT_YAMA_GHANTI, rec);
                 }
 
                 if (hasGulikalam)
                 {
-                    CalculateKalam(vcAdd, sunRise, sunSet, KalaType.KT_GULI_KALAM, rec);
+                    CalculateKalam(vcAdd, sunRise.TotalDays, sunSet.TotalDays, KalaType.KT_GULI_KALAM, rec);
                 }
 
                 if (hasAbhijit)
                 {
-                    CalculateKalam(vcAdd, sunRise, sunSet, KalaType.KT_ABHIJIT, rec);
+                    CalculateKalam(vcAdd, sunRise.TotalDays, sunSet.TotalDays, KalaType.KT_ABHIJIT, rec);
                 }
 
                 vcAdd.NextDay();
@@ -514,12 +517,13 @@ namespace GCAL.Base
             int nData;
             GregorianDateTime vcNext = new GregorianDateTime();
             int ndst;
+            GCEarthData earth = loc.GetEarthData();
 
             vcAdd.SubtractDays(30);
 
             while (vcAdd.IsBeforeThis(vcEnd))
             {
-                vcNext.Set(GCSankranti.GetNextSankranti(vcAdd, out nData));
+                vcNext.Set(GCSankranti.GetNextSankranti(vcAdd, earth, out nData));
                 if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                 {
                     vcNext.InitWeekDay();
@@ -548,7 +552,7 @@ namespace GCAL.Base
 
             JD = vcAdd.GetJulian() - 0.5 - loc.OffsetUtcHours / 24.0;
             JDE = vcEnd.GetJulian() + 0.5 - loc.OffsetUtcHours / 24.0;
-            nData = GCMath.IntFloor(GCMath.putIn360(GCAstronomy.GetPlanetLongitude(bodyId, JD) - GCAyanamsha.GetAyanamsa(JD)) / 30.0);
+            nData = GCMath.IntFloor(GCMath.putIn360(GCVSOPAstronomy.GetPlanetLongitude(bodyId, JD) - GCAyanamsha.GetAyanamsa(JD)) / 30.0);
 
             // initial rasi at the start date 00:00
             AddRating(JD, loc, rec.rateGrahaRasi[bodyId, nData], rec.rateGrahaRasi[bodyId, Prev(nData, 12)]);
@@ -570,7 +574,7 @@ namespace GCAL.Base
             JDE = vcEnd.GetJulian() + 0.5 - loc.OffsetUtcHours / 24.0;
 
             // initial rasi at the start date 00:00
-            nData = GCMath.IntFloor(GetPlanetHouse(GCAstronomy.GetPlanetLongitude(bodyId, JD), JD, earth));
+            nData = GCMath.IntFloor(GetPlanetHouse(GCVSOPAstronomy.GetPlanetLongitude(bodyId, JD), JD, earth));
             AddRating(JD, loc, rec.rateGrahaHouse[bodyId, nData], rec.rateGrahaHouse[bodyId, Prev(nData, 12)]);
 
             while ((JD = FindNextHouseChange(JD, JDE, bodyId, earth, out nData)) < JDE)
@@ -586,10 +590,10 @@ namespace GCAL.Base
             double A, B, B1;
             int C, D;
             double step = 1.0;
-            A = (GCAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
+            A = (GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
             jd += step;
             B1 = A;
-            B = (GCAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
+            B = (GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
             C = GCMath.IntFloor(A);
             D = GCMath.IntFloor(B);
 
@@ -614,11 +618,11 @@ namespace GCAL.Base
 
                 jd += step;
                 B1 = B;
-                B = (GCAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
+                B = (GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd) - GCAyanamsha.GetAyanamsa(jd)) / 30.0;
                 D = GCMath.IntFloor(B);
             }
 
-            nNextRasi = GCMath.IntFloor((GCAstronomy.GetPlanetLongitude(bodyId, jd + 0.1) - GCAyanamsha.GetAyanamsa(jd)) / 30.0);
+            nNextRasi = GCMath.IntFloor((GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd + 0.1) - GCAyanamsha.GetAyanamsa(jd)) / 30.0);
             return jd;
         }
 
@@ -635,10 +639,10 @@ namespace GCAL.Base
             double A, B, B1;
             int C, D;
             double step = 1.0/24.0;
-            A = GetPlanetHouse(GCAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
+            A = GetPlanetHouse(GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
             jd += step;
             B1 = A;
-            B = GetPlanetHouse(GCAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
+            B = GetPlanetHouse(GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
             C = GCMath.IntFloor(A);
             D = GCMath.IntFloor(B);
 
@@ -663,11 +667,11 @@ namespace GCAL.Base
 
                 jd += step;
                 B1 = B;
-                B = GetPlanetHouse(GCAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
+                B = GetPlanetHouse(GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd), jd, earth);
                 D = GCMath.IntFloor(B);
             }
 
-            nNextHouse = GCMath.IntFloor(GetPlanetHouse(GCAstronomy.GetPlanetLongitude(bodyId, jd + 0.5/24.0), jd + 0.5/24.0, earth));
+            nNextHouse = GCMath.IntFloor(GetPlanetHouse(GCVSOPAstronomy.GetPlanetLongitude(bodyId, jd + 0.5/24.0), jd + 0.5/24.0, earth));
             return jd;
         }
 

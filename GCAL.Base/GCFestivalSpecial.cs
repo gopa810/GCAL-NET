@@ -64,12 +64,12 @@ namespace GCAL.Base
             VAISNAVADAY t = exec.day(-DayOffset);
             if (nMasaMin <= nMasaMax)
             {
-                if (t.astrodata.nMasa < nMasaMin || t.astrodata.nMasa > nMasaMax)
+                if (t.astrodata.Masa < nMasaMin || t.astrodata.Masa > nMasaMax)
                     return false;
             }
             else
             {
-                if (t.astrodata.nMasa < nMasaMin && t.astrodata.nMasa > nMasaMax)
+                if (t.astrodata.Masa < nMasaMin && t.astrodata.Masa > nMasaMax)
                     return false;
             }
 

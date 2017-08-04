@@ -23,6 +23,13 @@ namespace GCAL.Base
             new TContinent() { ISOCode = "AN", Name = "Antarctica" },
         };
 
+        public static TContinent unknownContinent;
+
+        static TContinent()
+        {
+            unknownContinent = new TContinent() { ISOCode = "EP", Name = "Earth Planet" };
+        }
+
         public override string ToString()
         {
             return string.Format("{0} {1}", ISOCode, Name);
@@ -41,7 +48,7 @@ namespace GCAL.Base
                     return continent;
             }
 
-            throw new Exception("Unknown ISOCode of Continent: " + isoCode);
+            return unknownContinent;
         }
     }
 }

@@ -125,7 +125,7 @@ namespace GCAL.Base
 
         public void CalculateEvents(GCLocation loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
         {
-            GCSunData sun = new GCSunData();
+            //GCSunData sun = new GCSunData();
             int ndst = 0;
             int nData;
 
@@ -144,34 +144,33 @@ namespace GCAL.Base
             vcAdd.Set(vc);
             vcAdd.InitWeekDay();
 
+            GCHourTime sunriseData, sunsetData;
             double sunRise, sunSet;
             double r1, r2;
 
             while (vcAdd.IsBeforeThis(vcEnd))
             {
+                sunriseData = GCSunData.CalcSunrise(vcAdd, earth);
+                sunsetData = GCSunData.CalcSunset(vcAdd, earth);
+                sunRise = sunriseData.TotalDays;
+                sunSet = sunsetData.TotalDays;
+                ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
+
                 if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SUN) != 0)
                 {
                     ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
-                    sun.SunCalc(vcAdd, earth);
 
-                    vcAdd.shour = sun.arunodaya.GetDayTime();
+                    vcAdd.shour = sunriseData.TotalDays - 96.0/1440.0;
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_S_ARUN, 0, ndst);
 
-                    vcAdd.shour = sunRise = sun.rise.GetDayTime();
+                    vcAdd.shour = sunRise;
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_S_RISE, 0, ndst);
 
-                    vcAdd.shour = sun.noon.GetDayTime();
+                    vcAdd.shour = (sunRise + sunSet) / 2;
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_S_NOON, 0, ndst);
 
-                    vcAdd.shour = sunSet = sun.set.GetDayTime();
+                    vcAdd.shour = sunSet;
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_S_SET, 0, ndst);
-                }
-                else
-                {
-                    ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
-                    sun.SunCalc(vcAdd, earth);
-                    sunRise = sun.rise.GetDayTime();
-                    sunSet = sun.set.GetDayTime();
                 }
 
                 /*if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
@@ -275,7 +274,7 @@ namespace GCAL.Base
                 vcAdd.NextDay();
             }
 
-            if (true)//GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
             {
                 GCAscendant asc = new GCAscendant();
                 asc.Earth = EarthLocation.GetEarthData();
@@ -376,7 +375,7 @@ namespace GCAL.Base
                 vcAdd.shour = 0.0;
                 while (vcAdd.IsBeforeThis(vcEnd))
                 {
-                    vcNext.Set(GCSankranti.GetNextSankranti(vcAdd, out nData));
+                    vcNext.Set(GCSankranti.GetNextSankranti(vcAdd, earth, out nData));
                     if (vcNext.GetDayInteger() < vcEnd.GetDayInteger())
                     {
                         vcNext.InitWeekDay();

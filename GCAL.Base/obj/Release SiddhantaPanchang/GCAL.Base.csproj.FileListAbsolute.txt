@@ -1,0 +1,6 @@
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\GCAL.Base.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\GCAL.Base.pdb
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.Properties.Resources.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.csproj.GenerateResource.Cache
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.pdb

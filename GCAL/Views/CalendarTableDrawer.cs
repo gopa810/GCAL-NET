@@ -237,7 +237,7 @@ namespace GCAL.Views
         {
             SizeF textSize;
             float tempTextHeight = 0;
-            string str2 = GCTithi.GetName(vd.astrodata.nTithi);
+            string str2 = GCTithi.GetName(vd.astrodata.sunRise.Tithi);
             textSize = g.MeasureString(str2, fontH3);
             g.DrawString(str2, fontH3, Brushes.Black, xCellAnchor1, yCellMarginTop);
             tempTextHeight = yCellMarginTop + textSize.Height;
@@ -263,15 +263,15 @@ namespace GCAL.Views
 
         private static void ConstructMasaText(StringBuilder masaText, int i, VAISNAVADAY vd, VAISNAVADAY vd_prev, VAISNAVADAY vd_next)
         {
-            if (vd.astrodata.nMasa != vd_prev.astrodata.nMasa || i == 1)
+            if (vd.astrodata.Masa != vd_prev.astrodata.Masa || i == 1)
             {
                 if (masaText.Length > 0)
                     masaText.Append(", ");
-                masaText.AppendFormat("{0} Masa ", GCMasa.GetName(vd.astrodata.nMasa));
-                if (vd.astrodata.nMasa != vd_prev.astrodata.nMasa)
+                masaText.AppendFormat("{0} Masa ", GCMasa.GetName(vd.astrodata.Masa));
+                if (vd.astrodata.Masa != vd_prev.astrodata.Masa)
                     masaText.AppendFormat("from {0} ", vd.date.ToString());
             }
-            else if (vd.astrodata.nMasa != vd_next.astrodata.nMasa)
+            else if (vd.astrodata.Masa != vd_next.astrodata.Masa)
             {
                 masaText.AppendFormat("to {0}", vd.date.ToString());
             }

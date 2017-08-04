@@ -10,7 +10,7 @@ namespace GCAL.Base
     public class TResultApp: TResultBase
     {
         public static readonly int TRESULT_APP_CELEBS = 3;
-        public GCLocation location;
+        public GCLocation Location;
         public GregorianDateTime eventTime;
         public GCAstroData details;
         public bool b_adhika;
@@ -115,7 +115,7 @@ namespace GCAL.Base
             }
             else if (s.Equals("location"))
             {
-                return location;
+                return Location;
             }
             else if (s.Equals("eventTime"))
             {
@@ -135,46 +135,36 @@ namespace GCAL.Base
             //MOONDATA moon;
             //SUNDATA sun;
             GCAstroData d = this.details = new GCAstroData();
-            double dd;
             GregorianDateTime vc = new GregorianDateTime();
-            vc.Set(eventDate);
             GregorianDateTime vcsun = new GregorianDateTime();
-            vcsun.Set(eventDate);
             GCEarthData m_earth = location.GetEarthData();
+
+            vc.Set(eventDate);
+            vcsun.Set(eventDate);
 
             this.b_adhika = false;
             this.eventTime = new GregorianDateTime(eventDate);
-            this.location = location;
+            Location = location;
 
             //d.nTithi = GetPrevTithiStart(m_earth, vc, dprev);
             //GetNextTithiStart(m_earth, vc, dnext);
             vcsun.shour -= vcsun.TimezoneHours / 24.0;
             vcsun.NormalizeValues();
             vcsun.TimezoneHours = 0.0;
-            d.sun.SunPosition(vcsun, m_earth, vcsun.shour - 0.5);
-            d.moon.Calculate(vcsun.GetJulianComplete());
-            d.msDistance = GCMath.putIn360(d.moon.longitude_deg - d.sun.longitude_deg - 180.0);
-            d.msAyanamsa = GCAyanamsha.GetAyanamsa(vc.GetJulianComplete());
+            d.sunRise = new GCHourTime();
+            d.sunRise.TotalDays = vc.shour;
+            d.sunRise.longitude = GCCoreAstronomy.GetSunLongitude(vcsun, m_earth);
+            d.sunRise.longitudeMoon = GCCoreAstronomy.GetMoonLongitude(vcsun, m_earth);
+            d.Ayanamsa = GCAyanamsha.GetAyanamsa(vc.GetJulianComplete());
+            d.sunRise.Ayanamsa = d.Ayanamsa;
 
             // tithi
-            dd = d.msDistance / 12.0;
-            d.nTithi = GCMath.IntFloor((dd));
-            d.nTithiElapse = (dd - Math.Floor(dd)) * 100.0;
-            d.nPaksa = (d.nTithi >= 15) ? 1 : 0;
 
 
-            // naksatra
-            dd = GCMath.putIn360(d.moon.longitude_deg - d.msAyanamsa);
-            dd = (dd * 3.0) / 40.0;
-            d.nNaksatra = GCMath.IntFloor((dd));
-            d.nNaksatraElapse = (dd - Math.Floor(dd)) * 100.0;
-            d.nMasa = d.MasaCalc(vc, m_earth);
-            d.nMoonRasi = GCRasi.GetRasi(d.moon.longitude_deg, d.msAyanamsa);
-            d.nSunRasi = GCRasi.GetRasi(d.sun.longitude_deg, d.msAyanamsa);
-
-            if (d.nMasa == (int)MasaId.ADHIKA_MASA)
+            d.Masa = d.MasaCalc(vc, m_earth);
+            if (d.Masa == (int)MasaId.ADHIKA_MASA)
             {
-                d.nMasa = GCRasi.GetRasi(d.sun.longitude_deg, d.msAyanamsa);
+                d.Masa = d.sunRise.RasiOfSun;
                 this.b_adhika = true;
             }
 
@@ -184,11 +174,11 @@ namespace GCAL.Base
             GaurabdaDate va = new GaurabdaDate();
             GregorianDateTime vctemp;
 
-            va.tithi = d.nTithi;
-            va.masa = d.nMasa;
+            va.tithi = d.sunRise.Tithi;
+            va.masa = d.Masa;
             va.gyear = GCCalendar.GetGaurabdaYear(vc, m_earth);
-            if (va.gyear < d.nGaurabdaYear)
-                va.gyear = d.nGaurabdaYear;
+            if (va.gyear < d.GaurabdaYear)
+                va.gyear = d.GaurabdaYear;
 
             MainInfo.Add(new AppDayInfo(GCStrings.getString(7), eventDate.ToString()));
             MainInfo.Add(new AppDayBase());
@@ -201,21 +191,21 @@ namespace GCAL.Base
             MainInfo.Add(new AppDayInfo(GCStrings.Localized("Timezone"), location.TimeZoneName));
             MainInfo.Add(new AppDayInfo("DST", "N/A"));
             MainInfo.Add(new AppDayBase());
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(13), GCTithi.GetName(d.nTithi)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(14), string.Format("{0:00.000}%", d.nTithiElapse)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(15), GCNaksatra.GetName(d.nNaksatra)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(16), string.Format("{0:00.000}% ({1} pada)", d.nNaksatraElapse, GCStrings.getString(811 + d.NaksatraPada))));
-            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Moon Rasi"), GCRasi.GetName(d.nMoonRasi)));
-            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Sun Rasi"), GCRasi.GetName(d.nSunRasi)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(20), GCPaksa.GetName(d.nPaksa)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(13), GCTithi.GetName(d.sunRise.Tithi)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(14), string.Format("{0:00.000}%", d.sunRise.TithiElapse)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(15), GCNaksatra.GetName(d.sunRise.Naksatra)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(16), string.Format("{0:00.000}% ({1} pada)", d.sunRise.NaksatraElapse, GCStrings.getString(811 + d.sunRise.NaksatraPada))));
+            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Moon Rasi"), GCRasi.GetName(d.sunRise.RasiOfMoon)));
+            MainInfo.Add(new AppDayInfo(GCStrings.Localized("Sun Rasi"), GCRasi.GetName(d.sunRise.RasiOfSun)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(20), GCPaksa.GetName(d.sunRise.Paksa)));
 
             if (b_adhika == true)
             {
-                MainInfo.Add(new AppDayInfo(GCStrings.getString(22), string.Format("{0} {1}", GCMasa.GetName(d.nMasa), GCStrings.getString(21))));
+                MainInfo.Add(new AppDayInfo(GCStrings.getString(22), string.Format("{0} {1}", GCMasa.GetName(d.Masa), GCStrings.getString(21))));
             }
             else
-                MainInfo.Add(new AppDayInfo(GCStrings.getString(22), GCMasa.GetName(d.nMasa)));
-            MainInfo.Add(new AppDayInfo(GCStrings.getString(23), d.nGaurabdaYear.ToString()));
+                MainInfo.Add(new AppDayInfo(GCStrings.getString(22), GCMasa.GetName(d.Masa)));
+            MainInfo.Add(new AppDayInfo(GCStrings.getString(23), d.GaurabdaYear.ToString()));
 
             if (GCDisplaySettings.getValue(48) == 1)
             {
@@ -223,8 +213,8 @@ namespace GCAL.Base
                 MainInfo.Add(new AppDaySeparator(GCStrings.getString(17)));
                 MainInfo.Add(new AppDayBase(GCDS.APP_CHILDNAMES));
 
-                MainInfo.Add(new AppDayInfo(GCDS.APP_CHILDNAMES, GCStrings.getString(18), GCStrings.GetNaksatraChildSylable(d.nNaksatra, d.NaksatraPada) + "..."));
-                MainInfo.Add(new AppDayInfo(GCDS.APP_CHILDNAMES, GCStrings.getString(19), GCStrings.GetRasiChildSylable(d.nMoonRasi) + "..."));
+                MainInfo.Add(new AppDayInfo(GCDS.APP_CHILDNAMES, GCStrings.getString(18), GCStrings.GetNaksatraChildSylable(d.sunRise.Naksatra, d.sunRise.NaksatraPada) + "..."));
+                MainInfo.Add(new AppDayInfo(GCDS.APP_CHILDNAMES, GCStrings.getString(19), GCStrings.GetRasiChildSylable(d.sunRise.RasiOfMoon) + "..."));
             }
 
             MainInfo.Add(new AppDayBase());
@@ -238,7 +228,7 @@ namespace GCAL.Base
             for (int i = 0; i < TRESULT_APP_CELEBS + 3; i++)
             {
                 GCCalendar.VATIMEtoVCTIME(va, out vctemp, m_earth);
-                if (va.gyear > d.nGaurabdaYear)
+                if (va.gyear > d.GaurabdaYear)
                 {
                     if (m < TRESULT_APP_CELEBS)
                     {
@@ -279,7 +269,7 @@ namespace GCAL.Base
 
             GSExecutor engine = new GSExecutor();
             engine.SetVariable("appday", this);
-            engine.SetVariable("location", this.location);
+            engine.SetVariable("location", this.Location);
             engine.SetVariable("app", GCUserInterface.Shared);
             engine.ExecuteElement(script);
 

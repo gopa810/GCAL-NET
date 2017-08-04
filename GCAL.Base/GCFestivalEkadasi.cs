@@ -52,10 +52,10 @@ namespace GCAL.Base
         {
             VAISNAVADAY testDay = exec.day(-DayOffset);
 
-            return (testDay.astrodata.nMasa == nMasa
-                && testDay.astrodata.nPaksa == nPaksa
-                && (GCTithi.TITHI_EKADASI(testDay.astrodata.nTithi)
-                || GCTithi.TITHI_DVADASI(testDay.astrodata.nTithi))
+            return (testDay.astrodata.Masa == nMasa
+                && testDay.astrodata.sunRise.Paksa == nPaksa
+                && (GCTithi.TITHI_EKADASI(testDay.astrodata.sunRise.Tithi)
+                || GCTithi.TITHI_DVADASI(testDay.astrodata.sunRise.Tithi))
                 && testDay.nFastID == FastType.FAST_EKADASI);
         }
     }

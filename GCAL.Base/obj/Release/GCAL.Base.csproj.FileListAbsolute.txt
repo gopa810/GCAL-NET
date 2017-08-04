@@ -4,4 +4,3 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release\GCAL.Base.Prope
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release\GCAL.Base.csproj.GenerateResource.Cache
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release\GCAL.Base.dll
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release\GCAL.Base.pdb
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release\GCAL.Base.csprojResolveAssemblyReference.cache

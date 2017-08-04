@@ -377,6 +377,45 @@ namespace GCAL.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///    &lt;head&gt;
+        ///        &lt;title&gt;Calendar [calendar.startDate.year]&lt;/title&gt;
+        ///&lt;style&gt;
+        ///&lt;!--
+        ///body {
+        ///  font-family:Verdana;
+        ///  font-size:11pt;
+        ///}
+        ///td.hed {
+        ///  font-family:Verdana;
+        ///  font-size:9pt;
+        ///  font-weight:bold;
+        ///  background:#aaaaaa;
+        ///  color:white;
+        ///  text-align:center;
+        ///  vertical-align:center;
+        ///  padding-left:15pt;
+        ///  padding-right:15pt;
+        ///  padding-top:5pt;
+        ///  padding-bottom:5pt;
+        ///}
+        ///--&gt;
+        ///&lt;/style&gt;
+        ///
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///
+        ///# (set lastmonth -1)
+        ///# (set lastmasa -1)
+        ///# (foreach i : calendar.itemIndexe [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TplCalendarHtmlComplete {
+            get {
+                return ResourceManager.GetString("TplCalendarHtmlComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to # (set g_firstday_in_week (x app getDispValue GCDS.GENERAL_FIRST_DOW))
         ///# (set k 0)
         ///# (set y 0)
@@ -477,19 +516,23 @@ namespace GCAL.Base.Properties {
         ///&lt;style&gt;
         ///&lt;!--
         ///body {
-        ///  font-family:Verdana;
-        ///  font-size:11pt;
+        ///  font-family:Arial;
+        ///  font-size:9pt;
+        ///}
+        ///td {
+        ///  font-family:Arial;
+        ///  font-size:9pt;
         ///}
         ///td.hed {
-        ///  font-family:Verdana;
+        ///  font-family:Arial;
         ///  font-size:9pt;
         ///  font-weight:bold;
         ///  background:#aaaaaa;
         ///  color:white;
         ///  text-align:center;
         ///  vertical-align:center;
-        ///  padding-left:15pt;
-        ///  padding-right:15pt;
+        ///  padding-left:5pt;
+        ///  padding-right:5pt;
         ///  padding-top:5pt;
         ///  padding-bottom:5pt;
         ///}
@@ -500,8 +543,7 @@ namespace GCAL.Base.Properties {
         ///&lt;body&gt;
         ///
         ///# (set lastmonth -1)
-        ///# (set lastmasa -1)
-        ///# (foreach i : calendar.itemIndexe [rest of string was truncated]&quot;;.
+        ///# (set lastma [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TplCalendarSadhana {
             get {

@@ -10,56 +10,29 @@ namespace GCAL.Base
     public class GCAstroData: GSCore
     {
         // date of Julian epoch
-        public double jdate;
-        // sun
-        public GCSunData sun;
-        // moon
-        public GCMoonData moon;
+        public double JulianDay;
         // year of Gaurabda epoch
-        public int nGaurabdaYear;
+        public int GaurabdaYear;
         // value of ayanamsa for this date
-        public double msAyanamsa;
-        // sign of zodiac
-        public int nSunRasi;
-        // rasi of the moon
-        public int nMoonRasi;
-        // tithi #
-        public int nTithi;
-        // tithi at arunodaya
-        public int nTithiArunodaya;
-        // tithi at sunset
-        public int nTithiSunset;
-        // tithi elaps.
-        public double nTithiElapse;
-        // paksa
-        public int nPaksa;
-        // yoga
-        public int nYoga;
-        // yoga elaps.
-        public double nYogaElapse;
-        // naksatra
-        public int nNaksatra;
-        // naksatra elaps.
-        public double nNaksatraElapse;
-        // masa
-        public int nMasa;
-        // distance of moon and sun in degrees
-        public double msDistance;
+        public double Ayanamsa;
+        // masa number
+        public int Masa;
+
+        // time of arunodaya - 96 mins before sunrise
+        public GCHourTime sunArunodaya;
+        // time of sunrise
+        public GCHourTime sunRise;
+        // time of noon
+        public GCHourTime sunNoon;
+        // time of sunset
+        public GCHourTime sunSet;
+
 
 
         public GCAstroData()
         {
-            sun = new GCSunData();
-            moon = new GCMoonData();
         }
 
-        public int NaksatraPada
-        {
-            get
-            {
-                return GCMath.IntFloor(nNaksatraElapse / 25.0);
-            }
-        }
 
         public override GSCore GetPropertyValue(string Token)
         {
@@ -67,57 +40,57 @@ namespace GCAL.Base
             switch (Token)
             {
                 case "tithi":
-                    result = new GSNumber() { IntegerValue = nTithi }; break;
+                    result = new GSNumber() { IntegerValue = sunRise.Tithi }; break;
                 case "tithiElapsed":
-                    result = new GSNumber() { DoubleValue = nTithiElapse }; break;
+                    result = new GSNumber() { DoubleValue = sunRise.TithiElapse }; break;
                 case "tithiName":
-                    result = new GSString() { Value = GCTithi.GetName(nTithi) }; break;
+                    result = new GSString() { Value = GCTithi.GetName(sunRise.Tithi) }; break;
                 case "naksatra":
-                    result = new GSNumber() { IntegerValue = nNaksatra }; break;
+                    result = new GSNumber() { IntegerValue = sunRise.Naksatra }; break;
                 case "naksatraElapsed":
-                    result = new GSNumber() { DoubleValue = nNaksatraElapse }; break;
+                    result = new GSNumber() { DoubleValue = sunRise.NaksatraElapse }; break;
                 case "naksatraName":
-                    result = new GSString() { Value = GCNaksatra.GetName(nNaksatra) }; break;
+                    result = new GSString() { Value = GCNaksatra.GetName(sunRise.Naksatra) }; break;
                 case "paksa":
-                    result = new GSNumber() { IntegerValue = nPaksa }; break;
+                    result = new GSNumber() { IntegerValue = sunRise.Paksa }; break;
                 case "paksaName":
-                    result = new GSString() { Value = GCPaksa.GetName(nPaksa) }; break;
+                    result = new GSString() { Value = GCPaksa.GetName(sunRise.Paksa) }; break;
                 case "paksaAbbr":
-                    result = new GSString() { Value = GCPaksa.GetAbbr(nPaksa).ToString() }; break;
+                    result = new GSString() { Value = GCPaksa.GetAbbr(sunRise.Paksa).ToString() }; break;
                 case "yoga":
-                    result = new GSNumber() { IntegerValue = nYoga }; break;
+                    result = new GSNumber() { IntegerValue = sunRise.Yoga }; break;
                 case "yogaName":
-                    result = new GSString() { Value = GCYoga.GetName(nYoga) }; break;
+                    result = new GSString() { Value = GCYoga.GetName(sunRise.Yoga) }; break;
                 case "masa":
-                    result = new GSNumber() { IntegerValue = nMasa }; break;
+                    result = new GSNumber() { IntegerValue = Masa }; break;
                 case "masaName":
-                    result = new GSString() { Value = GCMasa.GetName(nMasa) }; break;
+                    result = new GSString() { Value = GCMasa.GetName(Masa) }; break;
                 case "masaNameVedic":
-                    result = new GSString() { Value = GCMasa.GetNameEx(nMasa, 2) }; break;
+                    result = new GSString() { Value = GCMasa.GetNameEx(Masa, 2) }; break;
                 case "masaNameGaudiya":
-                    result = new GSString() { Value = GCMasa.GetNameEx(nMasa, 0) }; break;
+                    result = new GSString() { Value = GCMasa.GetNameEx(Masa, 0) }; break;
                 case "gaurabdaYear":
-                    result = new GSNumber() { IntegerValue = nGaurabdaYear }; break;
+                    result = new GSNumber() { IntegerValue = GaurabdaYear }; break;
                 case "arunodayaTime":
-                    result = new GCHourTimeObject(sun.arunodaya); break;
+                    result = new GCHourTimeObject(sunArunodaya); break;
                 case "arunodayaTithi":
-                    result = new GSString(GCTithi.GetName(nTithiArunodaya)); break;
+                    result = new GSString(GCTithi.GetName(sunArunodaya.Tithi)); break;
                 case "sunRiseTime":
-                    result = new GCHourTimeObject(sun.rise); break;
+                    result = new GCHourTimeObject(sunRise); break;
                 case "noonTime":
-                    result = new GCHourTimeObject(sun.noon); break;
+                    result = new GCHourTimeObject(sunNoon); break;
                 case "sunSetTime":
-                    result = new GCHourTimeObject(sun.set); break;
+                    result = new GCHourTimeObject(sunSet); break;
                 case "moonRasi":
-                    result = new GSNumber(nMoonRasi); break;
+                    result = new GSNumber(sunRise.RasiOfMoon); break;
                 case "moonRasiName":
-                    result = new GSString(GCRasi.GetName(nMoonRasi)); break;
+                    result = new GSString(GCRasi.GetName(sunRise.RasiOfMoon)); break;
                 case "sunRasi":
-                    result = new GSNumber(nSunRasi); break;
+                    result = new GSNumber(sunRise.RasiOfSun); break;
                 case "sunRasiName":
-                    result = new GSString(GCRasi.GetName(nSunRasi)); break;
+                    result = new GSString(GCRasi.GetName(sunRise.RasiOfSun)); break;
                 case "sunLongitude":
-                    result = new GSNumber(sun.longitude_deg); break;
+                    result = new GSNumber(sunRise.longitude); break;
                 default:
                     result = base.GetPropertyValue(Token);
                     break;
@@ -176,14 +149,14 @@ namespace GCAL.Base
 
                 day.DayCalc(d, earth);
                 masa = day.MasaCalc(d, earth);
-                gy = day.nGaurabdaYear;
+                gy = day.GaurabdaYear;
 
                 if (masa == 11) // visnu masa
                 {
                     do
                     {
                         // shifts date
-                        step = day.nTithi / 2;
+                        step = day.sunRise.Tithi / 2;
                         step = (step > 0) ? step : 1;
                         for (j = step; j > 0; j--)
                         {
@@ -192,10 +165,10 @@ namespace GCAL.Base
                         // try new time
                         day.DayCalc(d, earth);
                     }
-                    while (day.nTithi < 28);
+                    while (day.sunRise.Tithi < 28);
                     d.NextDay();
                     d.TimezoneHours = earth.OffsetUtcHours;
-                    d.shour = day.sun.sunrise_deg / 360.0;
+                    d.shour = day.sunRise.TotalDays;
                     return d;
                 }
             }
@@ -204,7 +177,7 @@ namespace GCAL.Base
             d.month = -1;
             d.day = -1;
             d.TimezoneHours = earth.OffsetUtcHours;
-            d.shour = day.sun.sunrise_deg / 360.0;
+            d.shour = day.sunRise.TotalDays;
 
             return d;
 
@@ -221,61 +194,43 @@ namespace GCAL.Base
         public int DayCalc(GregorianDateTime date, GCEarthData earth)
         {
             double d;
-            double jdate;
-            //	SUNDATA sun;
-
-            this.sun = new GCSunData();
-            this.moon = new GCMoonData();
 
             // sun position on sunrise on that day
-            this.sun.SunCalc(date, earth);
-            date.shour = this.sun.sunrise_deg / 360.0;
+            sunRise = GCSunData.CalcSunrise(date, earth);
+            sunSet = GCSunData.CalcSunset(date, earth);
+
+            // arunodaya is 96 min before sunrise
+            //  sunrise_deg is from range 0-360 so 96min=24deg
+            sunArunodaya.TotalDays = sunRise.TotalDays - 96 / 1440.0;
+            sunArunodaya.longitude = sunRise.longitude - (24.0 / 365.25);
+            // noon
+            sunNoon.TotalDays = (sunSet.TotalDays + sunRise.TotalDays) / 2;
+            sunNoon.longitude = (sunRise.longitude + sunSet.longitude) / 2;
+
+            date.shour = sunRise.TotalDays;
 
             // date.shour is [0..1] time of sunrise in local timezone time
-            this.jdate = jdate = date.GetJulianDetailed();
+            this.JulianDay = date.GetJulianDetailed();
 
             // moon position at sunrise on that day
-            this.moon.Calculate(date.GetJulianDetailed());
+            sunRise.longitudeMoon = GCCoreAstronomy.GetMoonLongitude(date, earth);
 
-            this.msDistance = GCMath.putIn360(this.moon.longitude_deg - this.sun.longitude_deg - 180.0);
-            this.msAyanamsa = GCAyanamsha.GetAyanamsa(jdate);
-
-            // tithi
-            d = this.msDistance / 12.0;
-            this.nTithi = GCMath.IntFloor(d);
-            this.nTithiElapse = (d - Math.Floor(d)) * 100.0;
-            this.nPaksa = (this.nTithi >= 15) ? 1 : 0;
-
-
-            // naksatra
-            d = GCMath.putIn360(this.moon.longitude_deg - this.msAyanamsa);
-            d = (d * 3.0) / 40.0;
-            this.nNaksatra = GCMath.IntFloor(d);
-            this.nNaksatraElapse = (d - Math.Floor(d)) * 100.0;
-
-            // yoga
-            d = GCMath.putIn360(this.moon.longitude_deg + this.sun.longitude_deg - 2 * this.msAyanamsa);
-            d = (d * 3.0) / 40.0;
-            this.nYoga = GCMath.IntFloor(d);
-            this.nYogaElapse = (d - Math.Floor(d)) * 100.0;
+            this.Ayanamsa = GCAyanamsha.GetAyanamsa(this.JulianDay);
+            sunArunodaya.Ayanamsa = this.Ayanamsa;
+            sunRise.Ayanamsa = this.Ayanamsa;
+            sunNoon.Ayanamsa = this.Ayanamsa;
+            sunSet.Ayanamsa = this.Ayanamsa;
 
             // masa
-            this.nMasa = -1;
+            this.Masa = -1;
 
-            // rasi
-            this.nSunRasi = GCRasi.GetRasi(this.sun.longitude_deg, this.msAyanamsa);
-            this.nMoonRasi = GCRasi.GetRasi(this.moon.longitude_deg, this.msAyanamsa);
+            date.shour = sunSet.TotalDays;
+            sunSet.longitudeMoon = GCCoreAstronomy.GetMoonLongitude(date, earth);
 
-            GCMoonData moon = new GCMoonData();
-            date.shour = this.sun.sunset_deg / 360.0;
-            moon.Calculate(date.GetJulianDetailed());
-            d = GCMath.putIn360(moon.longitude_deg - this.sun.longitude_set_deg - 180) / 12.0;
-            this.nTithiSunset = GCMath.IntFloor(d);
 
-            date.shour = this.sun.arunodaya_deg / 360.0;
-            moon.Calculate(date.GetJulianDetailed());
-            d = GCMath.putIn360(moon.longitude_deg - this.sun.longitude_arun_deg - 180) / 12.0;
-            this.nTithiArunodaya = GCMath.IntFloor(d);
+            date.shour = sunArunodaya.TotalDays;
+            sunArunodaya.longitudeMoon = GCCoreAstronomy.GetMoonLongitude(date, earth);
+
 
             return 1;
         }
@@ -304,7 +259,7 @@ namespace GCAL.Base
             int ksaya_from = -1;
             int ksaya_to = -1;
 
-            date.shour = this.sun.sunrise_deg / 360.0 + earth.OffsetUtcHours / 24.0;
+            date.shour = sunRise.TotalDays;
 
             // STEP 1: calculate position of the sun and moon
             // it is done by previous call of DayCalc
@@ -401,11 +356,11 @@ namespace GCAL.Base
             else
             {
                 // STEP 2. select nearest Conjunction
-                if (this.nPaksa == 0)
+                if (this.sunRise.Paksa == 0)
                 {
                     masa = R[1];
                 }
-                else if (this.nPaksa == 1)
+                else if (this.sunRise.Paksa == 1)
                 {
                     masa = R[2];
                 }
@@ -413,15 +368,15 @@ namespace GCAL.Base
             }
 
             // calculation of Gaurabda year
-            nGaurabdaYear = date.year - 1486;
+            GaurabdaYear = date.year - 1486;
 
             if ((rasi > 7) && (rasi < 11)) // Visnu
             {
                 if (date.month < 6)
-                    nGaurabdaYear--;
+                    GaurabdaYear--;
             }
 
-            nMasa = masa;
+            Masa = masa;
 
             return masa;
 

@@ -78,7 +78,7 @@ td.hed {
 #         (if (< pvd.astro.sunLongitude 0.0) then
 <tr><td colspan=2><td colspan=2> No sunrise and no sunset for this day</td></tr>
 #         else
-<tr><td>[pvd.date.shortDate]</td>
+<tr style='background:beige'><td>[pvd.date.shortDate]</td>
     <td>[pvd.date.dayOfWeekAbbr]</td>
 	<td>[pvd.tithiNameExt]</td>
 #             (if (x app getDispValue 39) then 
@@ -102,21 +102,20 @@ td.hed {
 #             )
 </tr>
 
-#             (if (> pvd.events.count 0)
-<tr>
-#             )
-#             (foreach ed : pvd.visibleEvents
+#             (if (> pvd.visibleEvents.count 0) then
+  <tr>
   <td colspan=2><td colspan=4>
-#                     (if ed.isSpec then
-#                         (set tmp (x app centerText ed.text 80 '-))
-  <span style='color:blue'>[tmp]</span></td>
-#                      else
-  [ed.text]
-#                     )
+#                 (foreach ed : pvd.visibleEvents
+#                         (if ed.isSpec then
+#                             (set tmp (x app centerText ed.text 80 '-))
+  <span style='color:[ed.specTextColor]'>[tmp]</span>
+#                          else
+  [ed.htmlText]
+  <br />
+#                         )
+#                 )
   </td>
-#             )
-#             (if (> pvd.events.count 0)
-</tr>
+  </tr>
 #             )
 #         )
 #     )

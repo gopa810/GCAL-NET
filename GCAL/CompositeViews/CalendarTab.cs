@@ -511,5 +511,32 @@ namespace GCAL.CompositeViews
                 printDocumentTable.Print();
             }
         }
+
+        private void ekadasiMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetEkadasiName dlg = new GetEkadasiName();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                DlgCalcEkadasiBoundaries d2 = new DlgCalcEkadasiBoundaries(dlg.SelectedDate.date);
+
+                d2.Show();
+            }
+        }
+
+        private void exportCompleteDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportCompleteDataDlg dlg = new ExportCompleteDataDlg();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                ExportCompleteProgressDlg ep = new ExportCompleteProgressDlg();
+
+                ep.SetData(dlg.SelectedLocations, dlg.StartYear, dlg.EndYear, dlg.SelectedDirectory,
+                    dlg.includeSun, dlg.includeCore);
+                ep.Show();
+
+                ep.Start(1);
+            }
+        }
     }
 }

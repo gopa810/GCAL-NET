@@ -43,7 +43,7 @@ namespace GCAL.Base
         /*                                                                   */
         /*********************************************************************/
 
-        public static GregorianDateTime GetNextSankranti(GregorianDateTime startDate, out int zodiac)
+        public static GregorianDateTime GetNextSankranti(GregorianDateTime startDate, GCEarthData earth, out int zodiac)
         {
             GregorianDateTime d = new GregorianDateTime();
             double step = 1.0;
@@ -57,7 +57,7 @@ namespace GCAL.Base
             //d.shour = 0.0;
             zodiac = 0;
 
-            prev = GCMath.putIn360(GCSunData.GetSunLongitude(d) - GCAyanamsha.GetAyanamsa(d.GetJulian()));
+            prev = GCMath.putIn360(GCCoreAstronomy.GetSunLongitude(d, earth) - GCAyanamsha.GetAyanamsa(d.GetJulian()));
             prev_rasi = GCMath.IntFloor(prev / 30.0);
 
             while (count < 20)
@@ -71,7 +71,7 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                ld = GCMath.putIn360(GCSunData.GetSunLongitude(d) - GCAyanamsha.GetAyanamsa(d.GetJulian()));
+                ld = GCMath.putIn360(GCCoreAstronomy.GetSunLongitude(d, earth) - GCAyanamsha.GetAyanamsa(d.GetJulian()));
                 new_rasi = GCMath.IntFloor(ld / 30.0);
 
                 if (prev_rasi != new_rasi)
@@ -97,6 +97,7 @@ namespace GCAL.Base
             XmlElement e1 = doc.CreateElement("xml");
             doc.AppendChild(e1);
             XmlElement e2, e3;
+            GCEarthData earth = loc.GetEarthData();
 
             // open file
             d.Set(vcStart);
@@ -118,7 +119,7 @@ namespace GCAL.Base
 
             while (d.IsBeforeThis(vcEnd))
             {
-                d.Set(GCSankranti.GetNextSankranti(d, out zodiac));
+                d.Set(GCSankranti.GetNextSankranti(d, earth, out zodiac));
                 d.InitWeekDay();
 
                 e3 = doc.CreateElement("sank");

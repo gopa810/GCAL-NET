@@ -367,7 +367,7 @@ namespace GCAL.Base
                     return timeZone;
             }
 
-            return null;
+            return GetDefaultTimeZone();
         }
 
         public static TTimeZone GetDefaultTimeZone()

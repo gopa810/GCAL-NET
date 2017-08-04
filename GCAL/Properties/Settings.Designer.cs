@@ -298,5 +298,29 @@ namespace GCAL.Properties {
                 this["TipOfDayIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OutputDirCompleteData {
+            get {
+                return ((string)(this["OutputDirCompleteData"]));
+            }
+            set {
+                this["OutputDirCompleteData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int CoreAstroSystem {
+            get {
+                return ((int)(this["CoreAstroSystem"]));
+            }
+            set {
+                this["CoreAstroSystem"] = value;
+            }
+        }
     }
 }

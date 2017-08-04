@@ -8,19 +8,6 @@ namespace GCAL.Base
 {
     public class GCNaksatra
     {
-        public static double CalculateMidnightNaksatra(GregorianDateTime date)
-        {
-            double d;
-            double jdate;
-            GCMoonData moon = new GCMoonData();
-
-            date.shour = 1.0;
-            jdate = date.GetJulianDetailed();
-            moon.Calculate(jdate);
-            d = GCMath.putIn360(moon.longitude_deg - GCAyanamsha.GetAyanamsa(jdate));
-            return Math.Floor((d * 3.0) / 40.0);
-        }
-
         /*********************************************************************/
         /*                                                                   */
         /*   finds next time when starts next naksatra                       */
@@ -34,9 +21,8 @@ namespace GCAL.Base
         public static int GetNextNaksatra(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
             double phi = 40.0 / 3.0;
-            double l1, l2;
+            double l1, l2, longitudeMoon;
             double jday = startDate.GetJulianComplete();
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime();
             d.Set(startDate);
             double ayanamsa = GCAyanamsha.GetAyanamsa(jday);
@@ -47,8 +33,8 @@ namespace GCAL.Base
             double xj;
             GregorianDateTime xd = new GregorianDateTime();
 
-            moon.Calculate(jday);
-            l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            l1 = GCMath.putIn360(longitudeMoon - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -65,8 +51,8 @@ namespace GCAL.Base
                     d.NextDay();
                 }
 
-                moon.Calculate(jday);
-                l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                l2 = GCMath.putIn360(longitudeMoon - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
                 if (prev_naks != new_naks)
                 {
@@ -98,9 +84,8 @@ namespace GCAL.Base
         public static int GetPrevNaksatra(GCEarthData ed, GregorianDateTime startDate, out GregorianDateTime nextDate)
         {
             double phi = 40.0 / 3.0;
-            double l1, l2;
+            double l1, l2, longitudeMoon;
             double jday = startDate.GetJulianComplete();
-            GCMoonData moon = new GCMoonData();
             GregorianDateTime d = new GregorianDateTime(startDate);
             double xj;
             GregorianDateTime xd = new GregorianDateTime();
@@ -110,8 +95,8 @@ namespace GCAL.Base
             int new_naks = -1;
 
 
-            moon.Calculate(jday);
-            l1 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+            longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+            l1 = GCMath.putIn360(longitudeMoon - ayanamsa);
             prev_naks = GCMath.IntFloor(l1 / phi);
 
             int counter = 0;
@@ -128,8 +113,8 @@ namespace GCAL.Base
                     d.PreviousDay();
                 }
 
-                moon.Calculate(jday);
-                l2 = GCMath.putIn360(moon.longitude_deg - ayanamsa);
+                longitudeMoon = GCCoreAstronomy.GetMoonLongitude(d, ed);
+                l2 = GCMath.putIn360(longitudeMoon - ayanamsa);
                 new_naks = GCMath.IntFloor(l2 / phi);
 
                 if (prev_naks != new_naks)
@@ -184,7 +169,6 @@ namespace GCAL.Base
                 d.TimezoneHours = loc.OffsetUtcHours;
                 GregorianDateTime dn;
                 GCHourTime dt = new GCHourTime();
-                GCSunData sun = new GCSunData();
                 int nak;
                 GCEarthData earth = loc.GetEarthData();
 
@@ -210,12 +194,10 @@ namespace GCAL.Base
                     xml.Write("\" />\n");
                     //m_list.SetItemText(n, 2, str);
 
-                    // sunrise time get
-                    sun.SunCalc(d, earth);
                     //time_print(str, sun.rise);
                     //m_list.SetItemText(n, 3, str);
                     xml.Write("\t\t\t<sunrise time=\"");
-                    xml.Write(sun.rise);
+                    xml.Write(GCSunData.CalcSunrise(d, earth));
                     xml.Write("\" />\n");
 
                     xml.Write("\t\t</day>\n");

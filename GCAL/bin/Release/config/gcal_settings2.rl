@@ -1,9 +1,5 @@
-12701 Vrindavan, India|77.73|27.583|5.5|Undefined
-12702 Tokyo (Japan)|139.751389|35.685001|9|Asia/Tokyo
-12702 London (United Kingdom)|-0.125533|51.508415|0|Undefined
-12702 Calcutta (India)|88.36972|22.569723|5.5|Undefined
-12702 Moskva (Russia)|37.615555|55.752224|3|Undefined
-12710 52|52|718|621
+12703 Vrindavan (India)|77.73|27.583|Asia/Calcutta
+12710 26|26|692|595
 12711 0|0
 12711 1|0
 12711 2|0
@@ -71,6 +67,7 @@
 12711 64|0
 12711 65|0
 12711 66|1
+12711 67|0
 12800 1
 12802 2
 12900 

@@ -218,6 +218,8 @@ namespace GCAL.Base
             {
                 File.WriteAllText(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE), Properties.Resources.tips);
             }
+
+
         }
 
 

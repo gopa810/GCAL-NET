@@ -9,10 +9,28 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GCAL</RootNamespace>
-    <AssemblyName>GCAL</AssemblyName>
+    <AssemblyName>SiddhantaPanchang</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Gopa702\Documents\My Apps\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,6 +50,33 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release SiddhantaPanchang|x86'">
+    <OutputPath>bin\x86\Release SiddhantaPanchang\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\GCAL.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>2A633F4861B2E4AA76EDBACFEE1CBEB2A52BD048</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GCAL_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -348,6 +393,30 @@
     <Compile Include="CompositeViews\TimezonesPanel.Designer.cs">
       <DependentUpon>TimezonesPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogAdvancedSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogAdvancedSettings.Designer.cs">
+      <DependentUpon>DialogAdvancedSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgCalcEkadasiBoundaries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgCalcEkadasiBoundaries.Designer.cs">
+      <DependentUpon>DlgCalcEkadasiBoundaries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportCompleteDataDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportCompleteDataDlg.Designer.cs">
+      <DependentUpon>ExportCompleteDataDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportCompleteProgressDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportCompleteProgressDlg.Designer.cs">
+      <DependentUpon>ExportCompleteProgressDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrameMainController.cs" />
     <Compile Include="FrameMain.cs">
       <SubType>Form</SubType>
@@ -356,6 +425,12 @@
       <DependentUpon>FrameMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GCPrintService.cs" />
+    <Compile Include="GetEkadasiName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetEkadasiName.Designer.cs">
+      <DependentUpon>GetEkadasiName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CalendarTableDrawer.cs" />
     <Compile Include="Views\CalendarTableView.cs">
       <SubType>UserControl</SubType>
@@ -549,8 +624,23 @@
     <EmbeddedResource Include="CompositeViews\TimezonesPanel.resx">
       <DependentUpon>TimezonesPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogAdvancedSettings.resx">
+      <DependentUpon>DialogAdvancedSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgCalcEkadasiBoundaries.resx">
+      <DependentUpon>DlgCalcEkadasiBoundaries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportCompleteDataDlg.resx">
+      <DependentUpon>ExportCompleteDataDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportCompleteProgressDlg.resx">
+      <DependentUpon>ExportCompleteProgressDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrameMain.resx">
       <DependentUpon>FrameMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GetEkadasiName.resx">
+      <DependentUpon>GetEkadasiName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -575,6 +665,7 @@
       <DependentUpon>GVTabBanner.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="GCAL_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -630,7 +721,23 @@
       <Name>GCAL.Base</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

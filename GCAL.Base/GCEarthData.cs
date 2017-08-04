@@ -292,6 +292,36 @@ namespace GCAL.Base
 	        return hc;
         }
 
+        public static bool ToDouble(string s, out double val, char poschar, char negchar)
+        {
+            int i;
+
+            i = s.IndexOf(negchar);
+            if (i >= 0)
+                return ToDouble2(s, i, -1.0, out val);
+            i = s.IndexOf(poschar);
+            if (i >= 0)
+                return ToDouble2(s, i, 1.0, out val);
+
+            val = 0.0;
+            return false;
+        }
+
+        private static bool ToDouble2(string s, int i, double sig, out double val)
+        {
+            int a, b;
+            if (int.TryParse(s.Substring(0, i), out a))
+            {
+                if (int.TryParse(s.Substring(i + 1), out b))
+                {
+                    val = sig * (a * 60.0 + b * 1.0) / 60.0;
+                    return true;
+                }
+            }
+
+            val = 0.0;
+            return false;
+        }
         public static string GetTextLatitude(double d)
         {
             int a0, a1;

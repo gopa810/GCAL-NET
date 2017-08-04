@@ -65,12 +65,13 @@ namespace GCAL.CompositeViews
                 new CheckBoxValuePair(checkBox17, 38),
                 new CheckBoxValuePair(checkBox18, 41),
                 new CheckBoxValuePair(checkBox27, GCDS.CAL_SUN_RISE),
-                new CheckBoxValuePair(checkBox28, GCDS.CAL_SUN_NOON),
-                new CheckBoxValuePair(checkBox29, GCDS.CAL_SUN_SET),
+                new CheckBoxValuePair(checkBox28, GCDS.CAL_SUN_SANDHYA),
+                new CheckBoxValuePair(checkBox29, GCDS.CAL_BRAHMA_MUHURTA),
                 new CheckBoxValuePair(checkBox30, GCDS.CAL_SUN_LONG),
                 new CheckBoxValuePair(checkBox31, GCDS.CAL_MOON_RISE),
                 new CheckBoxValuePair(checkBox32, GCDS.CAL_MOON_SET),
                 new CheckBoxValuePair(checkBox33, GCDS.CAL_MOON_LONG),
+                new CheckBoxValuePair(checkBox19, GCDS.CAL_COREEVENTS),
             };
 
 

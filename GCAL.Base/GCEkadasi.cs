@@ -32,7 +32,7 @@ namespace GCAL.Base
                 case MahadvadasiType.EV_VYANJULI:
                     return GCStrings.Localized("Vyanjuli Mahadvadasi");
                 default:
-                    return null;
+                    return "(Unknown Mahadvadasi)";
             }
         }
 

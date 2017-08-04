@@ -59,15 +59,15 @@ namespace GCAL.Base
             VAISNAVADAY today = exec.day(-DayOffset);
             VAISNAVADAY tomorrow = exec.day(-DayOffset + 1);
 
-            if (today.astrodata.nMasa == nMasa && today.astrodata.nTithi == nTithi)
+            if (today.astrodata.Masa == nMasa && today.astrodata.sunRise.Tithi == nTithi)
             {
-                if (yesterday.astrodata.nMasa == nMasa && yesterday.astrodata.nTithi == nTithi)
+                if (yesterday.astrodata.Masa == nMasa && yesterday.astrodata.sunRise.Tithi == nTithi)
                     return false;
                 else
                     return true;
             }
 
-            if (stickToMasa || GCMasa.IS_EXTRA(today.astrodata.nMasa))
+            if (stickToMasa || GCMasa.IS_EXTRA(today.astrodata.Masa))
             {
                 if (today.ksayaMasa == nMasa && today.ksayaTithi == nTithi)
                 {
