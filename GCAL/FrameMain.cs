@@ -55,13 +55,15 @@ namespace GCAL
             printFont = new Font("Lucida Console", 10);
 
 
+
             GCAL.Base.VSOP87.Testing.Test();
 
-            string p = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            /*string p = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().Location);
             if (p.IndexOf("Siddhanta") >= 0)
             {
                 Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.SuryaSiddhanta;
-            }
+            }*/
+            Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.Meeus;
             RefreshTitleText();
         }
 

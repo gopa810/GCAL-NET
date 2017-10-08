@@ -98,6 +98,7 @@ namespace GCAL
         public string SelectedDirectory = "";
         public bool includeSun = false;
         public bool includeCore = false;
+        public bool isPdf = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -110,6 +111,7 @@ namespace GCAL
             SelectedDirectory = textBox2.Text;
             includeSun = checkBox1.Checked;
             includeCore = checkBox2.Checked;
+            isPdf = checkBox3.Checked;
 
             Properties.Settings.Default.OutputDirCompleteData = SelectedDirectory;
             Properties.Settings.Default.Save();

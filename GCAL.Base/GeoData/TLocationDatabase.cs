@@ -76,6 +76,15 @@ namespace GCAL.Base
             return true;
         }
 
+        public static TLocation FindLocation(string v)
+        {
+            foreach(TLocation tl in LocationList)
+            {
+                if (tl.CityName.Equals(v))
+                    return tl;
+            }
+            return null;
+        }
 
         public static bool SaveFile(string lpszFileName, int nType)
         {

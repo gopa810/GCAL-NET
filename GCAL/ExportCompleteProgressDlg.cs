@@ -53,8 +53,9 @@ namespace GCAL
         public string OutputDir = "";
         public bool includeSun = false;
         public bool includeCore = false;
+        public bool isPdf = false;
 
-        public void SetData(List<TLocation> locs, int start, int end, string dir, bool isun, bool icore)
+        public void SetData(List<TLocation> locs, int start, int end, string dir, bool isun, bool icore, bool pdf)
         {
             SelectedLocations.AddRange(locs);
             StartYear = start;
@@ -62,6 +63,7 @@ namespace GCAL
             OutputDir = dir;
             includeSun = isun;
             includeCore = icore;
+            isPdf = pdf;
         }
 
         public int WorkType = 0;
@@ -123,8 +125,8 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_ARUN_TIME, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_ARUN_TITHI, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_AYANAMSHA, 0);
-                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, includeSun ? 1 : 0);
-                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, includeCore ? 1 : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, includeSun && !isPdf ? 1 : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, includeCore && !isPdf ? 1 : 0);
                 GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
@@ -144,22 +146,22 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_MOON_SET, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_SANKRANTI, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_SUN_LONG, 0);
-                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, includeSun ? 1 : 0);
-                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, includeSun ? 1 : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, includeSun ? (isPdf ? 0 : 1) : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, includeSun ? (isPdf ? 0 : 1) : 0);
                 GCDisplaySettings.setValue(GCDS.CAL_VRDDHI, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_CONJUNCTION, 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, 1);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, 1);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, isPdf ? 0 : 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, isPdf ? 0 : 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, isPdf ? 0 : 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_SUN, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, isPdf ? 0 : 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, isPdf ? 0 : 1);
 
                 for (int locIndex = 0; locIndex < SelectedLocations.Count; locIndex++)
                 {
@@ -178,17 +180,26 @@ namespace GCAL
 //                        Thread.Sleep(1000);
 
                         TResultCalendar calendar = new TResultCalendar();
+                        GCLocation locRef = loc.GetLocationRef();
                         calendar.CalculateCalendar(loc.GetLocationRef(), new GregorianDateTime(year, 1, 1), GregorianDateTime.IsLeapYear(year) ? 366 : 365);
-                        string content = calendar.formatText(GCDataFormat.HTML);
-                        string filename = year.ToString() + "_" + ToFilePart(loc.CityName) + ".html";
-                        File.WriteAllText(Path.Combine(OutputDir, filename), content);
-                        files.Add(new FileRec()
+
+                        if (isPdf)
                         {
-                            filename = filename,
-                            city = loc.CityName,
-                            country = loc.Country.Name,
-                            year = year
-                        });
+                            PrintPdfYear(calendar, year, Path.Combine(OutputDir, year.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf"));
+                        }
+                        else
+                        {
+                            string content = calendar.formatText(GCDataFormat.HTML);
+                            string filename = year.ToString() + "_" + ToFilePart(loc.CityName) + ".html";
+                            File.WriteAllText(Path.Combine(OutputDir, filename), content);
+                            files.Add(new FileRec()
+                            {
+                                filename = filename,
+                                city = loc.CityName,
+                                country = loc.Country.Name,
+                                year = year
+                            });
+                        }
                     }
 
                     // write location index file
@@ -253,7 +264,7 @@ namespace GCAL
                         if (sy == ey)
                         {
                             sb.AppendFormat("<p><a href=\"{1}\">{0} {2}</a> {3} {4}</p>\n", loc.CityName,
-                                sy.ToString() + "_" + ToFilePart(loc.CityName) + ".html", sy,
+                                sy.ToString() + "_" + ToFilePart(loc.CityName) + (isPdf ? ".pdf" : ".html"), sy,
                                 GCEarthData.GetTextLatitude(loc.Latitude), GCEarthData.GetTextLongitude(loc.Longitude));
                         }
                         else
@@ -285,7 +296,7 @@ namespace GCAL
             {
                 if (y > sy)
                     sb.AppendLine(" | ");
-                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + ".html", sy);
+                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + (isPdf ? ".pdf" : ".html"), sy);
 
             }
 
@@ -347,6 +358,15 @@ namespace GCAL
 
         }
 
+        public void PrintPdfYear(GCLocation loc, int year, string fileName)
+        {
+            GCPrintService.ExportTableCalendar(loc, year, year, fileName);
+        }
+
+        public void PrintPdfYear(TResultCalendar loc, int year, string fileName)
+        {
+            GCPrintService.ExportTableCalendar(loc, year, year, fileName);
+        }
 
     }
 }

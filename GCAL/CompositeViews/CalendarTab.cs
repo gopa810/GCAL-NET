@@ -532,7 +532,7 @@ namespace GCAL.CompositeViews
                 ExportCompleteProgressDlg ep = new ExportCompleteProgressDlg();
 
                 ep.SetData(dlg.SelectedLocations, dlg.StartYear, dlg.EndYear, dlg.SelectedDirectory,
-                    dlg.includeSun, dlg.includeCore);
+                    dlg.includeSun, dlg.includeCore, dlg.isPdf);
                 ep.Show();
 
                 ep.Start(1);

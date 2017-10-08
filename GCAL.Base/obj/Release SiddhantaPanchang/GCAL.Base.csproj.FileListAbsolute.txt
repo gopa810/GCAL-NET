@@ -4,3 +4,10 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPancha
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.csproj.GenerateResource.Cache
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.dll
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.pdb
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\PdfSharp.Charting.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\PdfSharp.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\PdfSharp.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\PdfSharp.Charting.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\de\PdfSharp.resources.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Release SiddhantaPanchang\de\PdfSharp.Charting.resources.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Release SiddhantaPanchang\GCAL.Base.csprojResolveAssemblyReference.cache

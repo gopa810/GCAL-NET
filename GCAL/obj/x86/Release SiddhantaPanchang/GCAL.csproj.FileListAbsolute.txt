@@ -71,3 +71,9 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchan
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\SiddhantaPanchang.application
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release SiddhantaPanchang\SiddhantaPanchang.exe.manifest
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Release SiddhantaPanchang\SiddhantaPanchang.application
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\PdfSharp.Charting.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\PdfSharp.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\PdfSharp.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\PdfSharp.Charting.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\de\PdfSharp.resources.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\bin\x86\Release SiddhantaPanchang\de\PdfSharp.Charting.resources.dll

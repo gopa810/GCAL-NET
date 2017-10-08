@@ -12,3 +12,9 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.csproj.
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.dll
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.pdb
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\obj\Debug\GCAL.Base.csprojResolveAssemblyReference.cache
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\PdfSharp.Charting.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\PdfSharp.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\PdfSharp.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\PdfSharp.Charting.xml
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\de\PdfSharp.resources.dll
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL.Base\bin\Debug\de\PdfSharp.Charting.resources.dll

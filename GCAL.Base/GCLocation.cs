@@ -66,6 +66,14 @@ namespace GCAL.Base
             Set(cl);
         }
 
+        public GCLocation(TLocation loc)
+        {
+            Title = loc.CityName + " (" + loc.Country.Name + ")";
+            Longitude = loc.Longitude;
+            Latitude = loc.Latitude;
+            TimeZone = loc.TimeZone;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is GCLocation)
