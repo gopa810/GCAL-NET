@@ -20,7 +20,7 @@ namespace GCAL
             comboBox1.Items.Clear();
 
             AddSystemComboValue(GCCoreAstronomy.AstronomySystem.Meeus);
-            AddSystemComboValue(GCCoreAstronomy.AstronomySystem.SuryaSiddhanta);
+            //AddSystemComboValue(GCCoreAstronomy.AstronomySystem.SuryaSiddhanta);
 
         }
 

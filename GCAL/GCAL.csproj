@@ -97,6 +97,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarDataView\CDVAtom.cs" />
+    <Compile Include="CalendarDataView\CDVBorder.cs" />
+    <Compile Include="CalendarDataView\CDVColor.cs" />
+    <Compile Include="CalendarDataView\CDVContext.cs" />
+    <Compile Include="CalendarDataView\CDVDocument.cs" />
+    <Compile Include="CalendarDataView\CDVDocumentCell.cs" />
+    <Compile Include="CalendarDataView\CDVOrientation.cs" />
+    <Compile Include="CalendarDataView\CDVRuler.cs" />
+    <Compile Include="CalendarDataView\CDVWord.cs" />
+    <Compile Include="CalendarDataView\CDVPara.cs" />
+    <Compile Include="CalendarDataView\CDVParaStyle.cs" />
+    <Compile Include="CalendarDataView\CDVTextStyle.cs" />
+    <Compile Include="CalendarDataView\Interfaces.cs" />
     <Compile Include="CompositeViews\AppDayTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -437,6 +450,12 @@
     <Compile Include="GetEkadasiName.Designer.cs">
       <DependentUpon>GetEkadasiName.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalendarDataView\CalendarDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CalendarDataView\CalendarDataView.Designer.cs">
+      <DependentUpon>CalendarDataView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CalendarPdfDrawer.cs" />
     <Compile Include="Views\CalendarTableDrawer.cs" />
     <Compile Include="Views\CalendarTableView.cs">
@@ -659,6 +678,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="CalendarDataView\CalendarDataView.resx">
+      <DependentUpon>CalendarDataView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CalendarTableView.resx">
       <DependentUpon>CalendarTableView.cs</DependentUpon>
     </EmbeddedResource>

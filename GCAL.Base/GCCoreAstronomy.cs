@@ -10,7 +10,7 @@ namespace GCAL.Base
         public enum AstronomySystem
         {
             Meeus,
-            SuryaSiddhanta
+            //SuryaSiddhanta
         }
 
         static GCCoreAstronomy()
@@ -24,10 +24,6 @@ namespace GCAL.Base
         {
             switch(System)
             {
-                case AstronomySystem.SuryaSiddhanta:
-                    GCSuryaSiddhanta ss = new GCSuryaSiddhanta();
-                    SuryaChandraData sd = ss.CalculateSunMoon(vct, earth);
-                    return sd.dSurya;
                 case AstronomySystem.Meeus:
                     return GCSunData.GetSunLongitude(vct);
             }
@@ -53,10 +49,6 @@ namespace GCAL.Base
                     GCMoonData moon = new GCMoonData();
                     moon.Calculate(vct.GetJulianDetailed());
                     return moon.longitude_deg;
-                case AstronomySystem.SuryaSiddhanta:
-                    GCSuryaSiddhanta ss = new GCSuryaSiddhanta();
-                    SuryaChandraData sd = ss.CalculateSunMoon(vct, earth);
-                    return sd.dChandra;
             }
 
             return 0;

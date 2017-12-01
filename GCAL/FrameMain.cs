@@ -29,6 +29,7 @@ namespace GCAL
         {
             InitializeComponent();
 
+            Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.Meeus;
             GCCoreAstronomy.System = (GCCoreAstronomy.AstronomySystem)Properties.Settings.Default.CoreAstroSystem;
 
             frameDelegate = new FrameMainController(this);
@@ -63,7 +64,6 @@ namespace GCAL
             {
                 Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.SuryaSiddhanta;
             }*/
-            Properties.Settings.Default.CoreAstroSystem = (int)GCCoreAstronomy.AstronomySystem.Meeus;
             RefreshTitleText();
         }
 
@@ -187,9 +187,6 @@ namespace GCAL
             {
                 case GCCoreAstronomy.AstronomySystem.Meeus:
                     this.Text = "Gaurabda Calendar";
-                    break;
-                case GCCoreAstronomy.AstronomySystem.SuryaSiddhanta:
-                    this.Text = "Siddhanta Panchang";
                     break;
             }
         }

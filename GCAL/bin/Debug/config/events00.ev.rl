@@ -55,6 +55,3 @@ BeginScript
 (if (and (== d1.astro.tithi 23) (< d3.fastType 518)) then (return 1))
 (return 0)
 EndScript
-GCFestivalSankranti:|Some Kanya|0|0|1|-10000|1|305|-5|5
-GCFestivalTithiMasa:|Moje narodky|0|0|1|-10000|1|497|0|22|0
-GCFestivalRelated:|After 4 days|0|0|1|-10000|1|498|4
