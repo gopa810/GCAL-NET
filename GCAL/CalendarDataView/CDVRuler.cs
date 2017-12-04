@@ -11,7 +11,7 @@ namespace GCAL.CalendarDataView
         public int Value { get; set; }
         public int Width { get; set; }
 
-        public CDVRuler()
+        public CDVRuler(CDVAtom parent): base(parent)
         {
             Value = 0;
             Width = 6;

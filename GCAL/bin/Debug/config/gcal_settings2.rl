@@ -1,10 +1,10 @@
 12703 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
+12704 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
 12704 Seattle (United States)|-122.33207|47.60621|America/Los_Angeles
 12704 Dubai (United Arab Emirates)|55.17128|25.0657|Asia/Dubai
 12704 Washington, D.C. (United States)|-77.03637|38.89511|America/New_York
 12704 Prague (Czechia)|14.42076|50.08804|Europe/Prague
 12704 Kolkata (India)|88.36304|22.56263|Asia/Kolkata
-12704 Bratislava (Slovakia)|17.10674|48.14816|Europe/Bratislava
 12704 Fendels (Austria)|10.65|47.0333333333333|Europe/Vienna
 12704 Brno (Czechia)|16.60796|49.19522|Europe/Prague
 12704 Jandelsbrun (Simhacalam) (Germany)|13.6833333333333|48.7166666666667|Europe/Berlin
@@ -15,7 +15,7 @@
 12704 Prešov (Slovakia)|21.23393|48.99839|Europe/Bratislava
 12704 Martin (Slovakia)|18.92399|49.06651|Europe/Bratislava
 12704 Zlín (Czechia)|17.67065|49.22645|Europe/Prague
-12710 580|66|1722|822
+12710 146|465|812|1034
 12711 0|0
 12711 1|0
 12711 2|0
@@ -68,10 +68,10 @@
 12711 49|3
 12711 50|0
 12711 51|0
-12711 52|0
-12711 53|0
-12711 54|0
-12711 55|0
+12711 52|1
+12711 53|1
+12711 54|1
+12711 55|1
 12711 56|1
 12711 57|0
 12711 58|0
@@ -81,7 +81,7 @@
 12711 62|0
 12711 63|1
 12711 64|0
-12711 65|0
+12711 65|1
 12711 66|1
 12711 67|0
 12800 1

@@ -42,8 +42,7 @@ namespace GCAL.CalendarDataView
                 Size atomSize = atom.Item.Size;
                 Point atomLoc = atom.Item.Location;
                 Point newAtomLoc = new Point(0, Height / 2 - atomSize.Height / 2);
-                Size newOffset = new Size(newAtomLoc.X - atomLoc.X, newAtomLoc.Y - atomLoc.Y);
-                atom.Item.Offset(newOffset);
+                atom.Item.Offset(newAtomLoc.X - atomLoc.X, newAtomLoc.Y - atomLoc.Y);
                 MainAtom = atom;
                 MainAtomPosition = 50;
             }

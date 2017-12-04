@@ -118,3 +118,4 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.application
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.exe
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.pdb
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CalendarDataView.CalendarDataView.resources

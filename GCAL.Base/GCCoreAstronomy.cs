@@ -47,7 +47,7 @@ namespace GCAL.Base
             {
                 case AstronomySystem.Meeus:
                     GCMoonData moon = new GCMoonData();
-                    moon.Calculate(vct.GetJulianDetailed());
+                    moon.Calculate(vct.GetJulianComplete());
                     return moon.longitude_deg;
             }
 
