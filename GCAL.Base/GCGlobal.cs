@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using System.Drawing;
+using System.Globalization;
 
 using GCAL.Base.Scripting;
 
@@ -178,6 +179,9 @@ namespace GCAL.Base
 
         public static void LoadInstanceData()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
             // initialization for AppDir
             initFolders();
 
