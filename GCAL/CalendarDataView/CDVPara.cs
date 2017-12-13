@@ -8,16 +8,90 @@ namespace GCAL.CalendarDataView
 {
     public class CDVPara: CDVAtom
     {
+        public class CDVLine: List<CDVAtom>
+        {
+            public int MaxHeight
+            {
+                get
+                {
+                    int max = 0;
+                    foreach(CDVAtom atom in this)
+                    {
+                        max = Math.Max(max, atom.Height);
+                    }
+                    return max;
+                }
+            }
+            public int Right
+            {
+                get
+                {
+                    int max = 0;
+                    foreach (CDVAtom atom in this)
+                    {
+                        max = Math.Max(max, atom.Bounds.Right);
+                    }
+                    return max;
+                }
+            }
 
+            public void ApplyAlignment(int maxWidth, CDVAlign align)
+            {
+                if (this.Count > 0)
+                {
+                    int remainingWidth = maxWidth - this[this.Count - 1].Bounds.Right;
+                    int correction = (align == CDVAlign.Left ? 0 : align == CDVAlign.Center ? remainingWidth / 2 : remainingWidth);
+                    for (int i = 0; i < this.Count; i++)
+                    {
+                        this[i].Location.Offset(correction, 0);
+                    }
+                }
+            }
+
+        }
 
         public CDVOrientation Orientation = CDVOrientation.Horizontal;
         public List<CDVAtom> Words = new List<CDVAtom>();
-        private Rectangle border = Rectangle.Empty;
+        public List<CDVLine> Lines = new List<CDVLine>();
 
         public CDVPara(CDVAtom owner): base(owner)
         {
 
         }
+
+        public CDVPara(CDVAtom owner, params object[] args): base(owner)
+        {
+            foreach(object obj in args)
+            {
+                if (obj is CDVParaStyle)
+                {
+                    this.ParaStyle = (CDVParaStyle)obj;
+                }
+                else if (obj is CDVOrientation)
+                {
+                    this.Orientation = (CDVOrientation)obj;
+                }
+                else if (obj is CDVTextStyle)
+                {
+                    this.TextStyle = (CDVTextStyle)obj;
+                }
+                else if (obj is CDVAtom)
+                {
+                    CDVAtom atom = (CDVAtom)obj;
+                    atom.Parent = this;
+                    Words.Add(atom);
+                }
+                else if (obj is CDVAtom[])
+                {
+                    foreach (CDVAtom atom in (CDVAtom[])obj)
+                    {
+                        atom.Parent = this;
+                        Words.Add(atom);
+                    }
+                }
+            }
+        }
+
 
         public override int GetMinimumWidth(CDVContext context)
         {
@@ -32,15 +106,9 @@ namespace GCAL.CalendarDataView
 
         public override void DrawInRect(CDVContext context)
         {
-            if (ParaStyle.BackgroundColor != CDVColor.Transparent)
-            {
-                context.g.FillRectangle(CDVContext.GetBrush(ParaStyle.BackgroundColor), border);
-            }
+            if (!Visible) return;
 
-            if (ParaStyle.BorderWidth > 0)
-            {
-                context.g.DrawRectangle(CDVContext.GetPen(ParaStyle.BorderWidth, ParaStyle.BorderColor), border);
-            }
+            base.DrawInRect(context);
 
             foreach (CDVAtom atom in Words)
             {
@@ -48,48 +116,49 @@ namespace GCAL.CalendarDataView
             }
         }
 
-        public override void MeasureRect(CDVContext context, Rectangle availableArea)
+        public override void MeasureRect(CDVContext context, int maxWidth)
         {
-            Location = availableArea.Location;
-            Size = new Size(availableArea.Width, 4);
-            Rectangle clientArea = new Rectangle(availableArea.X + ParaStyle.Margin.Left + ParaStyle.Padding.Left,
-                availableArea.Y + ParaStyle.Margin.Top + ParaStyle.Padding.Top, availableArea.Width - ParaStyle.Margin.Left 
-                - ParaStyle.Margin.Right - ParaStyle.Padding.Left - ParaStyle.Padding.Right, availableArea.Height - ParaStyle.Margin.Bottom - ParaStyle.Margin.Top
-                - ParaStyle.Padding.Top - ParaStyle.Padding.Bottom);
-            availableArea = clientArea;
-            int bottom = clientArea.Top;
-            List<CDVAtom> line = new List<CDVAtom>();
+            Location = new Point(0,0);
+            Size = new Size(0, 4);
+            int bx = p_para_style == null ? 0 : p_para_style.Margin.Left + p_para_style.Padding.Left;
+            int by = p_para_style == null ? 0 : p_para_style.Margin.Top + p_para_style.Padding.Top;
+            int bw = p_para_style == null ? 0 : p_para_style.Margin.Right + p_para_style.Padding.Right;
+            int bh = p_para_style == null ? 0 : p_para_style.Margin.Bottom + p_para_style.Padding.Bottom;
+
+            int x = bx;
+            int y = by;
+            int maxLineWidth = 0;
+            CDVLine line = new CDVLine();
             foreach(CDVAtom atom in Words)
             {
-                atom.MeasureRect(context, availableArea);
-                if (Orientation == CDVOrientation.Vertical || atom.Bounds.Right > availableArea.Right)
+                atom.MeasureRect(context, maxWidth);
+                if (Orientation == CDVOrientation.Vertical || x + atom.Bounds.Width + bx + bw > maxWidth)
                 {
-                    atom.Location = new Point(clientArea.X, bottom);
-                    if (line.Count > 0)
-                    {
-                        int remainingWidth = availableArea.Width - line[line.Count - 1].Bounds.Right;
-                        int correction = (ParaStyle.Align == CDVAlign.Left ? 0 : ParaStyle.Align == CDVAlign.Center ? remainingWidth / 2 : remainingWidth);
-                        for (int i = 0; i < line.Count; i++)
-                        {
-                            line[i].Location.Offset(correction, 0);
-                        }
-                        line.Clear();
-                    }
+                    x = bx;
+                    y += line.MaxHeight;
+                    line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
+                    maxLineWidth = Math.Max(maxLineWidth, line.Right);
+                    Lines.Add(line);
+                    line = new CDVLine();
+                    atom.Location = new Point(x, y);
                 }
-                line.Add(atom);
+                else
+                {
+                    atom.Location = new Point(x, y);
+                    x += atom.Bounds.Width;
+                }
 
-                if (bottom < atom.Bounds.Bottom)
-                    bottom = atom.Bounds.Bottom;
+                line.Add(atom);
             }
 
-            Size = new Size(Size.Width, bottom - clientArea.Top + ParaStyle.Margin.Bottom + ParaStyle.Margin.Top
-                + ParaStyle.Padding.Top + ParaStyle.Padding.Bottom);
+            line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
+            Lines.Add(line);
 
-            border = new Rectangle(availableArea.X + ParaStyle.Margin.Left,
-                availableArea.Y + ParaStyle.Margin.Top, availableArea.Width - ParaStyle.Margin.Left
-                - ParaStyle.Margin.Right, availableArea.Height - ParaStyle.Margin.Bottom - ParaStyle.Margin.Top);
+            Size = new Size(maxLineWidth + bw, y + line.MaxHeight + bh);
 
+            base.MeasureRect(context, maxWidth);
         }
+
 
         public override void Offset(int x, int y)
         {
@@ -98,8 +167,8 @@ namespace GCAL.CalendarDataView
                 atom.Offset(x, y);
             }
 
-            border.Offset(x, y);
             base.Offset(x, y);
         }
+
     }
 }

@@ -23,6 +23,11 @@ namespace GCAL.Base
         }
     }
 
+    public class GCDisplaySettingCollection: Dictionary<int,int>
+    {
+
+    }
+
     public class GCDisplaySettings
     {
         protected static CShowSetting[] gss = {
@@ -197,7 +202,27 @@ namespace GCAL.Base
             }
         }
 
-        protected static List<int[]> SettingsStack = new List<int[]>();
+        protected static List<GCDisplaySettingCollection> SettingsStack = new List<GCDisplaySettingCollection>();
+
+        public static GCDisplaySettingCollection CurrentState
+        {
+            get
+            {
+                GCDisplaySettingCollection arr = new GCDisplaySettingCollection();
+                for (int i = 0; i < gss.Length; i++)
+                {
+                    arr[i] = gss[i].val;
+                }
+                return arr;
+            }
+            set
+            {
+                foreach(KeyValuePair<int,int> pair in value)
+                {
+                    gss[pair.Key].val = pair.Value;
+                }
+            }
+        }
 
         public static void Push()
         {
@@ -207,18 +232,14 @@ namespace GCAL.Base
                 arr[i] = gss[i].val;
             }
 
-            SettingsStack.Add(arr);
+            SettingsStack.Add(CurrentState);
         }
 
         public static void Pop()
         {
             if (SettingsStack.Count > 0)
             {
-                int[] arr = SettingsStack[SettingsStack.Count - 1];
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    gss[i].val = arr[i];
-                }
+                CurrentState = SettingsStack[SettingsStack.Count - 1];
                 SettingsStack.RemoveAt(SettingsStack.Count - 1);
             }
         }

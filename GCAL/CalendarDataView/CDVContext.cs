@@ -10,8 +10,8 @@ namespace GCAL.CalendarDataView
     {
         public Graphics g;
 
-        public static Dictionary<UInt32, Brush> Brushes = new Dictionary<uint, Brush>();
-        public static Dictionary<UInt64, Pen> Pens = new Dictionary<ulong, Pen>();
+        public static Dictionary<CDVColor, Brush> Brushes = new Dictionary<CDVColor, Brush>();
+        public static Dictionary<string,Pen> Pens = new Dictionary<string, Pen>();
         public static Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
 
         public static StringFormat StringFormatCenterCenter;
@@ -23,31 +23,35 @@ namespace GCAL.CalendarDataView
             StringFormatCenterCenter.LineAlignment = StringAlignment.Center;
         }
 
-        public static Brush GetBrush(UInt32 color)
+        public static Brush GetBrush(CDVColor color)
         {
             if (Brushes.ContainsKey(color))
                 return Brushes[color];
 
-            Color c = Color.FromArgb((int)color);
+            Color c = Color.FromArgb(color.A, color.R, color.G, color.B);
             Brushes[color] = new SolidBrush(c);
             return Brushes[color];
         }
 
-        public static Pen GetPen(int width, UInt32 color)
+        public static Pen GetPen(int width, CDVColor color)
         {
             if (width < 1) width = 1;
             if (width > 100) width = 100;
-            ulong key = ((ulong)width) << 32 | color;
+            string key = string.Format("{0}/{1}/{2}/{3}/{4}", width, color.A, color.R, color.G, color.B);
             if (Pens.ContainsKey(key))
                 return Pens[key];
 
-            Pens[key] = new Pen(Color.FromArgb((int)color), width / 10f);
+            Color c = Color.FromArgb(color.A, color.R, color.G, color.B);
+            Pens[key] = new Pen(c, width / 10f);
             return Pens[key];
         }
 
         public static Font GetFont(string familyName, int size, bool bold, bool italic, bool underline)
         {
-            string key = string.Format("{0}-{1}-{2}{3}{4}", familyName, size, bold ? 1 : 0, italic ? 1 : 0, underline ? 1 : 0);
+            if (string.IsNullOrWhiteSpace(familyName))
+                familyName = "Times";
+
+            string key = string.Format("{0}/{1}/{2}{3}{4}", familyName, size, bold ? 1 : 0, italic ? 1 : 0, underline ? 1 : 0);
             if (Fonts.ContainsKey(key))
                 return Fonts[key];
 

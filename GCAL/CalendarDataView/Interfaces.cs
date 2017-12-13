@@ -13,5 +13,6 @@ namespace GCAL.CalendarDataView
     public interface CDVDataTarget
     {
         void OnCDVDataAvailable(CDVDocumentCell data);
+        CDVAtom GetDocument();
     }
 }

@@ -15,7 +15,7 @@
 12704 Prešov (Slovakia)|21.23393|48.99839|Europe/Bratislava
 12704 Martin (Slovakia)|18.92399|49.06651|Europe/Bratislava
 12704 Zlín (Czechia)|17.67065|49.22645|Europe/Prague
-12710 146|465|812|1034
+12710 507|187|1173|756
 12711 0|0
 12711 1|0
 12711 2|0

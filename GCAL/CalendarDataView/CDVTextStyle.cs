@@ -13,6 +13,6 @@ namespace GCAL.CalendarDataView
         public bool Italic = false;
         public bool Bold = false;
         public bool Underline = false;
-        public UInt32 Color = 0;
+        public CDVColor Color = CDVColor.Black;
     }
 }

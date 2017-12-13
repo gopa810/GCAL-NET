@@ -105,6 +105,7 @@
     <Compile Include="CalendarDataView\CDVDocumentCell.cs" />
     <Compile Include="CalendarDataView\CDVOrientation.cs" />
     <Compile Include="CalendarDataView\CDVRuler.cs" />
+    <Compile Include="CalendarDataView\CDVVisibilityStyle.cs" />
     <Compile Include="CalendarDataView\CDVWord.cs" />
     <Compile Include="CalendarDataView\CDVPara.cs" />
     <Compile Include="CalendarDataView\CDVParaStyle.cs" />

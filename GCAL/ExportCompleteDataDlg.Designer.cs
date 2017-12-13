@@ -50,7 +50,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -207,7 +206,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBox3);
             this.tabPage3.Controls.Add(this.checkBox2);
             this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.button6);
@@ -292,16 +290,6 @@
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(45, 157);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(111, 17);
-            this.checkBox3.TabIndex = 5;
-            this.checkBox3.Text = "Export PDF tables";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // ExportCompleteDataDlg
             // 
             this.AcceptButton = this.button1;
@@ -353,6 +341,5 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

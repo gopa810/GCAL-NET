@@ -53,9 +53,8 @@ namespace GCAL
         public string OutputDir = "";
         public bool includeSun = false;
         public bool includeCore = false;
-        public bool isPdf = false;
 
-        public void SetData(List<TLocation> locs, int start, int end, string dir, bool isun, bool icore, bool pdf)
+        public void SetData(List<TLocation> locs, int start, int end, string dir, bool isun, bool icore)
         {
             SelectedLocations.AddRange(locs);
             StartYear = start;
@@ -63,7 +62,6 @@ namespace GCAL
             OutputDir = dir;
             includeSun = isun;
             includeCore = icore;
-            isPdf = pdf;
         }
 
         public int WorkType = 0;
@@ -94,6 +92,8 @@ namespace GCAL
             public string city;
             public int year;
             public string filename;
+            public string filenameDetail;
+            public string filenamePdf;
         }
 
         public string ToFilePart(string s)
@@ -118,6 +118,10 @@ namespace GCAL
             List<FileRec> files = new List<FileRec>();
             HashSet<string> countries = new HashSet<string>();
 
+            GCDisplaySettingCollection statePdf;
+            GCDisplaySettingCollection stateDetailedText;
+            GCDisplaySettingCollection stateText;
+
             try
             {
                 GCDisplaySettings.Push();
@@ -125,8 +129,8 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_ARUN_TIME, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_ARUN_TITHI, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_AYANAMSHA, 0);
-                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, includeSun && !isPdf ? 1 : 0);
-                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, includeCore && !isPdf ? 1 : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
@@ -146,22 +150,114 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_MOON_SET, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_SANKRANTI, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_SUN_LONG, 0);
-                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, includeSun ? (isPdf ? 0 : 1) : 0);
-                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, includeSun ? (isPdf ? 0 : 1) : 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_VRDDHI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_CONJUNCTION, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SUN, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, 0);
+
+                stateText = GCDisplaySettings.CurrentState;
+
+                GCDisplaySettings.setValue(GCDS.CAL_ARUN_TIME, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_ARUN_TITHI, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_AYANAMSHA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_1, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_2, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_3, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_4, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_5, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_6, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_HEADER_MONTH, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_JULIAN, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_KSAYA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MASA_CHANGE, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_LONG, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_RISE, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_SET, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SANKRANTI, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_LONG, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_VRDDHI, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_CONJUNCTION, 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, isPdf ? 0 : 1);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, isPdf ? 0 : 1);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, isPdf ? 0 : 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_SUN, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, isPdf ? 0 : 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, 1);
                 GCDisplaySettings.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
-                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, isPdf ? 0 : 1);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, 1);
+
+                stateDetailedText = GCDisplaySettings.CurrentState;
+
+                GCDisplaySettings.setValue(GCDS.CAL_ARUN_TIME, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_ARUN_TITHI, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_AYANAMSHA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_BRAHMA_MUHURTA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_COREEVENTS, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_1, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_2, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_3, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_4, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_5, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_FEST_6, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_HEADER_MONTH, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_JULIAN, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_KSAYA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MASA_CHANGE, 1);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_LONG, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_RISE, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_MOON_SET, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SANKRANTI, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_LONG, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_RISE, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_SUN_SANDHYA, 0);
+                GCDisplaySettings.setValue(GCDS.CAL_VRDDHI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_CONJUNCTION, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOON, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_MOONRASI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_NAKSATRA, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_SUN, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_TITHI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
+                GCDisplaySettings.setValue(GCDS.COREEVENTS_YOGA, 0);
+
+
+                statePdf = GCDisplaySettings.CurrentState;
+
+                string content;
+                FileRec currentFileRec;
 
                 for (int locIndex = 0; locIndex < SelectedLocations.Count; locIndex++)
                 {
@@ -177,29 +273,37 @@ namespace GCAL
                             return;
 
                         progressBar2.Invoke(yrdel, year);
-//                        Thread.Sleep(1000);
+                        //                        Thread.Sleep(1000);
 
-                        TResultCalendar calendar = new TResultCalendar();
+                        TResultCalendar calendar;
                         GCLocation locRef = loc.GetLocationRef();
-                        calendar.CalculateCalendar(loc.GetLocationRef(), new GregorianDateTime(year, 1, 1), GregorianDateTime.IsLeapYear(year) ? 366 : 365);
 
-                        if (isPdf)
+
+                        currentFileRec = new FileRec()
                         {
-                            PrintPdfYear(calendar, year, Path.Combine(OutputDir, year.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf"));
-                        }
-                        else
-                        {
-                            string content = calendar.formatText(GCDataFormat.HTML);
-                            string filename = year.ToString() + "_" + ToFilePart(loc.CityName) + ".html";
-                            File.WriteAllText(Path.Combine(OutputDir, filename), content);
-                            files.Add(new FileRec()
-                            {
-                                filename = filename,
-                                city = loc.CityName,
-                                country = loc.Country.Name,
-                                year = year
-                            });
-                        }
+                            filename = year.ToString() + "_" + ToFilePart(loc.CityName) + ".html",
+                            filenameDetail = year.ToString() + "_" + ToFilePart(loc.CityName) + "_d.html",
+                            filenamePdf = year.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf",
+                            city = loc.CityName,
+                            country = loc.Country.Name,
+                            year = year
+                        };
+
+                        files.Add(currentFileRec);
+
+                        GCDisplaySettings.CurrentState = stateText;
+                        calendar = new TResultCalendar(loc.GetLocationRef(), year);
+                        content = calendar.formatText(GCDataFormat.HTML);
+                        File.WriteAllText(Path.Combine(OutputDir, currentFileRec.filename), content);
+
+                        GCDisplaySettings.CurrentState = stateDetailedText;
+                        calendar = new TResultCalendar(loc.GetLocationRef(), year);
+                        content = calendar.formatText(GCDataFormat.HTML);
+                        File.WriteAllText(Path.Combine(OutputDir, currentFileRec.filenameDetail), content);
+
+                        GCDisplaySettings.CurrentState = statePdf;
+                        PrintPdfYear(calendar, year, Path.Combine(OutputDir, year.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf"));
+
                     }
 
                     // write location index file
@@ -263,9 +367,15 @@ namespace GCAL
                     {
                         if (sy == ey)
                         {
-                            sb.AppendFormat("<p><a href=\"{1}\">{0} {2}</a> {3} {4}</p>\n", loc.CityName,
-                                sy.ToString() + "_" + ToFilePart(loc.CityName) + (isPdf ? ".pdf" : ".html"), sy,
-                                GCEarthData.GetTextLatitude(loc.Latitude), GCEarthData.GetTextLongitude(loc.Longitude));
+                            sb.Append("<p>");
+                            sb.AppendFormat("<a href=\"{1}\">{0} {2}</a> ", loc.CityName,
+                                sy.ToString() + "_" + ToFilePart(loc.CityName) + ".html", sy);
+                            sb.AppendFormat(" | <a href=\"{1}\">{0} {2} (Full)</a>", loc.CityName,
+                                sy.ToString() + "_" + ToFilePart(loc.CityName) + "_d.html", sy);
+                            sb.AppendFormat(" | <a href=\"{1}\">{0} {2} (PDF)</a>", loc.CityName,
+                                sy.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf", sy);
+                            sb.AppendFormat(" {0} {1}", GCEarthData.GetTextLatitude(loc.Latitude), GCEarthData.GetTextLongitude(loc.Longitude));
+                            sb.Append("</p>\n");
                         }
                         else
                         {
@@ -290,21 +400,49 @@ namespace GCAL
             sb.Append("<body>");
 
             sb.AppendLine("<h1>" + loc.CityName + " (" + loc.Country.Name + ")" + "</h1>");
+            sb.AppendFormat("<p>{0} {1}</p>", GCEarthData.GetTextLatitude(loc.Latitude), GCEarthData.GetTextLongitude(loc.Longitude));
             sb.AppendLine("<hr>");
-
+            sb.AppendLine("<h2>Text (Brief)</h2>");
+            sb.AppendLine("<p>");
             for (int y = sy; y <= ey; y++)
             {
                 if (y > sy)
                     sb.AppendLine(" | ");
-                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + (isPdf ? ".pdf" : ".html"), sy);
-
+                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + ".html", sy);
             }
+            sb.AppendLine("</p>");
+            sb.AppendLine("<hr>");
+            sb.AppendLine("<h2>Text (Full)</h2>");
+            sb.AppendLine("<p>");
+            for (int y = sy; y <= ey; y++)
+            {
+                if (y > sy)
+                    sb.AppendLine(" | ");
+                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + "_d.html", sy);
+            }
+            sb.AppendLine("</p>");
+            sb.AppendLine("<hr>");
+            sb.AppendLine("<h2>PDF</h2>");
+            sb.AppendLine("<p>");
+            for (int y = sy; y <= ey; y++)
+            {
+                if (y > sy)
+                    sb.AppendLine(" | ");
+                sb.AppendFormat("<a href=\"{1}\">{0}</a> ", y, y.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf", sy);
+            }
+            sb.AppendLine("</p>");
 
             sb.Append("</body>");
             sb.Append("</html>");
             return sb.ToString();
         }
 
+        /// <summary>
+        /// This generates 
+        /// </summary>
+        /// <param name="sy"></param>
+        /// <param name="ey"></param>
+        /// <returns></returns>
         public string GenerateYearsOverview(int sy, int ey)
         {
             StringBuilder sb = new StringBuilder();

@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalendarTab));
+            GCAL.CalendarDataView.CDVDocument cdvDocument1 = new GCAL.CalendarDataView.CDVDocument();
+            GCAL.CalendarDataView.CDVParaStyle cdvParaStyle1 = new GCAL.CalendarDataView.CDVParaStyle();
+            GCAL.CalendarDataView.CDVTextStyle cdvTextStyle1 = new GCAL.CalendarDataView.CDVTextStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -60,8 +63,9 @@
             this.printMultipleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.ekadasiMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printDocumentTable = new System.Drawing.Printing.PrintDocument();
             this.exportCompleteDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printDocumentTable = new System.Drawing.Printing.PrintDocument();
+            this.calendarDataView1 = new GCAL.CalendarDataView.CalendarDataView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -82,6 +86,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.calendarDataView1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.richTextBox1);
             this.panel1.Controls.Add(this.calendarTableView1);
@@ -326,21 +331,21 @@
             // printToolStripMenuItem1
             // 
             this.printToolStripMenuItem1.Name = "printToolStripMenuItem1";
-            this.printToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem1.Text = "Export";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem2
             // 
             this.printToolStripMenuItem2.Name = "printToolStripMenuItem2";
-            this.printToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem2.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem2.Text = "Print";
             this.printToolStripMenuItem2.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // printMultipleToolStripMenuItem
             // 
             this.printMultipleToolStripMenuItem.Name = "printMultipleToolStripMenuItem";
-            this.printMultipleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printMultipleToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printMultipleToolStripMenuItem.Text = "Print Multiple";
             this.printMultipleToolStripMenuItem.Click += new System.EventHandler(this.printMultipleToolStripMenuItem_Click);
             // 
@@ -363,16 +368,34 @@
             this.ekadasiMapToolStripMenuItem.Text = "Ekadasi Map";
             this.ekadasiMapToolStripMenuItem.Click += new System.EventHandler(this.ekadasiMapToolStripMenuItem_Click);
             // 
-            // printDocumentTable
-            // 
-            this.printDocumentTable.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // exportCompleteDataToolStripMenuItem
             // 
             this.exportCompleteDataToolStripMenuItem.Name = "exportCompleteDataToolStripMenuItem";
             this.exportCompleteDataToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.exportCompleteDataToolStripMenuItem.Text = "Export Complete Data";
             this.exportCompleteDataToolStripMenuItem.Click += new System.EventHandler(this.exportCompleteDataToolStripMenuItem_Click);
+            // 
+            // printDocumentTable
+            // 
+            this.printDocumentTable.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // calendarDataView1
+            // 
+            this.calendarDataView1.BackColor = System.Drawing.Color.White;
+            this.calendarDataView1.DataSource = null;
+            cdvDocument1.Bounds = new System.Drawing.Rectangle(0, 0, 0, 0);
+            cdvDocument1.Location = new System.Drawing.Point(0, 0);
+            cdvDocument1.ParaStyle = cdvParaStyle1;
+            cdvDocument1.Parent = null;
+            cdvDocument1.Size = new System.Drawing.Size(0, 0);
+            cdvDocument1.TextStyle = cdvTextStyle1;
+            this.calendarDataView1.Document = cdvDocument1;
+            this.calendarDataView1.Location = new System.Drawing.Point(496, 255);
+            this.calendarDataView1.MainAtom = null;
+            this.calendarDataView1.MainAtomPosition = 0;
+            this.calendarDataView1.Name = "calendarDataView1";
+            this.calendarDataView1.Size = new System.Drawing.Size(286, 259);
+            this.calendarDataView1.TabIndex = 3;
             // 
             // CalendarTab
             // 
@@ -426,5 +449,6 @@
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem ekadasiMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportCompleteDataToolStripMenuItem;
+        private CalendarDataView.CalendarDataView calendarDataView1;
     }
 }

@@ -111,7 +111,6 @@ namespace GCAL
             SelectedDirectory = textBox2.Text;
             includeSun = checkBox1.Checked;
             includeCore = checkBox2.Checked;
-            isPdf = checkBox3.Checked;
 
             Properties.Settings.Default.OutputDirCompleteData = SelectedDirectory;
             Properties.Settings.Default.Save();

@@ -22,10 +22,8 @@ namespace GCAL.CalendarDataView
             return Width;
         }
 
-        public override void MeasureRect(CDVContext context, Rectangle availableArea)
+        public override void MeasureRect(CDVContext context, int maxWidth)
         {
-            if (availableArea.Left > Value)
-                Value = availableArea.Left;
             Bounds = new Rectangle(Value, 0, Width, 0);
         }
 

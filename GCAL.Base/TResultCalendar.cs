@@ -30,6 +30,16 @@ namespace GCAL.Base
             updateCalculationProgress = true;
         }
 
+        public TResultCalendar(GCLocation loc, int nYear) : this()
+        {
+            CalculateCalendar(loc, new GregorianDateTime(nYear, 1, 1), GregorianDateTime.IsLeapYear(nYear) ? 366 : 365);
+        }
+
+        public TResultCalendar(GCLocation loc, int nYear, int nMonth) : this()
+        {
+            CalculateCalendar(loc, new GregorianDateTime(nYear, nMonth, 1), GregorianDateTime.GetMonthMaxDays(nYear, nMonth));
+        }
+
         public override GSCore GetPropertyValue(string s)
         {
             switch (s)

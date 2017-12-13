@@ -9,6 +9,21 @@ using System.Windows.Forms;
 
 namespace GCAL.CalendarDataView
 {
+    /// <summary>
+    /// Besides normal initialization of the control within Windows Forms system,
+    /// programmer should initialize first usage of this control in this way:
+    /// 
+    /// control.DataSource = [objectRef]
+    ///    where objectRef is reference to object conforming to interface CDVDataSource
+    ///    
+    /// control.InitWithKey(Key)
+    ///    where key is some string that should be recognizable by mother-application
+    ///    control itself does not know what is behind this key, it serves just as identification
+    ///    of the piece of document that is to be displayed
+    ///    mother-application should be able to provide also "next value" for given "value" as well as
+    ///    "previous value", so mother application should have well defined system of succession of values
+    ///    so it can provide next key, previous key for given key and also display data for any KEY provided by control
+    /// </summary>
     public partial class CalendarDataView : UserControl, CDVDataTarget
     {
         public CDVDocument Document { get; set; }
@@ -29,9 +44,23 @@ namespace GCAL.CalendarDataView
             Document = new CDVDocument();
         }
 
+        public CDVAtom GetDocument()
+        {
+            return Document;
+        }
+
         public void OnCDVDataAvailable(CDVDocumentCell data)
         {
-            throw new NotImplementedException();
+            Document.Cells[data.Key] = data;
+            if (MainAtom == null)
+            {
+                MainAtom = data;
+                MainAtomPosition = 0;
+            }
+
+            // TODO: Invalidate only if expected documentpart that should be displayed
+            // and user was waiting for it
+            Invalidate();
         }
 
         public void InitWithKey(string key)
@@ -48,24 +77,29 @@ namespace GCAL.CalendarDataView
             }
             else
             {
-                if (DataSource != null)
-                {
-                    CDVDocumentCell cell = new CDVDocumentCell();
-                    cell.Key = key;
-                    DataSource.AsyncRequestData(this, cell);
-                    MainAtom = null;
-                    MainAtomPosition = -1;
-                }
+                MainAtom = null;
+                MainAtomPosition = -1;
+                RequestAsyncKey(key);
             }
 
             Invalidate();
+        }
+
+        private void RequestAsyncKey(string key)
+        {
+            if (DataSource != null)
+            {
+                CDVDocumentCell cell = new CDVDocumentCell();
+                cell.Key = key;
+                DataSource.AsyncRequestData(this, cell);
+            }
         }
 
         private RectangleF BoundsFloat
         {
             get
             {
-                return new RectangleF(Bounds.X, Bounds.Y, Bounds.Width, Bounds.Height);
+                return new RectangleF(0, 0, Size.Width, Size.Height);
             }
         }
 
@@ -85,10 +119,12 @@ namespace GCAL.CalendarDataView
             CDVContext ctx = new CDVContext();
             ctx.g = e.Graphics;
             CDVDocumentCell last = MainAtom;
+            Rectangle clientArea = this.ClientRectangle;
 
             // drawing main atom
+            MainAtom.Item.MeasureRect(ctx, clientArea.Width);
             MainAtom.Item.DrawInRect(ctx);
-
+            /*
             // drawing after
             while (Document.ContainsKey(last.NextKey) && last.Item.Bounds.Bottom < Height)
             {
@@ -102,6 +138,7 @@ namespace GCAL.CalendarDataView
             if (!Document.ContainsKey(last.NextKey))
             {
                 // here place order to datasource for nextkey
+                RequestAsyncKey(last.NextKey);
             }
 
             last = MainAtom;
@@ -117,8 +154,9 @@ namespace GCAL.CalendarDataView
             if (!Document.ContainsKey(last.PrevKey))
             {
                 // here place order to datasource for nextkey
+                RequestAsyncKey(last.PrevKey);
             }
-
+            */
         }
     }
 }

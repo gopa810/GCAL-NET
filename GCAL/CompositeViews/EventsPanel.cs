@@ -14,8 +14,7 @@ namespace GCAL.CompositeViews
 {
     public partial class EventsPanel : UserControl
     {
-        public bool[] b_masa;
-        public bool[] b_class;
+        public GCFestivalBook filterToBook = null;
         public bool updatingList = false;
         public bool changingFilter = false;
         private int listBoxItemPadding = 4;
@@ -32,20 +31,14 @@ namespace GCAL.CompositeViews
             listBoxSubtitleFont = new Font(FontFamily.GenericSansSerif, 10);
 
             int i;
-            b_masa = new bool[13];
-            b_class = new bool[GCFestivalBookCollection.Books.Count + 1];
 
-            b_masa[0] = true;
-            b_class[0] = true;
-
-            m_wndClass.Items.Add("<All Groups>");
+            listBoxFestivalBooks.Items.Add("All Collections");
             for (i = 0; i < GCFestivalBookCollection.Books.Count; i++)
             {
-                m_wndClass.Items.Add(GCFestivalBookCollection.Books[i]);
-                b_class[i + 1] = true;
+                listBoxFestivalBooks.Items.Add(GCFestivalBookCollection.Books[i]);
             }
 
-            m_wndClass.SelectedIndex = 0;
+            listBoxFestivalBooks.SelectedIndex = 0;
 
 
             FillListView();
@@ -61,7 +54,7 @@ namespace GCAL.CompositeViews
             foreach(GCFestivalBook book in GCFestivalBookCollection.Books)
             {
                 if (book.CollectionId >= 0 && book.CollectionId < GCFestivalBookCollection.Books.Count
-                    && b_class[book.CollectionId])
+                    && (filterToBook == null || filterToBook == book))
                 {
                     foreach (GCFestivalBase fba in book.Festivals)
                     {
@@ -80,18 +73,6 @@ namespace GCAL.CompositeViews
 
         private void m_wndClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (changingFilter)
-                return;
-            changingFilter = true;
-            textBox1.Text = "";
-            int si = m_wndClass.SelectedIndex;
-            for (int i = 0; i < b_class.Length; i++)
-            {
-                b_class[i] = (si == 0) || (si == i + 1);
-            }
-
-            FillListView();
-            changingFilter = false;
         }
 
         private GCListBoxEntry GetSelectedItem()
@@ -406,6 +387,76 @@ namespace GCAL.CompositeViews
                 }
             }
         }
+
+        private Font listBoxFestivalBooks_Font = new Font("Helvetica", 10f);
+        private StringFormat listBoxFestivalBooks_Format = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+        private void listBoxFestivalBooks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (changingFilter)
+                return;
+            changingFilter = true;
+            textBox1.Text = "";
+            int si = listBoxFestivalBooks.SelectedIndex;
+            if (listBoxFestivalBooks.Items.Count > si && si >= 0)
+            {
+                if (listBoxFestivalBooks.Items[si] is GCFestivalBook)
+                    filterToBook = (GCFestivalBook)listBoxFestivalBooks.Items[si];
+                else
+                    filterToBook = null;
+            }
+
+            FillListView();
+            changingFilter = false;
+
+        }
+
+        private void listBoxFestivalBooks_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0 || e.Index >= listBoxFestivalBooks.Items.Count)
+                return;
+
+            object obj = listBoxFestivalBooks.Items[e.Index];
+            string text = "";
+            if (obj is string)
+            {
+                text = (string)obj;
+            }
+            else if (obj is GCFestivalBook)
+            {
+                text = ((GCFestivalBook)obj).CollectionName;
+            }
+
+            SizeF sf = e.Graphics.MeasureString(text, listBoxFestivalBooks_Font, listBoxFestivalBooks.Width - 20);
+            e.ItemHeight = (int)sf.Height + 20;
+        }
+
+        private void listBoxFestivalBooks_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0 || e.Index >= listBoxFestivalBooks.Items.Count)
+                return;
+
+            object obj = listBoxFestivalBooks.Items[e.Index];
+            string text = "";
+            if (obj is string)
+            {
+                text = (string)obj;
+            }
+            else if (obj is GCFestivalBook)
+            {
+                text = ((GCFestivalBook)obj).CollectionName;
+            }
+
+            if ((e.State & DrawItemState.Selected) != 0)
+                e.Graphics.FillRectangle(Brushes.LightYellow, e.Bounds);
+            else
+                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
+            Rectangle rect = e.Bounds;
+            rect.Inflate(-10, -10);
+            e.Graphics.DrawString(text, listBoxFestivalBooks_Font, Brushes.Black, rect, listBoxFestivalBooks_Format);
+
+        }
+
     }
 
 

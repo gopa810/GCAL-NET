@@ -9,13 +9,26 @@ namespace GCAL.CalendarDataView
     {
         public string StyleName = "";
 
+        private static CDVParaStyle ps_empty;
+        public static CDVParaStyle Empty
+        {
+            get
+            {
+                return ps_empty;
+            }
+        }
+
+        static CDVParaStyle()
+        {
+            ps_empty = new CDVParaStyle();
+        }
 
         public CDVAlign Align = CDVAlign.Left;
         public CDVBorder Padding = new CDVBorder(0);
         public CDVBorder Margin = new CDVBorder(0);
         public int RoundCorner = 0;
-        public int BorderWidth = 0;
-        public UInt32 BorderColor = 0;
-        public UInt32 BackgroundColor = CDVColor.Transparent;
+        public CDVBorder BorderWidth = new CDVBorder(0);
+        public CDVColor BorderColor = CDVColor.Transparent;
+        public CDVColor BackgroundColor = CDVColor.Transparent;
     }
 }

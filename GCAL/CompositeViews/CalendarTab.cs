@@ -10,10 +10,11 @@ using System.Windows.Forms;
 
 using GCAL.Base;
 using GCAL.Views;
+using GCAL.CalendarDataView;
 
 namespace GCAL.CompositeViews
 {
-    public partial class CalendarTab : UserControl
+    public partial class CalendarTab : UserControl, CDVDataSource
     {
         private int p_mode = 0;
 
@@ -34,7 +35,9 @@ namespace GCAL.CompositeViews
         {
             InitializeComponent();
 
-            richTextBox1.Dock = DockStyle.Fill;
+            calendarDataView1.Dock = DockStyle.Fill;
+            richTextBox1.Visible = false;
+            //OLDVIEW: richTextBox1.Dock = DockStyle.Fill;
             calendarTableView1.Dock = DockStyle.Fill;
             pictureBox1.Dock = DockStyle.Fill;
 
@@ -63,6 +66,9 @@ namespace GCAL.CompositeViews
             calendarTableView1.calLocation = calLocation;
             calendarTableView1.LiveRefresh = true;
 
+            calendarDataView1.DataSource = this;
+            calendarDataView1.InitWithKey("2017-10");
+
             SetMode(Properties.Settings.Default.CalendarShowMode);
         }
 
@@ -76,13 +82,15 @@ namespace GCAL.CompositeViews
         {
             if (i == -1)
             {
-                richTextBox1.Visible = false;
+                calendarDataView1.Visible = false;
+                //OLDVIEW: richTextBox1.Visible = false;
                 calendarTableView1.Visible = false;
                 pictureBox1.Visible = true;
             }
             else if (i == 0)
             {
-                richTextBox1.Visible = true;
+                calendarDataView1.Visible = true;
+                //OLDVIEW: richTextBox1.Visible = true;
                 calendarTableView1.Visible = false;
                 pictureBox1.Visible = false;
 
@@ -101,7 +109,8 @@ namespace GCAL.CompositeViews
             }
             else if (i == 1)
             {
-                richTextBox1.Visible = true;
+                calendarDataView1.Visible = true;
+                //OLDVIEW: richTextBox1.Visible = true;
                 calendarTableView1.Visible = false;
                 pictureBox1.Visible = false;
 
@@ -120,7 +129,8 @@ namespace GCAL.CompositeViews
             }
             else if (i == 2)
             {
-                richTextBox1.Visible = false;
+                calendarDataView1.Visible = false;
+                //OLDVIEW: richTextBox1.Visible = false;
                 calendarTableView1.Visible = true;
                 pictureBox1.Visible = false;
 
@@ -532,11 +542,42 @@ namespace GCAL.CompositeViews
                 ExportCompleteProgressDlg ep = new ExportCompleteProgressDlg();
 
                 ep.SetData(dlg.SelectedLocations, dlg.StartYear, dlg.EndYear, dlg.SelectedDirectory,
-                    dlg.includeSun, dlg.includeCore, dlg.isPdf);
+                    dlg.includeSun, dlg.includeCore);
                 ep.Show();
 
                 ep.Start(1);
             }
+        }
+
+        public void AsyncRequestData(CDVDataTarget requestor, CDVDocumentCell data)
+        {
+            // TODO:
+            // here calculate data
+            // but this function should perform asynchronously
+            data.PrevKey = "2017-09";
+            data.NextKey = "2017-11";
+
+
+            CDVAtom doc = requestor.GetDocument();
+            CDVPara para = new CDVPara(doc, CDVOrientation.Vertical,
+                new CDVPara(null, CDVOrientation.Vertical,
+                    new CDVPara(null, new CDVWord(null, "January 2017")),
+                    new CDVPara(null, new CDVWord(null, "Bratislava, 48N24 27E56, Timezone UTC+2:00"))
+                ),
+                new CDVPara(null, CDVOrientation.Horizontal,
+                    new CDVWord(null, "Date"),
+                    new CDVWord(null, "Tithi/Festival"),
+                    new CDVWord(null, ""),
+                    new CDVWord(null, "Naksatra"),
+                    new CDVWord(null, "Yoga"),
+                    new CDVWord(null, "Fast")
+                )
+            );
+
+            data.Item = para;
+
+            // then return calculated data
+            requestor.OnCDVDataAvailable(data);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace GCAL.CalendarDataView
 {
@@ -16,11 +17,15 @@ namespace GCAL.CalendarDataView
         {
             TextStyle = new CDVTextStyle();
             TextStyle.StyleName = "Normal";
+            TextStyle.Color = CDVColor.Black;
             textStyles["Normal"] = TextStyle;
 
             ParaStyle = new CDVParaStyle();
             ParaStyle.StyleName = "Normal";
             paraStyles["Normal"] = ParaStyle;
+
+            Visibility = new CDVVisibilityStyle();
+            Visibility.Visible = true;
         }
 
         public void AddTextStyle(string name, CDVTextStyle ts)
