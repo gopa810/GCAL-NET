@@ -235,5 +235,18 @@ namespace GCAL.Base
             shour *= 60;
             sec = IntRound(shour);
         }
+
+        public static TCoreEvent Min(TCoreEvent A, TCoreEvent B)
+        {
+            if (A.Time < B.Time)
+                return A;
+            else
+                return B;
+        }
+
+        public static TCoreEvent Max(TCoreEvent A, TCoreEvent B)
+        {
+            return (A.Time > B.Time) ? A : B;
+        }
     }
 }

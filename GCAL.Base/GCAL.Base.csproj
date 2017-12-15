@@ -74,6 +74,7 @@
     <Compile Include="GCFestivalRelated.cs" />
     <Compile Include="GCFestivalSpecial.cs" />
     <Compile Include="GCFestivalSpecialExecutor.cs" />
+    <Compile Include="GCLog.cs" />
     <Compile Include="GeoData\TContinent.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,7 +115,9 @@
     <Compile Include="GCEkadasi.cs" />
     <Compile Include="GCMasa.cs" />
     <Compile Include="GCPaksa.cs" />
+    <Compile Include="TCoreEvent.cs" />
     <Compile Include="TResultBase.cs" />
+    <Compile Include="TResultCoreEvents.cs" />
     <Compile Include="VSOP87\GCVSOPAstronomy.cs" />
     <Compile Include="VSOP87\GCEarth.cs" />
     <Compile Include="GCHourTime.cs" />

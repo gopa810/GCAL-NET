@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace GCAL.Base
 {
@@ -16,9 +17,14 @@ namespace GCAL.Base
         static GCCoreAstronomy()
         {
             System = AstronomySystem.Meeus;
+            TopocentricPancangam = false;
         }
 
         public static AstronomySystem System { get; set; }
+
+        public static bool TopocentricPancangam { get; set; }
+
+        private static Dictionary<string, TResultCoreEvents> CoreEventsMap = new Dictionary<string, TResultCoreEvents>();
 
         public static double GetSunLongitude(GregorianDateTime vct, GCEarthData earth)
         {
@@ -63,6 +69,41 @@ namespace GCAL.Base
             moon.calc_horizontal(d, e.longitudeDeg, e.latitudeDeg);
 
             return moon.elevation;
+        }
+
+        public static TResultCoreEvents GetCoreEventsYear(GCLocation loc, int year)
+        {
+            string key = "";
+
+            if (TopocentricPancangam)
+                key = string.Format("{0}_{1}_{2}_{3}", loc.GetLongitudeString(), loc.GetLatitudeString(), Convert.ToInt32(loc.Altitude), year);
+            else
+                key = string.Format("0_0_0_{0}", year);
+
+            // if existing in memory, return it
+            if (CoreEventsMap.ContainsKey(key))
+                return CoreEventsMap[key];
+
+            string filePath = GCGlobal.GetFileName(AppFileName.CoreDataFolder, key + ".ceb");
+
+            TResultCoreEvents ce = new TResultCoreEvents();
+
+            // if file exists and is correct, return it
+            if (File.Exists(filePath))
+            {
+                if (ce.LoadFile(filePath))
+                {
+                    CoreEventsMap[key] = ce;
+                    return ce;
+                }
+            }
+
+            // at last, we have to calculate it
+            ce.CalculateEvents(loc, year);
+            ce.SaveFile(filePath);
+            CoreEventsMap[key] = ce;
+
+            return ce;
         }
     }
 }

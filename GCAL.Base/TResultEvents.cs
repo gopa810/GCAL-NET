@@ -49,7 +49,7 @@ namespace GCAL.Base
             }
         }
 
-        public bool AddEvent(GregorianDateTime inTime, int inType, int inData, int inDst)
+        public bool AddEvent(GregorianDateTime inTime, int inType, int inData, DstTypeChange inDst)
         {
             TDayEvent de = new TDayEvent();
 
@@ -58,10 +58,10 @@ namespace GCAL.Base
 
             switch (inDst)
             {
-                case 0:
+                case DstTypeChange.DstOff:
                     de.nDst = 0;
                     break;
-                case 1:
+                case DstTypeChange.DstStart:
                     if (de.Time.shour >= 2 / 24.0)
                     {
                         de.Time.shour += 1 / 24.0;
@@ -73,12 +73,12 @@ namespace GCAL.Base
                         de.nDst = 0;
                     }
                     break;
-                case 2:
+                case DstTypeChange.DstOn:
                     de.Time.shour += 1 / 24.0;
                     de.Time.NormalizeValues();
                     de.nDst = 1;
                     break;
-                case 3:
+                case DstTypeChange.DstEnd:
                     if (de.Time.shour <= 2 / 24.0)
                     {
                         de.Time.shour += 1 / 24.0;
@@ -126,7 +126,7 @@ namespace GCAL.Base
         public void CalculateEvents(GCLocation loc, GregorianDateTime vcStart, GregorianDateTime vcEnd)
         {
             //GCSunData sun = new GCSunData();
-            int ndst = 0;
+            DstTypeChange ndst = 0;
             int nData;
 
             TResultEvents inEvents = this;
@@ -539,39 +539,8 @@ namespace GCAL.Base
 
     }
 
-    public sealed class CoreEventType
-    {
-        public const int CCTYPE_DATE = 1;
-        public const int CCTYPE_S_ARUN = 10;
-        public const int CCTYPE_S_RISE = 11;
-        public const int CCTYPE_S_NOON = 12;
-        public const int CCTYPE_S_SET = 13;
-        public const int CCTYPE_S_MIDNIGHT = 14;
 
-        public const int CCTYPE_TITHI = 20;
-        public const int CCTYPE_NAKS = 21;
-        public const int CCTYPE_SANK = 22;
-        public const int CCTYPE_CONJ = 23;
-        public const int CCTYPE_YOGA = 24;
-        public const int CCTYPE_KALA_START = 30;
-        public const int CCTYPE_KALA_END = 31;
-        public const int CCTYPE_M_RISE = 41;
-        public const int CCTYPE_M_SET = 42;
-        public const int CCTYPE_M_RASI = 45;
-        public const int CCTYPE_ASCENDENT = 50;
-
-        public const int CCTYPE_TITHI_BASE = 60;
-        public const int CCTYPE_DAY_MUHURTA = 61;
-        public const int CCTYPE_DAY_OF_WEEK = 62;
-
-        public const int CCTYPE_NAKS_PADA1 = 65;
-        public const int CCTYPE_NAKS_PADA2 = 66;
-        public const int CCTYPE_NAKS_PADA3 = 67;
-        public const int CCTYPE_NAKS_PADA4 = 68;
-
-    };
-
-    public class TDayEvent: GSCore
+    public class TDayEvent : GSCore
     {
         public int nType;
         public int nData;
@@ -726,6 +695,7 @@ namespace GCAL.Base
             }
         }
     }
+
 
     public class TDayEventComparer : Comparer<TDayEvent>
     {

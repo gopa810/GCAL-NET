@@ -51,6 +51,16 @@ namespace GCAL.Base
 
     public class VAISNAVADAY: GSCore
     {
+        public struct CoreEventFindRec
+        {
+            public VAISNAVADAY day;
+            public TCoreEvent coreEvent;
+            public GregorianDateTime dateTimeOfEvent;
+        }
+
+        public VAISNAVADAY Previous;
+        public VAISNAVADAY Next;
+
         // date
         public GregorianDateTime date;
         // moon times
@@ -59,7 +69,11 @@ namespace GCAL.Base
         // astronomical data from astro-sub-layer
         public GCAstroData astrodata;
 
+        public TCoreEventCollection coreEvents;
+
         public int BiasMinutes;
+        public DstTypeChange DstDayType = DstTypeChange.DstOff;
+        public long UtcDayStart;
 
         //
         // day events and fast
@@ -73,8 +87,8 @@ namespace GCAL.Base
         public int nMahadvadasiID;
         public String ekadasi_vrata_name;
         public bool ekadasi_parana;
-        public double eparana_time1, eparana_time2;
-        public int eparana_type1, eparana_type2;
+        public TCoreEvent eparana_time1;
+        public TCoreEvent eparana_time2;
 
         //
         // Sankranti data
@@ -94,30 +108,14 @@ namespace GCAL.Base
             nMahadvadasiID = MahadvadasiType.EV_NULL;
             ekadasi_parana = false;
             ekadasi_vrata_name = "";
-            eparana_time1 = eparana_time2 = 0.0;
-            eparana_type1 = eparana_type2 = EkadasiParanaType.EP_TYPE_NULL;
+            eparana_time1 = eparana_time2 = null;
             sankranti_zodiac = -1;
             BiasMinutes = 0;
             moonrise.SetValue(0);
             moonset.SetValue(0);
+            UtcDayStart = -1;
             dayEvents = new List<VAISNAVAEVENT>();
-        }
-
-        public void Clear()
-        {
-            // init
-            nFastID = FastType.FAST_NULL;
-            nFeasting = FeastType.FEAST_NULL;
-            nMahadvadasiID = MahadvadasiType.EV_NULL;
-            ekadasi_parana = false;
-            ekadasi_vrata_name = "";
-            eparana_time1 = eparana_time2 = 0.0;
-            sankranti_zodiac = -1;
-            sankranti_day = null;
-            //dayEvents.Clear();
-            //moonset.SetValue(0);
-            //moonrise.SetValue(0);
-            //nDST = 0;
+            coreEvents = new TCoreEventCollection();
         }
 
         public override GSCore GetPropertyValue(string Token)
@@ -172,20 +170,16 @@ namespace GCAL.Base
                 return new GSBoolean(ekadasi_parana);
             else if (Token.Equals("ekadasiParanaStart"))
             {
-                GregorianDateTime gdt = new GregorianDateTime(date);
-                gdt.shour = eparana_time1;
-                return gdt;
+                return GetGregorianDateTime(eparana_time1);
             }
             else if (Token.Equals("ekadasiParanaEnd"))
             {
-                GregorianDateTime gdt = new GregorianDateTime(date);
-                gdt.shour = eparana_time2;
-                return gdt;
+                return GetGregorianDateTime(eparana_time2);
             }
             else if (Token.Equals("hasParanaStart"))
-                return new GSBoolean(eparana_time1 >= 0.0);
+                return new GSBoolean(eparana_time1 != null);
             else if (Token.Equals("hasParanaEnd"))
-                return new GSBoolean(eparana_time2 >= 0.0);
+                return new GSBoolean(eparana_time2 != null);
             else if (Token.Equals("sankrantiZodiac"))
                 return new GSNumber(sankranti_zodiac);
             else if (Token.Equals("sankrantiDateTime"))
@@ -198,6 +192,13 @@ namespace GCAL.Base
             {
                 return base.GetPropertyValue(Token);
             }
+        }
+
+        public GregorianDateTime GetGregorianDateTime(TCoreEvent ce)
+        {
+            GregorianDateTime gdt = new GregorianDateTime(date);
+            gdt.shour = (ce.GetDstTime(BiasMinutes * 60) - UtcDayStart) / 86400.0;
+            return gdt;
         }
 
         public List<VAISNAVAEVENT> VisibleEvents
@@ -218,62 +219,635 @@ namespace GCAL.Base
             }
         }
 
-        public bool GetTithiTimeRange(GCEarthData earth, out GregorianDateTime from, out GregorianDateTime to)
+        public int EkadasiCalc(GCEarthData earth)
         {
-            GregorianDateTime start = new GregorianDateTime();
+            VAISNAVADAY t = this;
 
-            start.Set(date);
-            start.shour = astrodata.sunRise.TotalDays;
+            if (t.Previous == null || t.Next == null)
+                return 0;
 
-            GCTithi.GetNextTithiStart(earth, start, out to);
-            GCTithi.GetPrevTithiStart(earth, start, out from);
+            VAISNAVADAY s = t.Previous;
+            VAISNAVADAY u = t.Next;
 
-            return true;
+            if (GCTithi.TITHI_EKADASI(t.astrodata.sunRise.Tithi))
+            {
+                // if TAT < 11 then NOT_EKADASI
+                if (GCTithi.TITHI_LESS_EKADASI(t.astrodata.sunArunodaya.Tithi))
+                {
+                    t.nMahadvadasiID = MahadvadasiType.EV_NULL;
+                    t.ekadasi_vrata_name = "";
+                    t.nFastID = FastType.FAST_NULL;
+                }
+                else
+                {
+                    // else ak MD13 then MHD1 and/or 3
+                    if (GCTithi.TITHI_EKADASI(s.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunArunodaya.Tithi))
+                    {
+                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.sunRise.Tithi))
+                        {
+                            t.nMahadvadasiID = MahadvadasiType.EV_UNMILANI_TRISPRSA;
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
+                            t.nFastID = FastType.FAST_EKADASI;
+                        }
+                        else
+                        {
+                            t.nMahadvadasiID = MahadvadasiType.EV_UNMILANI;
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
+                            t.nFastID = FastType.FAST_EKADASI;
+                        }
+                    }
+                    else
+                    {
+                        if (GCTithi.TITHI_TRAYODASI(u.astrodata.sunRise.Tithi))
+                        {
+                            t.nMahadvadasiID = MahadvadasiType.EV_TRISPRSA;
+                            t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
+                            t.nFastID = FastType.FAST_EKADASI;
+                        }
+                        else
+                        {
+                            // else ak U je MAHADVADASI then NOT_EKADASI
+                            if (GCTithi.TITHI_EKADASI(u.astrodata.sunRise.Tithi) || (u.nMahadvadasiID >= MahadvadasiType.EV_SUDDHA))
+                            {
+                                t.nMahadvadasiID = MahadvadasiType.EV_NULL;
+                                t.ekadasi_vrata_name = "";
+                                t.nFastID = FastType.FAST_NULL;
+                            }
+                            else if (u.nMahadvadasiID == MahadvadasiType.EV_NULL)
+                            {
+                                // else suddha ekadasi
+                                t.nMahadvadasiID = MahadvadasiType.EV_SUDDHA;
+                                t.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
+                                t.nFastID = FastType.FAST_EKADASI;
+                            }
+                        }
+                    }
+                }
+            }
+            // test for break fast
 
+
+            return 1;
         }
 
-        public bool GetNaksatraTimeRange(GCEarthData earth, out GregorianDateTime from, out GregorianDateTime to)
+        /*
+         * Function before is writen accoring this algorithms:
+
+
+            1. Normal - fasting day has ekadasi at sunrise and dvadasi at next sunrise.
+
+            2. Viddha - fasting day has dvadasi at sunrise and trayodasi at next
+            sunrise, and it is not a naksatra mahadvadasi
+
+            3. Unmilani - fasting day has ekadasi at both sunrises
+
+            4. Vyanjuli - fasting day has dvadasi at both sunrises, and it is not a
+            naksatra mahadvadasi
+
+            5. Trisprsa - fasting day has ekadasi at sunrise and trayodasi at next
+            sunrise.
+
+            6. Jayanti/Vijaya - fasting day has gaura dvadasi and specified naksatra at
+            sunrise and same naksatra at next sunrise
+
+            7. Jaya/Papanasini - fasting day has gaura dvadasi and specified naksatra at
+            sunrise and same naksatra at next sunrise
+
+            ==============================================
+            Case 1 Normal (no change)
+
+            If dvadasi tithi ends before 1/3 of daylight
+               then PARANA END = TIME OF END OF TITHI
+            but if dvadasi TITHI ends after 1/3 of daylight
+               then PARANA END = TIME OF 1/3 OF DAYLIGHT
+
+            if 1/4 of dvadasi tithi is before sunrise
+               then PARANA BEGIN is sunrise time
+            but if 1/4 of dvadasi tithi is after sunrise
+               then PARANA BEGIN is time of 1/4 of dvadasi tithi
+
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
+
+            ==============================================
+            Case 2 Viddha
+
+            If trayodasi tithi ends before 1/3 of daylight
+               then PARANA END = TIME OF END OF TITHI
+            but if trayodasi TITHI ends after 1/3 of daylight
+               then PARANA END = TIME OF 1/3 OF DAYLIGHT
+
+            PARANA BEGIN is sunrise time
+
+            we will write "BREAK FAST FROM xx TO yy
+
+            ==============================================
+            Case 3 Unmilani
+
+            PARANA END = TIME OF 1/3 OF DAYLIGHT
+
+            PARANA BEGIN is end of Ekadasi tithi
+
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
+
+            ==============================================
+            Case 4 Vyanjuli
+
+            PARANA BEGIN = Sunrise
+
+            PARANA END is end of Dvadasi tithi
+
+            we will write "BREAK FAST FROM xx TO yy
+
+            ==============================================
+            Case 5 Trisprsa
+
+            PARANA BEGIN = Sunrise
+
+            PARANA END = 1/3 of daylight hours
+
+            we will write "BREAK FAST FROM xx TO yy
+
+            ==============================================
+            Case 6 Jayanti/Vijaya
+
+            PARANA BEGIN = Sunrise
+
+            PARANA END1 = end of dvadasi tithi or sunrise, whichever is later
+            PARANA END2 = end of naksatra
+
+            PARANA END is earlier of END1 and END2
+
+            we will write "BREAK FAST FROM xx TO yy
+
+            ==============================================
+            Case 7 Jaya/Papanasini
+
+            PARANA BEGIN = end of naksatra
+
+            PARANA END = 1/3 of Daylight hours
+
+            if PARANA BEGIN is before PARANA END
+               then we will write "BREAK FAST FROM xx TO yy
+            but if PARANA BEGIN is after PARANA END
+               then we will write "BREAK FAST AFTER xx"
+
+
+ * */
+        public int CalculateEParana(GCEarthData earth)
         {
-            GregorianDateTime start = new GregorianDateTime();
+            VAISNAVADAY t = this;
+            if (t.Previous == null)
+                return 0;
 
-            start.Set(date);
-            start.shour = astrodata.sunRise.TotalDays;
+            t.nMahadvadasiID = MahadvadasiType.EV_NULL;
+            t.ekadasi_parana = true;
+            t.nFastID = FastType.FAST_NULL;
 
-            GCNaksatra.GetNextNaksatra(earth, start, out to);
-            GCNaksatra.GetPrevNaksatra(earth, start, out from);
+            TCoreEvent naksEnd;
+            TCoreEvent parBeg = null;
+            TCoreEvent parEnd = null;
+            TCoreEvent tithiStart = null;
+            TCoreEvent tithiEnd = null;
+            TCoreEvent sunRise = t.FindCoreEvent(CoreEventType.CCTYPE_S_RISE);
+            TCoreEvent sunSet = t.FindCoreEvent(CoreEventType.CCTYPE_S_SET);
+            if (sunRise == null || sunSet == null)
+            {
+                GCLog.Write("Cannot find sunrise of sunset for day " + t.date.ToString());
+                return 0;
+            }
 
-            return true;
+            TCoreEvent third_day = new TCoreEvent() {
+                nData = sunRise.nData,
+                nType = CoreEventType.CCTYPE_THIRD_OF_DAY,
+                nDst = sunRise.nDst,
+                Time = (sunSet.Time - sunRise.Time) / 3 + sunRise.Time
+            };
+
+            List<CoreEventFindRec> tempTimes = GetRecentCoreTimes(CoreEventType.CCTYPE_S_RISE, CoreEventType.CCTYPE_TITHI, 1);
+            if (tempTimes.Count != 1)
+            {
+                GCLog.Write("Start or End of tithi was not found for date " + t.ToString());
+                return 0;
+            }
+            else
+            {
+                tithiStart = tempTimes[0].coreEvent;
+            }
+
+            tempTimes = GetNextCoreTimes(CoreEventType.CCTYPE_S_RISE, CoreEventType.CCTYPE_TITHI, 1);
+            if (tempTimes.Count != 1)
+            {
+                GCLog.Write("End of tithi was not found for date " + t.ToString());
+                return 0;
+            }
+            else
+            {
+                tithiEnd = new TCoreEvent(tempTimes[0].coreEvent) { nType = CoreEventType.CCTYPE_TITHI_END };
+                tithiEnd.ApplyDstType(UtcDayStart, DstDayType);
+            }
+
+            if (Previous == null)
+                return 0;
+
+            tempTimes = Previous.GetNextCoreTimes(CoreEventType.CCTYPE_S_RISE, CoreEventType.CCTYPE_NAKS, 1);
+            if (tempTimes.Count != 1)
+            {
+                GCLog.Write("End of naksatra was not found for date " + t.ToString());
+                return 0;
+            }
+            else
+            {
+                naksEnd = new TCoreEvent(tempTimes[0].coreEvent) { nType = CoreEventType.CCTYPE_NAKS_END };
+                naksEnd.ApplyDstType(UtcDayStart, DstDayType);
+
+            }
+
+            TCoreEvent tithi_quart = new TCoreEvent()
+            {
+                nType = CoreEventType.CCTYPE_TITHI_QUARTER,
+                nData = tithiStart.nData,
+                Time = (tithiEnd.Time - tithiStart.Time) / 4 + tithiStart.Time,
+                nDst = tithiStart.nDst
+            };
+            tithi_quart.ApplyDstType(UtcDayStart, DstDayType);
+
+
+            switch (t.Previous.nMahadvadasiID)
+            {
+                case MahadvadasiType.EV_UNMILANI:
+                    parEnd = GCMath.Min(tithiEnd, third_day);
+                    parBeg = sunRise;
+                    break;
+                case MahadvadasiType.EV_VYANJULI:
+                    parBeg = sunRise;
+                    parEnd = GCMath.Min(tithiEnd, third_day);
+                    break;
+                case MahadvadasiType.EV_TRISPRSA:
+                    parBeg = sunRise;
+                    parEnd = third_day;
+                    break;
+                case MahadvadasiType.EV_JAYANTI:
+                case MahadvadasiType.EV_VIJAYA:
+                    if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
+                    {
+                        if (naksEnd.Time < tithiEnd.Time)
+                        {
+                            if (naksEnd.Time < third_day.Time)
+                            {
+                                parBeg = naksEnd;
+                                parEnd = GCMath.Min(tithiEnd, third_day);
+                            }
+                            else
+                            {
+                                parBeg = naksEnd;
+                                parEnd = tithiEnd;
+                            }
+                        }
+                        else
+                        {
+                            parBeg = sunRise;
+                            parEnd = GCMath.Min(tithiEnd, third_day);
+                        }
+                    }
+                    else
+                    {
+                        parBeg = sunRise;
+                        parEnd = GCMath.Min(naksEnd, third_day);
+                    }
+
+                    break;
+                case MahadvadasiType.EV_JAYA:
+                case MahadvadasiType.EV_PAPA_NASINI:
+                    if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
+                    {
+                        if (naksEnd.Time < tithiEnd.Time)
+                        {
+                            if (naksEnd.Time < third_day.Time)
+                            {
+                                parBeg = naksEnd;
+                                parEnd = GCMath.Min(tithiEnd, third_day);
+                            }
+                            else
+                            {
+                                parBeg = naksEnd;
+                                parEnd = tithiEnd;
+                            }
+                        }
+                        else
+                        {
+                            parBeg = sunRise;
+                            parEnd = GCMath.Min(tithiEnd, third_day);
+                        }
+                    }
+                    else
+                    {
+                        if (naksEnd.Time < third_day.Time)
+                        {
+                            parBeg = naksEnd;
+                            parEnd = third_day;
+                        }
+                        else
+                        {
+                            parBeg = naksEnd;
+                            parEnd = null;
+                        }
+                    }
+
+                    break;
+                default:
+                    // first initial
+                    parEnd = GCMath.Min(tithiEnd, third_day);
+                    parBeg = GCMath.Max(sunRise, tithi_quart);
+                    if (GCTithi.TITHI_DVADASI(t.Previous.astrodata.sunRise.Tithi))
+                    {
+                        parBeg = sunRise;
+                    }
+
+                    break;
+            }
+
+            if (parBeg.Time >= parEnd.Time)
+            {
+                parEnd = null;
+            }
+
+            t.eparana_time1 = parBeg;
+            t.eparana_time2 = parEnd;
+
+            return 1;
         }
+
+        public TCoreEvent FindCoreEvent(int nType)
+        {
+            for (int i = 0; i < coreEvents.Count; i++)
+            {
+                if (coreEvents[i].nType == nType)
+                    return coreEvents[i];
+            }
+
+            return null;
+        }
+
+        public List<CoreEventFindRec> GetRecentCoreTimes(int nTypeStart, int nTypeFind, int count)
+        {
+            List<CoreEventFindRec> dayList = new List<CoreEventFindRec>();
+            VAISNAVADAY cursor = this;
+            int idx = 0;
+            idx = coreEvents.FindIndexOf(nTypeStart, idx);
+            if (idx >= 0)
+            {
+                while (cursor != null && dayList.Count < count)
+                {
+                    idx = cursor.coreEvents.FindBackIndexOf(nTypeFind, idx - 1);
+                    if (idx < 0)
+                    {
+                        cursor = cursor.Previous;
+                        idx = 1000;
+                    }
+                    else
+                    {
+                        CoreEventFindRec cer = new CoreEventFindRec();
+                        cer.day = cursor;
+                        cer.coreEvent = cursor.coreEvents[idx];
+                        cer.dateTimeOfEvent = cursor.GetGregorianDateTime(cursor.coreEvents[idx]);
+                        dayList.Insert(0, cer);
+                    }
+                }
+            }
+
+            return dayList;
+        }
+
+
+        public List<CoreEventFindRec> GetNextCoreTimes(int nTypeStart, int nTypeFind, int count)
+        {
+            List<CoreEventFindRec> dayList = new List<CoreEventFindRec>();
+            VAISNAVADAY cursor = this;
+            int idx = 0;
+            idx = coreEvents.FindIndexOf(nTypeStart, idx);
+            if (idx >= 0)
+            {
+                while (cursor != null && dayList.Count < count)
+                {
+                    idx = cursor.coreEvents.FindIndexOf(nTypeFind, idx++);
+                    if (idx < 0)
+                    {
+                        cursor = cursor.Next;
+                        idx = -1;
+                    }
+                    else
+                    {
+                        CoreEventFindRec cer = new CoreEventFindRec();
+                        cer.day = cursor;
+                        cer.coreEvent = cursor.coreEvents[idx];
+                        cer.dateTimeOfEvent = cursor.GetGregorianDateTime(cursor.coreEvents[idx]);
+                        dayList.Add(cer);
+                    }
+                }
+            }
+
+            return dayList;
+        }
+
+        public int MahadvadasiCalc(GCEarthData earth)
+        {
+            VAISNAVADAY t = this;
+
+            if (t.Previous == null || t.Next == null)
+                return 0;
+
+            int nMahaType = MahadvadasiType.EV_NULL;
+            //int nMhdDay = -1;
+
+            VAISNAVADAY s = t.Previous;
+            VAISNAVADAY u = t.Next;
+            VAISNAVADAY mahaDay = null;
+
+            // if yesterday is dvadasi
+            // then we skip this day
+            if (GCTithi.TITHI_DVADASI(s.astrodata.sunRise.Tithi))
+                return 1;
+
+            if (TithiId.TITHI_GAURA_DVADASI == t.astrodata.sunRise.Tithi && TithiId.TITHI_GAURA_DVADASI == t.astrodata.sunSet.Tithi && t.IsMhd58(out nMahaType))
+            {
+                t.nMahadvadasiID = nMahaType;
+                mahaDay = t;
+            }
+            else if (GCTithi.TITHI_DVADASI(t.astrodata.sunRise.Tithi))
+            {
+                if (GCTithi.TITHI_DVADASI(u.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunRise.Tithi) && GCTithi.TITHI_EKADASI(s.astrodata.sunArunodaya.Tithi))
+                {
+                    t.nMahadvadasiID = MahadvadasiType.EV_VYANJULI;
+                    mahaDay = t;
+                }
+                else if (t.NextNewFullIsVriddhi(earth))
+                {
+                    t.nMahadvadasiID = MahadvadasiType.EV_PAKSAVARDHINI;
+                    mahaDay = t;
+                }
+                else if (GCTithi.TITHI_LESS_EKADASI(s.astrodata.sunArunodaya.Tithi))
+                {
+                    t.nMahadvadasiID = MahadvadasiType.EV_SUDDHA;
+                    mahaDay = t;
+                }
+            }
+
+            if (mahaDay != null && mahaDay.Next != null)
+            {
+                // fasting day
+                mahaDay.nFastID = FastType.FAST_EKADASI;
+                mahaDay.ekadasi_vrata_name = GCEkadasi.GetEkadasiName(t.astrodata.Masa, t.astrodata.sunRise.Paksa);
+                mahaDay.ekadasi_parana = false;
+                mahaDay.eparana_time1 = null;
+                mahaDay.eparana_time2 = null;
+
+                // parana day
+                mahaDay.Next.nFastID = FastType.FAST_NULL;
+                mahaDay.Next.ekadasi_parana = true;
+                mahaDay.Next.eparana_time1 = null;
+                mahaDay.Next.eparana_time2 = null;
+            }
+
+            return 1;
+        }
+
+        public bool NextNewFullIsVriddhi(GCEarthData earth)
+        {
+            int i = 0;
+            int nTithi;
+            int nPrevTithi = 100;
+            VAISNAVADAY t = this;
+
+            for (i = 0; i < 8 && t != null; i++)
+            {
+                nTithi = t.astrodata.sunRise.Tithi;
+                if ((nTithi == nPrevTithi) && GCTithi.TITHI_FULLNEW_MOON(nTithi))
+                {
+                    return true;
+                }
+                nPrevTithi = nTithi;
+                t = t.Next;
+            }
+
+            return false;
+        }
+
+
+        // test for MAHADVADASI 5 TO 8
+        public bool IsMhd58(out int nMahaType)
+        {
+            VAISNAVADAY t = this;
+
+            nMahaType = MahadvadasiType.EV_NULL;
+            if (t.Next == null)
+                return false;
+
+            int sunRiseNaksatra = t.astrodata.sunRise.Naksatra;
+
+            if (sunRiseNaksatra != t.Next.astrodata.sunRise.Naksatra)
+                return false;
+
+            if (t.astrodata.sunRise.Paksa != 1)
+                return false;
+
+            if (t.astrodata.sunRise.Tithi == t.astrodata.sunSet.Tithi)
+            {
+                if (sunRiseNaksatra == GCNaksatra.N_PUNARVASU) // punarvasu
+                {
+                    nMahaType = MahadvadasiType.EV_JAYA;
+                    return true;
+                }
+                else if (sunRiseNaksatra == GCNaksatra.N_ROHINI) // rohini
+                {
+                    nMahaType = MahadvadasiType.EV_JAYANTI;
+                    return true;
+                }
+                else if (sunRiseNaksatra == GCNaksatra.N_PUSYAMI) // pusyami
+                {
+                    nMahaType = MahadvadasiType.EV_PAPA_NASINI;
+                    return true;
+                }
+                else if (sunRiseNaksatra == GCNaksatra.N_SRAVANA) // sravana
+                {
+                    nMahaType = MahadvadasiType.EV_VIJAYA;
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                if (sunRiseNaksatra == GCNaksatra.N_SRAVANA) // sravana
+                {
+                    nMahaType = MahadvadasiType.EV_VIJAYA;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        //public bool GetTithiTimeRange(GCEarthData earth, out GregorianDateTime from, out GregorianDateTime to)
+        //{
+        //    GregorianDateTime start = new GregorianDateTime();
+
+        //    start.Set(date);
+        //    start.shour = astrodata.sunRise.TotalDays;
+
+        //    GCTithi.GetNextTithiStart(earth, start, out to);
+        //    GCTithi.GetPrevTithiStart(earth, start, out from);
+
+        //    return true;
+
+        //}
+
+        //public bool GetNaksatraTimeRange(GCEarthData earth, out GregorianDateTime from, out GregorianDateTime to)
+        //{
+        //    GregorianDateTime start = new GregorianDateTime();
+
+        //    start.Set(date);
+        //    start.shour = astrodata.sunRise.TotalDays;
+
+        //    GCNaksatra.GetNextNaksatra(earth, start, out to);
+        //    GCNaksatra.GetPrevNaksatra(earth, start, out from);
+
+        //    return true;
+        //}
 
         public string GetTextEP()
         {
             string str = string.Empty;
-            int h1, m1, h2, m2;
-            h1 = GCMath.IntFloor(eparana_time1);
-            m1 = GCMath.IntFloor(GCMath.getFraction(eparana_time1) * 60);
+            GregorianDateTime e1, e2;
 
-            if (eparana_time2 >= 0.0)
+            e1 = GetGregorianDateTime(eparana_time1);
+
+            if (eparana_time2 != null)
             {
-                h2 = GCMath.IntFloor(eparana_time2);
-                m2 = GCMath.IntFloor(GCMath.getFraction(eparana_time2) * 60);
+                e2 = GetGregorianDateTime(eparana_time2);
 
                 if (GCDisplaySettings.getValue(50) == 1)
-                    str = string.Format("{0} {1:00}:{2:00} ({3}) - {4:00}:{5:00} ({6}) {7}", GCStrings.getString(60),
-                        h1, m1, GCEkadasi.GetParanaReasonText(eparana_type1),
-                        h2, m2, GCEkadasi.GetParanaReasonText(eparana_type2),
+                    str = string.Format("{0} {1} ({2}) - {3} ({4}) {5}", GCStrings.getString(60),
+                        e1.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time1.nType),
+                        e2.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time2.nType),
                         GCStrings.GetDSTSignature(BiasMinutes));
                 else
-                    str = string.Format("{0} {1:00}:{2:00} - {3:00}:{4:00} ({5})", GCStrings.getString(60),
-                        h1, m1, h2, m2, GCStrings.GetDSTSignature(BiasMinutes));
+                    str = string.Format("{0} {1} - {2} ({3})", GCStrings.getString(60),
+                        e1.ShortTimeString(), e2.ShortTimeString(), GCStrings.GetDSTSignature(BiasMinutes));
             }
-            else if (eparana_time1 >= 0.0)
+            else if (eparana_time1 != null)
             {
                 if (GCDisplaySettings.getValue(50) == 1)
-                    str = string.Format("{0} {1:00}:{2:00} ({3}) {4}", GCStrings.getString(61),
-                        h1, m1, GCEkadasi.GetParanaReasonText(eparana_type1), GCStrings.GetDSTSignature(BiasMinutes));
+                    str = string.Format("{0} {1} ({2}) {3}", GCStrings.getString(61),
+                        e1.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time1.nType), GCStrings.GetDSTSignature(BiasMinutes));
                 else
-                    str = string.Format("{0} {1:00}:{2:00} ({3})", GCStrings.getString(61),
-                        h1, m1, GCStrings.GetDSTSignature(BiasMinutes));
+                    str = string.Format("{0} {1} ({2})", GCStrings.getString(61),
+                        e1.ShortTimeString(), GCStrings.GetDSTSignature(BiasMinutes));
             }
             else
             {
@@ -324,69 +898,6 @@ namespace GCAL.Base
             dayEvents.Add(dc);
 
             return dc;
-        }
-        
-        public bool AddSpecFestival(int nSpecialFestival, int nFestClass)
-        {
-            String str;
-            int fasting = FastType.FAST_NULL;
-            string fastingSubject = null;
-
-            switch (nSpecialFestival)
-            {
-                case SpecialFestivalId.SPEC_JANMASTAMI:
-                    str = GCStrings.getString(741);
-                    fasting = FastType.FAST_MIDNIGHT;
-                    fastingSubject = "Sri Krsna";
-                    break;
-                case SpecialFestivalId.SPEC_GAURAPURNIMA:
-                    str = GCStrings.getString(742);
-                    fasting = FastType.FAST_MOONRISE;
-                    fastingSubject = "Sri Caitanya Mahaprabhu";
-                    break;
-                case SpecialFestivalId.SPEC_RETURNRATHA:
-                    str = GCStrings.getString(743);
-                    break;
-                case SpecialFestivalId.SPEC_HERAPANCAMI:
-                    str = GCStrings.getString(744);
-                    break;
-                case SpecialFestivalId.SPEC_GUNDICAMARJANA:
-                    str = GCStrings.getString(745);
-                    break;
-                case SpecialFestivalId.SPEC_GOVARDHANPUJA:
-                    str = GCStrings.getString(746);
-                    break;
-                case SpecialFestivalId.SPEC_RAMANAVAMI:
-                    str = GCStrings.getString(747);
-                    fasting = FastType.FAST_SUNSET;
-                    fastingSubject = "Sri Ramacandra";
-                    break;
-                case SpecialFestivalId.SPEC_RATHAYATRA:
-                    str = GCStrings.getString(748);
-                    break;
-                case SpecialFestivalId.SPEC_NANDAUTSAVA:
-                    str = GCStrings.getString(749);
-                    break;
-                case SpecialFestivalId.SPEC_PRABHAPP:
-                    str = GCStrings.getString(759);
-                    fasting = FastType.FAST_NOON;
-                    fastingSubject = "Srila Prabhupada";
-                    break;
-                case SpecialFestivalId.SPEC_MISRAFESTIVAL:
-                    str = GCStrings.getString(750);
-                    break;
-                default:
-                    return false;
-            }
-
-            VAISNAVAEVENT md = AddEvent((int)DisplayPriorities.PRIO_FESTIVALS_0 + (nFestClass - (int)GCDS.CAL_FEST_0) * 100, nFestClass, str);
-            if (fasting > 0)
-            {
-                md.fasttype = fasting;
-                md.fastsubject = fastingSubject;
-            }
-
-            return false;
         }
 
         public string Format(string format, params string[] args)
@@ -514,26 +1025,6 @@ namespace GCAL.Base
             }
             return "";
         }
-
-        public int GetTextLineCount()
-        {
-            int nCount = 0;
-            String str2;
-
-            nCount++;
-
-            foreach (VAISNAVAEVENT ed in dayEvents)
-            {
-                if (ed.dispItem != 0 && (ed.dispItem == -1 || GCDisplaySettings.getValue(ed.dispItem) != 0))
-                {
-                    nCount++;
-                }
-            }
-
-            return nCount;
-        }
-
-
 
     }
 

@@ -255,7 +255,7 @@ namespace GCAL.Base
         // 1 - DST is on, yesterday was off
         // 2 - DST is on, yesterday was on
         // 3 - DST is off, yesterday was on
-        public int DetermineDaylightChange(GregorianDateTime vc2)
+        public DstTypeChange DetermineDaylightChange(GregorianDateTime vc2)
         {
             int t2 = this.GetBiasMinutesForDay(vc2);
             GregorianDateTime vc3 = new GregorianDateTime();
@@ -265,16 +265,16 @@ namespace GCAL.Base
             if (t1 != 0)
             {
                 if (t2 != 0)
-                    return 2;
+                    return DstTypeChange.DstOn;
                 else
-                    return 3;
+                    return DstTypeChange.DstEnd;
             }
             else if (t2 != 0)
             {
-                return 1;
+                return DstTypeChange.DstStart;
             }
             else
-                return 0;
+                return DstTypeChange.DstOff;
         }
 
         /// <summary>
@@ -428,5 +428,14 @@ namespace GCAL.Base
             Month = 0;
             Day = 0;
         }
+    }
+
+
+    public enum DstTypeChange
+    {
+        DstOn = 2,
+        DstOff = 0,
+        DstStart = 1,
+        DstEnd = 3
     }
 }

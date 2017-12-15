@@ -32,6 +32,7 @@ namespace GCAL.Base
             Set(a);
         }
 
+
         public GregorianDateTime(int nYear, int nMonth, int nDay)
         {
             year = nYear;
@@ -625,6 +626,15 @@ namespace GCAL.Base
         {
             int h, m, s;
             GCMath.DaytimeToHourMin(shour, out h, out m, out s);
+            return string.Format("{0:00}:{1:00}:{2:00}", h, m, s);
+        }
+
+        public static string TimeSpanToLongString(long seconds)
+        {
+            int h, m, s;
+            s = (int)(seconds % 60);
+            m = (int)((seconds / 60) % 60);
+            h = (int)(seconds / 3600);
             return string.Format("{0:00}:{1:00}:{2:00}", h, m, s);
         }
 

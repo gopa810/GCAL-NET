@@ -15,6 +15,7 @@ namespace GCAL.Base
         public string Title;
         public double Longitude;
         public double Latitude;
+        public double Altitude;
         public double OffsetUtcHours
         {
             get
@@ -56,6 +57,7 @@ namespace GCAL.Base
         public GCLocation()
         {
             Title = string.Empty;
+            Altitude = 6378.0;
             TimeZone = TTimeZone.GetDefaultTimeZone();
         }
 

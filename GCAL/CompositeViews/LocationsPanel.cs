@@ -287,7 +287,7 @@ namespace GCAL.CompositeViews
 		    {
 			    string str = string.Format("<html><head><meta http-equiv=\"REFRESH\" content=\"0;url=http://maps.google.com/?ie=UTF8&ll={0},{1}&spn=0.774196,1.235962&z=10" +
 						        "\"></head><body></body><html>", loc.Latitude, loc.Longitude);
-			    string fileName = GCGlobal.getFileName(GlobalStringsEnum.GSTR_TEMFOLDER);
+			    string fileName = GCGlobal.GetAppString(AppFileName.TemporaryFolder);
 			    fileName += "temp.html";
                 File.WriteAllText(fileName, str);
                 System.Diagnostics.Process.Start(fileName);

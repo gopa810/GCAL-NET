@@ -27,7 +27,7 @@ namespace GCAL.Base
 
         public static TLangFileList languagesList;
 
-        public static String[] applicationStrings = new string[32];
+        public static Dictionary<AppFileName,string> applicationStrings = new Dictionary<AppFileName, string>();
 
         public static string dialogLastRatedSpec = string.Empty;
 
@@ -36,44 +36,60 @@ namespace GCAL.Base
         {
             get
             {
-                return applicationStrings[GlobalStringsEnum.GSTR_CONFOLDER];
+                return applicationStrings[AppFileName.ConfigurationFolder];
             }
+        }
+        public static string CoreDataFolder
+        {
+            get
+            {
+                return applicationStrings[AppFileName.CoreDataFolder];
+            }
+        }
+
+        public static string GetFileName(AppFileName folder, string fileName)
+        {
+            return Path.Combine(applicationStrings[folder], fileName);
         }
 
         public static int initFolders()
         {
-            string pszBuffer = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //string pszBuffer = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string pszBuffer = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-            applicationStrings[GlobalStringsEnum.GSTR_APPFOLDER] = pszBuffer;
+            applicationStrings[AppFileName.MainFolder] = pszBuffer;
 
-            applicationStrings[GlobalStringsEnum.GSTR_CONFOLDER] = Path.Combine(applicationStrings[GlobalStringsEnum.GSTR_APPFOLDER], "config");
-            Directory.CreateDirectory(applicationStrings[GlobalStringsEnum.GSTR_CONFOLDER]);
+            applicationStrings[AppFileName.ConfigurationFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "config");
+            Directory.CreateDirectory(applicationStrings[AppFileName.ConfigurationFolder]);
 
-            applicationStrings[GlobalStringsEnum.GSTR_LANFOLDER] = Path.Combine(applicationStrings[GlobalStringsEnum.GSTR_APPFOLDER], "lang");
-            Directory.CreateDirectory(applicationStrings[GlobalStringsEnum.GSTR_LANFOLDER]);
+            applicationStrings[AppFileName.LanguagesFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "lang");
+            Directory.CreateDirectory(applicationStrings[AppFileName.LanguagesFolder]);
 
-            applicationStrings[GlobalStringsEnum.GSTR_TEMFOLDER] = Path.Combine(applicationStrings[GlobalStringsEnum.GSTR_APPFOLDER], "temp");
-            Directory.CreateDirectory(applicationStrings[GlobalStringsEnum.GSTR_TEMFOLDER]);
+            applicationStrings[AppFileName.TemporaryFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "temp");
+            Directory.CreateDirectory(applicationStrings[AppFileName.TemporaryFolder]);
 
-            string confDir = applicationStrings[GlobalStringsEnum.GSTR_CONFOLDER];
+            applicationStrings[AppFileName.CoreDataFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "cores");
+            Directory.CreateDirectory(applicationStrings[AppFileName.CoreDataFolder]);
 
-            applicationStrings[GlobalStringsEnum.GSTR_CE_FILE] = Path.Combine(confDir, "cevents.cfg");
-            applicationStrings[GlobalStringsEnum.GSTR_CONF_FILE] = Path.Combine(confDir, "current.cfg");
-            applicationStrings[GlobalStringsEnum.GSTR_LOC_FILE] = Path.Combine(confDir, "locations.cfg");
-            applicationStrings[GlobalStringsEnum.GSTR_SSET_FILE] = Path.Combine(confDir, "showset.cfg");
-            applicationStrings[GlobalStringsEnum.GSTR_LOCX_FILE] = Path.Combine(confDir, "gcal_locations3.rl");//GCAL 3.0
-            applicationStrings[GlobalStringsEnum.GSTR_CEX_FILE] = Path.Combine(confDir, "gcal_events3.rl");//GCAL 3.0
-            applicationStrings[GlobalStringsEnum.GSTR_CONFX_FILE] = Path.Combine(confDir, "gcal_settings2.rl");
-            applicationStrings[GlobalStringsEnum.GSTR_TZ_FILE] = Path.Combine(confDir, "gcal_timezones1.rl");
-            applicationStrings[GlobalStringsEnum.GSTR_COUNTRY_FILE] = Path.Combine(confDir, "gcal_countries1.rl");
-            applicationStrings[GlobalStringsEnum.GSTR_TEXT_FILE] = Path.Combine(confDir, "gcal_strings2.rl");
-            applicationStrings[GlobalStringsEnum.GSTR_TIPS_FILE] = Path.Combine(confDir, "gcal_tips1.txt");
-            applicationStrings[GlobalStringsEnum.GSTR_HELP_FILE] = Path.Combine(applicationStrings[GlobalStringsEnum.GSTR_APPFOLDER], "gcal.chm");
+            string confDir = applicationStrings[AppFileName.ConfigurationFolder];
+
+            applicationStrings[AppFileName.GSTR_CE_FILE] = GetFileName(AppFileName.ConfigurationFolder, "cevents.cfg");
+            applicationStrings[AppFileName.GSTR_CONF_FILE] = GetFileName(AppFileName.ConfigurationFolder, "current.cfg");
+            applicationStrings[AppFileName.GSTR_LOC_FILE] = GetFileName(AppFileName.ConfigurationFolder, "locations.cfg");
+            applicationStrings[AppFileName.GSTR_SSET_FILE] = GetFileName(AppFileName.ConfigurationFolder, "showset.cfg");
+            applicationStrings[AppFileName.GSTR_LOCX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_locations3.rl");//GCAL 3.0
+            applicationStrings[AppFileName.GSTR_CEX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_events3.rl");//GCAL 3.0
+            applicationStrings[AppFileName.GSTR_CONFX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_settings2.rl");
+            applicationStrings[AppFileName.GSTR_TZ_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_timezones1.rl");
+            applicationStrings[AppFileName.GSTR_COUNTRY_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_countries1.rl");
+            applicationStrings[AppFileName.GSTR_TEXT_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_strings2.rl");
+            applicationStrings[AppFileName.GSTR_TIPS_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_tips1.txt");
+            applicationStrings[AppFileName.GSTR_HELP_FILE] = GetFileName(AppFileName.MainFolder, "gcal.chm");
 
             return 1;
         }
 
-        public static string getFileName(int n)
+        public static string GetAppString(AppFileName n)
         {
             return applicationStrings[n];
         }
@@ -186,41 +202,41 @@ namespace GCAL.Base
             initFolders();
 
             // initialization of global strings
-            GCStrings.readFile(getFileName(GlobalStringsEnum.GSTR_TEXT_FILE));
+            GCStrings.readFile(GetAppString(AppFileName.GSTR_TEXT_FILE));
 
             // inicializacia timezones
-            TTimeZone.LoadFile(getFileName(GlobalStringsEnum.GSTR_TZ_FILE));
+            TTimeZone.LoadFile(GetAppString(AppFileName.GSTR_TZ_FILE));
 
             // inicializacia countries
-            TCountry.LoadFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
+            TCountry.LoadFile(GetAppString(AppFileName.GSTR_COUNTRY_FILE));
 
             // inicializacia miest a kontinentov
             // lazy loading of data
-            TLocationDatabase.FileName = getFileName(GlobalStringsEnum.GSTR_LOCX_FILE);
+            TLocationDatabase.FileName = GetAppString(AppFileName.GSTR_LOCX_FILE);
             //CLocationList.OpenFile();
 
             // inicializacia zobrazovanych nastaveni
-            GCDisplaySettings.readFile(getFileName(GlobalStringsEnum.GSTR_SSET_FILE));
+            GCDisplaySettings.readFile(GetAppString(AppFileName.GSTR_SSET_FILE));
 
             // inicializacia custom events
-            GCFestivalBookCollection.OpenFile(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
+            GCFestivalBookCollection.OpenFile(GetAppString(AppFileName.ConfigurationFolder));
 
             // looking for files *.recn
-            GCConfigRatedManager.RefreshListFromDirectory(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
+            GCConfigRatedManager.RefreshListFromDirectory(GetAppString(AppFileName.ConfigurationFolder));
 
             // initialization of global variables
             myLocation.EncodedString = GCLocation.DefaultEncodedString;
 
             recentLocations.Add(new GCLocation(myLocation));
 
-            OpenFile(getFileName(GlobalStringsEnum.GSTR_CONFX_FILE));
+            OpenFile(GetAppString(AppFileName.GSTR_CONFX_FILE));
             // refresh fasting style after loading user settings
             //GCFestivalBook.SetOldStyleFasting(GCDisplaySettings.getValue(42));
 
             // inicializacia tipov dna
-            if (!File.Exists(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE)))
+            if (!File.Exists(GetAppString(AppFileName.GSTR_TIPS_FILE)))
             {
-                File.WriteAllText(getFileName(GlobalStringsEnum.GSTR_TIPS_FILE), Properties.Resources.tips);
+                File.WriteAllText(GetAppString(AppFileName.GSTR_TIPS_FILE), Properties.Resources.tips);
             }
 
 
@@ -229,30 +245,30 @@ namespace GCAL.Base
 
         public static void SaveInstanceData()
         {
-            SaveFile(getFileName(GlobalStringsEnum.GSTR_CONFX_FILE));
+            SaveFile(GetAppString(AppFileName.GSTR_CONFX_FILE));
 
             if (TLocationDatabase.Modified)
             {
-                TLocationDatabase.SaveFile(getFileName(GlobalStringsEnum.GSTR_LOCX_FILE), 4);//GCAL 3.0
+                TLocationDatabase.SaveFile(GetAppString(AppFileName.GSTR_LOCX_FILE), 4);//GCAL 3.0
             }
 
             if (TCountry.IsModified())
             {
-                TCountry.SaveFile(getFileName(GlobalStringsEnum.GSTR_COUNTRY_FILE));
+                TCountry.SaveFile(GetAppString(AppFileName.GSTR_COUNTRY_FILE));
             }
 
             if (GCStrings.gstr_Modified)
             {
-                GCStrings.writeFile(getFileName(GlobalStringsEnum.GSTR_TEXT_FILE));
+                GCStrings.writeFile(GetAppString(AppFileName.GSTR_TEXT_FILE));
             }
 
-            GCDisplaySettings.writeFile(getFileName(GlobalStringsEnum.GSTR_SSET_FILE));
+            GCDisplaySettings.writeFile(GetAppString(AppFileName.GSTR_SSET_FILE));
 
-            GCFestivalBookCollection.SaveFile(getFileName(GlobalStringsEnum.GSTR_CONFOLDER));
+            GCFestivalBookCollection.SaveFile(GetAppString(AppFileName.ConfigurationFolder));
 
             if (TTimeZone.Modified)
             {
-                TTimeZone.SaveFile(getFileName(GlobalStringsEnum.GSTR_TZ_FILE));
+                TTimeZone.SaveFile(GetAppString(AppFileName.GSTR_TZ_FILE));
             }
 
         }

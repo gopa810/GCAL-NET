@@ -8,6 +8,17 @@ namespace GCAL.Base
 {
     public class GCNaksatra
     {
+        public const int N_ASVINI = 0;
+        public const int N_BHARANI = 1;
+        public const int N_KRITTIKA = 2;
+        public const int N_ROHINI = 3;
+        public const int N_MRIGASIRA = 4;
+        public const int N_ARDRA = 5;
+        public const int N_PUNARVASU = 6;
+        public const int N_PUSYAMI = 7;
+        public const int N_ASHLESA = 8;
+        public const int N_MAGHA = 9;
+        public const int N_SRAVANA = 21;
         /*********************************************************************/
         /*                                                                   */
         /*   finds next time when starts next naksatra                       */
@@ -214,15 +225,15 @@ namespace GCAL.Base
             return 1;
         }
 
-        public static double GetEndHour(GCEarthData earth, GregorianDateTime yesterday, GregorianDateTime today)
-        {
-            GregorianDateTime nend;
-            GregorianDateTime snd = new GregorianDateTime();
-            snd.Set(yesterday);
-            snd.shour = 0.5;
-            GCNaksatra.GetNextNaksatra(earth, snd, out nend);
-            return nend.GetJulian() - today.GetJulian() + nend.shour;
-        }
+        //public static double GetEndHour(GCEarthData earth, GregorianDateTime yesterday, GregorianDateTime today)
+        //{
+        //    GregorianDateTime nend;
+        //    GregorianDateTime snd = new GregorianDateTime();
+        //    snd.Set(yesterday);
+        //    snd.shour = 0.5;
+        //    GCNaksatra.GetNextNaksatra(earth, snd, out nend);
+        //    return nend.GetJulian() - today.GetJulian() + nend.shour;
+        //}
 
         private static string[] p_naksatraName = new string[] {
             "Asvini", // GCStrings.Localized("Asvini");

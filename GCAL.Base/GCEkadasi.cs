@@ -74,15 +74,15 @@ namespace GCAL.Base
         {
             switch (eparana_type)
             {
-                case EkadasiParanaType.EP_TYPE_3DAY:
+                case CoreEventType.CCTYPE_THIRD_OF_DAY:
                     return GCStrings.Localized("1/3 of daylight");
-                case EkadasiParanaType.EP_TYPE_4TITHI:
+                case CoreEventType.CCTYPE_TITHI_QUARTER:
                     return GCStrings.Localized("1/4 of tithi");
-                case EkadasiParanaType.EP_TYPE_SUNRISE:
+                case CoreEventType.CCTYPE_S_RISE:
                     return GCStrings.Localized("sunrise");
-                case EkadasiParanaType.EP_TYPE_TEND:
+                case CoreEventType.CCTYPE_TITHI_END:
                     return GCStrings.Localized("end of tithi");
-                case EkadasiParanaType.EP_TYPE_NAKEND:
+                case CoreEventType.CCTYPE_NAKS_END:
                     return GCStrings.Localized("end of naksatra");
                 default:
                     break;
