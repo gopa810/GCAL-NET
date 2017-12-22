@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace GCAL.CalendarDataView
@@ -37,11 +38,29 @@ namespace GCAL.CalendarDataView
         /// </summary>
         public int MainAtomPosition { get; set; }
 
+        public HashSet<string> pRequestedKeys = new HashSet<string>();
+
         public CalendarDataView()
         {
             InitializeComponent();
 
             Document = new CDVDocument();
+
+            this.MouseWheel += CalendarDataView_MouseWheel;
+        }
+
+        private void CalendarDataView_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                MoveAllDocument(0, 30);
+                Invalidate();
+            }
+            else if (e.Delta < 0)
+            {
+                MoveAllDocument(0, -30);
+                Invalidate();
+            }
         }
 
         public CDVAtom GetDocument()
@@ -51,16 +70,30 @@ namespace GCAL.CalendarDataView
 
         public void OnCDVDataAvailable(CDVDocumentCell data)
         {
-            Document.Cells[data.Key] = data;
-            if (MainAtom == null)
+            lock (pRequestedKeys)
             {
-                MainAtom = data;
-                MainAtomPosition = 0;
+                if (!Document.Cells.ContainsKey(data.Key))
+                {
+                    Document.Cells[data.Key] = data;
+                    if (MainAtom == null)
+                    {
+                        MainAtom = data;
+                        MainAtomPosition = 0;
+                    }
+
+                    Debugger.Log(0, "", "Received documentCell " + data.Key + "\n");
+                }
+                pRequestedKeys.Remove(data.Key);
             }
 
             // TODO: Invalidate only if expected documentpart that should be displayed
             // and user was waiting for it
             Invalidate();
+        }
+
+        public void MoveAllDocument(int x, int y)
+        {
+            MainAtom.Item.Offset(x, y);
         }
 
         public void InitWithKey(string key)
@@ -89,9 +122,15 @@ namespace GCAL.CalendarDataView
         {
             if (DataSource != null)
             {
-                CDVDocumentCell cell = new CDVDocumentCell();
-                cell.Key = key;
-                DataSource.AsyncRequestData(this, cell);
+                lock(pRequestedKeys)
+                {
+                    if (!pRequestedKeys.Contains(key))
+                    {
+                        CDVDocumentCell cell = new CDVDocumentCell();
+                        cell.Key = key;
+                        DataSource.AsyncRequestData(this, cell);
+                    }
+                }
             }
         }
 
@@ -110,6 +149,8 @@ namespace GCAL.CalendarDataView
         /// <param name="e"></param>
         private void CalendarDataView_Paint(object sender, PaintEventArgs e)
         {
+            CDVDocumentCell firstDrawn = null;
+
             if (MainAtom == null)
             {
                 e.Graphics.DrawString("Please wait a moment...", SystemFonts.MenuFont, Brushes.Black, BoundsFloat, CDVContext.StringFormatCenterCenter);
@@ -118,20 +159,31 @@ namespace GCAL.CalendarDataView
 
             CDVContext ctx = new CDVContext();
             ctx.g = e.Graphics;
+            ctx.ScreenRect = this.ClientRectangle;
             CDVDocumentCell last = MainAtom;
             Rectangle clientArea = this.ClientRectangle;
 
             // drawing main atom
-            MainAtom.Item.MeasureRect(ctx, clientArea.Width);
+            MainAtom.Prepare(ctx, 5000);
             MainAtom.Item.DrawInRect(ctx);
-            /*
+
+            if (MainAtom.Item.Bounds.Bottom > ctx.ScreenRect.Top 
+                && MainAtom.Item.Bounds.Top < ctx.ScreenRect.Bottom)
+                    firstDrawn = MainAtom;
+
+
+            //Debugger.Log(0, "", "Bottom: " + last.Item.Bounds.Bottom + ", Height: " + Height + "\n");
             // drawing after
             while (Document.ContainsKey(last.NextKey) && last.Item.Bounds.Bottom < Height)
             {
                 // drawing next atom
                 CDVDocumentCell nc = Document.GetItemForKey(last.NextKey);
+                nc.Prepare(ctx, 5000);
                 nc.MoveAfter(last);
                 nc.Item.DrawInRect(ctx);
+                if (nc.Item.Bounds.Bottom > ctx.ScreenRect.Top
+                    && nc.Item.Bounds.Top < ctx.ScreenRect.Bottom && firstDrawn == null)
+                    firstDrawn = nc;
                 last = nc;
             }
 
@@ -146,8 +198,12 @@ namespace GCAL.CalendarDataView
             while(Document.ContainsKey(last.PrevKey) && last.Item.Bounds.Top > 0)
             {
                 CDVDocumentCell nc = Document.GetItemForKey(last.PrevKey);
+                nc.Prepare(ctx, 5000);
                 nc.MoveBefore(last);
                 nc.Item.DrawInRect(ctx);
+                if (nc.Item.Bounds.Bottom > ctx.ScreenRect.Top
+                    && nc.Item.Bounds.Top < ctx.ScreenRect.Bottom && firstDrawn == null)
+                    firstDrawn = nc;
                 last = nc;
             }
 
@@ -156,7 +212,41 @@ namespace GCAL.CalendarDataView
                 // here place order to datasource for nextkey
                 RequestAsyncKey(last.PrevKey);
             }
-            */
+
+            // setting MainAtom to document part, that is really drawn on the screen
+            if (firstDrawn != MainAtom)
+            {
+                //Debugger.Log(0, "", "MainAtom changed\n");
+                MainAtom = firstDrawn;
+            }
+        }
+
+        private void CalendarDataView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.PageDown)
+            {
+                MoveAllDocument(0, -this.ClientSize.Height);
+                Invalidate();
+            }
+            else if (e.KeyCode == Keys.PageUp)
+            {
+                MoveAllDocument(0, +this.ClientSize.Height);
+                Invalidate();
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                MoveAllDocument(0, +30);
+                Invalidate();
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                MoveAllDocument(0, -30);
+                Invalidate();
+            }
+            else
+            {
+                Debugger.Log(0, "", "\n");
+            }
         }
     }
 }

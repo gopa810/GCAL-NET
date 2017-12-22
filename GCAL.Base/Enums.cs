@@ -240,6 +240,7 @@ namespace GCAL.Base
         GSTR_TIPS_FILE = 15, /*GCAL 4.3*/
         GSTR_HELP_FILE = 16, /*GCAL 5.0*/
         CoreDataFolder = 17, /* GCAL 12.0 */
+        MapsDataFolder = 18, /* GCAL 12.0 */
     };
 
 }

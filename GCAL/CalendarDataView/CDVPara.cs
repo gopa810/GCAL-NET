@@ -17,6 +17,7 @@ namespace GCAL.CalendarDataView
                     int max = 0;
                     foreach(CDVAtom atom in this)
                     {
+                        if (atom is CDVRuler) continue;
                         max = Math.Max(max, atom.Height);
                     }
                     return max;
@@ -29,6 +30,7 @@ namespace GCAL.CalendarDataView
                     int max = 0;
                     foreach (CDVAtom atom in this)
                     {
+                        if (atom is CDVRuler) continue;
                         max = Math.Max(max, atom.Bounds.Right);
                     }
                     return max;
@@ -75,6 +77,10 @@ namespace GCAL.CalendarDataView
                 {
                     this.TextStyle = (CDVTextStyle)obj;
                 }
+                else if (obj is CDVSpan)
+                {
+                    this.SpanWidth = (CDVSpan)obj;
+                }
                 else if (obj is CDVAtom)
                 {
                     CDVAtom atom = (CDVAtom)obj;
@@ -104,6 +110,7 @@ namespace GCAL.CalendarDataView
             return minWidth;
         }
 
+
         public override void DrawInRect(CDVContext context)
         {
             if (!Visible) return;
@@ -114,6 +121,7 @@ namespace GCAL.CalendarDataView
             {
                 atom.DrawInRect(context);
             }
+
         }
 
         public override void MeasureRect(CDVContext context, int maxWidth)
@@ -125,50 +133,119 @@ namespace GCAL.CalendarDataView
             int bw = p_para_style == null ? 0 : p_para_style.Margin.Right + p_para_style.Padding.Right;
             int bh = p_para_style == null ? 0 : p_para_style.Margin.Bottom + p_para_style.Padding.Bottom;
 
-            int x = bx;
-            int y = by;
+            int x = 0;
+            int y = 0;
             int maxLineWidth = 0;
             CDVLine line = new CDVLine();
-            foreach(CDVAtom atom in Words)
+            if (Orientation == CDVOrientation.Vertical)
             {
-                atom.MeasureRect(context, maxWidth);
-                if (Orientation == CDVOrientation.Vertical || x + atom.Bounds.Width + bx + bw > maxWidth)
+                foreach (CDVAtom atom in Words)
                 {
-                    x = bx;
-                    y += line.MaxHeight;
-                    line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
-                    maxLineWidth = Math.Max(maxLineWidth, line.Right);
-                    Lines.Add(line);
-                    line = new CDVLine();
+                    atom.MeasureRect(context, maxWidth);
                     atom.Location = new Point(x, y);
-                }
-                else
-                {
-                    atom.Location = new Point(x, y);
-                    x += atom.Bounds.Width;
+                    y += atom.Height;
+                    maxLineWidth = Math.Max(maxLineWidth, atom.Width);
                 }
 
-                line.Add(atom);
+                ContentRect = new Rectangle(bx, by, maxLineWidth, y);
+                Size = new Size(ContentRect.Width + bx + bw, ContentRect.Height + by + bh);
+            }
+            else
+            {
+                foreach (CDVAtom atom in Words)
+                {
+                    if (atom is CDVRuler)
+                    {
+                        CDVRuler ruler = (CDVRuler)atom;
+                        if (ruler.Value - ruler.Width / 2 > x)
+                            x = ruler.Value + ruler.Width / 2;
+                        else
+                        {
+                            context.rulersChanged = true;
+                            ruler.Value = Math.Max(ruler.Value, x + ruler.Width / 2);
+                            x += ruler.Width;
+                        }
+                    }
+                    else
+                    {
+                        atom.MeasureRect(context, maxWidth);
+                        if (x + atom.Bounds.Width + bx + bw > maxWidth && line.Count > 0)
+                        {
+                            x = 0;
+                            y += line.MaxHeight;
+                            line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
+                            maxLineWidth = Math.Max(maxLineWidth, line.Right);
+                            Lines.Add(line);
+                            line = new CDVLine();
+                            atom.Location = new Point(x, y);
+                        }
+                        else
+                        {
+                            atom.Location = new Point(x, y);
+                            x += atom.Bounds.Width;
+                        }
+                    }
+                    line.Add(atom);
+                }
+                maxLineWidth = Math.Max(maxLineWidth, line.Right);
+                line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
+                Lines.Add(line);
+
+                ContentRect = new Rectangle(bx, by, maxLineWidth, y + line.MaxHeight);
+
+                Size = new Size(ContentRect.Width + bx + bw, ContentRect.Height + by + bh);
             }
 
-            line.ApplyAlignment(maxWidth - bx - bw, ParaStyle.Align);
-            Lines.Add(line);
-
-            Size = new Size(maxLineWidth + bw, y + line.MaxHeight + bh);
 
             base.MeasureRect(context, maxWidth);
         }
 
-
-        public override void Offset(int x, int y)
+        public void Add(CDVAtom atom)
         {
-            foreach(CDVAtom atom in Words)
-            {
-                atom.Offset(x, y);
-            }
-
-            base.Offset(x, y);
+            atom.Parent = this;
+            Words.Add(atom);
         }
 
+        public override int ApplySpanWidths(int width)
+        {
+            int insideWidth = base.ApplySpanWidths(width);
+            int difference = insideWidth - ContentRect.Width;
+
+            if (Orientation == CDVOrientation.Horizontal && difference >= 0)
+            {
+                int movement = 0;
+                int dif1 = 0;
+                int dif2 = difference / Words.Count;
+                for(int i = 0; i < Words.Count; i++)
+                {
+                    dif1 = i < Words.Count - 1 ? dif2 : difference;
+                    Words[i].X += movement;
+                    Words[i].ApplySpanWidths(Words[i].Width + dif1);
+                    difference -= dif2;
+                    movement += dif2;
+                }
+            }
+            else if (Orientation == CDVOrientation.Vertical && difference >= 0)
+            {
+                foreach(CDVAtom atom in Words)
+                {
+                    atom.ApplySpanWidths(insideWidth);
+                }
+            }
+
+            ContentRect.Width = insideWidth;
+
+            return insideWidth;
+        }
+
+        public override void ApplyContentAlignment()
+        {
+            base.ApplyContentAlignment();
+
+            foreach(CDVAtom atom in Words)
+            {
+                atom.ApplyContentAlignment();
+            }
+        }
     }
 }

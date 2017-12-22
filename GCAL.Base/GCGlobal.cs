@@ -57,6 +57,10 @@ namespace GCAL.Base
             //string pszBuffer = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string pszBuffer = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
+            pszBuffer = Path.Combine(pszBuffer, "GCAL");
+            if (!Directory.Exists(pszBuffer))
+                Directory.CreateDirectory(pszBuffer);
+
             applicationStrings[AppFileName.MainFolder] = pszBuffer;
 
             applicationStrings[AppFileName.ConfigurationFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "config");
@@ -70,6 +74,9 @@ namespace GCAL.Base
 
             applicationStrings[AppFileName.CoreDataFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "cores");
             Directory.CreateDirectory(applicationStrings[AppFileName.CoreDataFolder]);
+
+            applicationStrings[AppFileName.MapsDataFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "maps");
+            Directory.CreateDirectory(applicationStrings[AppFileName.MapsDataFolder]);
 
             string confDir = applicationStrings[AppFileName.ConfigurationFolder];
 
@@ -239,7 +246,6 @@ namespace GCAL.Base
                 File.WriteAllText(GetAppString(AppFileName.GSTR_TIPS_FILE), Properties.Resources.tips);
             }
 
-
         }
 
 
@@ -264,7 +270,7 @@ namespace GCAL.Base
 
             GCDisplaySettings.writeFile(GetAppString(AppFileName.GSTR_SSET_FILE));
 
-            GCFestivalBookCollection.SaveFile(GetAppString(AppFileName.ConfigurationFolder));
+            GCFestivalBookCollection.SaveAllChangedFestivalBooks(GetAppString(AppFileName.ConfigurationFolder));
 
             if (TTimeZone.Modified)
             {

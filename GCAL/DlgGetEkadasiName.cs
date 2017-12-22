@@ -11,11 +11,11 @@ using GCAL.Base;
 
 namespace GCAL
 {
-    public partial class GetEkadasiName : Form
+    public partial class DlgGetEkadasiName : Form
     {
         public VAISNAVADAY SelectedDate = null;
 
-        public GetEkadasiName()
+        public DlgGetEkadasiName()
         {
             InitializeComponent();
             comboBox1.SelectedIndex = 0;

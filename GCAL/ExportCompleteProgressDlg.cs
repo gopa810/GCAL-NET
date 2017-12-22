@@ -134,12 +134,6 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_1, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_2, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_3, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_4, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_5, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_6, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MONTH, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_JULIAN, 0);
@@ -177,12 +171,6 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_1, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_2, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_3, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_4, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_5, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_6, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MONTH, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_JULIAN, 0);
@@ -220,12 +208,6 @@ namespace GCAL
                 GCDisplaySettings.setValue(GCDS.CAL_DST_CHANGE, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_FEST_0, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_1, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_2, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_3, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_4, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_5, 1);
-                GCDisplaySettings.setValue(GCDS.CAL_FEST_6, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, 0);
                 GCDisplaySettings.setValue(GCDS.CAL_HEADER_MONTH, 1);
                 GCDisplaySettings.setValue(GCDS.CAL_JULIAN, 0);

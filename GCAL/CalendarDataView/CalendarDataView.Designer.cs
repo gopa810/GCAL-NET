@@ -32,11 +32,14 @@
             // 
             // CalendarDataView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CalendarDataView";
-            this.Size = new System.Drawing.Size(508, 512);
+            this.Size = new System.Drawing.Size(762, 788);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CalendarDataView_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CalendarDataView_KeyDown);
             this.ResumeLayout(false);
 
         }

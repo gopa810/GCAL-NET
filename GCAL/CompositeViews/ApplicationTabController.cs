@@ -19,6 +19,7 @@ namespace GCAL.CompositeViews
         private LocationsPanelController locPanel = null;
         private CountriesPanelDelegate couPanel = null;
         private TimezonesPanelDelegate timPanel = null;
+        private FestivalBooksPanelDelegate festPanel = null;
         private HelpPanelController helpPanel = null;
 
         private GVCore currentPanelDisplayed = null;
@@ -31,6 +32,11 @@ namespace GCAL.CompositeViews
 
         public override GSCore ExecuteMessage(string token, GSCoreCollection args)
         {
+            if (token.Equals("setTabChanged"))
+            {
+                token = GVListBanner.MsgListItemChanged;
+            }
+
             if (token.Equals(GVListBanner.MsgListItemChanged))
             {
                 GSCore a1 = args.getSafe(0);
@@ -102,6 +108,15 @@ namespace GCAL.CompositeViews
                         currentPanelDisplayed = timPanel;
                         ShowPanel(timPanel, GVControlAlign.Fill);
                         break;
+                    case "festivalBooks":
+                        if (festPanel == null)
+                        {
+                            festPanel = new FestivalBooksPanelDelegate(new FestivalBooksPanel());
+                            festPanel.ViewContainer = getView().ViewContainer;
+                        }
+                        currentPanelDisplayed = festPanel;
+                        ShowPanel(festPanel, GVControlAlign.Fill);
+                        break;
                     case "save":
                     case "print":
                     case "showTipOfTheDay":
@@ -122,6 +137,13 @@ namespace GCAL.CompositeViews
                         break;
                     default:
                         break;
+                }
+            }
+            else if (token.Equals("currExec"))
+            {
+                if (currentPanelDisplayed != null)
+                {
+                    currentPanelDisplayed.ExecuteMessage(args.getSafe(0).getStringValue(), args.getSublist(1));
                 }
             }
             else if (token.Equals("saveSettings"))
@@ -152,6 +174,7 @@ namespace GCAL.CompositeViews
         {
             GVControlContainer container = (View as ApplicationTab).ViewContainer;
 
+            userControl.Parent = this;
             container.RemoveAll();
             container.AddControl(userControl, align);
         }

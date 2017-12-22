@@ -17,4 +17,10 @@ namespace GCAL.CalendarDataView
         Center,
         Right
     }
+
+    public enum CDVSpan
+    {
+        Minimum,
+        Maximum
+    }
 }

@@ -16,7 +16,13 @@ namespace GCAL.Base
 {
     public class GCFestivalBookCollection
     {
+        public static bool BooksModified = false;
+
+        public static int BookCollectionIdCounter = 0;
+
         public static List<GCFestivalBook> Books = new List<GCFestivalBook>();
+
+        public static string RootFilePath = string.Empty;
 
         public static GCFestivalBook getSafeBook(int i)
         {
@@ -30,7 +36,27 @@ namespace GCAL.Base
             newBook.CollectionId = i;
             newBook.FileName = string.Format("events{0:00}.ev.rl", i);
             Books.Add(newBook);
+
+            // check NextCollectionId
+            BookCollectionIdCounter = Math.Max(i + 1, BookCollectionIdCounter);
+
             return newBook;
+        }
+
+        public static GCFestivalBook CreateBook(string bookName)
+        {
+            GCFestivalBook fb = getSafeBook(BookCollectionIdCounter);
+            fb.CollectionName = bookName;
+            SaveFestivalBook(GCGlobal.ConfigFolder, fb);
+            return fb;
+        }
+
+        public static void MoveBook(int oldIndex, int newIndex)
+        {
+            GCFestivalBook fb = Books[oldIndex];
+            Books.RemoveAt(oldIndex);
+            Books.Insert(newIndex, fb);
+            BooksModified = true;
         }
 
         public static void Export(string pszFile, int format)
@@ -131,15 +157,52 @@ namespace GCAL.Base
             }
         }
 
+        public static bool HasFile(string fileNameOnly)
+        {
+            foreach(GCFestivalBook b in Books)
+            {
+                if (b.FileName.Equals(fileNameOnly))
+                    return true;
+            }
+            return false;
+        }
+
         public static List<string> ScanEventFiles(string dir)
         {
             List<string> files = new List<string>();
-            foreach (string fileName in Directory.EnumerateFiles(dir))
+            RootFilePath = Path.Combine(dir, "root.ev.rl");
+            if (File.Exists(RootFilePath))
             {
-                if (fileName.EndsWith(".ev.rl"))
-                    files.Add(fileName);
+                files.Clear();
+                foreach(string s in File.ReadAllLines(RootFilePath))
+                {
+                    files.Add(Path.Combine(dir, s));
+                }
+            }
+            else
+            {
+                foreach (string fileName in Directory.EnumerateFiles(dir))
+                {
+                    if (fileName.EndsWith(".ev.rl"))
+                        files.Add(fileName);
+                }
             }
             return files;
+        }
+
+        public static void SaveRootFile()
+        {
+            int i = 0;
+            string[] a = new string[Books.Count];
+            foreach(GCFestivalBook fb in Books)
+            {
+                a[i] = fb.FileName;
+                i++;
+            }
+            if (Directory.Exists(Path.GetDirectoryName(RootFilePath)))
+            {
+                File.WriteAllLines(RootFilePath, a);
+            }
         }
 
         public static int OpenFile(string folderName)
@@ -148,17 +211,13 @@ namespace GCAL.Base
             List<string> files = ScanEventFiles(folderName);
             if (files.Count == 0)
             {
-                string path = Path.Combine(folderName, "temp.tmp1");
-                File.WriteAllBytes(path, Properties.Resources.events);
-                OpenEventsFile(path);
-                SaveFile(folderName);
-                File.Delete(path);
+                ResetAllBooks(folderName);
                 files = ScanEventFiles(folderName);
-                result = files.Count;
             }
-            else
+
+            foreach (string file in files)
             {
-                foreach (string file in files)
+                if (File.Exists(file))
                 {
                     OpenEventsFile(file);
                     result++;
@@ -168,7 +227,21 @@ namespace GCAL.Base
             return result;
         }
 
-        private static int OpenEventsFile(string pszFile)
+        public static void ResetAllBooks(string folderName)
+        {
+            string path = Path.Combine(folderName, "temp.tmp1");
+            File.WriteAllBytes(path, Properties.Resources.events);
+            OpenEventsFile(path);
+            foreach (GCFestivalBook b in Books)
+                b.Changed = true;
+            SaveAllChangedFestivalBooks(folderName);
+            File.Delete(path);
+
+            RootFilePath = Path.Combine(folderName, "root.ev.rl");
+            SaveRootFile();
+        }
+
+        public static int OpenEventsFile(string pszFile)
         {
             int nMode = 0;
             int nRet = -1;
@@ -299,13 +372,13 @@ namespace GCAL.Base
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns></returns>
-        public static int SaveFile(string folderName)
+        public static int SaveAllChangedFestivalBooks(string folderName)
         {
             /*if (!GCGlobal.customEventListModified)
                 return 0;*/
 
             HashSet<string> fileNames = new HashSet<string>();
-            foreach (GCFestivalBook book in GCFestivalBookCollection.Books)
+            foreach (GCFestivalBook book in Books)
             {
                 if (fileNames.Contains(book.FileName))
                 {
@@ -317,34 +390,42 @@ namespace GCAL.Base
             }
 
             int nRet = 0;
-            foreach (GCFestivalBook book in GCFestivalBookCollection.Books)
+            foreach (GCFestivalBook book in Books)
             {
                 if (!book.Changed)
                     continue;
-                using (StreamWriter sw = new StreamWriter(Path.Combine(folderName, book.FileName)))
+                nRet = SaveFestivalBook(folderName, book);
+            }
+
+            return nRet;
+        }
+
+        private static int SaveFestivalBook(string folderName, GCFestivalBook book)
+        {
+            int nRet = 0;
+            using (StreamWriter sw = new StreamWriter(Path.Combine(folderName, book.FileName)))
+            {
+                sw.WriteLine("{0}:{1}|{2}|{3}", book.GetType().Name, GCFestivalBase.StringToSafe(book.CollectionName), book.CollectionId,
+                    (book.Visible ? 1 : 0));
+                foreach (GCFestivalBase fb in book.Festivals)
                 {
-                    sw.WriteLine("{0}:{1}|{2}|{3}", book.GetType().Name, GCFestivalBase.StringToSafe(book.CollectionName), book.CollectionId,
-                        (book.Visible ? 1 : 0));
-                    foreach (GCFestivalBase fb in book.Festivals)
+                    if (fb.nDeleted == 0)
                     {
-                        if (fb.nDeleted == 0)
+                        nRet++;
+                        sw.WriteLine("{0}:{1}", fb.getToken(), fb.EncodedString);
+                        if (fb.EventsCount > 0)
                         {
-                            nRet++;
-                            sw.WriteLine("{0}:{1}", fb.getToken(), fb.EncodedString);
-                            if (fb.EventsCount > 0)
+                            foreach (GCFestivalBase fb2 in fb.Events)
                             {
-                                foreach (GCFestivalBase fb2 in fb.Events)
-                                {
-                                    sw.WriteLine("{0}:{1}", fb2.getToken(), fb2.EncodedString);
-                                }
+                                sw.WriteLine("{0}:{1}", fb2.getToken(), fb2.EncodedString);
                             }
-                            if (fb is GCFestivalSpecial)
-                            {
-                                GCFestivalSpecial se = fb as GCFestivalSpecial;
-                                sw.WriteLine(GCFestivalSpecial.InstructionTag);
-                                sw.WriteLine(se.Script);
-                                sw.WriteLine(GCFestivalSpecial.InstructionEndTag);
-                            }
+                        }
+                        if (fb is GCFestivalSpecial)
+                        {
+                            GCFestivalSpecial se = fb as GCFestivalSpecial;
+                            sw.WriteLine(GCFestivalSpecial.InstructionTag);
+                            sw.WriteLine(se.Script);
+                            sw.WriteLine(GCFestivalSpecial.InstructionEndTag);
                         }
                     }
                 }
@@ -352,6 +433,5 @@ namespace GCAL.Base
 
             return nRet;
         }
-
     }
 }

@@ -253,6 +253,12 @@
     <Compile Include="CompositeViews\EventRelatedList.Designer.cs">
       <DependentUpon>EventRelatedList.cs</DependentUpon>
     </Compile>
+    <Compile Include="CompositeViews\FestivalBooksPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\FestivalBooksPanel.Designer.cs">
+      <DependentUpon>FestivalBooksPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="CompositeViews\HelpAboutPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -425,6 +431,36 @@
     <Compile Include="DlgCalcEkadasiBoundaries.Designer.cs">
       <DependentUpon>DlgCalcEkadasiBoundaries.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgDeleteFestivalBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgDeleteFestivalBook.Designer.cs">
+      <DependentUpon>DlgDeleteFestivalBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgEditFestivalBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgEditFestivalBook.Designer.cs">
+      <DependentUpon>DlgEditFestivalBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgImportFestivalBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgImportFestivalBook.Designer.cs">
+      <DependentUpon>DlgImportFestivalBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgSelectLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgSelectLocation.Designer.cs">
+      <DependentUpon>DlgSelectLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgSelectMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgSelectMap.Designer.cs">
+      <DependentUpon>DlgSelectMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportCompleteDataDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -444,12 +480,13 @@
     <Compile Include="FrameMain.Designer.cs">
       <DependentUpon>FrameMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GCMapService.cs" />
     <Compile Include="GCPrintService.cs" />
-    <Compile Include="GetEkadasiName.cs">
+    <Compile Include="DlgGetEkadasiName.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GetEkadasiName.Designer.cs">
-      <DependentUpon>GetEkadasiName.cs</DependentUpon>
+    <Compile Include="DlgGetEkadasiName.Designer.cs">
+      <DependentUpon>DlgGetEkadasiName.cs</DependentUpon>
     </Compile>
     <Compile Include="CalendarDataView\CalendarDataView.cs">
       <SubType>UserControl</SubType>
@@ -464,6 +501,12 @@
     </Compile>
     <Compile Include="Views\CalendarTableView.Designer.cs">
       <DependentUpon>CalendarTableView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventMapOverlayView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EventMapOverlayView.Designer.cs">
+      <DependentUpon>EventMapOverlayView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\GVControlContainer.cs">
       <SubType>UserControl</SubType>
@@ -573,6 +616,9 @@
     <EmbeddedResource Include="CompositeViews\EventRelatedList.resx">
       <DependentUpon>EventRelatedList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\FestivalBooksPanel.resx">
+      <DependentUpon>FestivalBooksPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CompositeViews\HelpAboutPanel.resx">
       <DependentUpon>HelpAboutPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -657,6 +703,21 @@
     <EmbeddedResource Include="DlgCalcEkadasiBoundaries.resx">
       <DependentUpon>DlgCalcEkadasiBoundaries.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgDeleteFestivalBook.resx">
+      <DependentUpon>DlgDeleteFestivalBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgEditFestivalBook.resx">
+      <DependentUpon>DlgEditFestivalBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgImportFestivalBook.resx">
+      <DependentUpon>DlgImportFestivalBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSelectLocation.resx">
+      <DependentUpon>DlgSelectLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSelectMap.resx">
+      <DependentUpon>DlgSelectMap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExportCompleteDataDlg.resx">
       <DependentUpon>ExportCompleteDataDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -666,8 +727,8 @@
     <EmbeddedResource Include="FrameMain.resx">
       <DependentUpon>FrameMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GetEkadasiName.resx">
-      <DependentUpon>GetEkadasiName.cs</DependentUpon>
+    <EmbeddedResource Include="DlgGetEkadasiName.resx">
+      <DependentUpon>DlgGetEkadasiName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -684,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CalendarTableView.resx">
       <DependentUpon>CalendarTableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EventMapOverlayView.resx">
+      <DependentUpon>EventMapOverlayView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GVControlContainer.resx">
       <DependentUpon>GVControlContainer.cs</DependentUpon>
@@ -712,6 +776,8 @@
     <Content Include="GCalIcon.ico" />
     <Content Include="GCalIcon2.ico" />
     <Content Include="IconSearch.ico" />
+    <None Include="Resources\eye2.png" />
+    <None Include="Resources\eye.png" />
     <EmbeddedResource Include="Resources\tips.txt" />
     <None Include="Resources\set_today.png" />
     <None Include="Resources\set_startpage.png" />

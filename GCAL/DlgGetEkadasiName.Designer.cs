@@ -1,6 +1,6 @@
 ﻿namespace GCAL
 {
-    partial class GetEkadasiName
+    partial class DlgGetEkadasiName
     {
         /// <summary>
         /// Required designer variable.

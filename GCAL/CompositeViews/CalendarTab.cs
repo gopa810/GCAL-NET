@@ -524,12 +524,52 @@ namespace GCAL.CompositeViews
 
         private void ekadasiMapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GetEkadasiName dlg = new GetEkadasiName();
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                DlgCalcEkadasiBoundaries d2 = new DlgCalcEkadasiBoundaries(dlg.SelectedDate.date);
+            int step = 0;
+            VAISNAVADAY dayEkadasi = null;
+            GregorianDateTime dateEkadasi = null;
+            GCMap selectedMap = null;
 
-                d2.Show();
+            while (step >= 0)
+            {
+                switch(step)
+                {
+                    case 0: // select ekadasi
+                        DlgGetEkadasiName dlg = new DlgGetEkadasiName();
+                        if (dlg.ShowDialog() == DialogResult.OK)
+                        {
+                            dayEkadasi = dlg.SelectedDate;
+                            dateEkadasi = dlg.SelectedDate.date;
+                            step = 1;
+                        }
+                        else
+                        {
+                            step = -1;
+                        }
+                        break;
+                    case 1: // select location map
+                        DlgSelectMap maps = new DlgSelectMap();
+                        if (maps.ShowDialog() == DialogResult.OK)
+                        {
+                            step = 2;
+                            selectedMap = maps.SelectedMap;
+                            if (selectedMap == null)
+                                step = -1;
+                        }
+                        else
+                        {
+                            step = -1;
+                        }
+                        break;
+                    case 2: // calculate Ekadasi map
+                        DlgCalcEkadasiBoundaries d2 = new DlgCalcEkadasiBoundaries(dayEkadasi.date);
+                        d2.SelectedDate = dateEkadasi;
+                        d2.SelectedVaisnavaDay = dayEkadasi;
+                        d2.FindType = 1;
+                        d2.SelectedMap = selectedMap;
+                        d2.Show();
+                        step = -1;
+                        break;
+                }
             }
         }
 
@@ -549,35 +589,218 @@ namespace GCAL.CompositeViews
             }
         }
 
+        public delegate void AsyncTask1(CDVDataTarget req, CDVDocumentCell cell);
+        public delegate void AsyncTask2(CDVDocumentCell result);
+
         public void AsyncRequestData(CDVDataTarget requestor, CDVDocumentCell data)
+        {
+            //FetchCalendarDataSync(requestor, data);
+
+            AsyncTask1 at = new AsyncTask1(FetchCalendarDataSync);
+            at.BeginInvoke(requestor, data, null, null);
+        }
+
+        private void FetchCalendarDataSync(CDVDataTarget requestor, CDVDocumentCell data)
         {
             // TODO:
             // here calculate data
             // but this function should perform asynchronously
-            data.PrevKey = "2017-09";
-            data.NextKey = "2017-11";
+            int i_year, i_month;
+            string[] sa = data.Key.Split('-');
+            if (sa.Length != 2 || !int.TryParse(sa[0], out i_year) || !int.TryParse(sa[1], out i_month))
+                return;
 
+            if (i_month < 2)
+                data.PrevKey = string.Format("{0}-{1}", i_year - 1, 12);
+            else
+                data.PrevKey = string.Format("{0}-{1}", i_year, i_month - 1);
+
+            if (i_month > 11)
+                data.NextKey = string.Format("{0}-{1}", i_year + 1, 1);
+            else
+                data.NextKey = string.Format("{0}-{1}", i_year, i_month + 1);
+
+
+            TResultCalendar rc = new TResultCalendar(calLocation, i_year, i_month);
+
+            CDVParaStyle pstitle = new CDVParaStyle();
+            pstitle.StyleName = "TitleC";
+            pstitle.Align = CDVAlign.Center;
+            pstitle.Padding.All = 12;
+            pstitle.Margin.All = 12;
+            pstitle.BorderWidth.All = 1;
+            pstitle.BorderColor = CDVColor.Black;
+            pstitle.BackgroundColor = CDVColor.LightYellow;
+
+            CDVParaStyle pshdr = new CDVParaStyle();
+            pshdr.StyleName = "Hdr";
+            pshdr.Margin.Top = 2;
+            pshdr.Margin.Bottom = 12;
+            pshdr.BackgroundColor = new CDVColor(255, 64, 32, 0);
+
+            CDVParaStyle ps = new CDVParaStyle();
+            ps.StyleName = "Centered";
+            ps.Align = CDVAlign.Center;
+
+            CDVTextStyle ts = new CDVTextStyle();
+            ts.FontSize = 18;
+
+            CDVTextStyle tsWeekday = new CDVTextStyle();
+            tsWeekday.FontSize = 9;
+
+            CDVTextStyle tsHdr = new CDVTextStyle();
+            tsHdr.Color = CDVColor.White;
+            tsHdr.FontSize = 10;
+
+            CDVRuler atithi = new CDVRuler(null, 10);
+            CDVRuler aday = new CDVRuler(null, 0);
+            CDVRuler apak = new CDVRuler(null);
+            CDVRuler anak = new CDVRuler(null);
+            CDVRuler ayog = new CDVRuler(null);
+            CDVRuler awd = new CDVRuler(null, 0);
+            CDVRuler afast = new CDVRuler(null, 0);
+            CDVRuler amr = new CDVRuler(null);
+            CDVRuler amsun1 = new CDVRuler(null);
+            CDVRuler amsun2 = new CDVRuler(null);
+            CDVRuler amsun3 = new CDVRuler(null);
 
             CDVAtom doc = requestor.GetDocument();
             CDVPara para = new CDVPara(doc, CDVOrientation.Vertical,
-                new CDVPara(null, CDVOrientation.Vertical,
-                    new CDVPara(null, new CDVWord(null, "January 2017")),
-                    new CDVPara(null, new CDVWord(null, "Bratislava, 48N24 27E56, Timezone UTC+2:00"))
-                ),
-                new CDVPara(null, CDVOrientation.Horizontal,
-                    new CDVWord(null, "Date"),
-                    new CDVWord(null, "Tithi/Festival"),
-                    new CDVWord(null, ""),
-                    new CDVWord(null, "Naksatra"),
-                    new CDVWord(null, "Yoga"),
-                    new CDVWord(null, "Fast")
+                new CDVPara(null, CDVOrientation.Vertical, pstitle, CDVSpan.Maximum,
+                    new CDVWord(null, string.Format("{0} {1}", GregorianDateTime.GetMonthName(i_month) ,i_year), ts, ps, CDVSpan.Maximum),
+                    new CDVWord(null, calLocation.Format("{locationName}, {longitudeText} {latitudeText}, {timeZoneName}"), ps, CDVSpan.Maximum)
                 )
             );
 
+            CDVPara row = new CDVPara(para, CDVOrientation.Horizontal, pshdr, tsHdr);
+            para.Add(row);
+            row.Add(new CDVWord(row, "Date"));
+            row.Add(aday);
+            row.Add(new CDVWord(row, ""));
+            row.Add(awd);
+            row.Add(new CDVWord(row, "Tithi/Festival/Paksa"));
+            row.Add(atithi);
+            if (GCDisplaySettings.getBoolValue(39))
+            {
+                row.Add(new CDVWord(row, ""));
+                row.Add(apak);
+            }
+            if (GCDisplaySettings.getBoolValue(36))
+            {
+                row.Add(new CDVWord(row, "Naksatra"));
+                row.Add(anak);
+            }
+            if (GCDisplaySettings.getBoolValue(37))
+            {
+                row.Add(new CDVWord(row, "Yoga"));
+                row.Add(ayog);
+            }
+            if (GCDisplaySettings.getBoolValue(38))
+            {
+                row.Add(new CDVWord(row, "Fast"));
+                row.Add(afast);
+            }
+            if (GCDisplaySettings.getBoolValue(41))
+            {
+                row.Add(new CDVWord(row, "Moon Rasi"));
+                row.Add(amr);
+            }
+            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNRISE))
+            {
+                row.Add(new CDVWord(row, "Sunrise"));
+                row.Add(amsun1);
+            }
+            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_NOON))
+            {
+                row.Add(new CDVWord(row, "Noon"));
+                row.Add(amsun2);
+            }
+            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNSET))
+            {
+                row.Add(new CDVWord(row, "Sunset"));
+                row.Add(amsun3);
+            }
+
+            for (int i = 0; i < rc.m_PureCount; i++)
+            {
+                VAISNAVADAY vd = rc.GetDay(i);
+                row = new CDVPara(para, CDVOrientation.Horizontal);
+                para.Add(row);
+                row.Add(new CDVWord(row, vd.date.ToString()));
+                row.Add(aday);
+                row.Add(new CDVWord(row, GCCalendar.GetWeekdayAbbr(vd.date.dayOfWeek), tsWeekday));
+                row.Add(awd);
+                row.Add(new CDVWord(row, vd.GetFullTithiName()));
+                row.Add(atithi);
+                if (GCDisplaySettings.getBoolValue(39))
+                {
+                    row.Add(new CDVWord(row, GCPaksa.GetAbbr(vd.astrodata.sunRise.Paksa).ToString()));
+                    row.Add(apak);
+                }
+                if (GCDisplaySettings.getBoolValue(36))
+                {
+                    row.Add(new CDVWord(row, GCNaksatra.GetName(vd.astrodata.sunRise.Naksatra)));
+                    row.Add(anak);
+                }
+                if (GCDisplaySettings.getBoolValue(37))
+                {
+                    row.Add(new CDVWord(row, GCYoga.GetName(vd.astrodata.sunRise.Yoga)));
+                    row.Add(ayog);
+                }
+                if (GCDisplaySettings.getBoolValue(38))
+                {
+                    row.Add(new CDVWord(row, vd.nFastID > 0 ? "*" : ""));
+                    row.Add(afast);
+                }
+                if (GCDisplaySettings.getBoolValue(41))
+                {
+                    row.Add(new CDVWord(row, GCRasi.GetName(vd.astrodata.sunRise.RasiOfMoon)));
+                    row.Add(amr);
+                }
+
+                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNRISE))
+                {
+                    row.Add(new CDVWord(row, vd.astrodata.sunRise.ToShortTimeString()));
+                    row.Add(amsun1);
+                }
+
+                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_NOON))
+                {
+                    row.Add(new CDVWord(row, vd.astrodata.sunNoon.ToShortTimeString()));
+                    row.Add(amsun2);
+                }
+
+                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNSET))
+                {
+                    row.Add(new CDVWord(row, vd.astrodata.sunSet.ToShortTimeString()));
+                    row.Add(amsun3);
+                }
+
+                List<VAISNAVAEVENT> evs = vd.VisibleEvents;
+                if (evs.Count > 0 && vd.astrodata.sunRise.longitude >= 0.0)
+                {
+                    foreach (VAISNAVAEVENT ve in evs)
+                    {
+                        para.Add(new CDVPara(null, CDVOrientation.Horizontal,
+                            awd,
+                            new CDVWord(null, ve.text)
+                        ));
+                    }
+
+                }
+            }
+
             data.Item = para;
 
+            AsyncTask2 at2 = new AsyncTask2(requestor.OnCDVDataAvailable);
+
+            while(!this.IsHandleCreated)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+            this.Invoke(at2, data);
             // then return calculated data
-            requestor.OnCDVDataAvailable(data);
+            //requestor.OnCDVDataAvailable(data);
         }
     }
 }

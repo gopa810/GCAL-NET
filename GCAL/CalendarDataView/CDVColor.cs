@@ -10,6 +10,11 @@ namespace GCAL.CalendarDataView
     {
         public static readonly CDVColor Transparent = new CDVColor(Color.Transparent.A, Color.Transparent.R, Color.Transparent.G, Color.Transparent.B);
         public static readonly CDVColor Black = new CDVColor(Color.Black.A, 0, 0, 0);
+        public static readonly CDVColor LightYellow = new CDVColor(Color.LightYellow.A, Color.LightYellow.R, Color.LightYellow.G, Color.LightYellow.B);
+        public static readonly CDVColor White = new CDVColor(Color.White.A, Color.White.R, Color.White.G, Color.White.B);
+        public static readonly CDVColor Red = new CDVColor(Color.Red.A, Color.Red.R, Color.Red.G, Color.Red.B);
+        public static readonly CDVColor Blue = new CDVColor(Color.Blue.A, Color.Blue.R, Color.Blue.G, Color.Blue.B);
+        public static readonly CDVColor Green = new CDVColor(Color.Green.A, Color.Green.R, Color.Green.G, Color.Green.B);
 
         public byte A;
         public byte R;

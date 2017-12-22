@@ -17,6 +17,11 @@ namespace GCAL.CalendarDataView
             Width = 6;
         }
 
+        public CDVRuler(CDVAtom parent, int width): base(parent)
+        {
+            Value = 0;
+            Width = Width;
+        }
         public override int GetMinimumWidth(CDVContext context)
         {
             return Width;
@@ -24,7 +29,7 @@ namespace GCAL.CalendarDataView
 
         public override void MeasureRect(CDVContext context, int maxWidth)
         {
-            Bounds = new Rectangle(Value, 0, Width, 0);
+            Bounds = new Rectangle(0, 0, Width, 30);
         }
 
         public override void DrawInRect(CDVContext context)

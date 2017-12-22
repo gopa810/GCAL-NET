@@ -187,7 +187,6 @@ C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgCalc
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteDataDlg.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteProgressDlg.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.FrameMain.resources
-C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.GetEkadasiName.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Properties.Resources.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CalendarDataView.CalendarDataView.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.CalendarTableView.resources
@@ -200,3 +199,11 @@ C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPan
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.application
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.exe
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\SiddhantaPanchang.pdb
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.FestivalBooksPanel.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgDeleteFestivalBook.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgEditFestivalBook.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgImportFestivalBook.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectMap.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgGetEkadasiName.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectLocation.resources
+C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.EventMapOverlayView.resources

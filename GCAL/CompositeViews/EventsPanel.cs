@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using GCAL.Base;
+using GCAL.Base.Scripting;
 using GCAL.Views;
 
 namespace GCAL.CompositeViews
@@ -388,8 +389,30 @@ namespace GCAL.CompositeViews
             }
         }
 
-        private Font listBoxFestivalBooks_Font = new Font("Helvetica", 10f);
-        private StringFormat listBoxFestivalBooks_Format = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+        public void SetCollectionId(int collId)
+        {
+            int i, c = 0;
+            GCFestivalBook newFilterToBook = null;
+            listBoxFestivalBooks.Items.Clear();
+            listBoxFestivalBooks.Items.Add("All Collections");
+            for (i = 0; i < GCFestivalBookCollection.Books.Count; i++)
+            {
+                GCFestivalBook fb = GCFestivalBookCollection.Books[i];
+                if (fb.CollectionId == collId)
+                {
+                    newFilterToBook = fb;
+                    c = i;
+                }
+                listBoxFestivalBooks.Items.Add(fb);
+            }
+
+            listBoxFestivalBooks.SelectedIndex = c;
+
+        }
+
+        //private Font listBoxFestivalBooks_Font = new Font("Helvetica", 10f);
+        //private StringFormat listBoxFestivalBooks_Format = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
 
         private void listBoxFestivalBooks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -411,7 +434,7 @@ namespace GCAL.CompositeViews
 
         }
 
-        private void listBoxFestivalBooks_MeasureItem(object sender, MeasureItemEventArgs e)
+        /*private void listBoxFestivalBooks_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             if (e.Index < 0 || e.Index >= listBoxFestivalBooks.Items.Count)
                 return;
@@ -455,8 +478,12 @@ namespace GCAL.CompositeViews
             rect.Inflate(-10, -10);
             e.Graphics.DrawString(text, listBoxFestivalBooks_Font, Brushes.Black, rect, listBoxFestivalBooks_Format);
 
-        }
+        }*/
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Controller.Parent.ExecuteMessage("setTabChanged", new GSString("festivalBooks"));
+        }
     }
 
 
@@ -468,9 +495,20 @@ namespace GCAL.CompositeViews
             v.Controller = this;
         }
 
-        public override Base.Scripting.GSCore ExecuteMessage(string token, Base.Scripting.GSCoreCollection args)
+        public override GSCore ExecuteMessage(string token, GSCoreCollection args)
         {
-            return base.ExecuteMessage(token, args);
+            if (token.Equals("setCollection"))
+            {
+                int num = (int)args.getSafe(0).getIntegerValue();
+
+                EventsPanel ep = (EventsPanel)View;
+                ep.SetCollectionId(num);
+                return GSCore.Void;
+            }
+            else
+            {
+                return base.ExecuteMessage(token, args);
+            }
         }
     }
 

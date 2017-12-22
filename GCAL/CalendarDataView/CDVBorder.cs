@@ -17,10 +17,22 @@ namespace GCAL.CalendarDataView
             Top = Bottom = Left = Right = value;
         }
 
+        public int All
+        {
+            set
+            {
+                Left = Right = Top = Bottom = value;
+            }
+        }
         public CDVBorder(int leftRight, int topBottom)
         {
             Left = Right = leftRight;
             Top = Bottom = topBottom;
+        }
+
+        public int GetMax()
+        {
+            return Math.Max(Left, Math.Max(Right, Math.Max(Top, Bottom)));
         }
     }
 }

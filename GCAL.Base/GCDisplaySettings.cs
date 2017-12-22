@@ -11,14 +11,12 @@ namespace GCAL.Base
     {
         public int val;
         public int old_val;
-        public string sig;
         public string text;
 
-        public CShowSetting(int a, int b, string s, string t)
+        public CShowSetting(int a, int b, string t)
         {
             val = a;
             old_val = b;
-            sig = s;
             text = t;
         }
     }
@@ -31,78 +29,85 @@ namespace GCAL.Base
     public class GCDisplaySettings
     {
         protected static CShowSetting[] gss = {
-	        new CShowSetting(0, 0, "ARTI", "Tithi at arunodaya"),//0
-	        new CShowSetting(0, 0, "ARTM", "Arunodaya Time"),//1
-	        new CShowSetting(0, 0, "SRTM", "Sunrise Time"),//2
-	        new CShowSetting(0, 0, "SSTM", "Sunset Time"),//3
-	        new CShowSetting(0, 0, "MRTM", "Moonrise Time"),//4
-	        new CShowSetting(0, 0, "MSTM", "Moonset Time"),//5
-	        new CShowSetting(1, 1, "FEST", "Festivals"),//6
-	        new CShowSetting(0, 0, "KSAY", "Info about ksaya tithi"),//7
-	        new CShowSetting(0, 0, "VRDH", "Info about vriddhi tithi"),//8
-	        new CShowSetting(0, 0, "SLON", "Sun Longitude"),//9
-	        new CShowSetting(0, 0, "MLON", "Moon Longitude"),//10
-	        new CShowSetting(0, 0, "AYAN", "Ayanamsha value"),//11
-	        new CShowSetting(0, 0, "JDAY", "Julian Day"),//12
-	        new CShowSetting(0, 0, "CPUR", "Caturmasya Purnima System"), //13
-	        new CShowSetting(1, 1, "CPRA", "Caturmasya Pratipat System"), //14
-	        new CShowSetting(0, 0, "CEKA", "Caturmasya Ekadasi System"), //15
-	        new CShowSetting(1, 1, "SANI", "Sankranti Info"), //16
-	        new CShowSetting(1, 1, "EKAI", "Ekadasi Info"), //17
-	        new CShowSetting(1, 1, "VHDR", "Masa Header Info"), //18
-	        new CShowSetting(0, 0, "PHDR", "Month Header Info"), //19
-	        new CShowSetting(0, 0, "EDNS", "Do not show empty days"), //20
-	        new CShowSetting(0, 0, "SBEM", "Show begining of masa"), //21
-	        new CShowSetting(1, 1, "F000", "Appearance days of the Lord"),//22
-	        new CShowSetting(1, 1, "F001", "Events in the pastimes of the Lord"),//23
-	        new CShowSetting(1, 1, "F002", "App, Disapp of Recent Acaryas"),//24
-	        new CShowSetting(1, 1, "F003", "App, Disapp of Mahaprabhu's Associates and Other Acaryas"),//25
-	        new CShowSetting(1, 1, "F004", "ISKCON's Historical Events"),//26
-	        new CShowSetting(1, 1, "F005", "Bengal-specific Holidays"),//27
-	        new CShowSetting(1, 1, "F006", "My Personal Events"), //28
+	        new CShowSetting(0, 0, "Tithi at arunodaya"),//0
+	        new CShowSetting(0, 0, "Arunodaya Time"),//1
+	        new CShowSetting(0, 0, "Sunrise Time"),//2
+	        new CShowSetting(0, 0, "Sunset Time"),//3
+	        new CShowSetting(0, 0, "Moonrise Time"),//4
+	        new CShowSetting(0, 0, "Moonset Time"),//5
+	        new CShowSetting(1, 1, "Festivals"),//6
+	        new CShowSetting(0, 0, "Info about ksaya tithi"),//7
+	        new CShowSetting(0, 0, "Info about vriddhi tithi"),//8
+	        new CShowSetting(0, 0, "Sun Longitude"),//9
+	        new CShowSetting(0, 0, "Moon Longitude"),//10
+	        new CShowSetting(0, 0, "Ayanamsha value"),//11
+	        new CShowSetting(0, 0, "Julian Day"),//12
+	        new CShowSetting(0, 0, "Caturmasya Purnima System"), //13
+	        new CShowSetting(1, 1, "Caturmasya Pratipat System"), //14
+	        new CShowSetting(0, 0, "Caturmasya Ekadasi System"), //15
+	        new CShowSetting(1, 1, "Sankranti Info"), //16
+	        new CShowSetting(1, 1, "Ekadasi Info"), //17
+	        new CShowSetting(1, 1, "Masa Header Info"), //18
+	        new CShowSetting(0, 0, "Month Header Info"), //19
+	        new CShowSetting(0, 0, "Do not show empty days"), //20
+	        new CShowSetting(0, 0, "Show begining of masa"), //21
+	        new CShowSetting(1, 1, "Appearance days of the Lord"),//22
+	        new CShowSetting(1, 1, "Events in the pastimes of the Lord"),//23
+	        new CShowSetting(1, 1, "App, Disapp of Recent Acaryas"),//24
+	        new CShowSetting(1, 1, "App, Disapp of Mahaprabhu's Associates and Other Acaryas"),//25
+	        new CShowSetting(1, 1, "ISKCON's Historical Events"),//26
+	        new CShowSetting(1, 1, "Bengal-specific Holidays"),//27
+	        new CShowSetting(1, 1, "My Personal Events"), //28
 	        /* BEGIN GCAL 1.4.3 */
-	        new CShowSetting(1, 1, "TSSR", "Todat Sunrise"),  //29 Today sunrise
-	        new CShowSetting(1, 1, "TSSN", "Today Noon"),  //30 today noon
-	        new CShowSetting(1, 1, "TSSS", "Today Sunset"),  //31 today sunset
-	        new CShowSetting(0, 0, "TSAN", "Sandhya Times"),  //32 today + sandhya times
-	        new CShowSetting(1, 1, "TSIN", "Sunrise Info"),  //33 today sunrise info
-	        new CShowSetting(0, 0, "ASIN", "Noon Time"),  //34 astro - noon time
-	        new CShowSetting(1, 1, "NDST", "Notice about DST"), //35 notice about the change of the DST
-	        new CShowSetting(1, 1, "DNAK", "Naksatra"), // 36 naksatra info for each day
-	        new CShowSetting(1, 1, "DYOG", "Yoga"), //37 yoga info for each day
-	        new CShowSetting(1, 1, "FFLG", "Fasting Flag"),//38
-	        new CShowSetting(1, 1, "DPAK", "Paksa Info"),//39 paksa info
-	        new CShowSetting(0, 0, "FDIW", "First Day in Week"),//40 first day in week
-	        new CShowSetting(0, 0, "DRAS", "Rasi"), //41 moon rasi for each calendar day
-	        new CShowSetting(0, 0, "OSFA", "Old Style Fasting text"), //42 old style fasting text
-	        new CShowSetting(0, 0, "MLNT", "Name of month - type"), //43 month type name 0-vaisnava,1-bengal,2-hindu,3-vedic
+	        new CShowSetting(1, 1, "Todat Sunrise"),  //29 Today sunrise
+	        new CShowSetting(1, 1, "Today Noon"),  //30 today noon
+	        new CShowSetting(1, 1, "Today Sunset"),  //31 today sunset
+	        new CShowSetting(0, 0, "Sandhya Times"),  //32 today + sandhya times
+	        new CShowSetting(1, 1, "Sunrise Info"),  //33 today sunrise info
+	        new CShowSetting(0, 0, "Noon Time"),  //34 astro - noon time
+	        new CShowSetting(1, 1, "Notice about DST"), //35 notice about the change of the DST
+	        new CShowSetting(1, 1, "Naksatra"), // 36 naksatra info for each day
+	        new CShowSetting(1, 1, "Yoga"), //37 yoga info for each day
+	        new CShowSetting(1, 1, "Fasting Flag"),//38
+	        new CShowSetting(1, 1, "Paksa Info"),//39 paksa info
+	        new CShowSetting(0, 0, "First Day in Week"),//40 first day in week
+	        new CShowSetting(0, 0, "Rasi"), //41 moon rasi for each calendar day
+	        new CShowSetting(0, 0, "Old Style Fasting text"), //42 old style fasting text
+	        new CShowSetting(0, 0, "Name of month - type"), //43 month type name 0-vaisnava,1-bengal,2-hindu,3-vedic
 	        /* END GCAL 1.4.3 */
-	        new CShowSetting(0, 0, "EDBL", "Editable Default Events"), //44 editable default events
-	        new CShowSetting(0, 0, "TSBM", "Today Brahma Muhurta"),     //45 brahma muhurta in today screen
-	        new CShowSetting(0, 0, "TROM", "Today Rasi of the Moon"), // 46 rasi of the moon in today screen
-	        new CShowSetting(0, 0, "TNPD", "Today Naksatra Pada details"), // 47 naksatra pada details in today screen
-	        new CShowSetting(0, 0, "ADCS", "Child Names Suggestions"), // 48 child name suggestions in Appearance Day screen
-	        new CShowSetting(0, 0, "MNFO", "Masa Name Format"), // 49 format of masa name
-	        new CShowSetting(0, 0, "EPDR", "Ekadasi Parana details"), // 50 ekadasi parana details
-	        new CShowSetting(0, 0, "ANIV", "Aniversary show format"), // 51 format of aniversary info
-	        new CShowSetting(1, 1, "CE01", "Sun events"), // 52
-	        new CShowSetting(1, 1, "CE02", "Tithi events"), //53
-	        new CShowSetting(1, 1, "CE03", "Naksatra Events"), //54
-	        new CShowSetting(1, 1, "CE04", "Sankranti Events"),//55
-	        new CShowSetting(1, 1, "CE05", "Conjunction Events"),//56
-	        new CShowSetting(0, 0, "CE06", "Rahu kalam"), //57
-	        new CShowSetting(0, 0, "CE07", "Yama ghanti"), //58
-	        new CShowSetting(0, 0, "CE08", "Guli kalam"), //59
-	        new CShowSetting(0, 0, "CE09", "Moon events"), //60
-	        new CShowSetting(0, 0, "CE10", "Moon rasi"), //61
-	        new CShowSetting(0, 0, "CE11", "Ascendent"), //62
-	        new CShowSetting(1, 1, "CE12", "Sort results core events"),//63
-	        new CShowSetting(0, 0, "CE13", "Abhijit Muhurta"), //64
-	        new CShowSetting(0, 0, "CE14", "Yoga Events"), //65
-	        new CShowSetting(1, 1, "CSYS", "Caturmasya System"), //66
-            new CShowSetting(0, 0, "CCEL", "Core Events in Calendar"),
-	        new CShowSetting(0, 0, null, null)
+	        new CShowSetting(0, 0, "Editable Default Events"), //44 editable default events
+	        new CShowSetting(0, 0, "Today Brahma Muhurta"),     //45 brahma muhurta in today screen
+	        new CShowSetting(0, 0, "Today Rasi of the Moon"), // 46 rasi of the moon in today screen
+	        new CShowSetting(0, 0, "Today Naksatra Pada details"), // 47 naksatra pada details in today screen
+	        new CShowSetting(0, 0, "Child Names Suggestions"), // 48 child name suggestions in Appearance Day screen
+	        new CShowSetting(0, 0, "Masa Name Format"), // 49 format of masa name
+	        new CShowSetting(0, 0, "Ekadasi Parana details"), // 50 ekadasi parana details
+	        new CShowSetting(0, 0, "Aniversary show format"), // 51 format of aniversary info
+	        new CShowSetting(1, 1, "Sun events"), // 52
+	        new CShowSetting(1, 1, "Tithi events"), //53
+	        new CShowSetting(1, 1, "Naksatra Events"), //54
+	        new CShowSetting(1, 1, "Sankranti Events"),//55
+	        new CShowSetting(1, 1, "Conjunction Events"),//56
+	        new CShowSetting(0, 0, "Rahu kalam"), //57
+	        new CShowSetting(0, 0, "Yama ghanti"), //58
+	        new CShowSetting(0, 0, "Guli kalam"), //59
+	        new CShowSetting(0, 0, "Moon events"), //60
+	        new CShowSetting(0, 0, "Moon rasi"), //61
+	        new CShowSetting(0, 0, "Ascendent"), //62
+	        new CShowSetting(1, 1, "Sort results core events"),//63
+	        new CShowSetting(0, 0, "Abhijit Muhurta"), //64
+	        new CShowSetting(0, 0, "Yoga Events"), //65
+	        new CShowSetting(1, 1, "Caturmasya System"), //66
+            new CShowSetting(0, 0, "Core Events in Calendar"),//67
+            new CShowSetting(0, 0, "Calendar Column - Sunrise"),//68
+            new CShowSetting(0, 0, "Calendar Column - Noon"),//69
+            new CShowSetting(0, 0, "Calendar Column - Sunset"),//70
+            new CShowSetting(0, 0, null)
         };
+
+        public static bool CalColSunrise { get { return getBoolValue(68); } set { setBoolValue(68, value); } }
+        public static bool CalColNoon { get { return getBoolValue(69); } set { setBoolValue(69, value); } }
+        public static bool CalColSunset { get { return getBoolValue(70); } set { setBoolValue(70, value); } }
 
         public static int getCount()
         {
@@ -150,21 +155,6 @@ namespace GCAL.Base
         {
             gss[i].val = val ? 1 : 0;
             gss[i].old_val = gss[i].val;
-        }
-
-        static void setValue(string pszSign, int val)
-        {
-            int i, max = GCDisplaySettings.getCount();
-
-            for (i = 0; i < max; i++)
-            {
-                if (gss[i].sig.Equals(pszSign))
-                {
-                    gss[i].val = val;
-                    gss[i].old_val = val;
-                    break;
-                }
-            }
         }
 
         public static void readFile(string psz)
@@ -271,12 +261,12 @@ namespace GCAL.Base
         public static readonly int CAL_HEADER_MONTH = 19;
         public static readonly int CAL_MASA_CHANGE = 21;
         public static readonly int CAL_FEST_0 = 22;
-        public static readonly int CAL_FEST_1 = 23;
-        public static readonly int CAL_FEST_2 = 24;
-        public static readonly int CAL_FEST_3 = 25;
-        public static readonly int CAL_FEST_4 = 26;
-        public static readonly int CAL_FEST_5 = 27;
-        public static readonly int CAL_FEST_6 = 28;
+        //public static readonly int CAL_FEST_1 = 23;
+        //public static readonly int CAL_FEST_2 = 24;
+        //public static readonly int CAL_FEST_3 = 25;
+        //public static readonly int CAL_FEST_4 = 26;
+        //public static readonly int CAL_FEST_5 = 27;
+        //public static readonly int CAL_FEST_6 = 28;
         public static readonly int CAL_DST_CHANGE = 35;
         public static readonly int GENERAL_FIRST_DOW = 40;
         public static readonly int APP_CHILDNAMES = 48;
@@ -297,6 +287,10 @@ namespace GCAL.Base
         public static readonly int COREEVENTS_ABHIJIT_MUHURTA = 64;
         public static readonly int COREEVENTS_YOGA = 65;
         public static readonly int CAL_COREEVENTS = 67;
+        public static readonly int CAL_COL_SUNRISE = 68;
+        public static readonly int CAL_COL_NOON    = 69;
+        public static readonly int CAL_COL_SUNSET  = 70;
+
     };
 
     public sealed class DisplayPriorities

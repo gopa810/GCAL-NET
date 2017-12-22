@@ -27,7 +27,8 @@ namespace GCAL.CompositeViews
             gvListBanner1.AddTab("Tip of the Day", "showTipOfTheDay");
             gvListBanner1.AddTab("Organizer", null);
             gvListBanner1.AddTab("Locations", "locs");
-            gvListBanner1.AddTab("Events", "events");
+            gvListBanner1.AddTab("Festival Books", "festivalBooks");
+            gvListBanner1.AddTab("Festivals", "events");
             gvListBanner1.AddTab("Countries", "cntr");
             gvListBanner1.AddTab("Timezones", "tzones");
             gvListBanner1.AddTab("Display Settings", null);

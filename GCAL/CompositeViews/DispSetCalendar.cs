@@ -35,15 +35,6 @@ namespace GCAL.CompositeViews
 
             InitializeComponent();
 
-            eventGroupPairs = new int[] {
-                GCDS.CAL_FEST_0,
-                GCDS.CAL_FEST_1,
-                GCDS.CAL_FEST_2,
-                GCDS.CAL_FEST_3,
-                GCDS.CAL_FEST_4,
-                GCDS.CAL_FEST_5,
-                GCDS.CAL_FEST_6
-            };
 
             displayPairs = new CheckBoxValuePair[] {
                 new CheckBoxValuePair(checkBox1, 50),
@@ -64,6 +55,9 @@ namespace GCAL.CompositeViews
                 new CheckBoxValuePair(checkBox16, 37),
                 new CheckBoxValuePair(checkBox17, 38),
                 new CheckBoxValuePair(checkBox18, 41),
+                new CheckBoxValuePair(checkBox20, GCDS.CAL_COL_SUNRISE),
+                new CheckBoxValuePair(checkBox21, GCDS.CAL_COL_NOON),
+                new CheckBoxValuePair(checkBox22, GCDS.CAL_COL_SUNSET),
                 new CheckBoxValuePair(checkBox27, GCDS.CAL_SUN_RISE),
                 new CheckBoxValuePair(checkBox28, GCDS.CAL_SUN_SANDHYA),
                 new CheckBoxValuePair(checkBox29, GCDS.CAL_BRAHMA_MUHURTA),
@@ -77,13 +71,6 @@ namespace GCAL.CompositeViews
 
             comboBox4.SelectedIndex = GCDisplaySettings.getValue(GCDS.CAL_HEADER_MASA);
 
-            comboBox5.SelectedIndex = GCDisplaySettings.getValue(GCDS.CATURMASYA_SYSTEM);
-
-            foreach(GCFestivalBook fb in GCFestivalBookCollection.Books)
-            {
-                checkedListBox1.Items.Add( fb, fb.Visible);
-            }
-
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
                 cvp.checkBox.Checked = (GCDisplaySettings.getValue(cvp.dispValue) != 0);
@@ -96,17 +83,6 @@ namespace GCAL.CompositeViews
 
 
             GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, comboBox4.SelectedIndex);
-
-            GCDisplaySettings.setValue(GCDS.CATURMASYA_SYSTEM, comboBox5.SelectedIndex);
-            GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_PURNIMA, comboBox5.SelectedIndex == 0);
-            GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_PRATIPAT, comboBox5.SelectedIndex == 1);
-            GCDisplaySettings.setBoolValue(GCDS.CATURMASYA_EKADASI, comboBox5.SelectedIndex == 2);
-
-            for (i = 0; i < eventGroupPairs.Length; i++)
-            {
-                GCDisplaySettings.setBoolValue(eventGroupPairs[i], 
-                    checkedListBox1.GetItemChecked(i));
-            }
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {

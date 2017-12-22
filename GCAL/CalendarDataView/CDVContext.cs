@@ -9,6 +9,9 @@ namespace GCAL.CalendarDataView
     public class CDVContext
     {
         public Graphics g;
+        public bool rulersReflow = false;
+        public bool rulersChanged = false;
+        public Rectangle ScreenRect = Rectangle.Empty;
 
         public static Dictionary<CDVColor, Brush> Brushes = new Dictionary<CDVColor, Brush>();
         public static Dictionary<string,Pen> Pens = new Dictionary<string, Pen>();
