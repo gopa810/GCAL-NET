@@ -17,9 +17,11 @@ namespace GCAL
 
         public DlgGetEkadasiName()
         {
+            DateTime dt = DateTime.Now;
             InitializeComponent();
-            comboBox1.SelectedIndex = 0;
+            comboBox1.SelectedIndex = dt.Month - 1;
             panel1.Visible = false;
+            textBox1.Text = dt.Year.ToString();
         }
 
         private void buttonSelectEkadasi_Click(object sender, EventArgs e)

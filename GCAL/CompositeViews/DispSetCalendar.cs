@@ -69,11 +69,11 @@ namespace GCAL.CompositeViews
             };
 
 
-            comboBox4.SelectedIndex = GCDisplaySettings.getValue(GCDS.CAL_HEADER_MASA);
+            comboBox4.SelectedIndex = GCDisplaySettings.Current.getValue(GCDS.CAL_HEADER_MASA);
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                cvp.checkBox.Checked = (GCDisplaySettings.getValue(cvp.dispValue) != 0);
+                cvp.checkBox.Checked = (GCDisplaySettings.Current.getValue(cvp.dispValue) != 0);
             }
         }
 
@@ -82,11 +82,11 @@ namespace GCAL.CompositeViews
             int i;
 
 
-            GCDisplaySettings.setValue(GCDS.CAL_HEADER_MASA, comboBox4.SelectedIndex);
+            GCDisplaySettings.Current.setValue(GCDS.CAL_HEADER_MASA, comboBox4.SelectedIndex);
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                GCDisplaySettings.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
+                GCDisplaySettings.Current.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
             }
 
         }

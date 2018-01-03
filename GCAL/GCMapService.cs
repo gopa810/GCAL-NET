@@ -36,6 +36,7 @@ namespace GCAL
                         map.LatitudeStart = double.Parse(mapXmlElement.GetAttribute("latstart"));
                         map.LongitudeEnd = double.Parse(mapXmlElement.GetAttribute("longend"));
                         map.LongitudeStart = double.Parse(mapXmlElement.GetAttribute("longstart"));
+                        map.MapUsable = (int.Parse(mapXmlElement.GetAttribute("usable")) == 1);
                         foreach (XmlElement anchorXmlNode in mapXmlElement.GetElementsByTagName("anchor"))
                         {
                             GCMapAnchor anchorPoint = new GCMapAnchor();
@@ -47,6 +48,7 @@ namespace GCAL
                             map.AnchorPoints.Add(anchorPoint);
                         }
 
+                        map.RecalculateDimensions();
                         Maps.Add(map);
                     }
                 }
@@ -101,6 +103,7 @@ namespace GCAL
                 mapXmlElem.SetAttribute("latstart", map.LatitudeStart.ToString());
                 mapXmlElem.SetAttribute("longend", map.LongitudeEnd.ToString());
                 mapXmlElem.SetAttribute("longstart", map.LongitudeStart.ToString());
+                mapXmlElem.SetAttribute("usable", map.MapUsable ? "1" : "0");
                 foreach(GCMapAnchor mapAnchor in map.AnchorPoints)
                 {
                     XmlElement mae = doc.CreateElement("anchor");
@@ -135,6 +138,59 @@ namespace GCAL
         public Image Image = null;
         public Size ImageSize = Size.Empty;
         public List<GCMapAnchor> AnchorPoints = new List<GCMapAnchor>();
+
+        public double ax, ay, bx, by;
+
+        public void Preparefactors()
+        {
+            /*double rx1 = AnchorPoints[0].relX;
+            double rx2 = AnchorPoints[1].relX;
+            double lon1 = AnchorPoints[0].Longitude;
+            double lon2 = AnchorPoints[1].Longitude;
+            ax = (rx1 - rx2) / (lon1 - lon2);
+            bx = rx1 - lon1 * ax;
+
+            double ry1 = AnchorPoints[0].relY;
+            double ry2 = AnchorPoints[1].relY;
+            double lat1 = AnchorPoints[0].Latitude;
+            double lat2 = AnchorPoints[1].Latitude;
+            ay = (ry1 - ry2) / (lat1 - lat2);
+            by = ry1 - lat1 * ay;*/
+
+        }
+
+        private double RelYToLatitude(double relY)
+        {
+            return (relY - by) / ay;
+        }
+
+        public int LatitudeToY(double latitude, ref Rectangle mapArea)
+        {
+            return mapArea.Top + Convert.ToInt32((ay * latitude + by) * mapArea.Height);
+        }
+
+
+        public int LongitudeToX(double longitude, ref Rectangle mapArea)
+        {
+            return mapArea.Left + Convert.ToInt32(mapArea.Width * (ax * longitude + bx));
+        }
+
+        public double LongitudeRange
+        {
+            get
+            {
+                return Math.Abs(LongitudeStart - LongitudeEnd);
+            }
+        }
+
+        public double LatitudeRange
+        {
+            get
+            {
+                return Math.Abs(LatitudeStart - LatitudeEnd);
+            }
+        }
+
 
         public override string ToString()
         {
@@ -196,17 +252,35 @@ namespace GCAL
             if (ex / ey > 50 || ey / ex > 50)
                 return;
 
+            ax = ex / dx;
+            bx = maxRelX - maxLong * ax;
+
+            ay = (minRelY - maxRelY) / (maxLat - minLat);
+            by = minRelY - maxLat * ay;
+
+
+
+
             double xdegsPerUnit = dx / ex;
             double ydegsPerUnit = dy / ey;
 
             LongitudeStart = minLong - xdegsPerUnit * minRelX;
             LongitudeEnd = maxLong + xdegsPerUnit * (1 - maxRelX);
-            LatitudeStart = minLat - ydegsPerUnit * (1 - minRelY);
-            LatitudeEnd = minLat + ydegsPerUnit * minRelY;
+            LatitudeStart = RelYToLatitude(1);
+            LatitudeEnd = RelYToLatitude(0);
 
             MapUsable = true;
         }
 
+        public double YtoLatitude(int y, Rectangle mapArea)
+        {
+            return ((double)(y - mapArea.Top) / mapArea.Height  - by) / ay;
+        }
+
+        public double XtoLongitude(int x, Rectangle mapArea)
+        {
+            return ((double)(x - mapArea.Left) / mapArea.Width - bx) / ax;
+        }
     }
 
     public class GCMapAnchor

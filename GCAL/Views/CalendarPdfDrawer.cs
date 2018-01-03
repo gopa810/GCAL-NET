@@ -92,7 +92,7 @@ namespace GCAL.Views
 
             g.DrawLine(monthDivider, xMarginLeft, yUnderTitleBar, xMarginRight, yUnderTitleBar);
 
-            firstDayOfWeekGeneral = GCDisplaySettings.getValue(GCDS.GENERAL_FIRST_DOW);
+            firstDayOfWeekGeneral = GCDisplaySettings.Current.getValue(GCDS.GENERAL_FIRST_DOW);
             xCellWidth = (xMarginRight - xMarginLeft) / 7.0f;
 
             double tempTextHeight = fontH1Size / 5;
@@ -281,7 +281,7 @@ namespace GCAL.Views
                     sb.Append("; ");
                 }
                 int disp = ed.dispItem;
-                if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.getValue(disp) != 0))
+                if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.Current.getValue(disp) != 0))
                 {
                     sb.Append(ed.text);
                 }

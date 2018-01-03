@@ -76,8 +76,9 @@ namespace GCAL.CompositeViews
 
         public double DoubleFromDialog(TextBox t1, TextBox t2, double sig)
         {
-            int a, b;
-            if (int.TryParse(t1.Text, out a) && int.TryParse(t2.Text, out b))
+            double a;
+            int b;
+            if (double.TryParse(t1.Text, out a) && int.TryParse(t2.Text, out b))
             {
                 return sig * (a + b / 60.0);
             }

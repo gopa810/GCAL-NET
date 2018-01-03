@@ -322,6 +322,12 @@
       <DependentUpon>SearchTab.cs</DependentUpon>
     </Compile>
     <Compile Include="CompositeViews\SearchTabController.cs" />
+    <Compile Include="CompositeViews\SelectCalendarMonthControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompositeViews\SelectCalendarMonthControl.Designer.cs">
+      <DependentUpon>SelectCalendarMonthControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CompositeViews\SelectLocationInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -461,6 +467,12 @@
     <Compile Include="DlgSelectMap.Designer.cs">
       <DependentUpon>DlgSelectMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgSelectMonthDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgSelectMonthDate.Designer.cs">
+      <DependentUpon>DlgSelectMonthDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportCompleteDataDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -494,6 +506,11 @@
     <Compile Include="CalendarDataView\CalendarDataView.Designer.cs">
       <DependentUpon>CalendarDataView.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapCalculator\MapPoint.cs" />
+    <Compile Include="MapCalculator\Quadrant.cs" />
+    <Compile Include="MapCalculator\QuadrantArray.cs" />
+    <Compile Include="MapCalculator\QuadrantResult.cs" />
+    <Compile Include="MapCalculator\QuadrantResultState.cs" />
     <Compile Include="Views\CalendarPdfDrawer.cs" />
     <Compile Include="Views\CalendarTableDrawer.cs" />
     <Compile Include="Views\CalendarTableView.cs">
@@ -649,6 +666,9 @@
     <EmbeddedResource Include="CompositeViews\SearchTab.resx">
       <DependentUpon>SearchTab.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CompositeViews\SelectCalendarMonthControl.resx">
+      <DependentUpon>SelectCalendarMonthControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CompositeViews\SelectLocationInputPanel.resx">
       <DependentUpon>SelectLocationInputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -717,6 +737,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSelectMap.resx">
       <DependentUpon>DlgSelectMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSelectMonthDate.resx">
+      <DependentUpon>DlgSelectMonthDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportCompleteDataDlg.resx">
       <DependentUpon>ExportCompleteDataDlg.cs</DependentUpon>

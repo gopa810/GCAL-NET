@@ -156,7 +156,7 @@ namespace GCAL.Base
                 sunSet = sunsetData.TotalDays;
                 ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SUN) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SUN) != 0)
                 {
                     ndst = loc.TimeZone.DetermineDaylightChange(vcAdd);
 
@@ -173,7 +173,7 @@ namespace GCAL.Base
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_S_SET, 0, ndst);
                 }
 
-                /*if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+                /*if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
                 {
                     todayLongitude = sun.longitude_deg;
                     vcAdd.shour = sunRise;
@@ -224,7 +224,7 @@ namespace GCAL.Base
                     fromTimeLimit = previousSunriseHour;
                 }*/
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_RAHUKALAM) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_RAHUKALAM) != 0)
                 {
                     GCSunData.CalculateKala(sunRise, sunSet, vcAdd.dayOfWeek, out r1, out r2, KalaType.KT_RAHU_KALAM);
 
@@ -235,7 +235,7 @@ namespace GCAL.Base
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_KALA_END, KalaType.KT_RAHU_KALAM, ndst);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_YAMAGHANTI) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_YAMAGHANTI) != 0)
                 {
                     GCSunData.CalculateKala(sunRise, sunSet, vcAdd.dayOfWeek, out r1, out r2, KalaType.KT_YAMA_GHANTI);
 
@@ -246,7 +246,7 @@ namespace GCAL.Base
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_KALA_END, KalaType.KT_YAMA_GHANTI, ndst);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_GULIKALAM) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_GULIKALAM) != 0)
                 {
                     GCSunData.CalculateKala(sunRise, sunSet, vcAdd.dayOfWeek, out r1, out r2, KalaType.KT_GULI_KALAM);
 
@@ -257,7 +257,7 @@ namespace GCAL.Base
                     inEvents.AddEvent(vcAdd, CoreEventType.CCTYPE_KALA_END, KalaType.KT_GULI_KALAM, ndst);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA) != 0)
                 {
                     GCSunData.CalculateKala(sunRise, sunSet, vcAdd.dayOfWeek, out r1, out r2, KalaType.KT_ABHIJIT);
 
@@ -274,7 +274,7 @@ namespace GCAL.Base
                 vcAdd.NextDay();
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
             {
                 GCAscendant asc = new GCAscendant();
                 asc.Earth = EarthLocation.GetEarthData();
@@ -287,7 +287,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_TITHI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_TITHI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -314,7 +314,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -341,7 +341,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_YOGA) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_YOGA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -368,7 +368,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
             {
                 vcNext = new GregorianDateTime();
                 vcAdd.Set(vc);
@@ -391,7 +391,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -414,7 +414,7 @@ namespace GCAL.Base
                 }
 
             }
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
             {
                 double dlong;
                 vcAdd.Set(vc);
@@ -437,7 +437,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_MOON) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_MOON) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -455,7 +455,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_ASCENDENT) != 0)
             {/*
 		        vcAdd = vc;
 		        vcAdd.shour = 0.0;
@@ -484,7 +484,7 @@ namespace GCAL.Base
 		        */
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SORT) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SORT) != 0)
                 inEvents.Sort(SORTING_BY_DATE);
             else
                 inEvents.Sort(SORTING_BY_TYPE);

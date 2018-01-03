@@ -50,6 +50,32 @@ namespace GCAL.Base
                 p_timezonename = p_timezone.Name;
             }
         }
+        public TCountry Country { get; set; }
+        public string CountryCode
+        {
+            get
+            {
+                if (Country != null) return Country.ISOCode;
+                return "";
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    Country = null;
+                Country = TCountry.FindCountryByISOCode(value);
+            }
+        }
+
+        public int FirstDayOfWeek
+        {
+            get
+            {
+                if (Country != null)
+                    return Country.FirstDayOfWeek;
+                return GCDisplaySettings.Current.getValue(GCDS.GENERAL_FIRST_DOW);
+            }
+        }
+
         // !!!!!!!!
         // when adding new properties, dont forget to modify EncodedString and DefaultEncodedString properties
 
@@ -92,6 +118,16 @@ namespace GCAL.Base
             }
             else
                 return base.Equals(obj);
+        }
+
+        public void SetCoordinates(double longitude, double latitude)
+        {
+            Longitude = longitude;
+            Latitude = latitude;
+            if (TimeZone != null)
+            {
+                TimeZone.OffsetMinutes = GCMath.IntFloor((longitude - 7.5) / 15) * 60;
+            }
         }
 
         public override int GetHashCode()
@@ -235,8 +271,8 @@ namespace GCAL.Base
             {
                 if (Title == null)
                     return string.Empty;
-                return string.Format("{0}|{1}|{2}|{3}", GCFestivalBase.StringToSafe(Title),
-                    Longitude, Latitude, TimeZoneName);
+                return string.Format("{0}|{1}|{2}|{3}|{4}", GCFestivalBase.StringToSafe(Title),
+                    Longitude, Latitude, TimeZoneName, CountryCode);
             }
             set
             {
@@ -257,6 +293,10 @@ namespace GCAL.Base
                             TimeZoneName = a[3];
                         }
                     }
+                    if (a.Length >= 5)
+                    {
+                        CountryCode = a[4];
+                    }
                 }
             }
         }
@@ -265,7 +305,7 @@ namespace GCAL.Base
         {
             get
             {
-                return "Vrindavan (India)|77.73|27.583|Asia/Calcutta";
+                return "Vrindavan (India)|77.73|27.583|Asia/Calcutta|IN";
             }
         }
     }

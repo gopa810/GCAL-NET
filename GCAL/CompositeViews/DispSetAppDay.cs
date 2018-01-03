@@ -37,7 +37,7 @@ namespace GCAL.CompositeViews
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                cvp.checkBox.Checked = (GCDisplaySettings.getValue(cvp.dispValue) != 0);
+                cvp.checkBox.Checked = (GCDisplaySettings.Current.getValue(cvp.dispValue) != 0);
             }
         }
 
@@ -45,7 +45,7 @@ namespace GCAL.CompositeViews
         {
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                GCDisplaySettings.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
+                GCDisplaySettings.Current.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
             }
 
         }

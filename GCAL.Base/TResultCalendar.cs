@@ -20,8 +20,11 @@ namespace GCAL.Base
         public int nBeg;
         public int nTop;
 
+        public bool EkadasiOnly { get; set; }
+
         public TResultCalendar()
         {
+            EkadasiOnly = false;
             nTop = 0;
             nBeg = 0;
             m_pData = null;
@@ -75,17 +78,17 @@ namespace GCAL.Base
 
         int DAYS_TO_ENDWEEK(int lastMonthDay)
         {
-            return (21 - (lastMonthDay - GCDisplaySettings.getValue(GCDS.GENERAL_FIRST_DOW))) % 7;
+            return (21 - (lastMonthDay - m_Location.FirstDayOfWeek)) % 7;
         }
 
         int DAYS_FROM_BEGINWEEK(int firstMonthDay)
         {
-            return (firstMonthDay - GCDisplaySettings.getValue(GCDS.GENERAL_FIRST_DOW) + 14) % 7;
+            return (firstMonthDay - m_Location.FirstDayOfWeek + 14) % 7;
         }
 
         int DAY_INDEX(int day)
         {
-            return (day + GCDisplaySettings.getValue(GCDS.GENERAL_FIRST_DOW)) % 7;
+            return (day + m_Location.FirstDayOfWeek) % 7;
         }
 
         public static string getDayBkgColorCode(VAISNAVADAY p)
@@ -116,7 +119,7 @@ namespace GCAL.Base
             int lastMasa = 0;
             int lastGYear = 0;
             String tempStr;
-            bool bCalcMoon = (GCDisplaySettings.getValue(4) > 0 || GCDisplaySettings.getValue(5) > 0);
+            bool bCalcMoon = (GCDisplaySettings.Current.getValue(4) > 0 || GCDisplaySettings.Current.getValue(5) > 0);
 
             m_nCount = 0;
             m_Location = loc;
@@ -203,13 +206,13 @@ namespace GCAL.Base
                 {
                     GCMoonData.CalcMoonTimes(earth, t.date, Convert.ToDouble(t.BiasMinutes/60.0), out t.moonrise, out t.moonset);
 
-                    if (GCDisplaySettings.getValue(GCDS.CAL_MOON_RISE) != 0 && t.moonrise.hour >= 0)
+                    if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_MOON_RISE) != 0 && t.moonrise.hour >= 0)
                     {
                         tempStr = t.Format(GCStrings.Localized("Moonrise {moonRiseTime} ({dstSig})"));
                         t.AddEvent(DisplayPriorities.PRIO_MOON, GCDS.CAL_MOON_RISE, tempStr);
                     }
 
-                    if (GCDisplaySettings.getValue(GCDS.CAL_MOON_SET) != 0 && t.moonset.hour >= 0)
+                    if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_MOON_SET) != 0 && t.moonset.hour >= 0)
                     {
                         tempStr = t.Format(GCStrings.Localized("Moonset {moonSetTime} ({dstSig})"));
                         t.AddEvent(DisplayPriorities.PRIO_MOON, GCDS.CAL_MOON_SET, tempStr);
@@ -260,21 +263,21 @@ namespace GCAL.Base
                 t.astrodata.Masa = lastMasa;
                 t.astrodata.GaurabdaYear = lastGYear;
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_LONG) != 0)
+                if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_SUN_LONG) != 0)
                 {
                     tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Sun Longitude")
                         , t.astrodata.sunRise.longitude);
                     t.AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_SUN_LONG, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_MOON_LONG) != 0)
+                if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_MOON_LONG) != 0)
                 {
                     tempStr = string.Format("{0}: {1} (*)", GCStrings.Localized("Moon Longitude")
                         , t.astrodata.sunRise.longitudeMoon);
                     t.AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_MOON_LONG, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_AYANAMSHA) != 0)
+                if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_AYANAMSHA) != 0)
                 {
                     tempStr = string.Format("{0} {1} ({2}) (*)", GCStrings.Localized("Ayanamsha")
                         , t.astrodata.Ayanamsa
@@ -282,7 +285,7 @@ namespace GCAL.Base
                     t.AddEvent(DisplayPriorities.PRIO_ASTRO, GCDS.CAL_AYANAMSHA, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_JULIAN) != 0)
+                if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_JULIAN) != 0)
                 {
                     tempStr = string.Format("{0} {1} (*)", GCStrings.Localized("Julian Time")
                         , t.astrodata.JulianDay);
@@ -291,7 +294,7 @@ namespace GCAL.Base
             }
 
 
-            if (GCDisplaySettings.getValue(GCDS.CAL_MASA_CHANGE) != 0)
+            if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_MASA_CHANGE) != 0)
             {
                 String str;
 
@@ -311,7 +314,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.CAL_DST_CHANGE) != 0)
+            if (!EkadasiOnly && GCDisplaySettings.Current.getValue(GCDS.CAL_DST_CHANGE) != 0)
             {
                 foreach (VAISNAVADAY t in m_pData)
                 {
@@ -342,6 +345,9 @@ namespace GCAL.Base
                 }
             }
 
+            if (EkadasiOnly)
+                return 1;
+
             // init ksaya data
             // init of second day of vriddhi
             CalculateKsayaVriddhiTithis();
@@ -364,7 +370,7 @@ namespace GCAL.Base
             {
                 ResolveFestivalsFasting(i);
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_RISE) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.CAL_SUN_RISE) != 0)
                 {
                     tempStr = string.Format("{0}-{1}-{2}  {3} - {4} - {5} ({6})",
                         GCStrings.Localized("Sunrise"),
@@ -377,7 +383,7 @@ namespace GCAL.Base
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_RISE, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_SUN_SANDHYA) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.CAL_SUN_SANDHYA) != 0)
                 {
                     tempStr = string.Format("{0}: {1} | {2} | {3}   ({4})",
                         GCStrings.Localized("Sandhyas"),
@@ -388,7 +394,7 @@ namespace GCAL.Base
                     m_pData[i].AddEvent(DisplayPriorities.PRIO_SUN, GCDS.CAL_SUN_SANDHYA, tempStr);
                 }
 
-                if (GCDisplaySettings.getValue(GCDS.CAL_BRAHMA_MUHURTA) != 0)
+                if (GCDisplaySettings.Current.getValue(GCDS.CAL_BRAHMA_MUHURTA) != 0)
                 {
                     tempStr = string.Format("{0}: {1}   ({2})",
                         GCStrings.Localized("Brahma Muhurta"),
@@ -398,7 +404,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.CAL_COREEVENTS) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.CAL_COREEVENTS) != 0)
             {
                 int number = 1;
                 foreach (VAISNAVADAY today in m_pData)
@@ -406,8 +412,7 @@ namespace GCAL.Base
                     foreach (TCoreEvent tde in today.coreEvents)
                     { 
                         m_pData[i].AddEvent(DisplayPriorities.PRIO_ASTRO + number, GCDS.CAL_COREEVENTS,
-                            tde.TypeString + "   " + GregorianDateTime.TimeSpanToLongString(tde.GetDstTime(today.BiasMinutes*60) - today.UtcDayStart) + " ("
-                            + GCStrings.GetDSTSignature(tde.nDst*today.BiasMinutes) + ")");
+                            tde.TypeString + "   " + today.GetCoreEventTime(tde));
                         number++;
                     }
                 }
@@ -466,7 +471,7 @@ namespace GCAL.Base
                 if (t.astrodata.sunRise.Tithi == s.astrodata.sunRise.Tithi)
                 {
                     t.vriddhiDayNo = 2;
-                    if (GCDisplaySettings.getValue(GCDS.CAL_VRDDHI) != 0)
+                    if (GCDisplaySettings.Current.getValue(GCDS.CAL_VRDDHI) != 0)
                         t.AddEvent(DisplayPriorities.PRIO_KSAYA, GCDS.CAL_VRDDHI, GCStrings.getString(90));
                 }
                 else if (t.astrodata.sunRise.Tithi != GCTithi.NEXT_TITHI(s.astrodata.sunRise.Tithi))
@@ -579,7 +584,7 @@ namespace GCAL.Base
                 md.fastsubject = fb.FastingSubject;
             }
 
-            if (GCDisplaySettings.getValue(51) != 2 && fb.StartYear > -7000)
+            if (GCDisplaySettings.Current.getValue(51) != 2 && fb.StartYear > -7000)
             {
                 String ss1;
                 int years = t.astrodata.GaurabdaYear - (fb.StartYear - 1496);
@@ -587,7 +592,7 @@ namespace GCAL.Base
                 if (years % 10 == 1) appx = "st";
                 else if (years % 10 == 2) appx = "nd";
                 else if (years % 10 == 3) appx = "rd";
-                if (GCDisplaySettings.getValue(51) == 0)
+                if (GCDisplaySettings.Current.getValue(51) == 0)
                 {
                     ss1 = string.Format("{0} ({1}{2} anniversary)", md.text, years, appx);
                 }
@@ -680,7 +685,7 @@ namespace GCAL.Base
                 {
                     if (s.nFastID == FastType.FAST_EKADASI)
                     {
-                        if (GCDisplaySettings.getValue(42) == 0)
+                        if (GCDisplaySettings.Current.getValue(42) == 0)
                         {
                             str = string.Format(GCStrings.Localized("(Fast today for {0})"), subject);
                             s.AddEvent(DisplayPriorities.PRIO_FASTING, GCDS.DISP_ALWAYS, str);
@@ -697,7 +702,7 @@ namespace GCAL.Base
                     }
                     else if (t.nFastID == FastType.FAST_EKADASI)
                     {
-                        if (GCDisplaySettings.getValue(42) != 0)
+                        if (GCDisplaySettings.Current.getValue(42) != 0)
                             t.AddEvent(md.prio + 1, md.dispItem, GCStrings.Localized("(Fasting till noon, with feast tomorrow)"));
                         //"(Fasting till noon, with feast tomorrow)";
                         else
@@ -707,7 +712,7 @@ namespace GCAL.Base
                     else
                     {
                         /* OLD STYLE FASTING
-                        if (GCDisplaySettings.getValue(42) == 0)
+                        if (GCDisplaySettings.Current.getValue(42) == 0)
                         {
                             if (nftype > 1)
                                 nftype = 7;

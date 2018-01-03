@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GCAL.Base.dll" size="11291648">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GCAL.Base.dll" size="11295232">
       <assemblyIdentity name="GCAL.Base" version="12.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PIUBAu0+AJcl8DqMQO1fjj4tUMk=</dsig:DigestValue>
+        <dsig:DigestValue>rbNkFAn4Ws26+bNJyNrYehHsbxU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SiddhantaPanchang.exe" size="15929768">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SiddhantaPanchang.exe" size="15989672">
       <assemblyIdentity name="SiddhantaPanchang" version="12.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>DoGv3hfqgbn0Mkzt+xOW6sMMaRI=</dsig:DigestValue>
+        <dsig:DigestValue>1eQlBy0LKCX4HIMBnblv09lkPnk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -29,11 +29,11 @@ namespace GCAL.Base
             {
                 case "canDisplay":
                     int disp = (int)args.getSafe(0).getIntegerValue();
-                    bool b = (disp != 0 && (disp == -1 || GCDisplaySettings.getValue(disp) != 0));
+                    bool b = (disp != 0 && (disp == -1 || GCDisplaySettings.Current.getValue(disp) != 0));
                     result = new GSBoolean(b);
                     break;
                 case "getDispValue":
-                    result = new GSNumber(GCDisplaySettings.getValue((int)args.getSafe(0).getIntegerValue()));
+                    result = new GSNumber(GCDisplaySettings.Current.getValue((int)args.getSafe(0).getIntegerValue()));
                     break;
                 case "new":
                     switch(args.getSafe(0).getStringValue())
@@ -50,7 +50,7 @@ namespace GCAL.Base
                     }
                     break;
                 case "calendarHeaderType":
-                    result = new GSNumber(GCDisplaySettings.getValue(GCDS.CAL_HEADER_MASA));
+                    result = new GSNumber(GCDisplaySettings.Current.getValue(GCDS.CAL_HEADER_MASA));
                     break;
                 case "centerText":
                     string text = args.getSafe(0).getStringValue();
@@ -145,7 +145,7 @@ namespace GCAL.Base
 
         public static int CalculateCalendar(TResultCalendar daybuff, GCLocation loc, GregorianDateTime date, int nDaysCount)
         {
-            bool bCalcMoon = (GCDisplaySettings.getValue(4) > 0 || GCDisplaySettings.getValue(5) > 0);
+            bool bCalcMoon = (GCDisplaySettings.Current.getValue(4) > 0 || GCDisplaySettings.Current.getValue(5) > 0);
 
             //GCUserInterface.CreateProgressWindow();
 

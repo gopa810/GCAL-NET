@@ -129,6 +129,7 @@ namespace GCAL.Base
             lc.Latitude = Latitude;
             lc.Longitude = Longitude;
             lc.TimeZone = TimeZone;
+            lc.Country = Country;
             return lc;
         }
 

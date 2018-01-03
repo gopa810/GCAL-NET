@@ -32,10 +32,15 @@
             // 
             // EventMapOverlayView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EventMapOverlayView";
-            this.Size = new System.Drawing.Size(815, 526);
+            this.Size = new System.Drawing.Size(543, 342);
+            this.SizeChanged += new System.EventHandler(this.EventMapOverlayView_SizeChanged);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.EventMapOverlayView_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EventMapOverlayView_MouseClick);
             this.ResumeLayout(false);
 
         }

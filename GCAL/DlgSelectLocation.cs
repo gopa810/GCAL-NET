@@ -18,6 +18,8 @@ namespace GCAL
     {
         public GCLocation SelectedLocation = null;
 
+        private SelectLocationInputPanelController mainContr;
+
         public DlgSelectLocation()
         {
             InitializeComponent();
@@ -26,6 +28,7 @@ namespace GCAL
             SelectLocationInputPanel panel1 = new SelectLocationInputPanel();
             panel1.OnLocationSelected += Panel1_OnLocationSelected;
             SelectLocationInputPanelController pc1 = new SelectLocationInputPanelController(panel1);
+            mainContr = pc1;
 
             pc1.ShowInContainer(gvControlContainer1, GVControlAlign.Center);
         }
@@ -44,6 +47,18 @@ namespace GCAL
             }
 
             Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gvControlContainer1.RemoveAll();
+            mainContr.ShowInContainer(gvControlContainer1, GVControlAlign.Center);
         }
     }
 }

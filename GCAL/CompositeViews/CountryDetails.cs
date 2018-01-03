@@ -47,6 +47,7 @@ namespace GCAL.CompositeViews
                     textBox1.Text = _sc.ISOCode;
                     textBox2.Text = _sc.Name;
                     SelectedContinent = _sc.Continent;
+                    comboBox2.SelectedIndex = _sc.FirstDayOfWeek;
                 }
             }
         }
@@ -150,6 +151,14 @@ namespace GCAL.CompositeViews
         private void buttonBack_Click(object sender, EventArgs e)
         {
             Controller.RemoveFromContainer();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_sc != null)
+            {
+                _sc.FirstDayOfWeek = comboBox2.SelectedIndex;
+            }
         }
     }
 

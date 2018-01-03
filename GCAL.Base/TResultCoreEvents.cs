@@ -190,7 +190,7 @@ namespace GCAL.Base
             }*/
 
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_TITHI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_TITHI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -217,7 +217,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -244,7 +244,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_YOGA) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_YOGA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -271,7 +271,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
             {
                 vcNext = new GregorianDateTime();
                 vcAdd.Set(vc);
@@ -294,7 +294,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -317,7 +317,7 @@ namespace GCAL.Base
                 }
 
             }
-            if (GCDisplaySettings.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
+            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
             {
                 double dlong;
                 vcAdd.Set(vc);

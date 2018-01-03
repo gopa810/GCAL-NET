@@ -95,7 +95,6 @@ C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgCalcEkadas
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteDataDlg.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.ExportCompleteProgressDlg.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.FrameMain.resources
-C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.GetEkadasiName.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Properties.Resources.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.CalendarTableView.resources
 C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.GVControlContainer.resources
@@ -207,3 +206,13 @@ C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSele
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgGetEkadasiName.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectLocation.resources
 C:\Users\peter.kollath\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.EventMapOverlayView.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.FestivalBooksPanel.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgDeleteFestivalBook.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgEditFestivalBook.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgImportFestivalBook.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectLocation.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectMap.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgGetEkadasiName.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.Views.EventMapOverlayView.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.CompositeViews.SelectCalendarMonthControl.resources
+C:\Users\Gopa702\Documents\GitHub\GCAL-NET\GCAL\obj\x86\Debug\GCAL.DlgSelectMonthDate.resources

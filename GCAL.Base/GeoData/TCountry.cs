@@ -12,7 +12,7 @@ namespace GCAL.Base
         public static bool Modified = false;
         public static List<TCountry> Countries = new List<TCountry>();
 
-
+        public int FirstDayOfWeek { get; set; }
         public string ISOCode { get; set; }
         public string ISO3Code { get; set; }
         public string Fips { get; set; }
@@ -33,6 +33,12 @@ namespace GCAL.Base
 
         public static TCountry DefaultCountry = new TCountry() { ISOCode = "UC", ISO3Code = "UCO", Name = "(Unknown Country)",
         Population = 1000000, Area = 189230.0, Capital = "(Uknown City)", ContinentISOCode = "EP", Fips = "", Neighbours = ""};
+
+
+        public TCountry()
+        {
+            FirstDayOfWeek = 1;
+        }
 
         public override string ToString()
         {
@@ -134,10 +140,11 @@ namespace GCAL.Base
         {
             get
             {
-                return string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}",
+                return string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}",
                         ISOCode, ISO3Code, Fips,
                         Name, Capital, Area, Population,
-                        ContinentISOCode, Neighbours);
+                        ContinentISOCode, Neighbours,
+                        FirstDayOfWeek);
             }
             set
             {
@@ -154,6 +161,7 @@ namespace GCAL.Base
                     tc.Population = double.Parse(p[6]);
                     tc.ContinentISOCode = p[7];
                     tc.Neighbours = p[8];
+                    tc.FirstDayOfWeek = int.Parse(p[9]);
                 }
             }
         }

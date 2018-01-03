@@ -49,11 +49,11 @@ namespace GCAL.CompositeViews
                 new CheckBoxValuePair(checkBox47, GCDS.COREEVENTS_ABHIJIT_MUHURTA),
             };
 
-            comboBox6.SelectedIndex = GCDisplaySettings.getValue(GCDS.COREEVENTS_SORT);
+            comboBox6.SelectedIndex = GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SORT);
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                cvp.checkBox.Checked = (GCDisplaySettings.getValue(cvp.dispValue) != 0);
+                cvp.checkBox.Checked = (GCDisplaySettings.Current.getValue(cvp.dispValue) != 0);
             }
         }
 
@@ -61,11 +61,11 @@ namespace GCAL.CompositeViews
         {
             int i;
 
-            GCDisplaySettings.setValue(GCDS.COREEVENTS_SORT, comboBox6.SelectedIndex);
+            GCDisplaySettings.Current.setValue(GCDS.COREEVENTS_SORT, comboBox6.SelectedIndex);
 
             foreach (CheckBoxValuePair cvp in displayPairs)
             {
-                GCDisplaySettings.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
+                GCDisplaySettings.Current.setBoolValue(cvp.dispValue, cvp.checkBox.Checked);
             }
 
         }

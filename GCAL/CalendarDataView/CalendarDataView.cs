@@ -164,6 +164,8 @@ namespace GCAL.CalendarDataView
             Rectangle clientArea = this.ClientRectangle;
 
             // drawing main atom
+            if (MainAtom.RefreshLayout)
+                DataSource.SyncRefreshLayout(this, MainAtom);
             MainAtom.Prepare(ctx, 5000);
             MainAtom.Item.DrawInRect(ctx);
 
@@ -178,6 +180,8 @@ namespace GCAL.CalendarDataView
             {
                 // drawing next atom
                 CDVDocumentCell nc = Document.GetItemForKey(last.NextKey);
+                if (nc.RefreshLayout)
+                    DataSource.SyncRefreshLayout(this, nc);
                 nc.Prepare(ctx, 5000);
                 nc.MoveAfter(last);
                 nc.Item.DrawInRect(ctx);
@@ -198,6 +202,8 @@ namespace GCAL.CalendarDataView
             while(Document.ContainsKey(last.PrevKey) && last.Item.Bounds.Top > 0)
             {
                 CDVDocumentCell nc = Document.GetItemForKey(last.PrevKey);
+                if (nc.RefreshLayout)
+                    DataSource.SyncRefreshLayout(this, nc);
                 nc.Prepare(ctx, 5000);
                 nc.MoveBefore(last);
                 nc.Item.DrawInRect(ctx);
@@ -247,6 +253,12 @@ namespace GCAL.CalendarDataView
             {
                 Debugger.Log(0, "", "\n");
             }
+        }
+
+
+        public void ClearCalendarData()
+        {
+            Document.Clear();
         }
     }
 }

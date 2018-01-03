@@ -28,6 +28,11 @@ namespace GCAL.CalendarDataView
             Visibility.Visible = true;
         }
 
+        public void Clear()
+        {
+            Cells.Clear();
+        }
+
         public void AddTextStyle(string name, CDVTextStyle ts)
         {
             textStyles[name] = ts;
@@ -56,6 +61,14 @@ namespace GCAL.CalendarDataView
             cell.PrevKey = prevKey;
             cell.Item = cellContent;
             cellContent.Parent = this;
+        }
+
+        public void RefreshLayouts()
+        {
+            foreach(KeyValuePair<string,CDVDocumentCell> pair in Cells)
+            {
+                pair.Value.RefreshLayout = true;
+            }
         }
     }
 }

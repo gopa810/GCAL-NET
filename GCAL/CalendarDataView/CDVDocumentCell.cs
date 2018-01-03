@@ -12,6 +12,8 @@ namespace GCAL.CalendarDataView
         public string NextKey = "";
         public CDVAtom Item = null;
         public bool measured = false;
+        public object UserData = null;
+        public bool RefreshLayout = false;
 
         public void MoveAfter(CDVDocumentCell after)
         {

@@ -100,7 +100,7 @@ namespace GCAL.CompositeViews
         {
             LocationEnterPanel d = new LocationEnterPanel();
             d.OnLocationSelected += this.OnLocationSelected;
-            LocationEnterPanelController dc = new LocationEnterPanelController(new LocationEnterPanel());
+            LocationEnterPanelController dc = new LocationEnterPanelController(d);
             dc.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);
             Controller.RemoveFromContainer();
         }

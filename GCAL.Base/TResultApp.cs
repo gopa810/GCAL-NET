@@ -207,7 +207,7 @@ namespace GCAL.Base
                 MainInfo.Add(new AppDayInfo(GCStrings.getString(22), GCMasa.GetName(d.Masa)));
             MainInfo.Add(new AppDayInfo(GCStrings.getString(23), d.GaurabdaYear.ToString()));
 
-            if (GCDisplaySettings.getValue(48) == 1)
+            if (GCDisplaySettings.Current.getValue(48) == 1)
             {
                 MainInfo.Add(new AppDayBase(GCDS.APP_CHILDNAMES));
                 MainInfo.Add(new AppDaySeparator(GCStrings.getString(17)));

@@ -28,7 +28,7 @@ namespace GCAL.Base
 
     public class GCDisplaySettings
     {
-        protected static CShowSetting[] gss = {
+        public CShowSetting[] gss = {
 	        new CShowSetting(0, 0, "Tithi at arunodaya"),//0
 	        new CShowSetting(0, 0, "Arunodaya Time"),//1
 	        new CShowSetting(0, 0, "Sunrise Time"),//2
@@ -105,21 +105,43 @@ namespace GCAL.Base
             new CShowSetting(0, 0, null)
         };
 
-        public static bool CalColSunrise { get { return getBoolValue(68); } set { setBoolValue(68, value); } }
-        public static bool CalColNoon { get { return getBoolValue(69); } set { setBoolValue(69, value); } }
-        public static bool CalColSunset { get { return getBoolValue(70); } set { setBoolValue(70, value); } }
 
-        public static int getCount()
+        public GCDisplaySettings()
+        {
+
+        }
+
+        public GCDisplaySettings(GCDisplaySettings ds)
+        {
+            for(int i = 0; i < gss.Length; i++)
+            {
+                gss[i] = ds.gss[i];
+            }
+        }
+
+
+        public bool CalColNaksatra { get { return getBoolValue(36); } set { setBoolValue(36, value); } }
+        public bool CalColYoga { get { return getBoolValue(37); } set { setBoolValue(37, value); } }
+        public bool CalColFast { get { return getBoolValue(38); } set { setBoolValue(38, value); } }
+        public bool CalColPaksa { get { return getBoolValue(39); } set { setBoolValue(39, value); } }
+        public bool CalColMoonRasi { get { return getBoolValue(41); } set { setBoolValue(41, value); } }
+        public bool CalColCoreEvents { get { return getBoolValue(67); } set { setBoolValue(67, value); } }
+        public bool CalColSunrise { get { return getBoolValue(68); } set { setBoolValue(68, value); } }
+        public bool CalColNoon { get { return getBoolValue(69); } set { setBoolValue(69, value); } }
+        public bool CalColSunset { get { return getBoolValue(70); } set { setBoolValue(70, value); } }
+
+        public int getCount()
         {
             int i = 0;
             while (gss[i].text != null)
                 i++;
             return i;
         }
-        static int getCountChanged()
+
+        public int getCountChanged()
         {
             int i, count = 0;
-            int size = GCDisplaySettings.getCount();
+            int size = getCount();
 
             for (i = 0; i < size; i++)
             {
@@ -131,33 +153,33 @@ namespace GCAL.Base
             return count;
         }
 
-        public static string getSettingName(int i)
+        public string getSettingName(int i)
         {
             return gss[i].text;
         }
 
-        public static int getValue(int i)
+        public int getValue(int i)
         {
             return gss[i].val;
         }
 
-        public static bool getBoolValue(int i)
+        public bool getBoolValue(int i)
         {
             return gss[i].val != 0;
         }
-        public static void setValue(int i, int val)
+        public void setValue(int i, int val)
         {
             gss[i].val = val;
             gss[i].old_val = val;
         }
 
-        public static void setBoolValue(int i, bool val)
+        public void setBoolValue(int i, bool val)
         {
             gss[i].val = val ? 1 : 0;
             gss[i].old_val = gss[i].val;
         }
 
-        public static void readFile(string psz)
+        public void readFile(string psz)
         {
             if (!File.Exists(psz))
                 return;
@@ -173,7 +195,7 @@ namespace GCAL.Base
                     string[] ps = s.Split('=');
                     if (ps.Length == 2)
                     {
-                        GCDisplaySettings.setValue(int.Parse(ps[0]), int.Parse(ps[1]));
+                        setValue(int.Parse(ps[0]), int.Parse(ps[1]));
                     }
                 }
             }
@@ -181,7 +203,7 @@ namespace GCAL.Base
 
 
 
-        public static void writeFile(string fileName)
+        public void writeFile(string fileName)
         {
             using (StreamWriter sw = new StreamWriter(fileName))
             {
@@ -192,44 +214,34 @@ namespace GCAL.Base
             }
         }
 
-        protected static List<GCDisplaySettingCollection> SettingsStack = new List<GCDisplaySettingCollection>();
+        protected static List<GCDisplaySettings> SettingsStack = new List<GCDisplaySettings>();
 
-        public static GCDisplaySettingCollection CurrentState
+        protected static GCDisplaySettings p_curr = null;
+
+        public static GCDisplaySettings Current
         {
             get
             {
-                GCDisplaySettingCollection arr = new GCDisplaySettingCollection();
-                for (int i = 0; i < gss.Length; i++)
-                {
-                    arr[i] = gss[i].val;
-                }
-                return arr;
+                if (p_curr == null)
+                    p_curr = new GCDisplaySettings();
+                return p_curr;
             }
             set
             {
-                foreach(KeyValuePair<int,int> pair in value)
-                {
-                    gss[pair.Key].val = pair.Value;
-                }
+                p_curr = value;
             }
         }
 
-        public static void Push()
+        public void Push()
         {
-            int[] arr = new int[gss.Length];
-            for (int i = 0; i < gss.Length; i++)
-            {
-                arr[i] = gss[i].val;
-            }
-
-            SettingsStack.Add(CurrentState);
+            SettingsStack.Add(new GCDisplaySettings(Current));
         }
 
-        public static void Pop()
+        public void Pop()
         {
             if (SettingsStack.Count > 0)
             {
-                CurrentState = SettingsStack[SettingsStack.Count - 1];
+                Current = SettingsStack[SettingsStack.Count - 1];
                 SettingsStack.RemoveAt(SettingsStack.Count - 1);
             }
         }

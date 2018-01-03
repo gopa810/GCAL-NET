@@ -39,7 +39,7 @@ namespace GCAL.CompositeViews
                                 gdt.AddDays(7);
                             }
                             getView().calEndDate = gdt;
-                            getView().EndDateText(gdt.ToString());
+                            //getView().EndDateText(gdt.ToString());
                             getView().Recalculate();
                         }
                     }

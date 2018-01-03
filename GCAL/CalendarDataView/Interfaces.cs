@@ -8,6 +8,7 @@ namespace GCAL.CalendarDataView
     public interface CDVDataSource
     {
         void AsyncRequestData(CDVDataTarget requestor, CDVDocumentCell data);
+        void SyncRefreshLayout(CDVDataTarget requestor, CDVDocumentCell data);
     }
 
     public interface CDVDataTarget

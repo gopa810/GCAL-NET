@@ -201,6 +201,14 @@ namespace GCAL.Base
             return gdt;
         }
 
+        public string GetCoreEventTime(TCoreEvent tce)
+        {
+            return GregorianDateTime.TimeSpanToLongString(tce.GetDstTime(this.BiasMinutes * 60) - this.UtcDayStart) 
+                + " ("
+                + GCStrings.GetDSTSignature(tce.nDst * this.BiasMinutes) 
+                + ")";
+        }
+
         public List<VAISNAVAEVENT> VisibleEvents
         {
             get
@@ -209,7 +217,7 @@ namespace GCAL.Base
                 foreach (VAISNAVAEVENT ed in dayEvents)
                 {
                     int disp = ed.dispItem;
-                    if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.getValue(disp) != 0))
+                    if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.Current.getValue(disp) != 0))
                     {
                         ve.Add(ed);
                     }
@@ -831,7 +839,7 @@ namespace GCAL.Base
             {
                 e2 = GetGregorianDateTime(eparana_time2);
 
-                if (GCDisplaySettings.getValue(50) == 1)
+                if (GCDisplaySettings.Current.getValue(50) == 1)
                     str = string.Format("{0} {1} ({2}) - {3} ({4}) {5}", GCStrings.getString(60),
                         e1.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time1.nType),
                         e2.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time2.nType),
@@ -842,7 +850,7 @@ namespace GCAL.Base
             }
             else if (eparana_time1 != null)
             {
-                if (GCDisplaySettings.getValue(50) == 1)
+                if (GCDisplaySettings.Current.getValue(50) == 1)
                     str = string.Format("{0} {1} ({2}) {3}", GCStrings.getString(61),
                         e1.ShortTimeString(), GCEkadasi.GetParanaReasonText(eparana_time1.nType), GCStrings.GetDSTSignature(BiasMinutes));
                 else

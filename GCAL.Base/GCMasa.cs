@@ -66,7 +66,7 @@ namespace GCAL.Base
         /// <returns></returns>
         public static string GetName(int i)
         {
-            return GetNameEx(i, GCDisplaySettings.getValue(49));
+            return GetNameEx(i, GCDisplaySettings.Current.getValue(49));
         }
 
         public static string GetNameEx(int masaIndex, int formatIndex)

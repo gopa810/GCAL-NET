@@ -36,8 +36,6 @@ namespace GCAL.CompositeViews
             InitializeComponent();
 
             calendarDataView1.Dock = DockStyle.Fill;
-            richTextBox1.Visible = false;
-            //OLDVIEW: richTextBox1.Dock = DockStyle.Fill;
             calendarTableView1.Dock = DockStyle.Fill;
             pictureBox1.Dock = DockStyle.Fill;
 
@@ -69,7 +67,7 @@ namespace GCAL.CompositeViews
             calendarDataView1.DataSource = this;
             calendarDataView1.InitWithKey("2017-10");
 
-            SetMode(Properties.Settings.Default.CalendarShowMode);
+            SetMode(0);
         }
 
         public TResultBase getCurrentContent()
@@ -89,35 +87,16 @@ namespace GCAL.CompositeViews
             }
             else if (i == 0)
             {
+                if (p_mode == 2)
+                {
+                    calendarDataView1.InitWithKey(string.Format("{0}-{1}", calendarTableView1.CurrentYear, calendarTableView1.CurrentMonth));
+                }
+
                 calendarDataView1.Visible = true;
-                //OLDVIEW: richTextBox1.Visible = true;
                 calendarTableView1.Visible = false;
                 pictureBox1.Visible = false;
 
-                toolStripLabelStart.Visible = true;
-                toolStripLabelEnd.Visible = true;
                 toolStripButton2.Visible = true;
-                toolStripButton3.Visible = true;
-                toolStripSeparator3.Visible = true;
-                toolStripButton4.Visible = false;
-                toolStripButton5.Visible = false;
-                toolStripButton6.Visible = false;
-                p_mode = i;
-                DisplayCalendarResult();
-                Properties.Settings.Default.CalendarShowMode = i;
-                Properties.Settings.Default.Save();
-            }
-            else if (i == 1)
-            {
-                calendarDataView1.Visible = true;
-                //OLDVIEW: richTextBox1.Visible = true;
-                calendarTableView1.Visible = false;
-                pictureBox1.Visible = false;
-
-                toolStripLabelStart.Visible = true;
-                toolStripLabelEnd.Visible = true;
-                toolStripButton2.Visible = true;
-                toolStripButton3.Visible = true;
                 toolStripSeparator3.Visible = true;
                 toolStripButton4.Visible = false;
                 toolStripButton5.Visible = false;
@@ -129,15 +108,16 @@ namespace GCAL.CompositeViews
             }
             else if (i == 2)
             {
+                if (p_mode == 0)
+                {
+
+                }
                 calendarDataView1.Visible = false;
                 //OLDVIEW: richTextBox1.Visible = false;
                 calendarTableView1.Visible = true;
                 pictureBox1.Visible = false;
 
-                toolStripLabelStart.Visible = false;
-                toolStripLabelEnd.Visible = false;
                 toolStripButton2.Visible = false;
-                toolStripButton3.Visible = false;
                 toolStripSeparator3.Visible = false;
                 toolStripButton4.Visible = true;
                 toolStripButton5.Visible = true;
@@ -160,17 +140,9 @@ namespace GCAL.CompositeViews
         {
             if (s != null)
             {
-                toolStripButton2.Text = s;
+                //toolStripButton2.Text = s;
             }
             return toolStripButton2.Text;
-        }
-        public string EndDateText(string s)
-        {
-            if (s != null)
-            {
-                toolStripButton3.Text = s;
-            }
-            return toolStripButton3.Text;
         }
 
         private void onLocationClick(object sender, EventArgs e)
@@ -188,19 +160,27 @@ namespace GCAL.CompositeViews
                 GCLocation lr = sender as GCLocation;
                 GCGlobal.AddRecentLocation(lr);
                 calLocation = lr;
+                calendarDataView1.ClearCalendarData();
                 Recalculate();
             }
         }
 
         private void onDateRangeClick(object sender, EventArgs e)
         {
+            DlgSelectMonthDate d = new DlgSelectMonthDate();
+            if (d.ShowDialog() == DialogResult.OK)
+            {
+                calendarDataView1.InitWithKey(string.Format("{0}-{1}", d.SelectedYear, d.SelectedMonth));
+            }
+
+            /*
             EnterPeriodPanel d = new EnterPeriodPanel();
             d.OnPeriodSelected += new TBButtonPressed(d_OnPeriodSelected);
             d.EarthLocation = calLocation.GetEarthData();
             d.InputStartDate = calStartDate;
             d.InputEndDate = calEndDate;
             EnterPeriodPanelController dlg15 = new EnterPeriodPanelController(d);
-            dlg15.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);
+            dlg15.ShowInContainer(Controller.ViewContainer, GVControlAlign.Center);*/
         }
 
         private void d_OnPeriodSelected(object sender, EventArgs e)
@@ -251,14 +231,10 @@ namespace GCAL.CompositeViews
             {
                 Properties.Settings.Default.Save();
             }
-            if (p_mode == 0 || p_mode == 1)
+            if (p_mode == 0)
             {
                 LocationText(calLocation.Title);
-                StartDateText(calStartDate.ToString());
-                EndDateText(calEndDate.ToString());
-                m_calendar = new TResultCalendar();
-                m_calendar.CalculateCalendar(calLocation, calStartDate, calEndDate.GetJulianInteger() - calStartDate.GetJulianInteger());
-                DisplayCalendarResult();
+                calendarDataView1.Invalidate();
             }
             else if (p_mode == 2)
             {
@@ -271,23 +247,13 @@ namespace GCAL.CompositeViews
         {
             if (p_mode == 0)
             {
-                if (m_calendar == null)
-                    Recalculate();
-                else
-                    richTextBox1.Text = m_calendar.formatText(GCDataFormat.PlainText);
-            }
-            else if (p_mode == 1)
-            {
-                if (m_calendar == null)
-                    Recalculate();
-                else
-                    richTextBox1.Rtf = m_calendar.formatText(GCDataFormat.Rtf);
+                Recalculate();
             }
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (p_mode == 0 || p_mode == 1)
+            if (p_mode == 0)
             {
                 FrameMain.SaveContentPlain(m_calendar);
             }
@@ -318,7 +284,7 @@ namespace GCAL.CompositeViews
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (p_mode == 0 || p_mode == 1)
+            if (p_mode == 0)
             {
                 if (Controller != null)
                     Controller.ExecuteMessage("printContent", m_calendar);
@@ -423,7 +389,6 @@ namespace GCAL.CompositeViews
         private void toolStripDropDownButton2_DropDownOpening(object sender, EventArgs e)
         {
             plainTextToolStripMenuItem.Checked = (p_mode == 0);
-            richTextToolStripMenuItem.Checked = (p_mode == 1);
             tableToolStripMenuItem.Checked = (p_mode == 2);
 
             smallTextToolStripMenuItem.Enabled = (p_mode != 2);
@@ -438,16 +403,19 @@ namespace GCAL.CompositeViews
             largeTextToolStripMenuItem.Checked = (GCLayoutData.LayoutSizeIndex == 3);
             largestTextToolStripMenuItem.Checked = (GCLayoutData.LayoutSizeIndex == 4);
 
+
+            columnCoreEventsToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColCoreEvents;
+            columnNaksatraToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColNaksatra;
+            columnSunriseToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColSunrise;
+            columnNoonToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColNoon;
+            columnSunsetToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColSunset;
+            columnYogaToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColYoga;
+            columnRasiOfTheMoonToolStripMenuItem.Checked = GCDisplaySettings.Current.CalColMoonRasi;
         }
 
-        private void plainTextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void setTextModeView_Click(object sender, EventArgs e)
         {
             SetMode(0);
-        }
-
-        private void richTextToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetMode(1);
         }
 
         private void tableToolStripMenuItem_Click(object sender, EventArgs e)
@@ -600,11 +568,24 @@ namespace GCAL.CompositeViews
             at.BeginInvoke(requestor, data, null, null);
         }
 
+        public void SyncRefreshLayout(CDVDataTarget requestor, CDVDocumentCell data)
+        {
+            if (data.UserData is DocCalenarData)
+            {
+                data.Item = FormatCalendarLayout(requestor, (DocCalenarData)data.UserData);
+                data.RefreshLayout = false;
+            }
+        }
+
+        private class DocCalenarData
+        {
+            public int Month;
+            public int Year;
+            public TResultCalendar Calendar;
+        }
+
         private void FetchCalendarDataSync(CDVDataTarget requestor, CDVDocumentCell data)
         {
-            // TODO:
-            // here calculate data
-            // but this function should perform asynchronously
             int i_year, i_month;
             string[] sa = data.Key.Split('-');
             if (sa.Length != 2 || !int.TryParse(sa[0], out i_year) || !int.TryParse(sa[1], out i_month))
@@ -622,7 +603,29 @@ namespace GCAL.CompositeViews
 
 
             TResultCalendar rc = new TResultCalendar(calLocation, i_year, i_month);
+            DocCalenarData docdata = new DocCalenarData();
+            docdata.Calendar = rc;
+            docdata.Month = i_month;
+            docdata.Year = i_year;
 
+            CDVPara para = FormatCalendarLayout(requestor, docdata);
+
+            data.UserData = docdata;
+            data.Item = para;
+
+            AsyncTask2 at2 = new AsyncTask2(requestor.OnCDVDataAvailable);
+
+            while (!this.IsHandleCreated)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+            this.Invoke(at2, data);
+            // then return calculated data
+            //requestor.OnCDVDataAvailable(data);
+        }
+
+        private CDVPara FormatCalendarLayout(CDVDataTarget requestor, DocCalenarData docData)
+        {
             CDVParaStyle pstitle = new CDVParaStyle();
             pstitle.StyleName = "TitleC";
             pstitle.Align = CDVAlign.Center;
@@ -657,150 +660,234 @@ namespace GCAL.CompositeViews
             CDVRuler apak = new CDVRuler(null);
             CDVRuler anak = new CDVRuler(null);
             CDVRuler ayog = new CDVRuler(null);
-            CDVRuler awd = new CDVRuler(null, 0);
             CDVRuler afast = new CDVRuler(null, 0);
             CDVRuler amr = new CDVRuler(null);
             CDVRuler amsun1 = new CDVRuler(null);
             CDVRuler amsun2 = new CDVRuler(null);
             CDVRuler amsun3 = new CDVRuler(null);
+            CDVRuler amcore = new CDVRuler(null, 20);
+            CDVRuler amcoretime = new CDVRuler(null);
 
             CDVAtom doc = requestor.GetDocument();
             CDVPara para = new CDVPara(doc, CDVOrientation.Vertical,
                 new CDVPara(null, CDVOrientation.Vertical, pstitle, CDVSpan.Maximum,
-                    new CDVWord(null, string.Format("{0} {1}", GregorianDateTime.GetMonthName(i_month) ,i_year), ts, ps, CDVSpan.Maximum),
+                    new CDVWord(null, string.Format("{0} {1}", GregorianDateTime.GetMonthName(docData.Month), docData.Year), ts, ps, CDVSpan.Maximum),
                     new CDVWord(null, calLocation.Format("{locationName}, {longitudeText} {latitudeText}, {timeZoneName}"), ps, CDVSpan.Maximum)
                 )
             );
 
+            CDVPara subRow;
             CDVPara row = new CDVPara(para, CDVOrientation.Horizontal, pshdr, tsHdr);
             para.Add(row);
             row.Add(new CDVWord(row, "Date"));
             row.Add(aday);
             row.Add(new CDVWord(row, ""));
-            row.Add(awd);
-            row.Add(new CDVWord(row, "Tithi/Festival/Paksa"));
             row.Add(atithi);
-            if (GCDisplaySettings.getBoolValue(39))
+            row.Add(new CDVWord(row, "Tithi/Festival/Paksa"));
+            if (GCDisplaySettings.Current.CalColPaksa)
             {
-                row.Add(new CDVWord(row, ""));
                 row.Add(apak);
+                row.Add(new CDVWord(row, ""));
             }
-            if (GCDisplaySettings.getBoolValue(36))
+            if (GCDisplaySettings.Current.CalColNaksatra)
             {
-                row.Add(new CDVWord(row, "Naksatra"));
                 row.Add(anak);
+                row.Add(new CDVWord(row, "Naksatra"));
             }
-            if (GCDisplaySettings.getBoolValue(37))
+            if (GCDisplaySettings.Current.CalColYoga)
             {
-                row.Add(new CDVWord(row, "Yoga"));
                 row.Add(ayog);
+                row.Add(new CDVWord(row, "Yoga"));
             }
-            if (GCDisplaySettings.getBoolValue(38))
+            if (GCDisplaySettings.Current.CalColFast)
             {
-                row.Add(new CDVWord(row, "Fast"));
                 row.Add(afast);
+                row.Add(new CDVWord(row, "Fast"));
             }
-            if (GCDisplaySettings.getBoolValue(41))
+            if (GCDisplaySettings.Current.CalColMoonRasi)
             {
-                row.Add(new CDVWord(row, "Moon Rasi"));
                 row.Add(amr);
-            }
-            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNRISE))
-            {
-                row.Add(new CDVWord(row, "Sunrise"));
-                row.Add(amsun1);
-            }
-            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_NOON))
-            {
-                row.Add(new CDVWord(row, "Noon"));
-                row.Add(amsun2);
-            }
-            if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNSET))
-            {
-                row.Add(new CDVWord(row, "Sunset"));
-                row.Add(amsun3);
+                row.Add(new CDVWord(row, "Moon Rasi"));
             }
 
-            for (int i = 0; i < rc.m_PureCount; i++)
+            if (GCDisplaySettings.Current.CalColCoreEvents)
             {
-                VAISNAVADAY vd = rc.GetDay(i);
+                row.Add(amcore);
+                row.Add(new CDVWord(row, "Core Events"));
+            }
+            else
+            {
+                if (GCDisplaySettings.Current.CalColSunrise)
+                {
+                    row.Add(amsun1);
+                    row.Add(new CDVWord(row, "Sunrise"));
+                }
+                if (GCDisplaySettings.Current.CalColNoon)
+                {
+                    row.Add(amsun2);
+                    row.Add(new CDVWord(row, "Noon"));
+                }
+                if (GCDisplaySettings.Current.CalColSunset)
+                {
+                    row.Add(amsun3);
+                    row.Add(new CDVWord(row, "Sunset"));
+                }
+            }
+
+            for (int i = 0; i < docData.Calendar.m_PureCount; i++)
+            {
+                VAISNAVADAY vd = docData.Calendar.GetDay(i);
                 row = new CDVPara(para, CDVOrientation.Horizontal);
                 para.Add(row);
                 row.Add(new CDVWord(row, vd.date.ToString()));
                 row.Add(aday);
                 row.Add(new CDVWord(row, GCCalendar.GetWeekdayAbbr(vd.date.dayOfWeek), tsWeekday));
-                row.Add(awd);
-                row.Add(new CDVWord(row, vd.GetFullTithiName()));
                 row.Add(atithi);
-                if (GCDisplaySettings.getBoolValue(39))
+                row.Add(new CDVWord(row, vd.GetFullTithiName()));
+                if (GCDisplaySettings.Current.CalColPaksa)
                 {
-                    row.Add(new CDVWord(row, GCPaksa.GetAbbr(vd.astrodata.sunRise.Paksa).ToString()));
                     row.Add(apak);
+                    row.Add(new CDVWord(row, GCPaksa.GetAbbr(vd.astrodata.sunRise.Paksa).ToString()));
                 }
-                if (GCDisplaySettings.getBoolValue(36))
+                if (GCDisplaySettings.Current.CalColNaksatra)
                 {
-                    row.Add(new CDVWord(row, GCNaksatra.GetName(vd.astrodata.sunRise.Naksatra)));
                     row.Add(anak);
+                    row.Add(new CDVWord(row, GCNaksatra.GetName(vd.astrodata.sunRise.Naksatra)));
                 }
-                if (GCDisplaySettings.getBoolValue(37))
+                if (GCDisplaySettings.Current.CalColYoga)
                 {
-                    row.Add(new CDVWord(row, GCYoga.GetName(vd.astrodata.sunRise.Yoga)));
                     row.Add(ayog);
+                    row.Add(new CDVWord(row, GCYoga.GetName(vd.astrodata.sunRise.Yoga)));
                 }
-                if (GCDisplaySettings.getBoolValue(38))
+                if (GCDisplaySettings.Current.CalColFast)
                 {
-                    row.Add(new CDVWord(row, vd.nFastID > 0 ? "*" : ""));
                     row.Add(afast);
+                    row.Add(new CDVWord(row, vd.nFastID > 0 ? "*" : ""));
                 }
-                if (GCDisplaySettings.getBoolValue(41))
+                if (GCDisplaySettings.Current.CalColMoonRasi)
                 {
-                    row.Add(new CDVWord(row, GCRasi.GetName(vd.astrodata.sunRise.RasiOfMoon)));
                     row.Add(amr);
+                    row.Add(new CDVWord(row, GCRasi.GetName(vd.astrodata.sunRise.RasiOfMoon)));
                 }
 
-                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNRISE))
+                if (!GCDisplaySettings.Current.CalColCoreEvents)
                 {
-                    row.Add(new CDVWord(row, vd.astrodata.sunRise.ToShortTimeString()));
-                    row.Add(amsun1);
+                    if (GCDisplaySettings.Current.CalColSunrise)
+                    {
+                        row.Add(amsun1);
+                        row.Add(new CDVWord(row, vd.astrodata.sunRise.ToShortTimeString()));
+                    }
+
+                    if (GCDisplaySettings.Current.CalColNoon)
+                    {
+                        row.Add(amsun2);
+                        row.Add(new CDVWord(row, vd.astrodata.sunNoon.ToShortTimeString()));
+                    }
+
+                    if (GCDisplaySettings.Current.CalColSunset)
+                    {
+                        row.Add(amsun3);
+                        row.Add(new CDVWord(row, vd.astrodata.sunSet.ToShortTimeString()));
+                    }
                 }
 
-                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_NOON))
-                {
-                    row.Add(new CDVWord(row, vd.astrodata.sunNoon.ToShortTimeString()));
-                    row.Add(amsun2);
-                }
+                row = new CDVPara(para, CDVOrientation.Horizontal);
+                para.Add(row);
 
-                if (GCDisplaySettings.getBoolValue(GCDS.CAL_COL_SUNSET))
-                {
-                    row.Add(new CDVWord(row, vd.astrodata.sunSet.ToShortTimeString()));
-                    row.Add(amsun3);
-                }
+                subRow = new CDVPara(row, CDVOrientation.Vertical);
+                row.Add(atithi);
+                row.Add(subRow);
 
                 List<VAISNAVAEVENT> evs = vd.VisibleEvents;
                 if (evs.Count > 0 && vd.astrodata.sunRise.longitude >= 0.0)
                 {
                     foreach (VAISNAVAEVENT ve in evs)
                     {
-                        para.Add(new CDVPara(null, CDVOrientation.Horizontal,
-                            awd,
+                        subRow.Add(new CDVPara(null, CDVOrientation.Horizontal,
                             new CDVWord(null, ve.text)
                         ));
                     }
-
                 }
+
+                if (GCDisplaySettings.Current.CalColCoreEvents)
+                {
+                    row.Add(amcore);
+                    subRow = new CDVPara(row, CDVOrientation.Vertical);
+                    row.Add(subRow);
+                    bool show = false;
+
+                    foreach (TCoreEvent tce in vd.coreEvents)
+                    {
+                        if (tce.nType == CoreEventType.CCTYPE_S_ARUN)
+                            show = GCDisplaySettings.Current.CalColSunrise;
+                        else if (tce.nType == CoreEventType.CCTYPE_S_RISE)
+                            show = GCDisplaySettings.Current.CalColSunrise;
+                        else if (tce.nType == CoreEventType.CCTYPE_S_NOON)
+                            show = GCDisplaySettings.Current.CalColNoon;
+                        else if (tce.nType == CoreEventType.CCTYPE_S_SET)
+                            show = GCDisplaySettings.Current.CalColSunset;
+                        else
+                            show = true;
+                        if (show)
+                            subRow.Add(new CDVPara(null, CDVOrientation.Horizontal, tsWeekday,
+                                new CDVWord(null, tce.TypeString),
+                                amcoretime,
+                                new CDVWord(null, vd.GetCoreEventTime(tce))));
+                    }
+                }
+
             }
 
-            data.Item = para;
+            return para;
+        }
 
-            AsyncTask2 at2 = new AsyncTask2(requestor.OnCDVDataAvailable);
+        private void columnYogaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColYoga = !GCDisplaySettings.Current.CalColYoga;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
 
-            while(!this.IsHandleCreated)
-            {
-                System.Threading.Thread.Sleep(100);
-            }
-            this.Invoke(at2, data);
-            // then return calculated data
-            //requestor.OnCDVDataAvailable(data);
+        private void columnNaksatraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColNaksatra = !GCDisplaySettings.Current.CalColNaksatra;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
+
+        private void columnRasiOfTheMoonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColMoonRasi = !GCDisplaySettings.Current.CalColMoonRasi;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
+
+        private void columnSunriseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColSunrise = !GCDisplaySettings.Current.CalColSunrise;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
+
+        private void columnNoonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColNoon = !GCDisplaySettings.Current.CalColNoon;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
+
+        private void columnSunsetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColSunset = !GCDisplaySettings.Current.CalColSunset;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
+        }
+
+        private void columnCoreEventsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GCDisplaySettings.Current.CalColCoreEvents = !GCDisplaySettings.Current.CalColCoreEvents;
+            calendarDataView1.Document.RefreshLayouts();
+            calendarDataView1.Invalidate();
         }
     }
 }

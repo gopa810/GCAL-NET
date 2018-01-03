@@ -140,7 +140,7 @@ namespace GCAL.Base
                                 GCUserInterface.windowController.ExecuteMessage("setMainRectangle", new GSString(rcs));
                             break;
                         case 12711:
-                            GCDisplaySettings.setValue(int.Parse(rf.GetField(0)), int.Parse(rf.GetField(1)));
+                            GCDisplaySettings.Current.setValue(int.Parse(rf.GetField(0)), int.Parse(rf.GetField(1)));
                             break;
                         case 12800:
                             GCUserInterface.ShowMode = int.Parse(rf.GetField(0));
@@ -174,9 +174,9 @@ namespace GCAL.Base
                         loc.Longitude, loc.Latitude, loc.TimeZoneName);
                 }
                 f.WriteLine("12710 {0}", rcs.getStringValue());
-                for (int y = 0; y < GCDisplaySettings.getCount(); y++)
+                for (int y = 0; y < GCDisplaySettings.Current.getCount(); y++)
                 {
-                    f.WriteLine("12711 {0}|{1}", y, GCDisplaySettings.getValue(y));
+                    f.WriteLine("12711 {0}|{1}", y, GCDisplaySettings.Current.getValue(y));
                 }
                 f.WriteLine("12800 {0}", GCUserInterface.ShowMode);
                 f.WriteLine("12802 {0}", GCLayoutData.LayoutSizeIndex);
@@ -223,7 +223,7 @@ namespace GCAL.Base
             //CLocationList.OpenFile();
 
             // inicializacia zobrazovanych nastaveni
-            GCDisplaySettings.readFile(GetAppString(AppFileName.GSTR_SSET_FILE));
+            GCDisplaySettings.Current.readFile(GetAppString(AppFileName.GSTR_SSET_FILE));
 
             // inicializacia custom events
             GCFestivalBookCollection.OpenFile(GetAppString(AppFileName.ConfigurationFolder));
@@ -238,7 +238,7 @@ namespace GCAL.Base
 
             OpenFile(GetAppString(AppFileName.GSTR_CONFX_FILE));
             // refresh fasting style after loading user settings
-            //GCFestivalBook.SetOldStyleFasting(GCDisplaySettings.getValue(42));
+            //GCFestivalBook.SetOldStyleFasting(GCDisplaySettings.Current.getValue(42));
 
             // inicializacia tipov dna
             if (!File.Exists(GetAppString(AppFileName.GSTR_TIPS_FILE)))
@@ -268,7 +268,7 @@ namespace GCAL.Base
                 GCStrings.writeFile(GetAppString(AppFileName.GSTR_TEXT_FILE));
             }
 
-            GCDisplaySettings.writeFile(GetAppString(AppFileName.GSTR_SSET_FILE));
+            GCDisplaySettings.Current.writeFile(GetAppString(AppFileName.GSTR_SSET_FILE));
 
             GCFestivalBookCollection.SaveAllChangedFestivalBooks(GetAppString(AppFileName.ConfigurationFolder));
 
