@@ -17,7 +17,7 @@ namespace GCAL
 
         public static void OnStart()
         {
-            string rootFile = GCGlobal.GetFileName(AppFileName.MapsDataFolder, "root.xml");
+            string rootFile = GCGlobal.GetFileName(GCGlobal.MapsFolderPath, "root.xml");
             if (File.Exists(rootFile))
             {
                 Maps.Clear();
@@ -57,7 +57,7 @@ namespace GCAL
 
         public static string GetNewFileName(ref int startIndex, string extension)
         {
-            string dir = GCGlobal.applicationStrings[AppFileName.MapsDataFolder];
+            string dir = GCGlobal.MapsFolderPath;
             for(int i = startIndex; i < 100; i++)
             {
                 string fileName = Path.Combine(dir, "file" + (i + startIndex) + extension);
@@ -117,7 +117,7 @@ namespace GCAL
                 }
             }
 
-            string rootFile = GCGlobal.GetFileName(AppFileName.MapsDataFolder, "root.xml");
+            string rootFile = GCGlobal.GetFileName(GCGlobal.MapsFolderPath, "root.xml");
             doc.Save(rootFile);
         }
     }

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.IO;
 using System.Drawing;
 using System.Globalization;
+using System.Xml;
 
 using GCAL.Base.Scripting;
 
@@ -27,161 +28,143 @@ namespace GCAL.Base
 
         public static TLangFileList languagesList;
 
-        public static Dictionary<AppFileName,string> applicationStrings = new Dictionary<AppFileName, string>();
-
         public static string dialogLastRatedSpec = string.Empty;
 
 
-        public static string ConfigFolder
+        public static string GetFileName(string folder, string fileName)
         {
-            get
-            {
-                return applicationStrings[AppFileName.ConfigurationFolder];
-            }
-        }
-        public static string CoreDataFolder
-        {
-            get
-            {
-                return applicationStrings[AppFileName.CoreDataFolder];
-            }
+            return Path.Combine(folder, fileName);
         }
 
-        public static string GetFileName(AppFileName folder, string fileName)
+        public static void CheckExistingFolders(params string[] folders)
         {
-            return Path.Combine(applicationStrings[folder], fileName);
+            foreach(string folder in folders)
+            {
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
+            }
         }
 
         public static int initFolders()
         {
-            //string pszBuffer = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string pszBuffer = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            // main data folder
+            LocalDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            LocalDataFolderPath = Path.Combine(LocalDataFolderPath, "GCAL");
 
-            pszBuffer = Path.Combine(pszBuffer, "GCAL");
-            if (!Directory.Exists(pszBuffer))
-                Directory.CreateDirectory(pszBuffer);
+            // init sub folders
+            ConfigurationFolderPath = Path.Combine(LocalDataFolderPath, "config");
+            LanguagesFolderPath = Path.Combine(LocalDataFolderPath, "lang");
+            TemporaryFolderPath = Path.Combine(LocalDataFolderPath, "temp");
+            CoreDataFolderPath = Path.Combine(LocalDataFolderPath, "cores");
+            MapsFolderPath = Path.Combine(LocalDataFolderPath, "maps");
 
-            applicationStrings[AppFileName.MainFolder] = pszBuffer;
+            CheckExistingFolders(LocalDataFolderPath, ConfigurationFolderPath, MapsFolderPath, LanguagesFolderPath, TemporaryFolderPath, CoreDataFolderPath);
 
-            applicationStrings[AppFileName.ConfigurationFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "config");
-            Directory.CreateDirectory(applicationStrings[AppFileName.ConfigurationFolder]);
+            // set file names
+            TipsFilePath = Path.Combine(ConfigurationFolderPath, "gcal_tips1.txt");
 
-            applicationStrings[AppFileName.LanguagesFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "lang");
-            Directory.CreateDirectory(applicationStrings[AppFileName.LanguagesFolder]);
-
-            applicationStrings[AppFileName.TemporaryFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "temp");
-            Directory.CreateDirectory(applicationStrings[AppFileName.TemporaryFolder]);
-
-            applicationStrings[AppFileName.CoreDataFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "cores");
-            Directory.CreateDirectory(applicationStrings[AppFileName.CoreDataFolder]);
-
-            applicationStrings[AppFileName.MapsDataFolder] = Path.Combine(applicationStrings[AppFileName.MainFolder], "maps");
-            Directory.CreateDirectory(applicationStrings[AppFileName.MapsDataFolder]);
-
-            string confDir = applicationStrings[AppFileName.ConfigurationFolder];
-
-            applicationStrings[AppFileName.GSTR_CE_FILE] = GetFileName(AppFileName.ConfigurationFolder, "cevents.cfg");
-            applicationStrings[AppFileName.GSTR_CONF_FILE] = GetFileName(AppFileName.ConfigurationFolder, "current.cfg");
-            applicationStrings[AppFileName.GSTR_LOC_FILE] = GetFileName(AppFileName.ConfigurationFolder, "locations.cfg");
-            applicationStrings[AppFileName.GSTR_SSET_FILE] = GetFileName(AppFileName.ConfigurationFolder, "showset.cfg");
-            applicationStrings[AppFileName.GSTR_LOCX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_locations3.rl");//GCAL 3.0
-            applicationStrings[AppFileName.GSTR_CEX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_events3.rl");//GCAL 3.0
-            applicationStrings[AppFileName.GSTR_CONFX_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_settings2.rl");
-            applicationStrings[AppFileName.GSTR_TZ_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_timezones1.rl");
-            applicationStrings[AppFileName.GSTR_COUNTRY_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_countries1.rl");
-            applicationStrings[AppFileName.GSTR_TEXT_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_strings2.rl");
-            applicationStrings[AppFileName.GSTR_TIPS_FILE] = GetFileName(AppFileName.ConfigurationFolder, "gcal_tips1.txt");
-            applicationStrings[AppFileName.GSTR_HELP_FILE] = GetFileName(AppFileName.MainFolder, "gcal.chm");
+            ApplicationSettingsFilePath = Path.Combine(ConfigurationFolderPath, "appsets.xml");
+            CountriesFilePath = Path.Combine(ConfigurationFolderPath, "countries2.xml");
+            DisplaySettingsFilePath = Path.Combine(ConfigurationFolderPath, "dispsets.xml");
+            LocationsFilePath = Path.Combine(ConfigurationFolderPath, "locations4.xml");
+            StringsFilePath = Path.Combine(ConfigurationFolderPath, "strings3.xml");
+            TimezonesFilePath = Path.Combine(ConfigurationFolderPath, "timezones2.xml");
 
             return 1;
         }
 
-        public static string GetAppString(AppFileName n)
-        {
-            return applicationStrings[n];
-        }
+        public static string LocalDataFolderPath { get; set; }
+        public static string ConfigurationFolderPath { get; set; }
+        public static string LanguagesFolderPath { get; set; }
+        public static string TemporaryFolderPath { get; set; }
+        public static string CoreDataFolderPath { get; set; }
+        public static string MapsFolderPath { get; set; }
+
+        public static string ApplicationSettingsFilePath { get; set; }
+        public static string DisplaySettingsFilePath { get; set; }
+        public static string LocationsFilePath { get; set; }
+        public static string TimezonesFilePath { get; set; }
+        public static string CountriesFilePath { get; set; }
+        public static string StringsFilePath { get; set; }
+        public static string TipsFilePath { get; set; }
 
 
-        public static void OpenFile(string fileName)
+        public static void LoadApplicationSettings(string fileName)
         {
-            GCRichFileLine rf = new GCRichFileLine();
-            Rectangle rc;
-            recentLocations.Clear();
+            XmlDocument doc = new XmlDocument();
             if (!File.Exists(fileName))
                 return;
-            using(StreamReader sr = new StreamReader(fileName))
+
+            doc.Load(fileName);
+
+
+            XmlElement e1 = doc["AppSettings"];
+
+            if (e1["MyLocation"] != null)
+                myLocation.LoadFromNode(e1["MyLocation"]);
+
+            recentLocations.Clear();
+            foreach (XmlElement e2 in e1.GetElementsByTagName("RecentLocation"))
             {
-                // nacitava
-                while (rf.SetLine(sr.ReadLine()))
-                {
-                    switch (rf.TagInt)
-                    {
-                        case 12703:
-                            myLocation.Title = rf.GetField(0);
-                            myLocation.Longitude = double.Parse(rf.GetField(1));
-                            myLocation.Latitude = double.Parse(rf.GetField(2));
-                            myLocation.TimeZoneName = rf.GetField(3);
-                            break;
-                        case 12704:
-                            {
-                                GCLocation loc = new GCLocation();
-                                loc.Title = rf.GetField(0);
-                                loc.Longitude = double.Parse(rf.GetField(1));
-                                loc.Latitude = double.Parse(rf.GetField(2));
-                                loc.TimeZoneName = rf.GetField(3);
-                                recentLocations.Add(loc);
-                            }
-                            break;
-                        case 12710:
-                            rc = new Rectangle();
-                            string rcs = String.Format("{0}|{1}|{2}|{3}", rf.GetField(0), rf.GetField(1),
-                                rf.GetField(2), rf.GetField(3));
-                            if (GCUserInterface.windowController != null)
-                                GCUserInterface.windowController.ExecuteMessage("setMainRectangle", new GSString(rcs));
-                            break;
-                        case 12711:
-                            GCDisplaySettings.Current.setValue(int.Parse(rf.GetField(0)), int.Parse(rf.GetField(1)));
-                            break;
-                        case 12800:
-                            GCUserInterface.ShowMode = int.Parse(rf.GetField(0));
-                            break;
-                        case 12802:
-                            GCLayoutData.LayoutSizeIndex = int.Parse(rf.GetField(0));
-                            break;
-                        case 12900:
-                            dialogLastRatedSpec = rf.GetField(0);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                GCLocation loc = new GCLocation();
+                loc.LoadFromNode(e2);
+                recentLocations.Add(loc);
             }
+
+            XmlElement e3 = e1["MainRectangle"];
+            if (e3 != null && e3.HasAttribute("value"))
+            {
+                if (GCUserInterface.windowController != null)
+                    GCUserInterface.windowController.ExecuteMessage("setMainRectangle", new GSString(e3.GetAttribute("value")));
+            }
+
+            e3 = e1["ShowMode"];
+            if (e3 != null && e3.HasAttribute("value"))
+                GCUserInterface.ShowMode = int.Parse(e3.GetAttribute("value"));
+
+            e3 = e1["LayoutSize"];
+            if (e3 != null && e3.HasAttribute("value"))
+                GCLayoutData.LayoutSizeIndex = int.Parse(e3.GetAttribute("value"));
+
+            e3 = e1["LastRatedSpec"];
+            if (e3 != null && e3.HasAttribute("value"))
+                dialogLastRatedSpec = e3.GetAttribute("value");
 
         }
 
 
-        public static void SaveFile(string fileName)
+        public static void SaveApplicationSettings(string fileName)
         {
             GSCore rcs = GCUserInterface.windowController.ExecuteMessage("getMainRectangle", (GSCore)null);
 
-            using(StreamWriter f = new StreamWriter(fileName))
+            XmlDocument doc = new XmlDocument();
+            XmlElement e1 = doc.CreateElement("AppSettings");
+            doc.AppendChild(e1);
+
+            e1.AppendChild(doc.CreateElement("MyLocation"));
+            myLocation.SaveToNode(e1["MyLocation"]);
+
+            e1.AppendChild(doc.CreateElement("RecentLocations"));
+            foreach (GCLocation loc in recentLocations)
             {
-                f.WriteLine("12703 {0}|{1}|{2}|{3}", myLocation.Title, 
-                    myLocation.Longitude, myLocation.Latitude, myLocation.TimeZoneName);
-                foreach (GCLocation loc in recentLocations)
-                {
-                    f.WriteLine("12704 {0}|{1}|{2}|{3}", loc.Title,
-                        loc.Longitude, loc.Latitude, loc.TimeZoneName);
-                }
-                f.WriteLine("12710 {0}", rcs.getStringValue());
-                for (int y = 0; y < GCDisplaySettings.Current.getCount(); y++)
-                {
-                    f.WriteLine("12711 {0}|{1}", y, GCDisplaySettings.Current.getValue(y));
-                }
-                f.WriteLine("12800 {0}", GCUserInterface.ShowMode);
-                f.WriteLine("12802 {0}", GCLayoutData.LayoutSizeIndex);
-                f.WriteLine("12900 {0}", dialogLastRatedSpec);
+                XmlElement e2 = doc.CreateElement("RecentLocation");
+                e1.AppendChild(e2);
+                loc.SaveToNode(e2);
             }
+
+            e1.AppendChild(doc.CreateElement("MainRectangle"));
+            e1["MainRectangle"].SetAttribute("value", rcs.getStringValue());
+
+            e1.AppendChild(doc.CreateElement("ShowMode"));
+            e1["ShowMode"].SetAttribute("value", GCUserInterface.ShowMode.ToString());
+
+            e1.AppendChild(doc.CreateElement("LayoutSize"));
+            e1["LayoutSize"].SetAttribute("value", GCLayoutData.LayoutSizeIndex.ToString());
+
+            e1.AppendChild(doc.CreateElement("LastRatedSpec"));
+            e1["LastRatedSpec"].SetAttribute("value", dialogLastRatedSpec);
+
+            doc.Save(fileName);
         }
 
 
@@ -209,41 +192,41 @@ namespace GCAL.Base
             initFolders();
 
             // initialization of global strings
-            GCStrings.readFile(GetAppString(AppFileName.GSTR_TEXT_FILE));
+            GCStrings.LoadStringsFile(StringsFilePath);
 
             // inicializacia timezones
-            TTimeZone.LoadFile(GetAppString(AppFileName.GSTR_TZ_FILE));
+            TTimeZone.LoadFile(TimezonesFilePath);
 
             // inicializacia countries
-            TCountry.LoadFile(GetAppString(AppFileName.GSTR_COUNTRY_FILE));
+            TCountry.LoadFile(CountriesFilePath);
 
             // inicializacia miest a kontinentov
             // lazy loading of data
-            TLocationDatabase.FileName = GetAppString(AppFileName.GSTR_LOCX_FILE);
+            TLocationDatabase.FileName = LocationsFilePath;
             //CLocationList.OpenFile();
 
             // inicializacia zobrazovanych nastaveni
-            GCDisplaySettings.Current.readFile(GetAppString(AppFileName.GSTR_SSET_FILE));
+            GCDisplaySettings.LoadDisplaySettingsFile(DisplaySettingsFilePath);
 
             // inicializacia custom events
-            GCFestivalBookCollection.OpenFile(GetAppString(AppFileName.ConfigurationFolder));
+            GCFestivalBookCollection.OpenFile(ConfigurationFolderPath);
 
             // looking for files *.recn
-            GCConfigRatedManager.RefreshListFromDirectory(GetAppString(AppFileName.ConfigurationFolder));
+            GCConfigRatedManager.RefreshListFromDirectory(ConfigurationFolderPath);
 
             // initialization of global variables
             myLocation.EncodedString = GCLocation.DefaultEncodedString;
 
             recentLocations.Add(new GCLocation(myLocation));
 
-            OpenFile(GetAppString(AppFileName.GSTR_CONFX_FILE));
+            LoadApplicationSettings(ApplicationSettingsFilePath);
             // refresh fasting style after loading user settings
             //GCFestivalBook.SetOldStyleFasting(GCDisplaySettings.Current.getValue(42));
 
             // inicializacia tipov dna
-            if (!File.Exists(GetAppString(AppFileName.GSTR_TIPS_FILE)))
+            if (!File.Exists(TipsFilePath))
             {
-                File.WriteAllText(GetAppString(AppFileName.GSTR_TIPS_FILE), Properties.Resources.tips);
+                File.WriteAllText(TipsFilePath, Properties.Resources.tips);
             }
 
         }
@@ -251,30 +234,30 @@ namespace GCAL.Base
 
         public static void SaveInstanceData()
         {
-            SaveFile(GetAppString(AppFileName.GSTR_CONFX_FILE));
+            SaveApplicationSettings(ApplicationSettingsFilePath);
 
             if (TLocationDatabase.Modified)
             {
-                TLocationDatabase.SaveFile(GetAppString(AppFileName.GSTR_LOCX_FILE), 4);//GCAL 3.0
+                TLocationDatabase.SaveFile(LocationsFilePath);
             }
 
             if (TCountry.IsModified())
             {
-                TCountry.SaveFile(GetAppString(AppFileName.GSTR_COUNTRY_FILE));
+                TCountry.SaveFile(CountriesFilePath);
             }
 
             if (GCStrings.gstr_Modified)
             {
-                GCStrings.writeFile(GetAppString(AppFileName.GSTR_TEXT_FILE));
+                GCStrings.SaveStringsFile(StringsFilePath);
             }
 
-            GCDisplaySettings.Current.writeFile(GetAppString(AppFileName.GSTR_SSET_FILE));
+            GCDisplaySettings.SaveDisplaySettingsFile(DisplaySettingsFilePath);
 
-            GCFestivalBookCollection.SaveAllChangedFestivalBooks(GetAppString(AppFileName.ConfigurationFolder));
+            GCFestivalBookCollection.SaveAllChangedFestivalBooks(ConfigurationFolderPath);
 
             if (TTimeZone.Modified)
             {
-                TTimeZone.SaveFile(GetAppString(AppFileName.GSTR_TZ_FILE));
+                TTimeZone.SaveFile(TimezonesFilePath);
             }
 
         }

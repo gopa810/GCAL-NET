@@ -118,6 +118,12 @@ namespace GCAL.Base
             coreEvents = new TCoreEventCollection();
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}, Fast:{1}, Tithi:{2}, Masa:{3}", date.ToString(), GCStrings.GetFastingName(this.nFastID), GCTithi.GetName(this.astrodata.sunRise.Tithi),
+                GCMasa.GetName(astrodata.Masa));
+        }
+
         public override GSCore GetPropertyValue(string Token)
         {
             if (Token.Equals("date"))
@@ -452,6 +458,7 @@ namespace GCAL.Base
             if (tempTimes.Count != 1)
             {
                 GCLog.Write("End of tithi was not found for date " + t.ToString());
+                tempTimes = GetNextCoreTimes(CoreEventType.CCTYPE_S_RISE, CoreEventType.CCTYPE_TITHI, 1);
                 return 0;
             }
             else

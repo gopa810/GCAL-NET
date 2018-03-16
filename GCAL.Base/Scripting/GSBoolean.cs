@@ -43,5 +43,9 @@ namespace GCAL.Base.Scripting
             sw.Write(getIntegerValue().ToString());
         }
 
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

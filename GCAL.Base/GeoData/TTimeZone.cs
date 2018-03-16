@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Xml;
 
 namespace GCAL.Base
 {
@@ -31,17 +32,6 @@ namespace GCAL.Base
         public override string ToString()
         {
             return GetTimeZoneOffsetText(OffsetMinutes/60.0) + " " + Name;
-        }
-
-        public static void SaveFile(string pszFile)
-        {
-            using (StreamWriter sw = new StreamWriter(pszFile))
-            {
-                foreach (TTimeZone timezone in TimeZoneList)
-                {
-                    sw.WriteLine(timezone.EncodedString);
-                }
-            }
         }
 
         public string EncodedString
@@ -79,79 +69,68 @@ namespace GCAL.Base
             }
         }
 
-        public static int LoadFile(string pszFile)
+        public void SaveToNode(XmlElement e)
+        {
+            XmlElement ea;
+
+            e.SetAttribute("Name", Name);
+            e.SetAttribute("Offset", OffsetMinutes.ToString());
+            e.SetAttribute("Bias", BiasMinutes.ToString());
+
+            ea = e.OwnerDocument.CreateElement("StartDst");
+            e.AppendChild(ea);
+            StartDst.SaveToNode(ea);
+
+            ea = e.OwnerDocument.CreateElement("EndDst");
+            e.AppendChild(ea);
+            EndDst.SaveToNode(ea);
+        }
+
+        public void LoadFromNode(XmlElement e)
+        {
+            Name = XH.GetXmlString(e, "Name", "(Unknown)");
+            OffsetMinutes = XH.GetXmlInt(e, "Offset", 0);
+            BiasMinutes = XH.GetXmlInt(e, "Bias", 0);
+            StartDst.LoadFromNode(e["StartDst"]);
+            EndDst.LoadFromNode(e["EndDst"]);
+        }
+
+        public static void SaveFile(string filePath)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement e1 = doc.CreateElement("TimeZones");
+            doc.AppendChild(e1);
+
+            foreach (TTimeZone timezone in TimeZoneList)
+            {
+                XmlElement e = doc.CreateElement("TimeZone");
+                e1.AppendChild(e);
+                timezone.SaveToNode(e);
+            }
+
+            doc.Save(filePath);
+        }
+
+        public static int LoadFile(string filePath)
         {
             TTimeZone pce;
 
-            if (!File.Exists(pszFile))
+            if (!File.Exists(filePath))
             {
-                File.WriteAllText(pszFile, Properties.Resources.timezones2016);
+                File.WriteAllText(filePath, Properties.Resources.timezones2016);
             }
 
-            using (StreamReader sr = new StreamReader(pszFile))
-            {
-                string line;
-                TTimeZone.TimeZoneList = new List<TTimeZone>();
-                while ((line = sr.ReadLine()) != null)
-                {
-                    pce = new TTimeZone();
-                    pce.EncodedString = line;
-                    if (pce.Valid)
-                        TimeZoneList.Add(pce);
-                }
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
 
+            TimeZoneList.Clear();
+            foreach (XmlElement e in doc.GetElementsByTagName("TimeZone"))
+            {
+                TTimeZone tz = new TTimeZone();
+                tz.LoadFromNode(e);
+                TimeZoneList.Add(tz);
             }
 
-
-            /*using (StringReader ssr = new StringReader(Properties.Resources.timezoneUpdates))
-            {
-                string line;
-                while ((line = ssr.ReadLine()) != null)
-                {
-                    string[] p = line.Split('\t');
-                    double d1, d2, d3;
-                    double.TryParse(p[2], out d1);
-                    double.TryParse(p[3], out d2);
-                    double.TryParse(p[4], out d3);
-
-                    TTimeZone tz = FindTimeZoneByName(p[1]);
-                    if (tz != null)
-                    {
-                        tz.CountryISOCode = p[0];
-                        if (Convert.ToInt32(d3 * 60) != tz.OffsetMinutes)
-                        {
-                            //Debugger.Log(0, "", string.Format("Different timezone offset: " + p[1] + "  builtin:" + tz.OffsetMinutes / 60.0 + ", correct:" + d3 + "\n"));
-                            //Debugger.Log(0, "", "    " + line + "\n");
-                            tz.OffsetMinutes = Convert.ToInt32(d3 * 60);
-                        }
-                        if (Convert.ToInt32(Math.Abs(d2-d1) * 60) != tz.BiasMinutes)
-                        {
-                            //Debugger.Log(0, "", string.Format("Different timezone bias: " + p[1] + "  builtin:" + tz.OffsetMinutes / 60.0 + ", correct:" + d3 + "\n"));
-                            //Debugger.Log(0, "", "    " + line + "\n");
-                            tz.BiasMinutes = Convert.ToInt32(Math.Abs(d2 - d1) * 60);
-                            if (tz.BiasMinutes != 0)
-                            {
-                                Debugger.Log(0, "", string.Format("Different timezone bias: " + p[1] + "  needs attention\n"));
-                                Debugger.Log(0, "", "    " + line + "\n");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        TTimeZone ntz = new TTimeZone();
-                        ntz.CountryISOCode = p[0];
-                        ntz.Name = p[1];
-                        ntz.OffsetMinutes = Convert.ToInt32(d3*60);
-                        ntz.BiasMinutes = Convert.ToInt32(Math.Abs(d2 - d1)*60);
-                        if (ntz.BiasMinutes != 0)
-                        {
-                            Debugger.Log(0, "", string.Format("Undefined timezone " + p[1] + " needs attention\n"));
-                            Debugger.Log(0, "", "    " + line + "\n");
-                        }
-                        gzone.Add(ntz);
-                    }
-                }
-            }*/
             return TimeZoneList.Count;
         }
 
@@ -428,8 +407,77 @@ namespace GCAL.Base
             Month = 0;
             Day = 0;
         }
+
+        public void SaveToNode(XmlElement e)
+        {
+            XH.SetXmlInt(e, "Type", Type);
+            XH.SetXmlInt(e, "Week", Week);
+            XH.SetXmlInt(e, "Month", Month);
+            XH.SetXmlInt(e, "Day", Day);
+        }
+
+        public void LoadFromNode(XmlElement e)
+        {
+            Type = XH.GetXmlInt(e, "Type", 0);
+            Week = XH.GetXmlInt(e, "Week", 0);
+            Month = XH.GetXmlInt(e, "Month", 0);
+            Day = XH.GetXmlInt(e, "Day", 0);
+        }
+
     }
 
+    public class XH
+    {
+        public static void SetXmlInt(XmlElement e, string attributeName, int value)
+        {
+            if (e != null)
+                e.SetAttribute(attributeName, value.ToString());
+        }
+
+        public static int GetXmlInt(XmlElement e, string attributeName, int defaultValue)
+        {
+            if (e != null && e.HasAttribute(attributeName))
+            {
+                int value;
+                if (int.TryParse(e.GetAttribute(attributeName), out value))
+                    return value;
+            }
+
+            return defaultValue;
+        }
+        public static void SetXmlDouble(XmlElement e, string attributeName, double value)
+        {
+            if (e != null)
+                e.SetAttribute(attributeName, value.ToString());
+        }
+
+        public static double GetXmlDouble(XmlElement e, string attributeName, double defaultValue)
+        {
+            if (e != null && e.HasAttribute(attributeName))
+            {
+                double value;
+                if (double.TryParse(e.GetAttribute(attributeName), out value))
+                    return value;
+            }
+
+            return defaultValue;
+        }
+        public static void SetXmlString(XmlElement e, string attributeName, string value)
+        {
+            if (e != null)
+                e.SetAttribute(attributeName, value);
+        }
+
+        public static string GetXmlString(XmlElement e, string attributeName, string defaultValue)
+        {
+            if (e != null && e.HasAttribute(attributeName))
+            {
+                return e.GetAttribute(attributeName);
+            }
+
+            return defaultValue;
+        }
+    }
 
     public enum DstTypeChange
     {

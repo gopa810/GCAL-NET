@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 using GCAL.Base.Scripting;
 
@@ -307,6 +308,29 @@ namespace GCAL.Base
             {
                 return "Vrindavan (India)|77.73|27.583|Asia/Calcutta|IN";
             }
+        }
+
+        public void SaveToNode(XmlElement e2)
+        {
+            e2.SetAttribute("Title", Title);
+            e2.SetAttribute("Longitude", Longitude.ToString());
+            e2.SetAttribute("Latitude", Latitude.ToString());
+            e2.SetAttribute("TimeZone", TimeZoneName);
+        }
+
+        public bool LoadFromNode(XmlElement e2)
+        {
+            if (e2.HasAttribute("Title") && e2.HasAttribute("Longitude") && e2.HasAttribute("Latitude") && e2.HasAttribute("TimeZone"))
+            {
+                Title = e2.GetAttribute("Title");
+                TimeZoneName = e2.GetAttribute("TimeZone");
+                bool succ = double.TryParse(e2.GetAttribute("Longitude"), out Longitude) &&
+                            double.TryParse(e2.GetAttribute("Latitude"), out Latitude);
+
+                return succ;
+            }
+
+            return false;
         }
     }
 }

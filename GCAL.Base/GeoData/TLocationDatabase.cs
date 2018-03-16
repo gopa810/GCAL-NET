@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
 
 namespace GCAL.Base
 {
@@ -86,112 +87,34 @@ namespace GCAL.Base
             return null;
         }
 
-        public static bool SaveFile(string lpszFileName, int nType)
+        public static void SaveFile(string filePath)
         {
-            String str, strTemp;
-            int i, ni;
-
-            using (StreamWriter f = new StreamWriter(lpszFileName))
+            using (StreamWriter sw = new StreamWriter(filePath))
             {
-                switch (nType)
+                foreach (TLocation lc in LocationList)
                 {
-                    case 1:
-                        f.Write("<xml>\n");
-                        f.Write("\t<countries>\n");
-                        foreach (TCountry country in TCountry.Countries)
-                        {
-                            str = string.Format("\t<ccn code=\"{0}\" country=\"{1}\" continent=\"{2}\" />\n", country.ISOCode, country.Name, country.Continent.Name);
-                            f.Write(str);
-                        }
-                        f.Write("\t</countries>\n");
-                        f.Write("\t<dsts>\n");
-                        foreach (TTimeZone timeZone in TTimeZone.TimeZoneList)
-                        {
-                            str = timeZone.GetXMLString();
-                            f.Write(str);
-                        }
-                        f.Write("\t</dsts>\n");
-                        f.Write("\t<cities>\n");
-                        for (i = 0; i < locationList.Count(); i++)
-                        {
-                            TLocation lc = locationList[i];
-                            str = string.Format("\t<loc city=\"{0}\" lon=\"{1}\" lat=\"{2}\" tzone=\"{3}\"\n\t\tcountry=\"{4}\" />\n",
-                                lc.CityName, lc.Longitude, lc.Latitude,
-                                lc.TimeZone.OffsetMinutes/60.0, lc.Country.Name);
-                            str.Replace("&", "&amp;");
-                            f.Write(str);
-                        }
-                        f.Write("\t</cities>\n");
-                        f.Write("</xml>");
-                        break;
-                    case 2:
-                        f.Write("Countries:\n");
-                        foreach (TCountry country in TCountry.Countries)
-                        {
-                            str = string.Format("\t{0}\t{1}\t{2}\n", country.ISOCode, country.Name, country.Continent.Name);
-                            f.Write(str);
-                        }
-                        f.Write("Daylight Saving Time Systems:\n");
-                        foreach (TTimeZone timeZone in TTimeZone.TimeZoneList)
-                        {
-                            str = string.Format("\t{0}\n", timeZone.Name);
-                            f.Write(str);
-                        }
-                        f.Write("Cities:\n");
-                        for (i = 0; i < locationList.Count(); i++)
-                        {
-                            TLocation lc = locationList[i];
-                            str = string.Format("\t{0}\t{1}\t{2}\t{3}\t{4}\n",
-                                lc.CityName,
-                                lc.CountryISOCode,
-                                lc.Longitude,
-                                lc.Latitude,
-                                lc.TimeZoneName);
-                            f.Write(str);
-                        }
-                        break;
-                    case 3:
-                        for (i = 0; i < locationList.Count(); i++)
-                        {
-                            TLocation lc = locationList[i];
-                            // city
-                            f.Write("@city=");
-                            f.Write(lc.CityName);
-                            f.Write("\n");
-
-                            f.Write("@countryCode=");
-                            f.Write(lc.CountryISOCode);
-                            f.Write("\n");
-
-                            f.Write("@lat=");
-                            strTemp = string.Format("{0}", lc.Latitude);
-                            f.Write(strTemp);
-                            f.Write("\n");
-
-                            f.Write("@long=");
-                            strTemp = string.Format("{0}", lc.Longitude);
-                            f.Write(strTemp);
-                            f.Write("\n");
-
-                            f.Write("@timezone=");
-                            strTemp = string.Format("{0}", lc.TimeZoneName);
-                            f.Write(strTemp);
-                            f.Write("\n@create\n\n");
-
-                        }
-                        break;
-                    case 4:
-                        foreach (TLocation lc in locationList)
-                        {
-                            f.WriteLine(lc.EncodedString);
-                        }
-                        break;
-                    default:
-                        break;
+                    sw.WriteLine(lc.EncodedString);
                 }
             }
+        }
 
-            return true;
+        /// <summary>
+        /// This function produces 1.5 times bigger file than SaveFile 
+        /// and loading is at least 2 times slower
+        /// </summary>
+        /// <param name="lpszFileName"></param>
+        public static void SaveFileXml(string lpszFileName)
+        { 
+            XmlDocument doc = new XmlDocument();
+            XmlElement e1 = doc.CreateElement("Locations");
+            doc.AppendChild(e1);
+            foreach (TLocation lc in LocationList)
+            {
+                XmlElement e = doc.CreateElement("Location");
+                e1.AppendChild(e);
+                lc.SaveToNode(e);
+            }
+            doc.Save(lpszFileName);
         }
 
         /// <summary>

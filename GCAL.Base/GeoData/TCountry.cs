@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Globalization;
+using System.Xml;
 
 namespace GCAL.Base
 {
@@ -88,37 +89,33 @@ namespace GCAL.Base
                 File.WriteAllText(strFile, Properties.Resources.countries2016);
 	        }
 
-	        using (StreamReader sr = new StreamReader(strFile))
-	        {
-		        //
-		        // init from file
-		        //
-                string line;
-                Countries.Clear();
-		        while((line = sr.ReadLine()) != null)
-		        {
-                    if (line.StartsWith("#"))
-                        continue;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strFile);
 
-                    TCountry tc = new TCountry();
-                    tc.EncodedString = line;
-                    if (tc.Continent != null)
-                        Countries.Add(tc);
-		        }
-	        }
+            foreach(XmlElement ec in doc.GetElementsByTagName("Country"))
+            {
+                TCountry tc = new TCountry();
+                tc.LoadFromNode(ec);
+                Countries.Add(tc);
+            }
 
 	        return Countries.Count();
         }
 
         public static int SaveFile(string szFile)
         {
-            using (StreamWriter sw = new StreamWriter(szFile))
+            XmlDocument doc = new XmlDocument();
+            XmlElement e1 = doc.CreateElement("Countries");
+            doc.AppendChild(e1);
+
+            foreach(TCountry tc in Countries)
             {
-                foreach(TCountry tc in Countries)
-                {
-                    sw.WriteLine(tc.EncodedString);
-                }
+                XmlElement e2 = doc.CreateElement("Country");
+                e1.AppendChild(e2);
+                tc.SaveToNode(e2);
             }
+
+            doc.Save(szFile);
 
             return 1;
         }
@@ -134,6 +131,56 @@ namespace GCAL.Base
         public static bool IsModified()
         {
 	        return Modified;
+        }
+
+        public void SaveToNode(XmlElement e)
+        {
+            e.SetAttribute("ISO", ISOCode);
+            e.SetAttribute("ISO3", ISO3Code);
+            e.SetAttribute("Fips", Fips);
+            e.SetAttribute("Name", Name);
+            e.SetAttribute("Capital", Capital);
+            e.SetAttribute("Area", Area.ToString());
+            e.SetAttribute("Population", Population.ToString());
+            e.SetAttribute("ContinentISOCode", ContinentISOCode);
+            e.SetAttribute("Neighbours", Neighbours);
+            e.SetAttribute("FirstDayOfWeek", FirstDayOfWeek.ToString());
+        }
+
+        public void LoadFromNode(XmlElement e)
+        {
+            if (e.HasAttribute("ISO"))
+                ISOCode = e.GetAttribute("ISO");
+            if (e.HasAttribute("ISO3"))
+                ISO3Code = e.GetAttribute("ISO3");
+            if (e.HasAttribute("Fips"))
+                Fips = e.GetAttribute("Fips");
+            if (e.HasAttribute("Name"))
+                Name = e.GetAttribute("Name");
+            if (e.HasAttribute("Capital"))
+                Capital = e.GetAttribute("Capital");
+            if (e.HasAttribute("Area"))
+            {
+                double d;
+                if (double.TryParse(e.GetAttribute("Area"), out d))
+                    Area = d;
+            }
+            if (e.HasAttribute("Population"))
+            {
+                double d;
+                if (double.TryParse(e.GetAttribute("Population"), out d))
+                    Population = d;
+            }
+            if (e.HasAttribute("ContinentISOCode"))
+                ContinentISOCode = e.GetAttribute("ContinentISOCode");
+            if (e.HasAttribute("Neighbours"))
+                Neighbours = e.GetAttribute("Neighbours");
+            if (e.HasAttribute("FirstDayOfWeek"))
+            {
+                int d;
+                if (int.TryParse(e.GetAttribute("FirstDayOfWeek"), out d))
+                    FirstDayOfWeek = d;
+            }
         }
 
         public string EncodedString

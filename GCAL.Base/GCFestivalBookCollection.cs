@@ -47,7 +47,7 @@ namespace GCAL.Base
         {
             GCFestivalBook fb = getSafeBook(BookCollectionIdCounter);
             fb.CollectionName = bookName;
-            SaveFestivalBook(GCGlobal.ConfigFolder, fb);
+            SaveFestivalBook(GCGlobal.ConfigurationFolderPath, fb);
             return fb;
         }
 

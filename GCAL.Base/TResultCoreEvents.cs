@@ -10,6 +10,7 @@ namespace GCAL.Base
 {
     public class TResultCoreEvents: GSCore
     {
+        public bool Full = false;
         public int Year = 2020;
         public GCLocation EarthLocation = new GCLocation();
 
@@ -190,7 +191,7 @@ namespace GCAL.Base
             }*/
 
 
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_TITHI) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_TITHI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -217,7 +218,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_NAKSATRA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -244,7 +245,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_YOGA) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_YOGA) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -271,7 +272,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_SANKRANTI) != 0)
             {
                 vcNext = new GregorianDateTime();
                 vcAdd.Set(vc);
@@ -294,7 +295,7 @@ namespace GCAL.Base
                 }
             }
 
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_MOONRASI) != 0)
             {
                 vcAdd.Set(vc);
                 vcAdd.shour = 0.0;
@@ -317,7 +318,7 @@ namespace GCAL.Base
                 }
 
             }
-            if (GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
+            if (Full || GCDisplaySettings.Current.getValue(GCDS.COREEVENTS_CONJUNCTION) != 0)
             {
                 double dlong;
                 vcAdd.Set(vc);

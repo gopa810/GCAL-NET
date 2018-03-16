@@ -21,98 +21,22 @@ namespace GCAL.Base
         }
     }
 
-    public class GCDisplaySettingCollection: Dictionary<int,int>
-    {
-
-    }
-
     public class GCDisplaySettings
     {
-        public CShowSetting[] gss = {
-	        new CShowSetting(0, 0, "Tithi at arunodaya"),//0
-	        new CShowSetting(0, 0, "Arunodaya Time"),//1
-	        new CShowSetting(0, 0, "Sunrise Time"),//2
-	        new CShowSetting(0, 0, "Sunset Time"),//3
-	        new CShowSetting(0, 0, "Moonrise Time"),//4
-	        new CShowSetting(0, 0, "Moonset Time"),//5
-	        new CShowSetting(1, 1, "Festivals"),//6
-	        new CShowSetting(0, 0, "Info about ksaya tithi"),//7
-	        new CShowSetting(0, 0, "Info about vriddhi tithi"),//8
-	        new CShowSetting(0, 0, "Sun Longitude"),//9
-	        new CShowSetting(0, 0, "Moon Longitude"),//10
-	        new CShowSetting(0, 0, "Ayanamsha value"),//11
-	        new CShowSetting(0, 0, "Julian Day"),//12
-	        new CShowSetting(0, 0, "Caturmasya Purnima System"), //13
-	        new CShowSetting(1, 1, "Caturmasya Pratipat System"), //14
-	        new CShowSetting(0, 0, "Caturmasya Ekadasi System"), //15
-	        new CShowSetting(1, 1, "Sankranti Info"), //16
-	        new CShowSetting(1, 1, "Ekadasi Info"), //17
-	        new CShowSetting(1, 1, "Masa Header Info"), //18
-	        new CShowSetting(0, 0, "Month Header Info"), //19
-	        new CShowSetting(0, 0, "Do not show empty days"), //20
-	        new CShowSetting(0, 0, "Show begining of masa"), //21
-	        new CShowSetting(1, 1, "Appearance days of the Lord"),//22
-	        new CShowSetting(1, 1, "Events in the pastimes of the Lord"),//23
-	        new CShowSetting(1, 1, "App, Disapp of Recent Acaryas"),//24
-	        new CShowSetting(1, 1, "App, Disapp of Mahaprabhu's Associates and Other Acaryas"),//25
-	        new CShowSetting(1, 1, "ISKCON's Historical Events"),//26
-	        new CShowSetting(1, 1, "Bengal-specific Holidays"),//27
-	        new CShowSetting(1, 1, "My Personal Events"), //28
-	        /* BEGIN GCAL 1.4.3 */
-	        new CShowSetting(1, 1, "Todat Sunrise"),  //29 Today sunrise
-	        new CShowSetting(1, 1, "Today Noon"),  //30 today noon
-	        new CShowSetting(1, 1, "Today Sunset"),  //31 today sunset
-	        new CShowSetting(0, 0, "Sandhya Times"),  //32 today + sandhya times
-	        new CShowSetting(1, 1, "Sunrise Info"),  //33 today sunrise info
-	        new CShowSetting(0, 0, "Noon Time"),  //34 astro - noon time
-	        new CShowSetting(1, 1, "Notice about DST"), //35 notice about the change of the DST
-	        new CShowSetting(1, 1, "Naksatra"), // 36 naksatra info for each day
-	        new CShowSetting(1, 1, "Yoga"), //37 yoga info for each day
-	        new CShowSetting(1, 1, "Fasting Flag"),//38
-	        new CShowSetting(1, 1, "Paksa Info"),//39 paksa info
-	        new CShowSetting(0, 0, "First Day in Week"),//40 first day in week
-	        new CShowSetting(0, 0, "Rasi"), //41 moon rasi for each calendar day
-	        new CShowSetting(0, 0, "Old Style Fasting text"), //42 old style fasting text
-	        new CShowSetting(0, 0, "Name of month - type"), //43 month type name 0-vaisnava,1-bengal,2-hindu,3-vedic
-	        /* END GCAL 1.4.3 */
-	        new CShowSetting(0, 0, "Editable Default Events"), //44 editable default events
-	        new CShowSetting(0, 0, "Today Brahma Muhurta"),     //45 brahma muhurta in today screen
-	        new CShowSetting(0, 0, "Today Rasi of the Moon"), // 46 rasi of the moon in today screen
-	        new CShowSetting(0, 0, "Today Naksatra Pada details"), // 47 naksatra pada details in today screen
-	        new CShowSetting(0, 0, "Child Names Suggestions"), // 48 child name suggestions in Appearance Day screen
-	        new CShowSetting(0, 0, "Masa Name Format"), // 49 format of masa name
-	        new CShowSetting(0, 0, "Ekadasi Parana details"), // 50 ekadasi parana details
-	        new CShowSetting(0, 0, "Aniversary show format"), // 51 format of aniversary info
-	        new CShowSetting(1, 1, "Sun events"), // 52
-	        new CShowSetting(1, 1, "Tithi events"), //53
-	        new CShowSetting(1, 1, "Naksatra Events"), //54
-	        new CShowSetting(1, 1, "Sankranti Events"),//55
-	        new CShowSetting(1, 1, "Conjunction Events"),//56
-	        new CShowSetting(0, 0, "Rahu kalam"), //57
-	        new CShowSetting(0, 0, "Yama ghanti"), //58
-	        new CShowSetting(0, 0, "Guli kalam"), //59
-	        new CShowSetting(0, 0, "Moon events"), //60
-	        new CShowSetting(0, 0, "Moon rasi"), //61
-	        new CShowSetting(0, 0, "Ascendent"), //62
-	        new CShowSetting(1, 1, "Sort results core events"),//63
-	        new CShowSetting(0, 0, "Abhijit Muhurta"), //64
-	        new CShowSetting(0, 0, "Yoga Events"), //65
-	        new CShowSetting(1, 1, "Caturmasya System"), //66
-            new CShowSetting(0, 0, "Core Events in Calendar"),//67
-            new CShowSetting(0, 0, "Calendar Column - Sunrise"),//68
-            new CShowSetting(0, 0, "Calendar Column - Noon"),//69
-            new CShowSetting(0, 0, "Calendar Column - Sunset"),//70
-            new CShowSetting(0, 0, null)
-        };
+        public string Name { get; set; }
 
+        public CShowSetting[] gss = null;
 
-        public GCDisplaySettings()
+        public GCDisplaySettings(string name)
         {
-
+            Name = name;
+            Reset();
         }
 
         public GCDisplaySettings(GCDisplaySettings ds)
         {
+            Name = ds.Name + " (copy)";
+            Reset();
             for(int i = 0; i < gss.Length; i++)
             {
                 gss[i] = ds.gss[i];
@@ -179,23 +103,107 @@ namespace GCAL.Base
             gss[i].old_val = gss[i].val;
         }
 
-        public void readFile(string psz)
+        public void Reset()
+        {
+            gss = new CShowSetting[]{
+                new CShowSetting(0, 0, "Tithi at arunodaya"),//0
+	            new CShowSetting(0, 0, "Arunodaya Time"),//1
+	            new CShowSetting(0, 0, "Sunrise Time"),//2
+	            new CShowSetting(0, 0, "Sunset Time"),//3
+	            new CShowSetting(0, 0, "Moonrise Time"),//4
+	            new CShowSetting(0, 0, "Moonset Time"),//5
+	            new CShowSetting(1, 1, "Festivals"),//6
+	            new CShowSetting(0, 0, "Info about ksaya tithi"),//7
+	            new CShowSetting(0, 0, "Info about vriddhi tithi"),//8
+	            new CShowSetting(0, 0, "Sun Longitude"),//9
+	            new CShowSetting(0, 0, "Moon Longitude"),//10
+	            new CShowSetting(0, 0, "Ayanamsha value"),//11
+	            new CShowSetting(0, 0, "Julian Day"),//12
+	            new CShowSetting(0, 0, "Caturmasya Purnima System"), //13
+	            new CShowSetting(1, 1, "Caturmasya Pratipat System"), //14
+	            new CShowSetting(0, 0, "Caturmasya Ekadasi System"), //15
+	            new CShowSetting(1, 1, "Sankranti Info"), //16
+	            new CShowSetting(1, 1, "Ekadasi Info"), //17
+	            new CShowSetting(1, 1, "Masa Header Info"), //18
+	            new CShowSetting(0, 0, "Month Header Info"), //19
+	            new CShowSetting(0, 0, "Do not show empty days"), //20
+	            new CShowSetting(0, 0, "Show begining of masa"), //21
+	            new CShowSetting(1, 1, "Appearance days of the Lord"),//22
+	            new CShowSetting(1, 1, "Events in the pastimes of the Lord"),//23
+	            new CShowSetting(1, 1, "App, Disapp of Recent Acaryas"),//24
+	            new CShowSetting(1, 1, "App, Disapp of Mahaprabhu's Associates and Other Acaryas"),//25
+	            new CShowSetting(1, 1, "ISKCON's Historical Events"),//26
+	            new CShowSetting(1, 1, "Bengal-specific Holidays"),//27
+	            new CShowSetting(1, 1, "My Personal Events"), //28
+	            /* BEGIN GCAL 1.4.3 */
+	            new CShowSetting(1, 1, "Todat Sunrise"),  //29 Today sunrise
+	            new CShowSetting(1, 1, "Today Noon"),  //30 today noon
+	            new CShowSetting(1, 1, "Today Sunset"),  //31 today sunset
+	            new CShowSetting(0, 0, "Sandhya Times"),  //32 today + sandhya times
+	            new CShowSetting(1, 1, "Sunrise Info"),  //33 today sunrise info
+	            new CShowSetting(0, 0, "Noon Time"),  //34 astro - noon time
+	            new CShowSetting(1, 1, "Notice about DST"), //35 notice about the change of the DST
+	            new CShowSetting(1, 1, "Naksatra"), // 36 naksatra info for each day
+	            new CShowSetting(1, 1, "Yoga"), //37 yoga info for each day
+	            new CShowSetting(1, 1, "Fasting Flag"),//38
+	            new CShowSetting(1, 1, "Paksa Info"),//39 paksa info
+	            new CShowSetting(0, 0, "First Day in Week"),//40 first day in week
+	            new CShowSetting(0, 0, "Rasi"), //41 moon rasi for each calendar day
+	            new CShowSetting(0, 0, "Old Style Fasting text"), //42 old style fasting text
+	            new CShowSetting(0, 0, "Name of month - type"), //43 month type name 0-vaisnava,1-bengal,2-hindu,3-vedic
+	            /* END GCAL 1.4.3 */
+	            new CShowSetting(0, 0, "Editable Default Events"), //44 editable default events
+	            new CShowSetting(0, 0, "Today Brahma Muhurta"),     //45 brahma muhurta in today screen
+	            new CShowSetting(0, 0, "Today Rasi of the Moon"), // 46 rasi of the moon in today screen
+	            new CShowSetting(0, 0, "Today Naksatra Pada details"), // 47 naksatra pada details in today screen
+	            new CShowSetting(0, 0, "Child Names Suggestions"), // 48 child name suggestions in Appearance Day screen
+	            new CShowSetting(0, 0, "Masa Name Format"), // 49 format of masa name
+	            new CShowSetting(0, 0, "Ekadasi Parana details"), // 50 ekadasi parana details
+	            new CShowSetting(0, 0, "Aniversary show format"), // 51 format of aniversary info
+	            new CShowSetting(1, 1, "Sun events"), // 52
+	            new CShowSetting(1, 1, "Tithi events"), //53
+	            new CShowSetting(1, 1, "Naksatra Events"), //54
+	            new CShowSetting(1, 1, "Sankranti Events"),//55
+	            new CShowSetting(1, 1, "Conjunction Events"),//56
+	            new CShowSetting(0, 0, "Rahu kalam"), //57
+	            new CShowSetting(0, 0, "Yama ghanti"), //58
+	            new CShowSetting(0, 0, "Guli kalam"), //59
+	            new CShowSetting(0, 0, "Moon events"), //60
+	            new CShowSetting(0, 0, "Moon rasi"), //61
+	            new CShowSetting(0, 0, "Ascendent"), //62
+	            new CShowSetting(1, 1, "Sort results core events"),//63
+	            new CShowSetting(0, 0, "Abhijit Muhurta"), //64
+	            new CShowSetting(0, 0, "Yoga Events"), //65
+	            new CShowSetting(1, 1, "Caturmasya System"), //66
+                new CShowSetting(0, 0, "Core Events in Calendar"),//67
+                new CShowSetting(0, 0, "Calendar Column - Sunrise"),//68
+                new CShowSetting(0, 0, "Calendar Column - Noon"),//69
+                new CShowSetting(0, 0, "Calendar Column - Sunset"),//70
+                new CShowSetting(0, 0, null)
+            };
+        }
+
+        public static void LoadDisplaySettingsFile(string psz)
         {
             if (!File.Exists(psz))
                 return;
 
-            using (StreamReader sr = new StreamReader(psz))
-            {
-                string s = null;
-                while ((s = sr.ReadLine()) != null)
-                {
-                    if (s.StartsWith("#"))
-                        continue;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(psz);
 
-                    string[] ps = s.Split('=');
-                    if (ps.Length == 2)
+            DSCollection.Clear();
+            foreach(XmlElement e2 in doc.GetElementsByTagName("Settings"))
+            {
+                GCDisplaySettings ds = new GCDisplaySettings(e2.GetAttribute("name"));
+                DSCollection.Add(ds);
+
+                foreach(XmlElement e3 in e2.GetElementsByTagName("Item"))
+                {
+                    int index;
+                    int value;
+                    if (int.TryParse(e3.GetAttribute("index"), out index) && int.TryParse(e3.GetAttribute("value"), out value))
                     {
-                        setValue(int.Parse(ps[0]), int.Parse(ps[1]));
+                        ds.setValue(index, value);
                     }
                 }
             }
@@ -203,27 +211,46 @@ namespace GCAL.Base
 
 
 
-        public void writeFile(string fileName)
+        public static void SaveDisplaySettingsFile(string fileName)
         {
-            using (StreamWriter sw = new StreamWriter(fileName))
+            XmlDocument doc = new XmlDocument();
+            XmlElement e1 = doc.CreateElement("DisplaySettings");
+            doc.AppendChild(e1);
+            foreach(GCDisplaySettings gds in DSCollection)
             {
-                for (int i = 0; i < gss.Length; i++ )
+                XmlElement e2 = doc.CreateElement("Settings");
+                e1.AppendChild(e2);
+
+                e2.SetAttribute("name", gds.Name);
+                for (int i = 0; i < gds.gss.Length; i++)
                 {
-                    sw.WriteLine("{0}={1}", i, gss[i].val);
+                    XmlElement e3 = doc.CreateElement("Item");
+                    e2.AppendChild(e3);
+                    e3.SetAttribute("index", i.ToString());
+                    e3.SetAttribute("value", gds.gss[i].val.ToString());
+                    e3.SetAttribute("desc", gds.gss[i].text);
                 }
             }
+            doc.Save(fileName);
         }
 
         protected static List<GCDisplaySettings> SettingsStack = new List<GCDisplaySettings>();
 
         protected static GCDisplaySettings p_curr = null;
 
+        private static List<GCDisplaySettings> DSCollection = null;
+
+        static GCDisplaySettings()
+        {
+            p_curr = new GCDisplaySettings("Default");
+            DSCollection = new List<GCDisplaySettings>();
+            DSCollection.Add(p_curr);
+        }
+
         public static GCDisplaySettings Current
         {
             get
             {
-                if (p_curr == null)
-                    p_curr = new GCDisplaySettings();
                 return p_curr;
             }
             set
@@ -243,6 +270,14 @@ namespace GCAL.Base
             {
                 Current = SettingsStack[SettingsStack.Count - 1];
                 SettingsStack.RemoveAt(SettingsStack.Count - 1);
+            }
+        }
+
+        public void Clear()
+        {
+            foreach(CShowSetting ss in gss)
+            {
+                ss.val = 0;
             }
         }
     }

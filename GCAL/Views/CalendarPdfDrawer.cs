@@ -223,7 +223,7 @@ namespace GCAL.Views
             XPoint point = rcf.Location;
 
             XSize textSize;
-
+            str = str.Trim();
             while (endP < str.Length - 1)
             {
                 endP = FindNextSpaceFit(g, str, rcf, f, startP);
@@ -253,6 +253,8 @@ namespace GCAL.Views
                 }
                 else
                 {
+                    try
+                    {
                     textSize = g.MeasureString(str.Substring(startL, endP - startL), f);
                     if (textSize.Width > rcf.Width)
                     {
@@ -260,6 +262,11 @@ namespace GCAL.Views
                         return lastEndP;
                     }
                     else
+                    {
+                        startP = endP + 1;
+                    }
+                }
+                    catch (Exception ex)
                     {
                         startP = endP + 1;
                     }
@@ -276,13 +283,13 @@ namespace GCAL.Views
             StringBuilder sb = new StringBuilder();
             foreach (VAISNAVAEVENT ed in vd.dayEvents)
             {
+                int disp = ed.dispItem;
+                if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.Current.getValue(disp) != 0))
+                {
                 if (sb.Length > 0)
                 {
                     sb.Append("; ");
                 }
-                int disp = ed.dispItem;
-                if (ed.dispItem != 0 && (disp == -1 || GCDisplaySettings.Current.getValue(disp) != 0))
-                {
                     sb.Append(ed.text);
                 }
             }

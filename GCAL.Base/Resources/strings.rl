@@ -1,404 +1,307 @@
-78 0|Sunday
-78 1|Monday
-78 2|Tuesday
-78 3|Wednesday
-78 4|Thursday
-78 5|Friday
-78 6|Saturday
-78 7|Date
-78 8|Time
-78 9|Location
-78 10|Latitude
-78 11|Longitude
-78 12|Timezone
-78 13|Tithi
-78 14|Tithi Elaps.
-78 15|Naksatra
-78 16|Naksatra Elaps.
-78 17|Child Name
-78 18|(according naksatra)
-78 19|(according rasi)
-78 20|Paksa
-78 21|(during Purusottama Adhika Masa)
-78 22|Masa
-78 23|Gaurabda Year
-78 24|Celebrations
-78 25|Appearance Day Calculation
-78 26|Day can be only from 1 to 31
-78 27|Month can be only from 1 to 12
-78 28|Year can be only from 1500 to 3999
-78 29|Given date was corrected, since date given by you was nonexisting.
-78 30|days
-78 31|months
-78 32|years
-78 33|exactly given date
-78 34|from begining of the month
-78 35|align to the start of the Masa
-78 36|from begining of the year
-78 37|start from first day of the Gaurabda Year
-78 38|<all mahadvadasis>
-78 39|Masa Listing
-78 40|Location
-78 41|From
-78 42|To
-78 43|Today
-78 44| Calendar
-78 45| Appearance Day
-78 46| Core Events
-78 48| Masa List
-78 50|Could not create new window.
-78 51|Sunrise
-78 52|Sunset
-78 53|Moonrise
-78 54|Moonset
-78 55|Year
-78 57|Please update GCAL to the latest version from http://www.krishnadays.com
-78 58|(not suitable for fasting)
-78 59|(suitable for fasting)
-78 60|Break fast
-78 61|Break fast after
-78 62|Break fast not calculated
-78 63|(DST not considered)
-79 65|Jan
-79 66|Feb
-79 67|Mar
-79 68|Apr
-79 69|May
-79 70|Jun
-79 71|Jul
-79 72|Aug
-79 73|Sep
-79 74|Oct
-79 75|Nov
-79 76|Dec
-78 78|Ganga Sagara Mela
-78 79|Tulasi Jala Dan begins.
-78 80|Tulasi Jala Dan ends.
-78 81|First day of Bhisma Pancaka
-78 82|Last day of Bhisma Pancaka
-78 83|Looking for
-78 84|Start
-78 85|End
-78 86|Not found in this year.
-78 87|Fasting for
-78 88|(Fasting is done yesterday, today is feast)
-78 89|Ksaya tithi
-78 90|[Second day of Tithi]
-78 91|First day
-78 92|Last day
-78 93|of the first month
-78 94|of the second month
-78 95|of the third month
-78 96|of the fourth month
-78 97|of Caturmasya-vrata
-78 98|Arunodaya Tithi
-78 99|Arunodaya at
-78 100|Sun Longitude
-78 101|Moon Longitude
-78 102|Ayanamsa
-78 103|Julian day
-78 104|Yoga
-78 105|Rasi
-78 106|(Daylight Saving Time not considered)
-78 107|(Winter Time)
-78 108|(Summer Time)
-78 109|(Second half)
-78 110|Event Finder
-78 112|First month of Caturmasya begins
-78 113|Last day of the first Caturmasya month
-78 114|(green leafy vegetable fast for one month)
-78 115|First month of Caturmasya continues
-78 116|Second month of Caturmasya begins
-78 117|Last day of the second Caturmasya month
-78 118|(yogurt fast for one month)
-78 119|Second month of Caturmasya continues
-78 120|Third month of Caturmasya begins
-78 121|Last day of the third Caturmasya month
-78 122|(milk fast for one month)
-78 123|Third month of Caturmasya continues
-78 124|Fourth month of Caturmasya begins
-78 125|Last day of the fourth Caturmasya month
-78 126|(urad dal fast for one month)
-78 127|Fourth month of Caturmasya continues
-78 128|(Caturmasya is not observed during Purusottama Adhika Masa.)
-78 132|<all sankrantis>
-78 133|<all tithis>
-78 134|<all fasting days>
-78 135|(Fasting for Ekadasi)
-78 136|No Moonrise
-78 137|No Moonset
-78 138|No Sunrise
-78 139|No Sunset
-78 140|SUN - MOON CONJUNCTIONS
-78 150|Su
-78 151|Mo
-78 152|Tu
-78 153|We
-78 154|Th
-78 155|Fr
-78 156|Sa
-78 157|DATE
-78 158|SUNRISE
-78 159|MASA
-78 160|TITHI START
-78 161|NAKSATRA START
-78 162|Page
-79 165|1/3 of daylight
-79 166|1/4 of tithi
-79 167|end of tithi
-79 168|end of naksatra
-79 169|sunrise
-78 512|
-78 513|
-78 514|
-79 560|Varuthini Ekadasi
-79 561|Mohini Ekadasi
-79 562|Apara Ekadasi
-79 563|Pandava Nirjala Ekadasi
-79 564|Yogini Ekadasi
-79 565|Sayana Ekadasi
-79 566|Kamika Ekadasi
-79 567|Pavitraropana Ekadasi
-79 568|Annada Ekadasi
-79 569|Parsva Ekadasi
-79 570|Indira Ekadasi
-79 571|Pasankusa Ekadasi
-79 572|Rama Ekadasi
-79 573|Utthana Ekadasi
-79 574|Utpanna Ekadasi
-79 575|Moksada Ekadasi
-79 576|Saphala Ekadasi
-79 577|Putrada Ekadasi
-79 578|Sat-tila Ekadasi
-79 579|Bhaimi Ekadasi
-79 580|Vijaya Ekadasi
-79 581|Amalaki vrata Ekadasi
-79 582|Papamocani Ekadasi
-79 583|Kamada Ekadasi
-79 584|Parama Ekadasi
-79 585|Padmini Ekadasi
-78 600|Pratipat
-78 601|Dvitiya
-78 602|Tritiya
-78 603|Caturthi
-78 604|Pancami
-78 605|Sasti
-78 606|Saptami
-78 607|Astami
-78 608|Navami
-78 609|Dasami
-78 610|Ekadasi
-78 611|Dvadasi
-78 612|Trayodasi
-78 613|Caturdasi
-78 614|Amavasya
-78 615|Pratipat
-78 616|Dvitiya
-78 617|Tritiya
-78 618|Caturthi
-78 619|Pancami
-78 620|Sasti
-78 621|Saptami
-78 622|Astami
-78 623|Navami
-78 624|Dasami
-78 625|Ekadasi
-78 626|Dvadasi
-78 627|Trayodasi
-78 628|Caturdasi
-78 629|Purnima
-78 630|Asvini
-78 631|Bharani
-78 632|Krittika
-78 633|Rohini
-78 634|Mrigasira
-78 635|Ardra
-78 636|Punarvasu
-78 637|Pusyami
-78 638|Aslesa
-78 639|Magha
-78 640|Purva-phalguni
-78 641|Uttara-phalguni
-78 642|Hasta
-78 643|Citra
-78 644|Swati
-78 645|Visakha
-78 646|Anuradha
-78 647|Jyestha
-78 648|Mula
-78 649|Purva-asadha
-78 650|Uttara-asadha
-78 651|Sravana
-78 652|Dhanista
-78 653|Satabhisa
-78 654|Purva-bhadra
-78 655|Uttara-bhadra
-78 656|Revati
-78 660|Viskumba
-78 661|Priti
-78 662|Ayusmana
-78 663|Saubhagya
-78 664|Sobana
-78 665|Atiganda
-78 666|Sukarma
-78 667|Dhriti
-78 668|Sula
-78 669|Ganda
-78 670|Vriddhi
-78 671|Dhruva
-78 672|Vyagata
-78 673|Harsana
-78 674|Vajra
-78 675|Siddhi
-78 676|Vyatipata
-78 677|Variyana
-78 678|Parigha
-78 679|Siva
-78 680|Siddha
-78 681|Sadhya
-78 682|Subha
-78 683|Sukla
-78 684|Brahma
-78 685|Indra
-78 686|Vaidhriti
-78 688|Mesa
-78 689|Vrsabha
-78 690|Mithuna
-78 691|Karka
-78 692|Simha
-78 693|Kanya
-78 694|Tula
-78 695|Vrscika
-78 696|Dhanus
-78 697|Makara
-78 698|Kumbha
-78 699|Mina
-78 700|Aries
-78 701|Taurus
-78 702|Gemini
-78 703|Cancer
-78 704|Leo
-78 705|Virgo
-78 706|Libra
-78 707|Scorpio
-78 708|Sagittarius
-78 709|Capricorn
-78 710|Aquarius
-78 711|Pisces
-78 712|Gaura
-78 713|Krsna
-79 720|Madhusudana
-79 721|Trivikrama
-79 722|Vamana
-79 723|Sridhara
-79 724|Hrsikesa
-79 725|Padmanabha
-79 726|Damodara
-79 727|Kesava
-79 728|Narayana
-79 729|Madhava
-79 730|Govinda
-79 731|Visnu
-79 732|Purusottama-adhika
-79 733|Unmilani Mahadvadasi
-79 734|Trisprsa Mahadvadasi
-79 735|Paksa vardhini Mahadvadasi
-79 736|Jaya Mahadvadasi
-79 737|Vijaya Mahadvadasi
-79 738|Papa Nasini Mahadvadasi
-79 739|Jayanti Mahadvadasi
-79 740|Vyanjuli Mahadvadasi
-79 741|Sri Krsna Janmastami: Appearance of Lord Sri Krsna
-79 742|Gaura Purnima: Appearance of Sri Caitanya Mahaprabhu
-79 743|Return Ratha (8 days after Ratha Yatra)
-79 744|Hera Pancami (4 days after Ratha Yatra)
-79 745|Gundica Marjana
-79 746|Go Puja. Go Krda. Govardhana Puja.
-79 747|Rama Navami: Appearance of Lord Sri Ramacandra
-79 748|Ratha Yatra
-79 749|Nandotsava
-79 750|Festival of Jagannatha Misra
-79 751|(Fast till noon)
-79 752|(Fast till sunset)
-79 753|(Fast till moonrise)
-79 754|(Fast till dusk)
-79 755|(Fast till midnight)
-79 756|(Fast today)
-79 759|Srila Prabhupada -- Appearance
-79 760|January
-79 761|February
-79 762|March
-79 763|April
-79 764|May
-79 765|June
-79 766|July
-79 767|August
-79 768|September
-79 769|October
-79 770|November
-79 771|December
-78 780|First day of
-78 781|Last day of
-78 782|first
-78 783|second
-78 784|third
-78 785|fourth
-78 786|last
-78 787|Sunday
-78 788|Monday
-78 789|Tuesday
-78 790|Wednesday
-78 791|Thursday
-78 792|Friday
-78 793|Saturday
-78 795|of January
-78 796|of February
-78 797|of March
-78 798|of April
-78 799|of May
-78 800|of June
-78 801|of July
-78 802|of August
-78 803|of September
-78 804|of October
-78 805|of November
-78 806|of December
-78 807|For this location is Daylight Saving Time not observed.
-78 808|Daylight saving time is observed 
-78 810|0th
-78 811|1st
-78 812|2nd
-78 813|3rd
-78 814|4th
-78 815|5th
-78 816|6th
-78 817|7th
-78 818|8th
-78 819|9th
-78 820|10th
-78 821|11th
-78 822|12th
-78 823|13th
-78 824|14th
-78 825|15th
-78 826|16th
-78 827|17th
-78 828|18th
-78 829|19th
-78 830|20th
-78 831|21st
-78 832|22nd
-78 833|23rd
-78 834|24th
-78 835|25th
-78 836|26th
-78 837|27th
-78 838|28th
-78 839|29th
-78 840|30th
-78 841|31st
-78 850|since
-78 851|to
-
-
-
+<Strings>
+  <Item idx="0" val="Sunday" />
+  <Item idx="1" val="Monday" />
+  <Item idx="2" val="Tuesday" />
+  <Item idx="3" val="Wednesday" />
+  <Item idx="4" val="Thursday" />
+  <Item idx="5" val="Friday" />
+  <Item idx="6" val="Saturday" />
+  <Item idx="7" val="Date" />
+  <Item idx="8" val="Time" />
+  <Item idx="9" val="Location" />
+  <Item idx="10" val="Latitude" />
+  <Item idx="11" val="Longitude" />
+  <Item idx="12" val="Timezone" />
+  <Item idx="13" val="Tithi" />
+  <Item idx="14" val="Tithi Elaps." />
+  <Item idx="15" val="Naksatra" />
+  <Item idx="16" val="Naksatra Elaps." />
+  <Item idx="17" val="Child Name" />
+  <Item idx="18" val="(according naksatra)" />
+  <Item idx="19" val="(according rasi)" />
+  <Item idx="20" val="Paksa" />
+  <Item idx="21" val="(during Purusottama Adhika Masa)" />
+  <Item idx="22" val="Masa" />
+  <Item idx="23" val="Gaurabda Year" />
+  <Item idx="24" val="Celebrations" />
+  <Item idx="25" val="Appearance Day Calculation" />
+  <Item idx="26" val="Day can be only from 1 to 31" />
+  <Item idx="27" val="Month can be only from 1 to 12" />
+  <Item idx="28" val="Year can be only from 1500 to 3999" />
+  <Item idx="29" val="Given date was corrected, since date given by you was nonexisting." />
+  <Item idx="30" val="days" />
+  <Item idx="31" val="months" />
+  <Item idx="32" val="years" />
+  <Item idx="33" val="exactly given date" />
+  <Item idx="34" val="from begining of the month" />
+  <Item idx="35" val="align to the start of the Masa" />
+  <Item idx="36" val="from begining of the year" />
+  <Item idx="37" val="start from first day of the Gaurabda Year" />
+  <Item idx="38" val="&lt;all mahadvadasis&gt;" />
+  <Item idx="39" val="Masa Listing" />
+  <Item idx="40" val="Location" />
+  <Item idx="41" val="From" />
+  <Item idx="42" val="To" />
+  <Item idx="43" val="Today" />
+  <Item idx="44" val=" Calendar" />
+  <Item idx="45" val=" Appearance Day" />
+  <Item idx="46" val=" Core Events" />
+  <Item idx="48" val=" Masa List" />
+  <Item idx="50" val="Could not create new window." />
+  <Item idx="51" val="Sunrise" />
+  <Item idx="52" val="Sunset" />
+  <Item idx="53" val="Moonrise" />
+  <Item idx="54" val="Moonset" />
+  <Item idx="55" val="Year" />
+  <Item idx="57" val="Please update GCAL to the latest version from http://www.krishnadays.com" />
+  <Item idx="58" val="(not suitable for fasting)" />
+  <Item idx="59" val="(suitable for fasting)" />
+  <Item idx="60" val="Break fast" />
+  <Item idx="61" val="Break fast after" />
+  <Item idx="62" val="Break fast not calculated" />
+  <Item idx="63" val="(DST not considered)" />
+  <Item idx="78" val="Ganga Sagara Mela" />
+  <Item idx="79" val="Tulasi Jala Dan begins." />
+  <Item idx="80" val="Tulasi Jala Dan ends." />
+  <Item idx="81" val="First day of Bhisma Pancaka" />
+  <Item idx="82" val="Last day of Bhisma Pancaka" />
+  <Item idx="83" val="Looking for" />
+  <Item idx="84" val="Start" />
+  <Item idx="85" val="End" />
+  <Item idx="86" val="Not found in this year." />
+  <Item idx="87" val="Fasting for" />
+  <Item idx="88" val="(Fasting is done yesterday, today is feast)" />
+  <Item idx="89" val="Ksaya tithi" />
+  <Item idx="90" val="[Second day of Tithi]" />
+  <Item idx="91" val="First day" />
+  <Item idx="92" val="Last day" />
+  <Item idx="93" val="of the first month" />
+  <Item idx="94" val="of the second month" />
+  <Item idx="95" val="of the third month" />
+  <Item idx="96" val="of the fourth month" />
+  <Item idx="97" val="of Caturmasya-vrata" />
+  <Item idx="98" val="Arunodaya Tithi" />
+  <Item idx="99" val="Arunodaya at" />
+  <Item idx="100" val="Sun Longitude" />
+  <Item idx="101" val="Moon Longitude" />
+  <Item idx="102" val="Ayanamsa" />
+  <Item idx="103" val="Julian day" />
+  <Item idx="104" val="Yoga" />
+  <Item idx="105" val="Rasi" />
+  <Item idx="106" val="(Daylight Saving Time not considered)" />
+  <Item idx="107" val="(Winter Time)" />
+  <Item idx="108" val="(Summer Time)" />
+  <Item idx="109" val="(Second half)" />
+  <Item idx="110" val="Event Finder" />
+  <Item idx="112" val="First month of Caturmasya begins" />
+  <Item idx="113" val="Last day of the first Caturmasya month" />
+  <Item idx="114" val="(green leafy vegetable fast for one month)" />
+  <Item idx="115" val="First month of Caturmasya continues" />
+  <Item idx="116" val="Second month of Caturmasya begins" />
+  <Item idx="117" val="Last day of the second Caturmasya month" />
+  <Item idx="118" val="(yogurt fast for one month)" />
+  <Item idx="119" val="Second month of Caturmasya continues" />
+  <Item idx="120" val="Third month of Caturmasya begins" />
+  <Item idx="121" val="Last day of the third Caturmasya month" />
+  <Item idx="122" val="(milk fast for one month)" />
+  <Item idx="123" val="Third month of Caturmasya continues" />
+  <Item idx="124" val="Fourth month of Caturmasya begins" />
+  <Item idx="125" val="Last day of the fourth Caturmasya month" />
+  <Item idx="126" val="(urad dal fast for one month)" />
+  <Item idx="127" val="Fourth month of Caturmasya continues" />
+  <Item idx="128" val="(Caturmasya is not observed during Purusottama Adhika Masa.)" />
+  <Item idx="132" val="&lt;all sankrantis&gt;" />
+  <Item idx="133" val="&lt;all tithis&gt;" />
+  <Item idx="134" val="&lt;all fasting days&gt;" />
+  <Item idx="135" val="(Fasting for Ekadasi)" />
+  <Item idx="136" val="No Moonrise" />
+  <Item idx="137" val="No Moonset" />
+  <Item idx="138" val="No Sunrise" />
+  <Item idx="139" val="No Sunset" />
+  <Item idx="140" val="SUN - MOON CONJUNCTIONS" />
+  <Item idx="150" val="Su" />
+  <Item idx="151" val="Mo" />
+  <Item idx="152" val="Tu" />
+  <Item idx="153" val="We" />
+  <Item idx="154" val="Th" />
+  <Item idx="155" val="Fr" />
+  <Item idx="156" val="Sa" />
+  <Item idx="157" val="DATE" />
+  <Item idx="158" val="SUNRISE" />
+  <Item idx="159" val="MASA" />
+  <Item idx="160" val="TITHI START" />
+  <Item idx="161" val="NAKSATRA START" />
+  <Item idx="162" val="Page" />
+  <Item idx="600" val="Pratipat" />
+  <Item idx="601" val="Dvitiya" />
+  <Item idx="602" val="Tritiya" />
+  <Item idx="603" val="Caturthi" />
+  <Item idx="604" val="Pancami" />
+  <Item idx="605" val="Sasti" />
+  <Item idx="606" val="Saptami" />
+  <Item idx="607" val="Astami" />
+  <Item idx="608" val="Navami" />
+  <Item idx="609" val="Dasami" />
+  <Item idx="610" val="Ekadasi" />
+  <Item idx="611" val="Dvadasi" />
+  <Item idx="612" val="Trayodasi" />
+  <Item idx="613" val="Caturdasi" />
+  <Item idx="614" val="Amavasya" />
+  <Item idx="615" val="Pratipat" />
+  <Item idx="616" val="Dvitiya" />
+  <Item idx="617" val="Tritiya" />
+  <Item idx="618" val="Caturthi" />
+  <Item idx="619" val="Pancami" />
+  <Item idx="620" val="Sasti" />
+  <Item idx="621" val="Saptami" />
+  <Item idx="622" val="Astami" />
+  <Item idx="623" val="Navami" />
+  <Item idx="624" val="Dasami" />
+  <Item idx="625" val="Ekadasi" />
+  <Item idx="626" val="Dvadasi" />
+  <Item idx="627" val="Trayodasi" />
+  <Item idx="628" val="Caturdasi" />
+  <Item idx="629" val="Purnima" />
+  <Item idx="630" val="Asvini" />
+  <Item idx="631" val="Bharani" />
+  <Item idx="632" val="Krittika" />
+  <Item idx="633" val="Rohini" />
+  <Item idx="634" val="Mrigasira" />
+  <Item idx="635" val="Ardra" />
+  <Item idx="636" val="Punarvasu" />
+  <Item idx="637" val="Pusyami" />
+  <Item idx="638" val="Aslesa" />
+  <Item idx="639" val="Magha" />
+  <Item idx="640" val="Purva-phalguni" />
+  <Item idx="641" val="Uttara-phalguni" />
+  <Item idx="642" val="Hasta" />
+  <Item idx="643" val="Citra" />
+  <Item idx="644" val="Swati" />
+  <Item idx="645" val="Visakha" />
+  <Item idx="646" val="Anuradha" />
+  <Item idx="647" val="Jyestha" />
+  <Item idx="648" val="Mula" />
+  <Item idx="649" val="Purva-asadha" />
+  <Item idx="650" val="Uttara-asadha" />
+  <Item idx="651" val="Sravana" />
+  <Item idx="652" val="Dhanista" />
+  <Item idx="653" val="Satabhisa" />
+  <Item idx="654" val="Purva-bhadra" />
+  <Item idx="655" val="Uttara-bhadra" />
+  <Item idx="656" val="Revati" />
+  <Item idx="660" val="Viskumba" />
+  <Item idx="661" val="Priti" />
+  <Item idx="662" val="Ayusmana" />
+  <Item idx="663" val="Saubhagya" />
+  <Item idx="664" val="Sobana" />
+  <Item idx="665" val="Atiganda" />
+  <Item idx="666" val="Sukarma" />
+  <Item idx="667" val="Dhriti" />
+  <Item idx="668" val="Sula" />
+  <Item idx="669" val="Ganda" />
+  <Item idx="670" val="Vriddhi" />
+  <Item idx="671" val="Dhruva" />
+  <Item idx="672" val="Vyagata" />
+  <Item idx="673" val="Harsana" />
+  <Item idx="674" val="Vajra" />
+  <Item idx="675" val="Siddhi" />
+  <Item idx="676" val="Vyatipata" />
+  <Item idx="677" val="Variyana" />
+  <Item idx="678" val="Parigha" />
+  <Item idx="679" val="Siva" />
+  <Item idx="680" val="Siddha" />
+  <Item idx="681" val="Sadhya" />
+  <Item idx="682" val="Subha" />
+  <Item idx="683" val="Sukla" />
+  <Item idx="684" val="Brahma" />
+  <Item idx="685" val="Indra" />
+  <Item idx="686" val="Vaidhriti" />
+  <Item idx="688" val="Mesa" />
+  <Item idx="689" val="Vrsabha" />
+  <Item idx="690" val="Mithuna" />
+  <Item idx="691" val="Karka" />
+  <Item idx="692" val="Simha" />
+  <Item idx="693" val="Kanya" />
+  <Item idx="694" val="Tula" />
+  <Item idx="695" val="Vrscika" />
+  <Item idx="696" val="Dhanus" />
+  <Item idx="697" val="Makara" />
+  <Item idx="698" val="Kumbha" />
+  <Item idx="699" val="Mina" />
+  <Item idx="700" val="Aries" />
+  <Item idx="701" val="Taurus" />
+  <Item idx="702" val="Gemini" />
+  <Item idx="703" val="Cancer" />
+  <Item idx="704" val="Leo" />
+  <Item idx="705" val="Virgo" />
+  <Item idx="706" val="Libra" />
+  <Item idx="707" val="Scorpio" />
+  <Item idx="708" val="Sagittarius" />
+  <Item idx="709" val="Capricorn" />
+  <Item idx="710" val="Aquarius" />
+  <Item idx="711" val="Pisces" />
+  <Item idx="712" val="Gaura" />
+  <Item idx="713" val="Krsna" />
+  <Item idx="780" val="First day of" />
+  <Item idx="781" val="Last day of" />
+  <Item idx="782" val="first" />
+  <Item idx="783" val="second" />
+  <Item idx="784" val="third" />
+  <Item idx="785" val="fourth" />
+  <Item idx="786" val="last" />
+  <Item idx="787" val="Sunday" />
+  <Item idx="788" val="Monday" />
+  <Item idx="789" val="Tuesday" />
+  <Item idx="790" val="Wednesday" />
+  <Item idx="791" val="Thursday" />
+  <Item idx="792" val="Friday" />
+  <Item idx="793" val="Saturday" />
+  <Item idx="795" val="of January" />
+  <Item idx="796" val="of February" />
+  <Item idx="797" val="of March" />
+  <Item idx="798" val="of April" />
+  <Item idx="799" val="of May" />
+  <Item idx="800" val="of June" />
+  <Item idx="801" val="of July" />
+  <Item idx="802" val="of August" />
+  <Item idx="803" val="of September" />
+  <Item idx="804" val="of October" />
+  <Item idx="805" val="of November" />
+  <Item idx="806" val="of December" />
+  <Item idx="807" val="For this location is Daylight Saving Time not observed." />
+  <Item idx="808" val="Daylight saving time is observed " />
+  <Item idx="810" val="0th" />
+  <Item idx="811" val="1st" />
+  <Item idx="812" val="2nd" />
+  <Item idx="813" val="3rd" />
+  <Item idx="814" val="4th" />
+  <Item idx="815" val="5th" />
+  <Item idx="816" val="6th" />
+  <Item idx="817" val="7th" />
+  <Item idx="818" val="8th" />
+  <Item idx="819" val="9th" />
+  <Item idx="820" val="10th" />
+  <Item idx="821" val="11th" />
+  <Item idx="822" val="12th" />
+  <Item idx="823" val="13th" />
+  <Item idx="824" val="14th" />
+  <Item idx="825" val="15th" />
+  <Item idx="826" val="16th" />
+  <Item idx="827" val="17th" />
+  <Item idx="828" val="18th" />
+  <Item idx="829" val="19th" />
+  <Item idx="830" val="20th" />
+  <Item idx="831" val="21st" />
+  <Item idx="832" val="22nd" />
+  <Item idx="833" val="23rd" />
+  <Item idx="834" val="24th" />
+  <Item idx="835" val="25th" />
+  <Item idx="836" val="26th" />
+  <Item idx="837" val="27th" />
+  <Item idx="838" val="28th" />
+  <Item idx="839" val="29th" />
+  <Item idx="840" val="30th" />
+  <Item idx="841" val="31st" />
+  <Item idx="850" val="since" />
+  <Item idx="851" val="to" />
+</Strings>

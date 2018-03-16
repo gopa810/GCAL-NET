@@ -141,7 +141,7 @@ namespace GCAL.CompositeViews
                 case 1:
                     OpenFileDialog ofd = new OpenFileDialog();
                     ofd.Filter = "Event files (*.ev.rl)|*.ev.rl||";
-                    ofd.InitialDirectory = GCGlobal.ConfigFolder;
+                    ofd.InitialDirectory = GCGlobal.ConfigurationFolderPath;
                     ofd.Multiselect = false;
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
@@ -207,7 +207,7 @@ namespace GCAL.CompositeViews
             {
                 DlgDeleteFestivalBook df = new DlgDeleteFestivalBook();
                 GCFestivalBook fb = GetBook(index);
-                df.FileNameReimport = Path.Combine(GCGlobal.GetFileName(AppFileName.ConfigurationFolder, fb.FileName));
+                df.FileNameReimport = Path.Combine(GCGlobal.ConfigurationFolderPath, fb.FileName);
 
                 if (df.ShowDialog() == DialogResult.Yes)
                 {
@@ -222,7 +222,7 @@ namespace GCAL.CompositeViews
         {
             if (MessageBox.Show("Confirm reset", "This will reset all festival definitions.", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop) == DialogResult.OK)
             {
-                GCFestivalBookCollection.ResetAllBooks(GCGlobal.ConfigFolder);
+                GCFestivalBookCollection.ResetAllBooks(GCGlobal.ConfigurationFolderPath);
                 InitFBList();
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace GCAL.Base
 {
@@ -120,6 +121,37 @@ namespace GCAL.Base
                     Valid = false;
                 }
             }
+        }
+
+        public void SaveToNode(XmlElement e)
+        {
+            XH.SetXmlInt(e, "ID", GeonameID);
+            XH.SetXmlString(e, "Name", CityName);
+            XH.SetXmlString(e, "AS", ASCIIName);
+            if (AlternativeNames.Length > 0)
+                XH.SetXmlString(e, "Alt", AlternativeNames);
+            XH.SetXmlDouble(e, "Y", Latitude);
+            XH.SetXmlDouble(e, "X", Longitude);
+            if (Elevation > 0.1)
+                XH.SetXmlDouble(e, "Z", Elevation);
+            XH.SetXmlString(e, "Cnt", CountryISOCode);
+            if (Population > 0)
+                XH.SetXmlInt(e, "P", Population);
+            XH.SetXmlString(e, "TZ", TimeZoneName);
+        }
+
+        public void LoadFromNode(XmlElement e)
+        {
+            GeonameID = XH.GetXmlInt(e, "ID", -1);
+            CityName = XH.GetXmlString(e, "Name", "");
+            ASCIIName = XH.GetXmlString(e, "AS", "");
+            AlternativeNames = XH.GetXmlString(e, "Alt", "");
+            Latitude = XH.GetXmlDouble(e, "Y", 0);
+            Longitude = XH.GetXmlDouble(e, "X", 0);
+            Elevation = XH.GetXmlDouble(e, "Z", 0);
+            CountryISOCode = XH.GetXmlString(e, "Cnt", "");
+            Population = XH.GetXmlInt(e, "P", 0);
+            TimeZoneName = XH.GetXmlString(e, "TZ", "Undefined");
         }
 
         public GCLocation GetLocationRef()

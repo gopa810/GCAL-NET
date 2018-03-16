@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
 
 namespace GCAL.Base
 {
@@ -191,30 +192,26 @@ namespace GCAL.Base
             gstr[i] = str;
         }
 
-        public static int readFile(string pszFile)
+        public static int LoadStringsFile(string filePath)
         {
-            int v = 0;
-            GCRichFileLine rf = new GCRichFileLine();
-
-            if (!File.Exists(pszFile))
+            if (!File.Exists(filePath))
             {
-                File.WriteAllBytes(pszFile, Properties.Resources.strings);
+                File.WriteAllBytes(filePath, Properties.Resources.strings);
             }
 
-            using(StreamReader sr = new StreamReader(pszFile))
+            int v = 0;
+            int h;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
+            foreach(XmlElement e in doc.GetElementsByTagName("Item"))
             {
-                int index = 0;
-                while (rf.SetLine(sr.ReadLine()))
+                int i = XH.GetXmlInt(e, "idx", -1);
+                if (i >= 0)
                 {
-                    if (rf.TagInt == 78)
-                    {
-                        index = int.Parse(rf.GetField(0));
-                        while (gstr.Count <= index)
-                            gstr.Add(string.Empty);
-                        gstr[index] = rf.GetField(1);
-
-                        v++;
-                    }
+                    for (h = gstr.Count; h <= i; h++)
+                        gstr.Add(string.Empty);
+                    gstr[i] = XH.GetXmlString(e, "val", "");
+                    v++;
                 }
             }
 
@@ -225,28 +222,26 @@ namespace GCAL.Base
             return v;
         }
 
-        public static int writeFile(string pszFile)
+        public static void SaveStringsFile(string filePath)
         {
-            int i, j, v = 0;
-            // a[x][0] je zaciatocny index
-            // a[x][1] je konecny index skupiny (vratane)
+            XmlDocument doc = new XmlDocument();
 
-            // save 0 - 128
-            // save 135 - 199
-            // save 561 - 899
-            using (StreamWriter sw = new StreamWriter(pszFile))
+            XmlElement e = doc.CreateElement("Strings");
+            doc.AppendChild(e);
+
+            for (int i = 0; i < gstr.Count; i++)
             {
-                for (i = 0; i < gstr.Count; i++)
+                if (gstr[i].Length > 0)
                 {
-                    if (gstr[i].Length > 0)
-                    {
-                        sw.WriteLine("78 {0}|{1}", i, getString(i));
-                        v++;
-                    }
+                    XmlElement e2 = doc.CreateElement("Item");
+                    e.AppendChild(e2);
+
+                    XH.SetXmlInt(e2, "idx", i);
+                    XH.SetXmlString(e2, "val", getString(i));
                 }
             }
 
-            return v;
+            doc.Save(filePath);
         }
 
         public static string GetStringFromIntInc(int i)

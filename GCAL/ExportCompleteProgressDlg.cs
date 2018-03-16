@@ -118,25 +118,18 @@ namespace GCAL
             List<FileRec> files = new List<FileRec>();
             HashSet<string> countries = new HashSet<string>();
 
-            GCDisplaySettings statePdf = new GCDisplaySettings();
-            GCDisplaySettings stateDetailedText = new GCDisplaySettings();
-            GCDisplaySettings stateText = new GCDisplaySettings();
+            GCDisplaySettings stateDetailedText = new GCDisplaySettings("Detailed Calendar");
+            GCDisplaySettings stateText = new GCDisplaySettings("Brief Calendar");
             GCDisplaySettings stateOrig = GCDisplaySettings.Current;
 
             try
             {
-                stateText.setValue(GCDS.CAL_ARUN_TIME, 0);
-                stateText.setValue(GCDS.CAL_ARUN_TITHI, 0);
-                stateText.setValue(GCDS.CAL_AYANAMSHA, 0);
-                stateText.setValue(GCDS.CAL_BRAHMA_MUHURTA, 0);
-                stateText.setValue(GCDS.CAL_COREEVENTS, 0);
+//                stateText.Clear();
                 stateText.setValue(GCDS.CAL_DST_CHANGE, 1);
                 stateText.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 stateText.setValue(GCDS.CAL_FEST_0, 1);
                 stateText.setValue(GCDS.CAL_HEADER_MASA, 0);
                 stateText.setValue(GCDS.CAL_HEADER_MONTH, 1);
-                stateText.setValue(GCDS.CAL_JULIAN, 0);
-                stateText.setValue(GCDS.CAL_KSAYA, 0);
                 stateText.setValue(GCDS.CAL_MASA_CHANGE, 1);
                 stateText.setValue(GCDS.CAL_MOON_LONG, 0);
                 stateText.setValue(GCDS.CAL_MOON_RISE, 0);
@@ -168,67 +161,21 @@ namespace GCAL
                 stateDetailedText.setValue(GCDS.CAL_DST_CHANGE, 1);
                 stateDetailedText.setValue(GCDS.CAL_EKADASI_PARANA, 1);
                 stateDetailedText.setValue(GCDS.CAL_FEST_0, 1);
-                stateDetailedText.setValue(GCDS.CAL_HEADER_MASA, 0);
                 stateDetailedText.setValue(GCDS.CAL_HEADER_MONTH, 1);
                 stateDetailedText.setValue(GCDS.CAL_JULIAN, 0);
                 stateDetailedText.setValue(GCDS.CAL_KSAYA, 0);
                 stateDetailedText.setValue(GCDS.CAL_MASA_CHANGE, 1);
-                stateDetailedText.setValue(GCDS.CAL_MOON_LONG, 0);
-                stateDetailedText.setValue(GCDS.CAL_MOON_RISE, 0);
-                stateDetailedText.setValue(GCDS.CAL_MOON_SET, 0);
-                stateDetailedText.setValue(GCDS.CAL_SANKRANTI, 0);
-                stateDetailedText.setValue(GCDS.CAL_SUN_LONG, 0);
                 stateDetailedText.setValue(GCDS.CAL_SUN_RISE, 1);
                 stateDetailedText.setValue(GCDS.CAL_SUN_SANDHYA, 1);
-                stateDetailedText.setValue(GCDS.CAL_VRDDHI, 0);
-                stateDetailedText.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
-                stateDetailedText.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
                 stateDetailedText.setValue(GCDS.COREEVENTS_CONJUNCTION, 1);
                 stateDetailedText.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
                 stateDetailedText.setValue(GCDS.COREEVENTS_MOON, 1);
                 stateDetailedText.setValue(GCDS.COREEVENTS_MOONRASI, 1);
                 stateDetailedText.setValue(GCDS.COREEVENTS_NAKSATRA, 1);
-                stateDetailedText.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
-                stateDetailedText.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
-                stateDetailedText.setValue(GCDS.COREEVENTS_SUN, 0);
                 stateDetailedText.setValue(GCDS.COREEVENTS_TITHI, 1);
                 stateDetailedText.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
                 stateDetailedText.setValue(GCDS.COREEVENTS_YOGA, 1);
-
-                statePdf.setValue(GCDS.CAL_ARUN_TIME, 0);
-                statePdf.setValue(GCDS.CAL_ARUN_TITHI, 0);
-                statePdf.setValue(GCDS.CAL_AYANAMSHA, 0);
-                statePdf.setValue(GCDS.CAL_BRAHMA_MUHURTA, 0);
-                statePdf.setValue(GCDS.CAL_COREEVENTS, 0);
-                statePdf.setValue(GCDS.CAL_DST_CHANGE, 1);
-                statePdf.setValue(GCDS.CAL_EKADASI_PARANA, 1);
-                statePdf.setValue(GCDS.CAL_FEST_0, 1);
-                statePdf.setValue(GCDS.CAL_HEADER_MASA, 0);
-                statePdf.setValue(GCDS.CAL_HEADER_MONTH, 1);
-                statePdf.setValue(GCDS.CAL_JULIAN, 0);
-                statePdf.setValue(GCDS.CAL_KSAYA, 0);
-                statePdf.setValue(GCDS.CAL_MASA_CHANGE, 1);
-                statePdf.setValue(GCDS.CAL_MOON_LONG, 0);
-                statePdf.setValue(GCDS.CAL_MOON_RISE, 0);
-                statePdf.setValue(GCDS.CAL_MOON_SET, 0);
-                statePdf.setValue(GCDS.CAL_SANKRANTI, 0);
-                statePdf.setValue(GCDS.CAL_SUN_LONG, 0);
-                statePdf.setValue(GCDS.CAL_SUN_RISE, 0);
-                statePdf.setValue(GCDS.CAL_SUN_SANDHYA, 0);
-                statePdf.setValue(GCDS.CAL_VRDDHI, 0);
-                statePdf.setValue(GCDS.COREEVENTS_ABHIJIT_MUHURTA, 0);
-                statePdf.setValue(GCDS.COREEVENTS_ASCENDENT, 0);
-                statePdf.setValue(GCDS.COREEVENTS_CONJUNCTION, 0);
-                statePdf.setValue(GCDS.COREEVENTS_GULIKALAM, 0);
-                statePdf.setValue(GCDS.COREEVENTS_MOON, 0);
-                statePdf.setValue(GCDS.COREEVENTS_MOONRASI, 0);
-                statePdf.setValue(GCDS.COREEVENTS_NAKSATRA, 0);
-                statePdf.setValue(GCDS.COREEVENTS_RAHUKALAM, 0);
-                statePdf.setValue(GCDS.COREEVENTS_SANKRANTI, 0);
-                statePdf.setValue(GCDS.COREEVENTS_SUN, 0);
-                statePdf.setValue(GCDS.COREEVENTS_TITHI, 0);
-                statePdf.setValue(GCDS.COREEVENTS_YAMAGHANTI, 0);
-                statePdf.setValue(GCDS.COREEVENTS_YOGA, 0);
+                stateDetailedText.setValue(GCDS.GENERAL_FIRST_DOW, stateOrig.getValue(GCDS.GENERAL_FIRST_DOW));
 
 
                 string content;
@@ -269,15 +216,16 @@ namespace GCAL
                         GCDisplaySettings.Current = stateText;
                         calendar = new TResultCalendar(loc.GetLocationRef(), year);
                         content = calendar.formatText(GCDataFormat.HTML);
+                        // print plain TXT
                         File.WriteAllText(Path.Combine(OutputDir, currentFileRec.filename), content);
+                        // print PDF
+                        PrintPdfYear(calendar, year, Path.Combine(OutputDir, currentFileRec.filenamePdf));
 
                         GCDisplaySettings.Current = stateDetailedText;
                         calendar = new TResultCalendar(loc.GetLocationRef(), year);
                         content = calendar.formatText(GCDataFormat.HTML);
+                        // print detailed TXT
                         File.WriteAllText(Path.Combine(OutputDir, currentFileRec.filenameDetail), content);
-
-                        GCDisplaySettings.Current = statePdf;
-                        PrintPdfYear(calendar, year, Path.Combine(OutputDir, year.ToString() + "_" + ToFilePart(loc.CityName) + ".pdf"));
 
                     }
 
@@ -303,11 +251,14 @@ namespace GCAL
 
                 progressBar1.Invoke(new SetProgressValue(SetDialogCompleted), 0);
 
-                GCDisplaySettings.Current = stateOrig;
             }
             catch(Exception ex)
             {
-                Debugger.Log(0, "", "Error: " + ex.Message + "\n");
+                Debugger.Log(0, "", "Error: " + ex.Message + "\n" + ex.StackTrace + "\n");
+            }
+            finally
+            {
+                GCDisplaySettings.Current = stateOrig;
             }
         }
 

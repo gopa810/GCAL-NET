@@ -1,485 +1,1942 @@
-Undefined	0	0	0	0	0	0	0	0	0	0	
-UTC-12	-720	0	0	0	0	0	0	0	0	0	
-Pacific/Apia	780	60	0	4	1	0	0	9	5	0	WS
-Pacific/Midway	-660	0	0	0	0	0	0	0	0	0	UM
-Pacific/Niue	-660	0	0	0	0	0	0	0	0	0	NU
-Pacific/Pago_Pago	-660	0	0	0	0	0	0	0	0	0	AS
-UTC-11	-660	0	0	0	0	0	0	0	0	0	
-America/Adak	-600	60	0	3	2	0	0	11	1	0	US
-Pacific/Fakaofo	780	0	0	0	0	0	0	0	0	0	TK
-Pacific/Honolulu	-600	0	0	0	0	0	0	0	0	0	US
-Pacific/Johnston	-600	0	0	0	0	0	0	0	0	0	UM
-Pacific/Rarotonga	-600	0	0	0	0	0	0	0	0	0	CK
-Pacific/Tahiti	-600	0	0	0	0	0	0	0	0	0	PF
-UTC-10	-600	0	0	0	0	0	0	0	0	0	
-Pacific/Marquesas	-570	0	0	0	0	0	0	0	0	0	PF
-UTC-09:30	-570	0	0	0	0	0	0	0	0	0	
-America/Anchorage	-540	60	0	3	2	0	0	11	1	0	US
-America/Juneau	-540	60	0	3	2	0	0	11	1	0	US
-America/Nome	-540	60	0	3	2	0	0	11	1	0	US
-America/Yakutat	-540	60	0	3	2	0	0	11	1	0	US
-Pacific/Gambier	-540	0	0	0	0	0	0	0	0	0	PF
-America/Sitka	-540	60	0	3	2	0	0	11	1	0	US
-UTC-09	-540	0	0	0	0	0	0	0	0	0	
-America/Dawson	-480	60	0	3	2	0	0	11	1	0	CA
-America/Los_Angeles	-480	60	0	3	2	0	0	11	1	0	US
-America/Tijuana	-480	60	1	3	29	0	1	9	21	0	MX
-America/Vancouver	-480	60	0	3	2	0	0	11	1	0	CA
-America/Whitehorse	-480	60	0	3	2	0	0	11	1	0	CA
-America/Metlakatla	-480	0	0	0	0	0	0	0	0	0	US
-Pacific/Pitcairn	-480	0	0	0	0	0	0	0	0	0	PN
-UTC-08	-480	0	0	0	0	0	0	0	0	0	
-America/Boise	-420	60	0	3	2	0	0	11	1	0	US
-America/Cambridge_Bay	-420	60	0	3	2	0	0	11	1	0	CA
-America/Chihuahua	-420	60	1	3	29	0	1	9	21	0	MX
-America/Dawson_Creek	-420	0	0	0	0	0	0	0	0	0	CA
-America/Denver	-420	60	0	3	2	0	0	11	1	0	US
-America/Edmonton	-420	60	0	3	2	0	0	11	1	0	CA
-America/Hermosillo	-420	0	0	0	0	0	0	0	0	0	MX
-America/Inuvik	-420	60	0	3	2	0	0	11	1	0	CA
-America/Mazatlan	-420	60	1	3	29	0	1	9	21	0	MX
-America/Phoenix	-420	0	0	0	0	0	0	0	0	0	US
-America/Shiprock	-420	60	0	3	2	0	0	11	1	0	
-America/Yellowknife	-420	60	0	3	2	0	0	11	1	0	CA
-America/Creston	-420	0	0	0	0	0	0	0	0	0	CA
-America/Fort_Nelson	-420	0	0	0	0	0	0	0	0	0	CA
-America/Ojinaga	-420	60	0	3	2	0	0	11	1	0	MX
-UTC-07	-420	0	0	0	0	0	0	0	0	0	
-America/Belize	-360	0	0	0	0	0	0	0	0	0	BZ
-America/Cancun	-300	0	1	3	29	0	1	9	21	0	MX
-America/Chicago	-360	60	0	3	2	0	0	11	1	0	US
-America/Costa_Rica	-360	0	0	0	0	0	0	0	0	0	CR
-America/El_Salvador	-360	0	0	0	0	0	0	0	0	0	SV
-America/Guatemala	-360	0	0	0	0	0	0	0	0	0	GT
-America/Indiana/Knox	-360	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Tell_City	-360	60	0	3	2	0	0	11	1	0	US
-America/Managua	-360	0	0	0	0	0	0	0	0	0	NI
-America/Menominee	-360	60	0	3	2	0	0	11	1	0	US
-America/Merida	-360	60	1	3	29	0	1	9	21	0	MX
-America/Mexico_City	-360	60	1	3	29	0	1	9	21	0	MX
-America/Monterrey	-360	60	1	3	29	0	1	9	21	0	MX
-America/North_Dakota/Center	-360	60	0	3	2	0	0	11	1	0	US
-America/North_Dakota/New_Salem	-360	60	0	3	2	0	0	11	1	0	US
-America/Rainy_River	-360	60	0	3	2	0	0	11	1	0	CA
-America/Rankin_Inlet	-360	60	0	3	2	0	0	11	1	0	CA
-America/Regina	-360	0	0	0	0	0	0	0	0	0	CA
-America/Swift_Current	-360	0	0	0	0	0	0	0	0	0	CA
-America/Tegucigalpa	-360	0	0	0	0	0	0	0	0	0	HN
-America/Winnipeg	-360	60	0	3	2	0	0	11	1	0	CA
-Pacific/Galapagos	-360	0	0	0	0	0	0	0	0	0	EC
-America/Bahia_Banderas	-360	60	0	4	1	0	0	10	5	0	MX
-America/Matamoros	-360	60	0	3	2	0	0	11	1	0	MX
-America/North_Dakota/Beulah	-360	60	0	3	2	0	0	11	1	0	US
-Pacific/Easter	-360	60	0	10	2	0	0	4	2	0	CL
-UTC-06	-360	0	0	0	0	0	0	0	0	0	
-America/Atikokan	-300	0	0	0	0	0	0	0	0	0	CA
-America/Bogota	-300	0	0	0	0	0	0	0	0	0	CO
-America/Cayman	-300	0	0	0	0	0	0	0	0	0	KY
-America/Detroit	-300	60	0	3	2	0	0	11	1	0	US
-America/Eirunepe	-300	0	0	0	0	0	0	0	0	0	BR
-America/Grand_Turk	-240	0	0	3	2	0	0	11	1	0	TC
-America/Guayaquil	-300	0	0	0	0	0	0	0	0	0	EC
-America/Havana	-300	60	0	4	5	5	0	9	5	5	CU
-America/Indiana/Indianapolis	-300	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Marengo	-300	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Petersburg	-300	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Vevay	-300	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Vincennes	-300	60	0	3	2	0	0	11	1	0	US
-America/Indiana/Winamac	-300	60	0	3	2	0	0	11	1	0	US
-America/Iqaluit	-300	60	0	3	2	0	0	11	1	0	CA
-America/Jamaica	-300	0	0	0	0	0	0	0	0	0	JM
-America/Kentucky/Louisville	-300	60	0	3	2	0	0	11	1	0	US
-America/Kentucky/Monticello	-300	60	0	3	2	0	0	11	1	0	US
-America/Lima	-300	0	0	0	0	0	0	0	0	0	PE
-America/Montreal	-300	60	0	3	2	0	0	11	1	0	
-America/Nassau	-300	60	0	3	2	0	0	11	1	0	BS
-America/New_York	-300	60	0	3	2	0	0	11	1	0	US
-America/Nipigon	-300	60	0	3	2	0	0	11	1	0	CA
-America/Panama	-300	0	0	0	0	0	0	0	0	0	PA
-America/Pangnirtung	-300	60	0	3	2	0	0	11	1	0	CA
-America/Port-au-Prince	-300	0	0	0	0	0	0	0	0	0	HT
-America/Resolute	-360	60	0	3	2	0	0	11	1	0	CA
-America/Rio_Branco	-300	0	0	0	0	0	0	0	0	0	BR
-America/Thunder_Bay	-300	60	0	3	2	0	0	11	1	0	CA
-America/Toronto	-300	60	0	3	2	0	0	11	1	0	CA
-UTC-05	-300	0	0	0	0	0	0	0	0	0	
-UTC-04:30	-270	0	0	0	0	0	0	0	0	0	
-America/Anguilla	-240	0	0	0	0	0	0	0	0	0	AI
-America/Antigua	-240	0	0	0	0	0	0	0	0	0	AG
-America/Aruba	-240	0	0	0	0	0	0	0	0	0	AW
-America/Barbados	-240	0	0	0	0	0	0	0	0	0	BB
-America/Blanc-Sablon	-240	0	0	0	0	0	0	0	0	0	CA
-America/Boa_Vista	-240	0	0	0	0	0	0	0	0	0	BR
-America/Caracas	-240	0	0	0	0	0	0	0	0	0	VE
-America/Curacao	-240	0	0	0	0	0	0	0	0	0	CW
-America/Dominica	-240	0	0	0	0	0	0	0	0	0	DM
-America/Glace_Bay	-240	60	0	3	2	0	0	11	1	0	CA
-America/Goose_Bay	-240	60	0	3	2	0	0	11	1	0	CA
-America/Grenada	-240	0	0	0	0	0	0	0	0	0	GD
-America/Guadeloupe	-240	0	0	0	0	0	0	0	0	0	GP
-America/Guyana	-240	0	0	0	0	0	0	0	0	0	GY
-America/Halifax	-240	60	0	3	2	0	0	11	1	0	CA
-America/La_Paz	-240	0	0	0	0	0	0	0	0	0	BO
-America/Manaus	-240	0	0	0	0	0	0	0	0	0	BR
-America/Martinique	-240	0	0	0	0	0	0	0	0	0	MQ
-America/Moncton	-240	60	0	3	2	0	0	11	1	0	CA
-America/Montserrat	-240	0	0	0	0	0	0	0	0	0	MS
-America/Port_of_Spain	-240	0	0	0	0	0	0	0	0	0	TT
-America/Porto_Velho	-240	0	0	0	0	0	0	0	0	0	BR
-America/Puerto_Rico	-240	0	0	0	0	0	0	0	0	0	PR
-America/Santiago	-240	60	0	10	2	0	0	3	3	0	CL
-America/Santo_Domingo	-240	0	0	0	0	0	0	0	0	0	DO
-America/St_Kitts	-240	0	0	0	0	0	0	0	0	0	KN
-America/St_Lucia	-240	0	0	0	0	0	0	0	0	0	LC
-America/St_Thomas	-240	0	0	0	0	0	0	0	0	0	VI
-America/St_Vincent	-240	0	0	0	0	0	0	0	0	0	VC
-America/Thule	-240	60	0	3	2	0	0	11	1	0	GL
-America/Tortola	-240	0	0	0	0	0	0	0	0	0	VG
-America/Asuncion	-240	60	0	10	3	0	0	3	2	0	PY
-America/Cuiaba	-240	60	0	10	3	0	0	3	3	0	BR
-Atlantic/Bermuda	-240	60	0	3	2	0	0	11	1	0	BM
-Antarctica/Palmer	-240	60	0	10	2	0	0	3	3	0	AQ
-America/Kralendijk	-240	0	0	0	0	0	0	0	0	0	BQ
-America/Lower_Princes	-240	0	0	0	0	0	0	0	0	0	SX
-UTC-04	-240	0	0	0	0	0	0	0	0	0	
-America/St_Johns	-210	60	0	3	2	0	0	11	1	0	CA
-UTC-03:30	-210	0	0	0	0	0	0	0	0	0	
-America/Araguaina	-180	0	0	0	0	0	0	0	0	0	BR
-America/Argentina/Buenos_Aires	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Catamarca	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Cordoba	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Jujuy	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/La_Rioja	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Mendoza	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Rio_Gallegos	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/San_Juan	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Salta	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/San_Luis	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Tucuman	-180	0	0	0	0	0	0	0	0	0	AR
-America/Argentina/Ushuaia	-180	0	0	0	0	0	0	0	0	0	AR
-America/Bahia	-180	0	0	0	0	0	0	0	0	0	BR
-America/Belem	-180	0	0	0	0	0	0	0	0	0	BR
-America/Campo_Grande	-240	60	0	10	3	0	0	3	3	0	BR
-America/Cayenne	-180	0	0	0	0	0	0	0	0	0	GF
-America/Santarem	-180	0	0	0	0	0	0	0	0	0	BR
-America/Fortaleza	-180	0	0	0	0	0	0	0	0	0	BR
-America/Godthab	-180	60	0	3	5	0	0	10	5	0	GL
-America/Maceio	-180	0	0	0	0	0	0	0	0	0	BR
-America/Miquelon	-180	60	0	3	2	0	0	11	1	0	PM
-America/Montevideo	-180	0	0	10	1	0	0	3	2	0	UY
-America/Paramaribo	-180	0	0	0	0	0	0	0	0	0	SR
-America/Recife	-180	0	0	0	0	0	0	0	0	0	BR
-America/Sao_Paulo	-180	60	0	10	3	0	0	3	3	0	BR
-Antarctica/Rothera	-180	0	0	0	0	0	0	0	0	0	AQ
-Atlantic/Stanley	-180	0	0	9	1	0	0	4	3	0	FK
-UTC-03	-180	0	0	0	0	0	0	0	0	0	
-America/Noronha	-120	0	0	0	0	0	0	0	0	0	BR
-Atlantic/South_Georgia	-120	0	0	0	0	0	0	0	0	0	GS
-UTC-02	-120	0	0	0	0	0	0	0	0	0	
-America/Scoresbysund	-60	60	0	3	5	0	0	10	5	0	GL
-Atlantic/Azores	-60	60	0	3	5	0	0	10	5	0	PT
-Atlantic/Cape_Verde	-60	0	0	0	0	0	0	0	0	0	CV
-UTC-01	-60	0	0	0	0	0	0	0	0	0	
-Africa/Abidjan	0	0	0	0	0	0	0	0	0	0	CI
-Africa/Accra	0	0	0	0	0	0	0	0	0	0	GH
-Africa/Bamako	0	0	0	0	0	0	0	0	0	0	ML
-Africa/Banjul	0	0	0	0	0	0	0	0	0	0	GM
-Africa/Bissau	0	0	0	0	0	0	0	0	0	0	GW
-Africa/Casablanca	0	0	0	0	0	0	0	0	0	0	MA
-Africa/Conakry	0	0	0	0	0	0	0	0	0	0	GN
-Africa/Dakar	0	0	0	0	0	0	0	0	0	0	SN
-Africa/El_Aaiun	0	0	0	0	0	0	0	0	0	0	EH
-Africa/Freetown	0	0	0	0	0	0	0	0	0	0	SL
-Africa/Lome	0	0	0	0	0	0	0	0	0	0	TG
-Africa/Monrovia	0	0	0	0	0	0	0	0	0	0	LR
-Africa/Nouakchott	0	0	0	0	0	0	0	0	0	0	MR
-Africa/Ouagadougou	0	0	0	0	0	0	0	0	0	0	BF
-Africa/Sao_Tome	0	0	0	0	0	0	0	0	0	0	ST
-America/Danmarkshavn	0	0	0	0	0	0	0	0	0	0	GL
-America/Marigot	-240	0	0	0	0	0	0	0	0	0	MF
-America/St_Barthelemy	-240	0	0	0	0	0	0	0	0	0	BL
-Atlantic/Canary	0	60	0	3	5	0	0	10	5	0	ES
-Atlantic/Faroe	0	60	0	3	5	0	0	10	5	0	FO
-Atlantic/Madeira	0	60	0	3	5	0	0	10	5	0	PT
-Atlantic/Reykjavik	0	0	0	0	0	0	0	0	0	0	IS
-Atlantic/St_Helena	0	0	0	0	0	0	0	0	0	0	SH
-Europe/Dublin	0	60	0	3	5	0	0	10	5	0	IE
-Europe/Guernsey	0	60	0	3	5	0	0	10	5	0	GG
-Europe/Isle_of_Man	0	60	0	3	5	0	0	10	5	0	IM
-Europe/Jersey	0	60	0	3	5	0	0	10	5	0	JE
-Europe/Lisbon	0	60	0	3	5	0	0	10	5	0	PT
-Europe/London	0	60	0	3	5	0	0	10	5	0	GB
-Antarctica/Troll	0	120	0	3	5	0	0	10	5	0	AQ
-UTC+00	0	0	0	0	0	0	0	0	0	0	
-Africa/Algiers	60	0	0	0	0	0	0	0	0	0	DZ
-Africa/Bangui	60	0	0	0	0	0	0	0	0	0	CF
-Africa/Brazzaville	60	0	0	0	0	0	0	0	0	0	CG
-Africa/Ceuta	60	60	0	3	5	0	0	10	5	0	ES
-Africa/Douala	60	0	0	0	0	0	0	0	0	0	CM
-Africa/Kinshasa	60	0	0	0	0	0	0	0	0	0	CD
-Africa/Lagos	60	0	0	0	0	0	0	0	0	0	NG
-Africa/Libreville	60	0	0	0	0	0	0	0	0	0	GA
-Africa/Luanda	60	0	0	0	0	0	0	0	0	0	AO
-Africa/Malabo	60	0	0	0	0	0	0	0	0	0	GQ
-Africa/Ndjamena	60	0	0	0	0	0	0	0	0	0	TD
-Africa/Niamey	60	0	0	0	0	0	0	0	0	0	NE
-Africa/Porto-Novo	60	0	0	0	0	0	0	0	0	0	BJ
-Africa/Tunis	60	0	0	3	5	0	0	10	5	0	TN
-Arctic/Longyearbyen	60	60	0	3	5	0	0	10	5	0	SJ
-Europe/Amsterdam	60	60	0	3	5	0	0	10	5	0	NL
-Europe/Andorra	60	60	0	3	5	0	0	10	5	0	AD
-Europe/Belgrade	60	60	0	3	5	0	0	10	5	0	RS
-Europe/Berlin	60	60	0	3	5	0	0	10	5	0	DE
-Europe/Bratislava	60	60	0	3	5	0	0	10	5	0	SK
-Europe/Brussels	60	60	0	3	5	0	0	10	5	0	BE
-Europe/Budapest	60	60	0	3	5	0	0	10	5	0	HU
-Europe/Busingen	60	60	0	3	5	0	0	10	5	0	DE
-Europe/Copenhagen	60	60	0	3	5	0	0	10	5	0	DK
-Europe/Gibraltar	60	60	0	3	5	0	0	10	5	0	GI
-Europe/Ljubljana	60	60	0	3	5	0	0	10	5	0	SI
-Europe/Luxembourg	60	60	0	3	5	0	0	10	5	0	LU
-Europe/Madrid	60	60	0	3	5	0	0	10	5	0	ES
-Europe/Malta	60	60	0	3	5	0	0	10	5	0	MT
-Europe/Monaco	60	60	0	3	5	0	0	10	5	0	MC
-Europe/Oslo	60	60	0	3	5	0	0	10	5	0	NO
-Europe/Paris	60	60	0	3	5	0	0	10	5	0	FR
-Europe/Podgorica	60	60	0	3	5	0	0	10	5	0	ME
-Europe/Prague	60	60	0	3	5	0	0	10	5	0	CZ
-Europe/Rome	60	60	0	3	5	0	0	10	5	0	IT
-Europe/San_Marino	60	60	0	3	5	0	0	10	5	0	SM
-Europe/Sarajevo	60	60	0	3	5	0	0	10	5	0	BA
-Europe/Skopje	60	60	0	3	5	0	0	10	5	0	MK
-Europe/Stockholm	60	60	0	3	5	0	0	10	5	0	SE
-Europe/Tirane	60	60	0	3	5	0	0	10	5	0	AL
-Europe/Vaduz	60	60	0	3	5	0	0	10	5	0	LI
-Europe/Vatican	60	60	0	3	5	0	0	10	5	0	VA
-Europe/Vienna	60	60	0	3	5	0	0	10	5	0	AT
-Europe/Warsaw	60	60	0	3	5	0	0	10	5	0	PL
-Europe/Zagreb	60	60	0	3	5	0	0	10	5	0	HR
-Europe/Zurich	60	60	0	3	5	0	0	10	5	0	CH
-UTC+01	60	0	0	0	0	0	0	0	0	0	
-Africa/Blantyre	120	0	0	0	0	0	0	0	0	0	MW
-Africa/Bujumbura	120	0	0	0	0	0	0	0	0	0	BI
-Africa/Cairo	120	0	0	3	5	6	0	10	5	0	EG
-Africa/Gaborone	120	0	0	0	0	0	0	0	0	0	BW
-Africa/Harare	120	0	0	0	0	0	0	0	0	0	ZW
-Africa/Johannesburg	120	0	0	0	0	0	0	0	0	0	ZA
-Africa/Kigali	120	0	0	0	0	0	0	0	0	0	RW
-Africa/Lubumbashi	120	0	0	0	0	0	0	0	0	0	CD
-Africa/Lusaka	120	0	0	0	0	0	0	0	0	0	ZM
-Africa/Maputo	120	0	0	0	0	0	0	0	0	0	MZ
-Africa/Maseru	120	0	0	0	0	0	0	0	0	0	LS
-Africa/Mbabane	120	0	0	0	0	0	0	0	0	0	SZ
-Africa/Tripoli	120	0	0	0	0	0	0	0	0	0	LY
-Africa/Windhoek	60	60	0	4	1	0	0	9	1	0	NA
-Asia/Amman	120	60	0	3	5	0	0	10	5	0	JO
-Asia/Beirut	120	60	0	3	5	0	0	10	5	0	LB
-Asia/Damascus	120	60	0	0	4	1	0	10	25	8	SY
-Asia/Gaza	120	60	0	3	5	5	0	10	1	0	PS
-Asia/Jerusalem	120	60	1	4	1	0	1	10	1	0	IL
-Asia/Nicosia	120	60	0	3	5	0	0	10	5	0	CY
-Asia/Hebron	120	60	0	9	4	0	0	3	5	0	PS
-Europe/Athens	120	60	0	3	5	0	0	10	5	0	GR
-Europe/Bucharest	120	60	0	3	5	0	0	10	5	0	RO
-Europe/Chisinau	120	60	0	3	5	0	0	10	5	0	MD
-Europe/Helsinki	120	60	0	3	5	0	0	10	5	0	FI
-Europe/Istanbul	120	60	0	3	5	0	0	10	5	0	TR
-Europe/Kaliningrad	120	0	0	3	5	0	0	10	5	0	RU
-Europe/Kiev	120	60	0	3	5	0	0	10	5	0	UA
-Europe/Mariehamn	120	60	0	3	5	0	0	10	5	0	AX
-Europe/Minsk	180	0	0	3	5	0	0	10	5	0	BY
-Europe/Riga	120	60	0	3	5	0	0	10	5	0	LV
-Europe/Simferopol	180	0	0	3	5	0	0	10	5	0	RU
-Europe/Sofia	120	60	0	3	5	0	0	10	5	0	BG
-Europe/Tallinn	120	60	0	3	5	0	0	10	5	0	EE
-Europe/Uzhgorod	120	60	0	3	5	0	0	10	5	0	UA
-Europe/Vilnius	120	60	0	3	5	0	0	10	5	0	LT
-Europe/Zaporozhye	120	60	0	3	5	0	0	10	5	0	UA
-UTC+02	120	0	0	0	0	0	0	0	0	0	
-Africa/Addis_Ababa	180	0	0	0	0	0	0	0	0	0	ET
-Africa/Asmara	180	0	0	0	0	0	0	0	0	0	ER
-Africa/Dar_es_Salaam	180	0	0	0	0	0	0	0	0	0	TZ
-Africa/Djibouti	180	0	0	0	0	0	0	0	0	0	DJ
-Africa/Kampala	180	0	0	0	0	0	0	0	0	0	UG
-Africa/Khartoum	180	0	0	0	0	0	0	0	0	0	SD
-Africa/Mogadishu	180	0	0	0	0	0	0	0	0	0	SO
-Africa/Nairobi	180	0	0	0	0	0	0	0	0	0	KE
-Africa/Juba	180	0	0	0	0	0	0	0	0	0	SS
-Antarctica/Syowa	180	0	0	0	0	0	0	0	0	0	AQ
-Asia/Aden	180	0	0	0	0	0	0	0	0	0	YE
-Asia/Baghdad	180	0	0	9	5	0	0	4	1	0	IQ
-Asia/Bahrain	180	0	0	0	0	0	0	0	0	0	BH
-Asia/Kuwait	180	0	0	0	0	0	0	0	0	0	KW
-Asia/Qatar	180	0	0	0	0	0	0	0	0	0	QA
-Asia/Riyadh	180	0	0	0	0	0	0	0	0	0	SA
-Europe/Moscow	180	0	0	3	5	0	0	10	5	0	RU
-Europe/Volgograd	180	0	0	3	5	0	0	10	5	0	RU
-Europe/Kirov	180	0	0	0	0	0	0	0	0	0	RU
-Indian/Antananarivo	180	0	0	0	0	0	0	0	0	0	MG
-Indian/Comoro	180	0	0	0	0	0	0	0	0	0	KM
-Indian/Mayotte	180	0	0	0	0	0	0	0	0	0	YT
-UTC+03	180	0	0	0	0	0	0	0	0	0	
-Asia/Tehran	210	60	0	3	4	0	0	9	4	0	IR
-UTC+03:30	210	0	0	0	0	0	0	0	0	0	
-Asia/Baku	240	0	0	3	5	0	0	10	5	0	AZ
-Asia/Dubai	240	0	0	0	0	0	0	0	0	0	AE
-Asia/Muscat	240	0	0	0	0	0	0	0	0	0	OM
-Asia/Tbilisi	240	0	0	0	0	0	0	0	0	0	GE
-Asia/Yerevan	240	0	0	3	5	0	0	10	5	0	AM
-Europe/Samara	240	0	0	3	5	0	0	10	5	0	RU
-Europe/Astrakhan	240	60	0	3	5	0	0	10	5	0	RU
-Europe/Ulyanovsk	240	0	0	0	0	0	0	0	0	0	RU
-Indian/Mahe	240	0	0	0	0	0	0	0	0	0	SC
-Indian/Mauritius	240	0	0	0	0	0	0	0	0	0	MU
-Indian/Reunion	240	0	0	0	0	0	0	0	0	0	RE
-UTC+04	240	0	0	0	0	0	0	0	0	0	
-Asia/Kabul	270	0	0	0	0	0	0	0	0	0	AF
-UTC+04:30	270	0	0	0	0	0	0	0	0	0	
-Asia/Aqtau	300	0	0	0	0	0	0	0	0	0	KZ
-Asia/Aqtobe	300	0	0	0	0	0	0	0	0	0	KZ
-Asia/Ashgabat	300	0	0	0	0	0	0	0	0	0	TM
-Asia/Dushanbe	300	0	0	0	0	0	0	0	0	0	TJ
-Asia/Karachi	300	0	0	0	0	0	0	0	0	0	PK
-Asia/Oral	300	0	0	0	0	0	0	0	0	0	KZ
-Asia/Samarkand	300	0	0	0	0	0	0	0	0	0	UZ
-Asia/Tashkent	300	0	0	0	0	0	0	0	0	0	UZ
-Asia/Yekaterinburg	300	0	0	3	5	0	0	10	5	0	RU
-Indian/Kerguelen	300	0	0	0	0	0	0	0	0	0	TF
-Indian/Maldives	300	0	0	0	0	0	0	0	0	0	MV
-UTC+05	300	0	0	0	0	0	0	0	0	0	
-Asia/Calcutta	330	0	0	0	0	0	0	0	0	0	IN
-Asia/Colombo	330	0	0	0	0	0	0	0	0	0	LK
-Asia/Kolkata	330	0	0	0	0	0	0	0	0	0	IN
-UTC+05:30	330	0	0	0	0	0	0	0	0	0	
-Asia/Katmandu	345	0	0	0	0	0	0	0	0	0	NP
-Asia/Kathmandu	345	0	0	0	0	0	0	0	0	0	NP
-UTC+05:45	345	0	0	0	0	0	0	0	0	0	
-Antarctica/Mawson	300	0	0	0	0	0	0	0	0	0	AQ
-Antarctica/Vostok	360	0	0	0	0	0	0	0	0	0	AQ
-Asia/Almaty	360	0	0	0	0	0	0	0	0	0	KZ
-Asia/Bishkek	360	0	0	0	0	0	0	0	0	0	KG
-Asia/Dhaka	360	0	0	0	0	0	0	0	0	0	BD
-Asia/Novosibirsk	420	0	0	3	5	0	0	10	5	0	RU
-Asia/Omsk	360	0	0	3	5	0	0	10	5	0	RU
-Asia/Qyzylorda	360	0	0	0	0	0	0	0	0	0	KZ
-Asia/Thimphu	360	0	0	0	0	0	0	0	0	0	BT
-Indian/Chagos	360	0	0	0	0	0	0	0	0	0	IO
-UTC+06	360	0	0	0	0	0	0	0	0	0	
-Asia/Rangoon	390	0	0	0	0	0	0	0	0	0	MM
-Indian/Cocos	390	0	0	0	0	0	0	0	0	0	CC
-UTC+06:30	390	0	0	0	0	0	0	0	0	0	
-Antarctica/Davis	420	0	0	0	0	0	0	0	0	0	AQ
-Asia/Bangkok	420	0	0	0	0	0	0	0	0	0	TH
-Asia/Hovd	420	0	0	0	0	0	0	0	0	0	MN
-Asia/Jakarta	420	0	0	0	0	0	0	0	0	0	ID
-Asia/Krasnoyarsk	420	0	0	3	5	0	0	10	5	0	RU
-Asia/Phnom_Penh	420	0	0	0	0	0	0	0	0	0	KH
-Asia/Pontianak	420	0	0	0	0	0	0	0	0	0	ID
-Asia/Saigon	420	0	0	0	0	0	0	0	0	0	
-Asia/Vientiane	420	0	0	0	0	0	0	0	0	0	LA
-Indian/Christmas	420	0	0	0	0	0	0	0	0	0	CX
-Asia/Ho_Chi_Minh	420	0	0	0	0	0	0	0	0	0	VN
-Asia/Novokuznetsk	420	0	0	0	0	0	0	0	0	0	RU
-Asia/Tomsk	420	0	0	0	0	0	0	0	0	0	RU
-Asia/Barnaul	420	0	0	0	0	0	0	0	0	0	RU
-UTC+07	420	0	0	0	0	0	0	0	0	0	
-Antarctica/Casey	480	0	0	0	0	0	0	0	0	0	AQ
-Asia/Brunei	480	0	0	0	0	0	0	0	0	0	BN
-Asia/Chongqing	480	0	0	0	0	0	0	0	0	0	
-Asia/Harbin	480	0	0	0	0	0	0	0	0	0	
-Asia/Hong_Kong	480	0	0	0	0	0	0	0	0	0	HK
-Asia/Irkutsk	480	0	0	3	5	0	0	10	5	0	RU
-Asia/Kashgar	480	0	0	0	0	0	0	0	0	0	
-Asia/Kuala_Lumpur	480	0	0	0	0	0	0	0	0	0	MY
-Asia/Kuching	480	0	0	0	0	0	0	0	0	0	MY
-Asia/Macau	480	0	0	0	0	0	0	0	0	0	MO
-Asia/Makassar	480	0	0	0	0	0	0	0	0	0	ID
-Asia/Manila	480	0	0	0	0	0	0	0	0	0	PH
-Asia/Shanghai	480	0	0	0	0	0	0	0	0	0	CN
-Asia/Singapore	480	0	0	0	0	0	0	0	0	0	SG
-Asia/Taipei	480	0	0	0	0	0	0	0	0	0	TW
-Asia/Ulaanbaatar	480	0	0	0	0	0	0	0	0	0	MN
-Asia/Urumqi	360	0	0	0	0	0	0	0	0	0	CN
-Australia/Perth	480	0	0	0	0	0	0	0	0	0	AU
-Australia/West	480	0	0	0	0	0	0	0	0	0	
-UTC+08	480	0	0	0	0	0	0	0	0	0	
-Asia/Pyongyang	510	0	0	0	0	0	0	0	0	0	KP
-UTC+08:30	510	0	0	0	0	0	0	0	0	0	
-Australia/Eucla	525	0	0	10	1	0	0	4	1	0	AU
-UTC+08:45	525	0	0	0	0	0	0	0	0	0	
-Asia/Choibalsan	480	0	0	0	0	0	0	0	0	0	MN
-Asia/Dili	540	0	0	0	0	0	0	0	0	0	TL
-Asia/Jayapura	540	0	0	0	0	0	0	0	0	0	ID
-Asia/Seoul	540	0	0	0	0	0	0	0	0	0	KR
-Asia/Tokyo	540	0	0	0	0	0	0	0	0	0	JP
-Asia/Yakutsk	540	0	0	3	5	0	0	10	5	0	RU
-Pacific/Palau	540	0	0	0	0	0	0	0	0	0	PW
-Asia/Chita	540	0	0	0	0	0	0	0	0	0	RU
-Asia/Khandyga	540	0	0	0	0	0	0	0	0	0	RU
-UTC+09	540	0	0	0	0	0	0	0	0	0	
-Australia/Adelaide	570	60	0	10	1	0	0	4	1	0	AU
-Australia/Broken_Hill	570	60	0	10	1	0	0	4	1	0	AU
-Australia/Darwin	570	0	0	0	0	0	0	0	0	0	AU
-Australia/North	570	0	0	0	0	0	0	0	0	0	
-Australia/South	570	60	0	10	1	0	0	4	1	0	
-Australia/Yancowinna	570	60	0	10	1	0	0	4	1	0	
-UTC+09:30	570	0	0	0	0	0	0	0	0	0	
-UTC+09:45	585	0	0	0	0	0	0	0	0	0	
-Antarctica/DumontDUrville	600	0	0	0	0	0	0	0	0	0	AQ
-Asia/Sakhalin	660	60	0	3	5	0	0	10	5	0	RU
-Asia/Vladivostok	600	0	0	3	5	0	0	10	5	0	RU
-Australia/ACT	600	60	0	10	1	0	0	4	1	0	
-Australia/Brisbane	600	0	0	0	0	0	0	0	0	0	AU
-Australia/Canberra	600	60	0	10	1	0	0	4	1	0	
-Australia/Currie	600	60	0	10	1	0	0	4	1	0	AU
-Australia/Hobart	600	60	0	10	1	0	0	4	1	0	AU
-Australia/Lindeman	600	0	0	0	0	0	0	0	0	0	AU
-Australia/Melbourne	600	60	0	10	1	0	0	4	1	0	AU
-Australia/NSW	600	60	0	10	1	0	0	4	1	0	
-Australia/Queensland	600	0	0	0	0	0	0	0	0	0	
-Australia/Sydney	600	60	0	10	1	0	0	4	1	0	AU
-Australia/Tasmania	600	60	0	10	1	0	0	4	1	0	
-Australia/Victoria	600	60	0	10	1	0	0	4	1	0	
-Pacific/Guam	600	0	0	0	0	0	0	0	0	0	GU
-Pacific/Port_Moresby	600	0	0	0	0	0	0	0	0	0	PG
-Pacific/Saipan	600	0	0	0	0	0	0	0	0	0	MP
-Pacific/Truk	600	0	0	0	0	0	0	0	0	0	
-Asia/Ust-Nera	600	0	0	0	0	0	0	0	0	0	RU
-Pacific/Chuuk	600	0	0	0	0	0	0	0	0	0	FM
-UTC+10	600	0	0	0	0	0	0	0	0	0	
-Australia/Lord_Howe	630	30	0	10	5	0	0	3	5	0	AU
-UTC+10:30	630	0	0	0	0	0	0	0	0	0	
-Asia/Magadan	660	60	0	3	5	0	0	10	5	0	RU
-Pacific/Bougainville	660	0	0	0	0	0	0	0	0	0	PG
-Pacific/Efate	660	0	0	0	0	0	0	0	0	0	VU
-Pacific/Guadalcanal	660	0	0	0	0	0	0	0	0	0	SB
-Pacific/Kosrae	660	0	0	0	0	0	0	0	0	0	FM
-Pacific/Noumea	660	0	0	0	0	0	0	0	0	0	NC
-Pacific/Pohnpei	660	0	0	0	0	0	0	0	0	0	FM
-Pacific/Ponape	660	0	0	0	0	0	0	0	0	0	
-Asia/Srednekolymsk	660	0	0	0	0	0	0	0	0	0	RU
-Pacific/Norfolk	660	0	0	0	0	0	0	0	0	0	NF
-Antarctica/Macquarie	660	0	0	0	0	0	0	0	0	0	AU
-UTC+11	660	0	0	0	0	0	0	0	0	0	
-UTC+11:30	690	0	0	0	0	0	0	0	0	0	
-Asia/Anadyr	720	0	0	3	5	0	0	10	5	0	RU
-Asia/Kamchatka	720	0	0	3	5	0	0	10	5	0	RU
-Pacific/Auckland	720	60	0	9	5	0	0	4	1	0	NZ
-Pacific/Fiji	720	60	0	1	5	0	0	10	4	0	FJ
-Pacific/Funafuti	720	0	0	0	0	0	0	0	0	0	TV
-Pacific/Kwajalein	720	0	0	0	0	0	0	0	0	0	MH
-Pacific/Majuro	720	0	0	0	0	0	0	0	0	0	MH
-Pacific/Nauru	720	0	0	0	0	0	0	0	0	0	NR
-Pacific/Tarawa	720	0	0	0	0	0	0	0	0	0	KI
-Pacific/Wake	720	0	0	0	0	0	0	0	0	0	UM
-Pacific/Wallis	720	0	0	0	0	0	0	0	0	0	WF
-UTC+12	720	0	0	0	0	0	0	0	0	0	
-UTC+12:45	765	0	0	0	0	0	0	0	0	0	
-Antarctica/McMurdo	720	60	0	9	5	0	0	4	1	0	AQ
-Antarctica/South_Pole	780	60	0	9	5	0	0	4	1	0	
-Pacific/Enderbury	780	0	0	0	0	0	0	0	0	0	KI
-Pacific/Tongatapu	780	0	0	0	0	0	0	0	0	0	TO
-UTC+13	780	0	0	0	0	0	0	0	0	0	
-Pacific/Chatham	765	60	0	9	5	0	0	4	1	0	NZ
-Pacific/Kiritimati	840	0	0	0	0	0	0	0	0	0	KI
-UTC+14	840	0	0	0	0	0	0	0	0	0	
+<TimeZones>
+  <TimeZone Name="Undefined" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-12" Offset="-720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Apia" Offset="780" Bias="60">
+    <StartDst Type="0" Week="1" Month="4" Day="0" />
+    <EndDst Type="0" Week="5" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Midway" Offset="-660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Niue" Offset="-660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Pago_Pago" Offset="-660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-11" Offset="-660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Adak" Offset="-600" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Fakaofo" Offset="780" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Honolulu" Offset="-600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Johnston" Offset="-600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Rarotonga" Offset="-600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Tahiti" Offset="-600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-10" Offset="-600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Marquesas" Offset="-570" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-09:30" Offset="-570" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Anchorage" Offset="-540" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Juneau" Offset="-540" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Nome" Offset="-540" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Yakutat" Offset="-540" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Gambier" Offset="-540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Sitka" Offset="-540" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-09" Offset="-540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Dawson" Offset="-480" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Los_Angeles" Offset="-480" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Tijuana" Offset="-480" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Vancouver" Offset="-480" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Whitehorse" Offset="-480" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Metlakatla" Offset="-480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Pitcairn" Offset="-480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-08" Offset="-480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Boise" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Cambridge_Bay" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Chihuahua" Offset="-420" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Dawson_Creek" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Denver" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Edmonton" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Hermosillo" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Inuvik" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Mazatlan" Offset="-420" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Phoenix" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Shiprock" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Yellowknife" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Creston" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Fort_Nelson" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Ojinaga" Offset="-420" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-07" Offset="-420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Belize" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Cancun" Offset="-300" Bias="0">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Chicago" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Costa_Rica" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/El_Salvador" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Guatemala" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Knox" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Tell_City" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Managua" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Menominee" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Merida" Offset="-360" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Mexico_City" Offset="-360" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Monterrey" Offset="-360" Bias="60">
+    <StartDst Type="1" Week="29" Month="3" Day="0" />
+    <EndDst Type="1" Week="21" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/North_Dakota/Center" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/North_Dakota/New_Salem" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Rainy_River" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Rankin_Inlet" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Regina" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Swift_Current" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Tegucigalpa" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Winnipeg" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Galapagos" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Bahia_Banderas" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="1" Month="4" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Matamoros" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/North_Dakota/Beulah" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Easter" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="10" Day="0" />
+    <EndDst Type="0" Week="2" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-06" Offset="-360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Atikokan" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Bogota" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Cayman" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Detroit" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Eirunepe" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Grand_Turk" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Guayaquil" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Havana" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="5" Month="4" Day="5" />
+    <EndDst Type="0" Week="5" Month="9" Day="5" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Indianapolis" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Marengo" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Petersburg" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Vevay" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Vincennes" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Indiana/Winamac" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Iqaluit" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Jamaica" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Kentucky/Louisville" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Kentucky/Monticello" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Lima" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Montreal" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Nassau" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/New_York" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Nipigon" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Panama" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Pangnirtung" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Port-au-Prince" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Resolute" Offset="-360" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Rio_Branco" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Thunder_Bay" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Toronto" Offset="-300" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-05" Offset="-300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-04:30" Offset="-270" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Anguilla" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Antigua" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Aruba" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Barbados" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Blanc-Sablon" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Boa_Vista" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Caracas" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Curacao" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Dominica" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Glace_Bay" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Goose_Bay" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Grenada" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Guadeloupe" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Guyana" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Halifax" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/La_Paz" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Manaus" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Martinique" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Moncton" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Montserrat" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Port_of_Spain" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Porto_Velho" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Puerto_Rico" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Santiago" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="10" Day="0" />
+    <EndDst Type="0" Week="3" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Santo_Domingo" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Kitts" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Lucia" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Thomas" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Vincent" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Thule" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Tortola" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Asuncion" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="3" Month="10" Day="0" />
+    <EndDst Type="0" Week="2" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Cuiaba" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="3" Month="10" Day="0" />
+    <EndDst Type="0" Week="3" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Bermuda" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Palmer" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="2" Month="10" Day="0" />
+    <EndDst Type="0" Week="3" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Kralendijk" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Lower_Princes" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-04" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Johns" Offset="-210" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-03:30" Offset="-210" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Araguaina" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Buenos_Aires" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Catamarca" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Cordoba" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Jujuy" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/La_Rioja" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Mendoza" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Rio_Gallegos" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/San_Juan" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Salta" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/San_Luis" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Tucuman" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Argentina/Ushuaia" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Bahia" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Belem" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Campo_Grande" Offset="-240" Bias="60">
+    <StartDst Type="0" Week="3" Month="10" Day="0" />
+    <EndDst Type="0" Week="3" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Cayenne" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Santarem" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Fortaleza" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Godthab" Offset="-180" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Maceio" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Miquelon" Offset="-180" Bias="60">
+    <StartDst Type="0" Week="2" Month="3" Day="0" />
+    <EndDst Type="0" Week="1" Month="11" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Montevideo" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="2" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Paramaribo" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Recife" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Sao_Paulo" Offset="-180" Bias="60">
+    <StartDst Type="0" Week="3" Month="10" Day="0" />
+    <EndDst Type="0" Week="3" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Rothera" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Stanley" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="1" Month="9" Day="0" />
+    <EndDst Type="0" Week="3" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-03" Offset="-180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Noronha" Offset="-120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/South_Georgia" Offset="-120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-02" Offset="-120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Scoresbysund" Offset="-60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Azores" Offset="-60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Cape_Verde" Offset="-60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC-01" Offset="-60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Abidjan" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Accra" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Bamako" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Banjul" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Bissau" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Casablanca" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Conakry" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Dakar" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/El_Aaiun" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Freetown" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Lome" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Monrovia" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Nouakchott" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Ouagadougou" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Sao_Tome" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Danmarkshavn" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/Marigot" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="America/St_Barthelemy" Offset="-240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Canary" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Faroe" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Madeira" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/Reykjavik" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Atlantic/St_Helena" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Dublin" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Guernsey" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Isle_of_Man" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Jersey" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Lisbon" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/London" Offset="0" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Troll" Offset="0" Bias="120">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+00" Offset="0" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Algiers" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Bangui" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Brazzaville" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Ceuta" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Douala" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Kinshasa" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Lagos" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Libreville" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Luanda" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Malabo" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Ndjamena" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Niamey" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Porto-Novo" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Tunis" Offset="60" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Arctic/Longyearbyen" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Amsterdam" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Andorra" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Belgrade" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Berlin" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Bratislava" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Brussels" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Budapest" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Busingen" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Copenhagen" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Gibraltar" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Ljubljana" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Luxembourg" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Madrid" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Malta" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Monaco" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Oslo" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Paris" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Podgorica" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Prague" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Rome" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/San_Marino" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Sarajevo" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Skopje" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Stockholm" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Tirane" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Vaduz" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Vatican" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Vienna" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Warsaw" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Zagreb" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Zurich" Offset="60" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+01" Offset="60" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Blantyre" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Bujumbura" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Cairo" Offset="120" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="6" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Gaborone" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Harare" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Johannesburg" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Kigali" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Lubumbashi" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Lusaka" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Maputo" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Maseru" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Mbabane" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Tripoli" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Windhoek" Offset="60" Bias="60">
+    <StartDst Type="0" Week="1" Month="4" Day="0" />
+    <EndDst Type="0" Week="1" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Amman" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Beirut" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Damascus" Offset="120" Bias="60">
+    <StartDst Type="0" Week="4" Month="0" Day="1" />
+    <EndDst Type="0" Week="25" Month="10" Day="8" />
+  </TimeZone>
+  <TimeZone Name="Asia/Gaza" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="5" />
+    <EndDst Type="0" Week="1" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Jerusalem" Offset="120" Bias="60">
+    <StartDst Type="1" Week="1" Month="4" Day="0" />
+    <EndDst Type="1" Week="1" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Nicosia" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Hebron" Offset="120" Bias="60">
+    <StartDst Type="0" Week="4" Month="9" Day="0" />
+    <EndDst Type="0" Week="5" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Athens" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Bucharest" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Chisinau" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Helsinki" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Istanbul" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Kaliningrad" Offset="120" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Kiev" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Mariehamn" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Minsk" Offset="180" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Riga" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Simferopol" Offset="180" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Sofia" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Tallinn" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Uzhgorod" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Vilnius" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Zaporozhye" Offset="120" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+02" Offset="120" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Addis_Ababa" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Asmara" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Dar_es_Salaam" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Djibouti" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Kampala" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Khartoum" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Mogadishu" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Nairobi" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Africa/Juba" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Syowa" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Aden" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Baghdad" Offset="180" Bias="0">
+    <StartDst Type="0" Week="5" Month="9" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Bahrain" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kuwait" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Qatar" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Riyadh" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Moscow" Offset="180" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Volgograd" Offset="180" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Kirov" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Antananarivo" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Comoro" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Mayotte" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+03" Offset="180" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Tehran" Offset="210" Bias="60">
+    <StartDst Type="0" Week="4" Month="3" Day="0" />
+    <EndDst Type="0" Week="4" Month="9" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+03:30" Offset="210" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Baku" Offset="240" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Dubai" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Muscat" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Tbilisi" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Yerevan" Offset="240" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Samara" Offset="240" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Astrakhan" Offset="240" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Europe/Ulyanovsk" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Mahe" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Mauritius" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Reunion" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+04" Offset="240" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kabul" Offset="270" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+04:30" Offset="270" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Aqtau" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Aqtobe" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Ashgabat" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Dushanbe" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Karachi" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Oral" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Samarkand" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Tashkent" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Yekaterinburg" Offset="300" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Kerguelen" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Maldives" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+05" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Calcutta" Offset="330" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Colombo" Offset="330" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kolkata" Offset="330" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+05:30" Offset="330" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Katmandu" Offset="345" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kathmandu" Offset="345" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+05:45" Offset="345" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Mawson" Offset="300" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Vostok" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Almaty" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Bishkek" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Dhaka" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Novosibirsk" Offset="420" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Omsk" Offset="360" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Qyzylorda" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Thimphu" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Chagos" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+06" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Rangoon" Offset="390" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Cocos" Offset="390" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+06:30" Offset="390" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Davis" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Bangkok" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Hovd" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Jakarta" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Krasnoyarsk" Offset="420" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Phnom_Penh" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Pontianak" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Saigon" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Vientiane" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Indian/Christmas" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Ho_Chi_Minh" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Novokuznetsk" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Tomsk" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Barnaul" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+07" Offset="420" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Casey" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Brunei" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Chongqing" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Harbin" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Hong_Kong" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Irkutsk" Offset="480" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kashgar" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kuala_Lumpur" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kuching" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Macau" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Makassar" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Manila" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Shanghai" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Singapore" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Taipei" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Ulaanbaatar" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Urumqi" Offset="360" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Perth" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/West" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+08" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Pyongyang" Offset="510" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+08:30" Offset="510" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Eucla" Offset="525" Bias="0">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+08:45" Offset="525" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Choibalsan" Offset="480" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Dili" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Jayapura" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Seoul" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Tokyo" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Yakutsk" Offset="540" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Palau" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Chita" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Khandyga" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+09" Offset="540" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Adelaide" Offset="570" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Broken_Hill" Offset="570" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Darwin" Offset="570" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/North" Offset="570" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/South" Offset="570" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Yancowinna" Offset="570" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+09:30" Offset="570" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+09:45" Offset="585" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/DumontDUrville" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Sakhalin" Offset="660" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Vladivostok" Offset="600" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/ACT" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Brisbane" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Canberra" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Currie" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Hobart" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Lindeman" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Melbourne" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/NSW" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Queensland" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Sydney" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Tasmania" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Victoria" Offset="600" Bias="60">
+    <StartDst Type="0" Week="1" Month="10" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Guam" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Port_Moresby" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Saipan" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Truk" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Ust-Nera" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Chuuk" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+10" Offset="600" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Australia/Lord_Howe" Offset="630" Bias="30">
+    <StartDst Type="0" Week="5" Month="10" Day="0" />
+    <EndDst Type="0" Week="5" Month="3" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+10:30" Offset="630" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Magadan" Offset="660" Bias="60">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Bougainville" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Efate" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Guadalcanal" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Kosrae" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Noumea" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Pohnpei" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Ponape" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Srednekolymsk" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Norfolk" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/Macquarie" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+11" Offset="660" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+11:30" Offset="690" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Anadyr" Offset="720" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Asia/Kamchatka" Offset="720" Bias="0">
+    <StartDst Type="0" Week="5" Month="3" Day="0" />
+    <EndDst Type="0" Week="5" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Auckland" Offset="720" Bias="60">
+    <StartDst Type="0" Week="5" Month="9" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Fiji" Offset="720" Bias="60">
+    <StartDst Type="0" Week="5" Month="1" Day="0" />
+    <EndDst Type="0" Week="4" Month="10" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Funafuti" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Kwajalein" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Majuro" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Nauru" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Tarawa" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Wake" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Wallis" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+12" Offset="720" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+12:45" Offset="765" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/McMurdo" Offset="720" Bias="60">
+    <StartDst Type="0" Week="5" Month="9" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Antarctica/South_Pole" Offset="780" Bias="60">
+    <StartDst Type="0" Week="5" Month="9" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Enderbury" Offset="780" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Tongatapu" Offset="780" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+13" Offset="780" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Chatham" Offset="765" Bias="60">
+    <StartDst Type="0" Week="5" Month="9" Day="0" />
+    <EndDst Type="0" Week="1" Month="4" Day="0" />
+  </TimeZone>
+  <TimeZone Name="Pacific/Kiritimati" Offset="840" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+  <TimeZone Name="UTC+14" Offset="840" Bias="0">
+    <StartDst Type="0" Week="0" Month="0" Day="0" />
+    <EndDst Type="0" Week="0" Month="0" Day="0" />
+  </TimeZone>
+</TimeZones>

@@ -83,6 +83,15 @@ namespace GCAL.CompositeViews
                 Properties.Settings.Default.CoreAstroSystem = (int)dlg.SystemB;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to reset all display settings to default values?", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                GCDisplaySettings.Current.Reset();
+                GCDisplaySettings.SaveDisplaySettingsFile(GCGlobal.DisplaySettingsFilePath);
+            }
+        }
     }
 
     public class DispSetGeneralDelegate : GVCore

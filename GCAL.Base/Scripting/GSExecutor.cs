@@ -914,6 +914,7 @@ namespace GCAL.Base.Scripting
             return output.ToString();
         }
 
+        private static int level = 0;
         /// <summary>
         /// Executing element. For most of the elements in the program it is element itself,
         /// but for the list it is result of executing operation that is mentioned in the head
@@ -922,6 +923,27 @@ namespace GCAL.Base.Scripting
         /// <param name="E"></param>
         /// <returns></returns>
         public GSCore ExecuteElement(GSCore E)
+        {
+            level++;
+            GSCore result =  ExecuteElementWithoutreport(E);
+            /*Debugger.Log(0, "", "".PadLeft(level) + "Script: " + E.ToString() + "\r\n");
+            Debugger.Log(0, "", "".PadLeft(level) + "Result: " + result.ToString() + "\r\n");
+            if (level == 1)
+            {
+                foreach(Dictionary<string,GSCore> vd in stackVars)
+                {
+                    foreach(KeyValuePair<string,GSCore> v in vd)
+                    {
+                        Debugger.Log(0, "", "".PadLeft(level) + "Var: [" + v.Key + "] = " + v.Value.ToString() + "\r\n");
+                    }
+                }
+            }*/
+            level--;
+
+            return result;
+        }
+
+        private GSCore ExecuteElementWithoutreport(GSCore E)
         {
             if (E is GSList)
             {

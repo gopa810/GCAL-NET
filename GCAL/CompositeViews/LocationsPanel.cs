@@ -263,11 +263,12 @@ namespace GCAL.CompositeViews
         {
             SaveFileDialog sfd = new SaveFileDialog();
 
-            sfd.Filter = "XML file (*.xml)|*.xml|Text file (*.txt)|*.txt|Locations List (*.lox)|*.lox|Text File - tab separated values(*.txt)|*.txt||";
+            sfd.DefaultExt = ".xml";
+            sfd.Filter = "XML file (*.xml)|*.xml||";
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                TLocationDatabase.SaveFile( sfd.FileName, sfd.FilterIndex);
+                TLocationDatabase.SaveFile( sfd.FileName);
             }
         }
 
@@ -287,7 +288,7 @@ namespace GCAL.CompositeViews
 		    {
 			    string str = string.Format("<html><head><meta http-equiv=\"REFRESH\" content=\"0;url=http://maps.google.com/?ie=UTF8&ll={0},{1}&spn=0.774196,1.235962&z=10" +
 						        "\"></head><body></body><html>", loc.Latitude, loc.Longitude);
-			    string fileName = GCGlobal.GetAppString(AppFileName.TemporaryFolder);
+			    string fileName = GCGlobal.TemporaryFolderPath;
 			    fileName += "temp.html";
                 File.WriteAllText(fileName, str);
                 System.Diagnostics.Process.Start(fileName);

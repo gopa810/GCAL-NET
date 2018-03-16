@@ -221,26 +221,5 @@ namespace GCAL.Base
         public const int KT_SANDHYA_MIDNIGHT = 9;
     };
 
-    public enum AppFileName
-    {
-        MainFolder = 1,
-        ConfigurationFolder = 2,
-        LanguagesFolder = 3,
-        TemporaryFolder = 4,
-        GSTR_CE_FILE = 5,
-        GSTR_CONF_FILE = 6,
-        GSTR_LOC_FILE = 7,
-        GSTR_SSET_FILE = 8,
-        GSTR_LOCX_FILE = 9, /*GCAL 3.0*/
-        GSTR_CEX_FILE = 10, /*GCAL 3.0*/
-        GSTR_CONFX_FILE = 11, /*GCAL 3.0*/
-        GSTR_TZ_FILE = 12, /*GCAL 3.0*/
-        GSTR_COUNTRY_FILE = 13, /*GCAL 3.0*/
-        GSTR_TEXT_FILE = 14, /*GCAL 4.1*/
-        GSTR_TIPS_FILE = 15, /*GCAL 4.3*/
-        GSTR_HELP_FILE = 16, /*GCAL 5.0*/
-        CoreDataFolder = 17, /* GCAL 12.0 */
-        MapsDataFolder = 18, /* GCAL 12.0 */
-    };
 
 }

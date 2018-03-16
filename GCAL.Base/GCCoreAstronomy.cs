@@ -84,7 +84,7 @@ namespace GCAL.Base
             if (CoreEventsMap.ContainsKey(key))
                 return CoreEventsMap[key];
 
-            string filePath = GCGlobal.GetFileName(AppFileName.CoreDataFolder, key + ".ceb");
+            string filePath = GCGlobal.GetFileName(GCGlobal.CoreDataFolderPath, key + ".ceb");
 
             TResultCoreEvents ce = new TResultCoreEvents();
 
@@ -98,6 +98,7 @@ namespace GCAL.Base
                 }
             }
 
+            ce.Full = true;
             // at last, we have to calculate it
             ce.CalculateEvents(loc, year);
             ce.SaveFile(filePath);
