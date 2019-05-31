@@ -77,6 +77,7 @@ namespace GCAL.Views
             double cellInset = fontH1Size / 5;
             XStringFormat rectFormat = new XStringFormat();
             DateTime dtToday = DateTime.Now;
+            GCLocation loc = tResultCalendar.m_Location;
 
 
             InitializeFonts((float)fontH1Size);
@@ -92,7 +93,9 @@ namespace GCAL.Views
 
             g.DrawLine(monthDivider, xMarginLeft, yUnderTitleBar, xMarginRight, yUnderTitleBar);
 
-            firstDayOfWeekGeneral = GCDisplaySettings.Current.getValue(GCDS.GENERAL_FIRST_DOW);
+            firstDayOfWeekGeneral = (loc.Country.FirstDayOfWeek < 0 || loc.Country.FirstDayOfWeek > 6) 
+                ? GCDisplaySettings.Current.getValue(GCDS.GENERAL_FIRST_DOW)
+                : loc.Country.FirstDayOfWeek;
             xCellWidth = (xMarginRight - xMarginLeft) / 7.0f;
 
             double tempTextHeight = fontH1Size / 5;

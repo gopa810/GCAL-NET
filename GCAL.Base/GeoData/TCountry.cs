@@ -38,7 +38,7 @@ namespace GCAL.Base
 
         public TCountry()
         {
-            FirstDayOfWeek = 1;
+            FirstDayOfWeek = -1;
         }
 
         public override string ToString()
